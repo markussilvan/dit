@@ -10,10 +10,10 @@ desc: |-
   for it.
 type: :task
 component: ditz-gui
-release: v0.1
+release: v0.0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-07 18:35:23.914281 Z
 references: []
 
@@ -26,3 +26,14 @@ log_events:
     Other option would be to write this in C++ and use Qt or GTK.
     But I am inclined to try the Python + PyQt solution first.
     Requires less tools and makes starting the project easier.
+- - 2014-10-07 20:15:22.455108 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.0.1 from v0.1
+  - |-
+    Seems I am trying first with Python + PyQt.
+    Lets see if I can even manage to do the main view with it.
+    It least development should be fast.
+- - 2014-10-07 20:15:53.263299 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - ""

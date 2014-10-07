@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Communication with commandline ditz
+desc: |-
+  Write classes to communicate with commandline ditz and get
+  data.
+  Alternatively write parser for Ditz yaml files.
+type: :task
+component: ditz-gui
+release: v0.0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 20:13:23.887279 Z
+references: []
+
+id: bb80aa9b5a1de23a8116d7b07ea5042cb5a01ce1
+log_events: 
+- - 2014-10-07 20:13:24.999089 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

@@ -6,6 +6,17 @@ components:
   name: ditz-gui
 releases: 
 - !ditz.rubyforge.org,2008-03-06/release 
+  name: v0.0.1
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2014-10-07 20:10:21.855007 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - created
+    - |-
+      First version that can talk to ditz
+      and show something
+- !ditz.rubyforge.org,2008-03-06/release 
   name: v0.1
   status: :unreleased
   release_time: 

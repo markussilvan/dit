@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Add project to Jenkins
+desc: |-
+  At least pylint checks for this project can be already added to Jenkins.
+  Any unit tests made in the future should also be tested with Jenkins.
+type: :task
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 20:21:55.399510 Z
+references: []
+
+id: bac0d45b3b812191c0df40d2a5722246716d0b21
+log_events: 
+- - 2014-10-07 20:21:56.983349 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

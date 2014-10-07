@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Editing issues
+desc: Editing should happen in the main window or in a separate dialog.
+type: :feature
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 17:45:07.828058 Z
+references: []
+
+id: 276a0b0afbf7c9659981cd99096922ebe60b2624
+log_events: 
+- - 2014-10-07 17:45:09.420290 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Removing issues
+desc: |-
+  Selecting an issue from the list on the main window and clicking delete
+  from a button / context menu / pull down menu should be enough.
+  This should be a simple feature to implement.
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 17:46:30.203865 Z
+references: []
+
+id: e0b13c8f383e7be18852dadd45ace9ce0085c429
+log_events: 
+- - 2014-10-07 17:47:04.604882 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

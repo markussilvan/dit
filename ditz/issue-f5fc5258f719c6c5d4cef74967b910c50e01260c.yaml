@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Adding new issues
+desc: |-
+  A dialog to a a new issue. Valid information must be filled or the
+  data is not saved. The tool should also be able to commit it to git
+  if that feature is enabled. (See git-ditz).
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 17:44:07.845134 Z
+references: []
+
+id: f5fc5258f719c6c5d4cef74967b910c50e01260c
+log_events: 
+- - 2014-10-07 17:44:09.444020 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

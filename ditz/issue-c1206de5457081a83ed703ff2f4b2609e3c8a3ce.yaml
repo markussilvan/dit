@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Removing a release
+desc: |-
+  It needs to be possible to remove a release.
+  What is release contains issues?
+  Find out how ditz reacts to this.
+  A list of releases needs to implemented anyway.
+  In that view a release is selected and delete is chosen from UI.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: ditz
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:07:17.419450 Z
+references: []
+
+id: c1206de5457081a83ed703ff2f4b2609e3c8a3ce
+log_events: 
+- - 2014-10-07 18:07:21.403625 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

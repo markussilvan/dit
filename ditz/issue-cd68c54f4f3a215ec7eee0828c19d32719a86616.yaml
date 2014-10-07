@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Releases dialog
+desc: |-
+  A view that shows a list of releases is needed for assigning issues
+  to a release, viewing releases and removing releases.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:09:46.411764 Z
+references: []
+
+id: cd68c54f4f3a215ec7eee0828c19d32719a86616
+log_events: 
+- - 2014-10-07 18:09:47.643318 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

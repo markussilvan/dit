@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Creating a release
+desc: |-
+  Creating new releases where issues can be assigned to.
+  This shoud be a simple dialog. Releases just have a name and a comment
+  field.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:04:59.139525 Z
+references: []
+
+id: 6822d660c0217d29b24df6c2ad34fa02efb3b0d9
+log_events: 
+- - 2014-10-07 18:05:00.299384 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

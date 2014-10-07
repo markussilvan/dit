@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Showing project status
+desc: |-
+  A main view footer or a separate dialog could show an overall
+  status of the project. How many issues are assigned to each release
+  and how many of them are open or done. How many bugs there are.
+  (See "ditz status").
+type: :task
+component: ditz-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:25:54.882678 Z
+references: []
+
+id: eafca5d1de53b3845bc5f048ec3259153a838c86
+log_events: 
+- - 2014-10-07 18:25:55.859034 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

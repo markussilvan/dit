@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Archiving a release
+desc: |-
+  I don't even know what this is supposed to do.
+  Needs to be implemented anyway.
+type: :task
+component: ditz-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:23:55.954864 Z
+references: []
+
+id: 7033f6a62f0f45079b161c97b93dbdc3e61770d4
+log_events: 
+- - 2014-10-07 18:23:56.787205 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Stop working on an issue
+desc: |-
+  Just like starting work on an issue, there needs to be a way
+  to stop working. The main view with the list of issue is the right
+  place to do this.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:15:16.306920 Z
+references: []
+
+id: 6d13407bcb8d44efe8b754a7440dfb1f059d5f1e
+log_events: 
+- - 2014-10-07 18:15:17.019094 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

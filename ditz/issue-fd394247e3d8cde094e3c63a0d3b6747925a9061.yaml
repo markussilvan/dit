@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Config window to set .ditz-config information
+desc: |-
+  Username issue directory name and some other settings are set
+  in .ditz-config file. There needs to be a GUI to set those settings.
+type: :feature
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 17:37:18.820502 Z
+references: []
+
+id: fd394247e3d8cde094e3c63a0d3b6747925a9061
+log_events: 
+- - 2014-10-07 17:37:22.452192 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

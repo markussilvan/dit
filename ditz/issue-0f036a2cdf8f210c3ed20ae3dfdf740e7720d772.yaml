@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Debian packaging for the project
+desc: |-
+  If this project ever makes it to be a finished application, it must be
+  packaged as a Debian package to be easily installable. Then I could even
+  get it to be as a part of Debian and Ubuntu and become a package maintainer.
+type: :task
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:31:15.874594 Z
+references: []
+
+id: 0f036a2cdf8f210c3ed20ae3dfdf740e7720d772
+log_events: 
+- - 2014-10-07 18:31:17.106449 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

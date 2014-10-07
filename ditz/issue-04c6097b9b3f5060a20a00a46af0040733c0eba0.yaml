@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Assigning issue to a release
+desc: |-
+  It needs to be possible to move an issue from a release to an another.
+  Preferably the items in the main window a sorted by release an those
+  can be dragged from release to another, but that may not be possible
+  to implement.
+type: :feature
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:00:52.132201 Z
+references: []
+
+id: 04c6097b9b3f5060a20a00a46af0040733c0eba0
+log_events: 
+- - 2014-10-07 18:00:53.795503 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

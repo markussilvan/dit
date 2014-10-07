@@ -1,0 +1,34 @@
+--- !ditz.rubyforge.org,2008-03-06/project 
+name: ditz-gui
+version: "0.5"
+components: 
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: ditz-gui
+releases: 
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: v0.1
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2014-10-07 17:33:02.908635 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - created
+    - First functional version. Minimal functionality.
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: v0.2
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2014-10-07 17:33:40.341226 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - created
+    - 2nd version with more features added.
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: v0.3
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2014-10-07 17:34:55.708186 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - created
+    - A feature complete release.

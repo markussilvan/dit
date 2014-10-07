@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Commenting issues
+desc: |-
+  One of the main issues is commenting issues.
+  The main view needs to have an easy way to add a comment for an issue.
+  Seeing the issue and its comments before commenting would be nice.
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:12:25.707256 Z
+references: []
+
+id: cbff37e95538779ff3dc05e883a62e7627a1a121
+log_events: 
+- - 2014-10-07 18:12:26.643061 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

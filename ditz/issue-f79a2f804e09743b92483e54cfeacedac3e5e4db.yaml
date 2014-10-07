@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Searching issues
+desc: |-
+  In a long list of issues, or issues with bad topics, there rises
+  the need to be able to seach the issues based on topic, description or
+  comments. Grep is supported by the command line tool, so this should
+  be implemented in the UI too.
+type: :task
+component: ditz-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:17:53.771544 Z
+references: []
+
+id: f79a2f804e09743b92483e54cfeacedac3e5e4db
+log_events: 
+- - 2014-10-07 18:17:54.643045 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

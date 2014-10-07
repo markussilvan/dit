@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Starting work on an issue
+desc: |-
+  Someone working on an issue is marked in the issue file and
+  it needs to be shown in the UI too.
+  The main view needs to have a way to start working on an issue.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-07 18:14:18.867672 Z
+references: []
+
+id: 770cea947e1639090bcf77b2480e48202c6d2f8b
+log_events: 
+- - 2014-10-07 18:14:19.955561 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

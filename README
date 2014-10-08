@@ -1,1 +1,30 @@
 Ditz-gui
+
+Ditz frontend developed using Python and PyQt. Provides fast and
+easy access to ditz issues without need to hassle with the
+command line tool.
+
+Ditz is a simple, light-weight distributed issue tracker designed
+to work with distributed version control systems like git, darcs,
+Mercurial, and Bazaar. It can also be used with centralized systems
+like SVN. Ditz maintains an issue database directory on disk, with
+files written in a line-based and human-editable format. This
+directory can be kept under version control, alongside project code.
+
+Tools
+
+Jenkins is used as a continuous integration platform to build
+release packages, run PyUnit unit tests and Pylint static code analysis.
+And of course, git is used as version control system and tickets, bugs
+are tracked using Ditz. As the development progresses the program
+itself can be used as the issue tracker.
+
+List of Tools
+ - Python 2.7
+ - PyQt 4.7
+ - python.unittest (aka PyUnit)
+ - PyLint
+ - Jenkins
+ - git
+ - Ditz 0.5
+

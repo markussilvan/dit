@@ -19,3 +19,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-08 07:53:23.923012 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This needs to be encapsulated nicely and it needs to be able to
+    access (global) settings. Then later features can be added to use
+    a separate branch for ditz issues (like git-ditz), to simply add
+    issues to current changeset or something else.

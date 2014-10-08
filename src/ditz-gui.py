@@ -15,10 +15,11 @@ directory can be kept under version control, alongside project code.
 """
 
 import sys
-from PyQt4 import QtGui
+from PyQt4 import QtGui, uic
 
+from ditzcontrol import DitzControl
 
-class DitzGui(QtGui.QWidget):
+class DitzGui(QtGui.QMainWindow):
     """
     The main window
     """
@@ -28,7 +29,9 @@ class DitzGui(QtGui.QWidget):
         """
         super(DitzGui, self).__init__()
 
-        self.resize(500, 350)
+        uic.loadUi('../ui/main_window.ui', self)
+
+        self.resize(800, 500)
         self.center()
         self.setWindowTitle('Ditz GUI')
         self.setWindowIcon(QtGui.QIcon('../graphics/ditz_gui_icon.png'))

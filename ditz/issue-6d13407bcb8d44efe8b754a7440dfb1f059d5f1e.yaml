@@ -1,9 +1,15 @@
 --- !ditz.rubyforge.org,2008-03-06/issue 
-title: Stop working on an issue
+title: Stopping work on an issue
 desc: |-
   Just like starting work on an issue, there needs to be a way
   to stop working. The main view with the list of issue is the right
   place to do this.
+  
+  1. Select issue from a list
+  2. Select Stop working from the context-menu, pull-down menu
+     or a button
+  3. Dialog to verify? I don't think it's needed or should
+     be configurable.
 type: :task
 component: ditz-gui
 release: v0.2
@@ -18,4 +24,8 @@ log_events:
 - - 2014-10-07 18:15:17.019094 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-08 13:30:59.416296 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited title, description
   - ""

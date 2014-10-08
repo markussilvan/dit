@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: A generic error dialog
+desc: |-
+  Use a standard dialog or create a custom error dialog, which
+  is shown when commandline Ditz returns an error.
+  The dialog should print the output from Ditz.
+  It should have an "Ok" button.
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-08 13:32:48.988666 Z
+references: []
+
+id: e7cb4e8847d4764730b6070a90a154e0fda87d4d
+log_events: 
+- - 2014-10-08 13:32:50.140693 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

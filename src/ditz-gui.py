@@ -16,6 +16,7 @@ directory can be kept under version control, alongside project code.
 
 import sys
 from PyQt4 import QtGui, uic
+from PyQt4.QtCore import SIGNAL
 
 from ditzcontrol import DitzControl
 
@@ -29,6 +30,8 @@ class DitzGui(QtGui.QMainWindow):
         """
         super(DitzGui, self).__init__()
 
+        self.ditzControl = DitzControl()
+
         uic.loadUi('../ui/main_window.ui', self)
 
         self.resize(800, 500)
@@ -36,6 +39,15 @@ class DitzGui(QtGui.QMainWindow):
         self.setWindowTitle('Ditz GUI')
         self.setWindowIcon(QtGui.QIcon('../graphics/ditz_gui_icon.png'))
         self.show()
+
+        #TODO: custom context menus not working!
+        self.connect(self, SIGNAL('customContextMenuRequested(const QPoint &)'),
+                self.context_menu)
+        self.connect(self.listWidget, SIGNAL('customContextMenuRequested(const QPoint &)'),
+                self.context_menu)
+
+        self.actionReload.triggered.connect(self.reload_data)
+        self.actionExit.triggered.connect(self.quit_application)
 
     def center(self):
         """
@@ -46,6 +58,18 @@ class DitzGui(QtGui.QMainWindow):
         rect.moveCenter(desktop_center)
         self.move(rect.topLeft())
 
+    def context_menu(self):
+        menu = QMenu(self)
+        menu.addAction("New issue")
+        menu.addAction("Delete ditz-gui-xxx")
+        menu.exec_(QCursor.pos())
+
+    def reload_data(self):
+        data = self.ditzControl.get_items()
+        #TODO: use ditzcontrol to reload data
+
+    def quit_application(self):
+        QtGui.qApp.quit()
 
 def main():
     app = QtGui.QApplication(sys.argv)

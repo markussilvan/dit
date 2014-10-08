@@ -115,18 +115,32 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Reload</string>
    </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
   </action>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>X</string>
    </property>
   </action>
   <action name="actionSettings">
    <property name="text">
     <string>Settings</string>
    </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>listWidget</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>textEdit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

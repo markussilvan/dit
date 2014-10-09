@@ -86,6 +86,9 @@ class DitzControl():
         - A Ditz item object filled with information of that issue
         """
         item = self.run_command("show " + ditz_id)
-        #TODO: parse output?
-        return item
+        serialized_item = ""
+        for line in item:
+            serialized_item += line.lstrip()
+        #TODO: format output more nicely? or structure output in a list?
+        return serialized_item
 

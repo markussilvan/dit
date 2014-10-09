@@ -36,7 +36,6 @@ class DitzGui(QtGui.QMainWindow):
 
         self.reload_data()
 
-        #TODO: custom context menus not working!
         self.connect(self, SIGNAL('customContextMenuRequested(const QPoint &)'),
                 self.context_menu)
         self.connect(self.listWidgetDitzItems, SIGNAL('customContextMenuRequested(const QPoint &)'),
@@ -44,6 +43,7 @@ class DitzGui(QtGui.QMainWindow):
 
         self.actionReload.triggered.connect(self.reload_data)
         self.actionExit.triggered.connect(self.quit_application)
+        self.listWidgetDitzItems.clicked.connect(self.show_item)
 
         self.resize(800, 500)
         self.center()
@@ -61,22 +61,40 @@ class DitzGui(QtGui.QMainWindow):
         self.move(rect.topLeft())
 
     def context_menu(self):
-        menu = QMenu(self)
+        ditz_id = self.get_selected_item_id()
+        menu = QtGui.QMenu(self)
         menu.addAction("New issue")
-        menu.addAction("Delete ditz-gui-xxx")
-        menu.exec_(QCursor.pos())
+        menu.addAction("Comment " + ditz_id)
+        menu.addAction("Close " + ditz_id)
+        menu.addAction("Delete " + ditz_id)
+        menu.exec_(QtGui.QCursor.pos())
 
     def reload_data(self):
         data = self.ditzControl.get_items()
         self.listWidgetDitzItems.clear()
         for item in data:
             self.listWidgetDitzItems.addItem(item)
-        #TODO: use ditzcontrol to reload data
         #TODO: set cool icons and/or formatting based on item being release or issue?
-        #TODO: those should be organized differently already in ditzcontrol
+        #TODO: or releases and issues should be organized differently already in ditzcontrol?
+
+    def show_item(self):
+        ditz_id = self.get_selected_item_id()
+        item = self.ditzControl.get_item(ditz_id)
+        self.textEditDitzItem.setText(str(item))
+        #TODO: format the data
+
+    def comment(self):
+        #TODO: connect this to a context menu signal in context_menu()
+        #TODO: show comment dialog (also requires a new class "to host the .ui")
+        pass
 
     def quit_application(self):
         QtGui.qApp.quit()
+
+    def get_selected_item_id(self):
+        ditz_id = str(self.listWidgetDitzItems.currentItem().text()).split()[1][:-1]
+        #TODO: check if its an issue or an release or empty line selected...
+        return ditz_id
 
 def main():
     app = QtGui.QApplication(sys.argv)

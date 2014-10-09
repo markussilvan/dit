@@ -1,0 +1,27 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Add icons and/or formatting to list view
+desc: |-
+  Add icons showing if the item on the line is a release or an issue.
+  For issues the icon can also show if it's in progress or not.
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-09 19:05:31.511234 Z
+references: []
+
+id: e24abecfc8436b4c3b7284c0ac95b9445748205f
+log_events: 
+- - 2014-10-09 19:06:56.143069 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    Some formatting like colored text, bold, italics could be used to
+    show if task has changes, if it's assigned to you or something
+    like that.
+- - 2014-10-09 20:35:47.609164 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - "A good example: http://pythoncentral.io/pyside-pyqt-tutorial-the-qlistwidget/"

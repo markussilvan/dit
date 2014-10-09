@@ -11,8 +11,8 @@ type: :feature
 component: ditz-gui
 release: v0.0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-07 17:41:53.476407 Z
 references: []
 
@@ -34,3 +34,7 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.0.1 from v0.1
   - ""
+- - 2014-10-09 20:29:54.351455 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - The first version is implemented. Keep it simple.

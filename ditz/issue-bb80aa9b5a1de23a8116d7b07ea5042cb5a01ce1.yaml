@@ -8,8 +8,8 @@ type: :task
 component: ditz-gui
 release: v0.0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-07 20:13:23.887279 Z
 references: []
 
@@ -37,3 +37,12 @@ log_events:
     add the code to parse it into a a beautiful structure, which can,
     at first, be just serialized into one string in the UI.
     Baby steps.
+- - 2014-10-09 20:32:06.831717 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Several commands are now used.
+    Commands with complicated output still need some parsing that needs
+    planning ahead, but the communication is working and can be easily
+    extended if needed. For example, having a configurable location
+    for Ditz binary pops into my mind.

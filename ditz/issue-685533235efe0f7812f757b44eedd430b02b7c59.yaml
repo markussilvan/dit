@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Remove scrollArea from main window
+desc: |-
+  The QScrollArea on main window is useless.
+  Remove it when you have a clean table, so it's easy to test that it
+  doesn't break anything.
+type: :task
+component: ditz-gui
+release: v0.0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-09 19:58:25.536624 Z
+references: []
+
+id: 685533235efe0f7812f757b44eedd430b02b7c59
+log_events: 
+- - 2014-10-09 19:58:26.760507 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

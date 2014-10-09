@@ -27,3 +27,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-09 20:33:30.423288 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Main window is working fine. Now a comment dialog is created, let see
+    how it works out.

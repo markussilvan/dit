@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Support for components
+desc: |-
+  Ditz also supports components. Issues can be added to different components.
+  This is a feature that can be added later and it can mostly be copied
+  from the code used for making releases.
+type: :task
+component: ditz-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-09 18:12:48.517205 Z
+references: []
+
+id: 79a2a6cbada13d7088f97c4cd256821d93e73fd5
+log_events: 
+- - 2014-10-09 18:12:49.404530 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

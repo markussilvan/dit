@@ -27,3 +27,13 @@ log_events:
     access (global) settings. Then later features can be added to use
     a separate branch for ditz issues (like git-ditz), to simply add
     issues to current changeset or something else.
+- - 2014-10-09 12:14:45.144892 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This seems to be quite easy, and I have done similar things before.
+    Parsing the output is the hard part.
+    First make version that can simply show the data as one blob. Later
+    add the code to parse it into a a beautiful structure, which can,
+    at first, be just serialized into one string in the UI.
+    Baby steps.

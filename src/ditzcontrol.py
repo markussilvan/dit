@@ -10,6 +10,21 @@ A GUI frontend for Ditz issue tracker
 import subprocess
 
 
+class ApplicationException(Exception):
+    """
+    A common exception type to use in an application
+    """
+    def __init__(self, error_message):
+        """
+        Initilize a new exception
+
+        Parameters:
+        - error_message: a description of the error
+        """
+        super(Exception, self).__init__()
+        self.error_message = error_message
+
+
 class DitzControl():
     """
     This class handles communication to Ditz command line interface.
@@ -30,11 +45,20 @@ class DitzControl():
         """
         cmd = "ditz " + cmd
         p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        for line in p.stdout.readlines():
-            print line,
         retval = p.wait()
-        #TODO: return the command output
-        #TODO: raise an exception if the command returns an error
+        if retval != 0:
+            raise ApplicationException("Ditz returned an error")
+        return p.stdout.readlines()
+
+    def get_releases(self):
+        """
+        TODO
+
+        Returns:
+        - list of release names
+        """
+        releases = self.run_command("releases")
+        return releases
 
     def get_items(self):
         """
@@ -43,8 +67,13 @@ class DitzControl():
         Returns:
         - A list of id's and topics of all items
         """
-        self.run_command("todo")
+        items = self.run_command("todo")
+        for i, item in enumerate(items):
+                items[i] = item.replace('\n', '')
         #TODO: parse the output and return it in a sensible format
+        # the first character of the line can be used to recognize
+        # if the line contains a name of a release or an issue
+        return items
 
     def get_item(self, ditz_id):
         """
@@ -56,6 +85,7 @@ class DitzControl():
         Returns:
         - A Ditz item object filled with information of that issue
         """
-        self.run_command("show " + ditz_id)
-        #TODO: parse output
+        item = self.run_command("show " + ditz_id)
+        #TODO: parse output?
+        return item
 

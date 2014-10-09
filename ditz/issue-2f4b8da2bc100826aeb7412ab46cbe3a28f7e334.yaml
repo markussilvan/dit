@@ -21,3 +21,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-09 12:16:29.692606 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    The todo command is actually "the default command" of Ditz without
+    any parameters. Of course I can use that to format a more beautiful
+    todo list, but that is low priority.

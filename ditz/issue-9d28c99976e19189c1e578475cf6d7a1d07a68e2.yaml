@@ -26,3 +26,7 @@ log_events:
   - |-
     Adding some actions early will show how code and Qt Creator .ui files
     work together.
+- - 2014-10-09 12:11:24.113494 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Just do this from the code as it seems impossible to do from Qt Creator.

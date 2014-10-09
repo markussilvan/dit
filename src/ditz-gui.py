@@ -34,20 +34,22 @@ class DitzGui(QtGui.QMainWindow):
 
         uic.loadUi('../ui/main_window.ui', self)
 
+        self.reload_data()
+
+        #TODO: custom context menus not working!
+        self.connect(self, SIGNAL('customContextMenuRequested(const QPoint &)'),
+                self.context_menu)
+        self.connect(self.listWidgetDitzItems, SIGNAL('customContextMenuRequested(const QPoint &)'),
+                self.context_menu)
+
+        self.actionReload.triggered.connect(self.reload_data)
+        self.actionExit.triggered.connect(self.quit_application)
+
         self.resize(800, 500)
         self.center()
         self.setWindowTitle('Ditz GUI')
         self.setWindowIcon(QtGui.QIcon('../graphics/ditz_gui_icon.png'))
         self.show()
-
-        #TODO: custom context menus not working!
-        self.connect(self, SIGNAL('customContextMenuRequested(const QPoint &)'),
-                self.context_menu)
-        self.connect(self.listWidget, SIGNAL('customContextMenuRequested(const QPoint &)'),
-                self.context_menu)
-
-        self.actionReload.triggered.connect(self.reload_data)
-        self.actionExit.triggered.connect(self.quit_application)
 
     def center(self):
         """
@@ -66,7 +68,12 @@ class DitzGui(QtGui.QMainWindow):
 
     def reload_data(self):
         data = self.ditzControl.get_items()
+        self.listWidgetDitzItems.clear()
+        for item in data:
+            self.listWidgetDitzItems.addItem(item)
         #TODO: use ditzcontrol to reload data
+        #TODO: set cool icons and/or formatting based on item being release or issue?
+        #TODO: those should be organized differently already in ditzcontrol
 
     def quit_application(self):
         QtGui.qApp.quit()

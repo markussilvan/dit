@@ -19,6 +19,7 @@ from PyQt4 import QtGui, uic
 from PyQt4.QtCore import SIGNAL
 
 from ditzcontrol import DitzControl
+from comment_dialog import CommentDialog
 
 class DitzGui(QtGui.QMainWindow):
     """
@@ -36,9 +37,8 @@ class DitzGui(QtGui.QMainWindow):
 
         self.reload_data()
 
-        self.connect(self, SIGNAL('customContextMenuRequested(const QPoint &)'),
-                self.context_menu)
-        self.connect(self.listWidgetDitzItems, SIGNAL('customContextMenuRequested(const QPoint &)'),
+        self.connect(self.listWidgetDitzItems,
+                SIGNAL('customContextMenuRequested(const QPoint &)'),
                 self.context_menu)
 
         self.actionReload.triggered.connect(self.reload_data)
@@ -64,9 +64,9 @@ class DitzGui(QtGui.QMainWindow):
         ditz_id = self.get_selected_item_id()
         menu = QtGui.QMenu(self)
         menu.addAction("New issue")
-        menu.addAction("Comment " + ditz_id)
-        menu.addAction("Close " + ditz_id)
-        menu.addAction("Delete " + ditz_id)
+        menu.addAction("Comment " + ditz_id, lambda:self.comment(ditz_id))
+        menu.addAction("Close " + ditz_id, lambda:self.close_issue(ditz_id))
+        menu.addAction("Drop " + ditz_id)
         menu.exec_(QtGui.QCursor.pos())
 
     def reload_data(self):
@@ -80,19 +80,27 @@ class DitzGui(QtGui.QMainWindow):
     def show_item(self):
         ditz_id = self.get_selected_item_id()
         item = self.ditzControl.get_item(ditz_id)
-        self.textEditDitzItem.setText(str(item))
+        if item != None:
+            self.textEditDitzItem.setText(str(item))
         #TODO: format the data
 
-    def comment(self):
-        #TODO: connect this to a context menu signal in context_menu()
-        #TODO: show comment dialog (also requires a new class "to host the .ui")
-        pass
+    def comment(self, ditz_id):
+        dialog = CommentDialog(ditz_id)
+        dialog.askComment()
+
+    def close_issue(self, ditz_id):
+        #TODO: dont do this here, do this from a close dialog, where you can give a disposition and comment
+        disposition = 1
+        self.ditzControl.close_issue(ditz_id, disposition)
 
     def quit_application(self):
         QtGui.qApp.quit()
 
     def get_selected_item_id(self):
-        ditz_id = str(self.listWidgetDitzItems.currentItem().text()).split()[1][:-1]
+        text = str(self.listWidgetDitzItems.currentItem().text())
+        if len(text) == 0:
+            return None
+        ditz_id = text.split()[1][:-1]
         #TODO: check if its an issue or an release or empty line selected...
         return ditz_id
 

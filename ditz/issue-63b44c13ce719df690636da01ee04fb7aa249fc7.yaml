@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Editing a release
+desc: |-
+  Editing the name and/or description of a release.
+  The issues assigned to the release must be still
+  assigned to this release. I think Ditz takes care of that.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-10 09:03:44.987778 Z
+references: []
+
+id: 63b44c13ce719df690636da01ee04fb7aa249fc7
+log_events: 
+- - 2014-10-10 09:03:47.531245 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

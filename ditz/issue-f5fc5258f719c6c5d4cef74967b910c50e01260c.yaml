@@ -19,3 +19,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-10 08:58:01.326125 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Can be done in a separate dialog, but can the same dialog, widget or
+    something be used in the main window when browsing items.
+    (Just thinking ahead for the future versions.)

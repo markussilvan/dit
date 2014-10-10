@@ -33,3 +33,10 @@ log_events:
   - |-
     Main window is working fine. Now a comment dialog is created, let see
     how it works out.
+- - 2014-10-10 09:00:52.293113 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Comment dialog .ui file shows how signal<->slot connections are made
+    in XML. Maybe there is a way to do that in the Qt Creator.
+    Or at least these standard dialog templates seem to have some implemented.

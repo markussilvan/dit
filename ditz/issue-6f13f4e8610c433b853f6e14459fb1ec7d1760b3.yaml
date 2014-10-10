@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Add a toolbar to main view
+desc: |-
+  There could be toolbar with icons to do actions like
+  add, edit, remove issues, access settings, add release, etc.
+  Only the most used item can fit here. Menus are still needed
+  for less used features.
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-10 09:14:09.906233 Z
+references: []
+
+id: 6f13f4e8610c433b853f6e14459fb1ec7d1760b3
+log_events: 
+- - 2014-10-10 09:14:13.234139 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

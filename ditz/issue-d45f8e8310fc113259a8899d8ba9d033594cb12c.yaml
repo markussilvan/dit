@@ -1,0 +1,28 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Filters for the main window
+desc: |-
+  Selecting type of issues to show.
+  Showing only closed issues or showing only issues for the next
+  release.
+  Showing only issues assigned to me.
+  It should be possible to select this kind of filters from a toolbar
+  or a menu.
+type: :task
+component: ditz-gui
+release: v0.4
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-10 09:06:46.722070 Z
+references: []
+
+id: d45f8e8310fc113259a8899d8ba9d033594cb12c
+log_events: 
+- - 2014-10-10 09:06:47.745836 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-10 09:10:29.113884 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.4 from v0.3
+  - ""

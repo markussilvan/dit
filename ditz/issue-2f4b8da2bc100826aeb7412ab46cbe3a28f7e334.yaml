@@ -8,7 +8,7 @@ desc: |-
   could be added.
 type: :task
 component: ditz-gui
-release: v0.3
+release: v0.4
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
@@ -28,3 +28,13 @@ log_events:
     The todo command is actually "the default command" of Ditz without
     any parameters. Of course I can use that to format a more beautiful
     todo list, but that is low priority.
+- - 2014-10-10 09:01:53.895377 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This could also use the "ditz html" command, which produces some
+    sort of HTML output.
+- - 2014-10-10 09:10:58.107081 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.4 from v0.3
+  - ""

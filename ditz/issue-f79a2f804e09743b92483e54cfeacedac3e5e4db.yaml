@@ -7,16 +7,31 @@ desc: |-
   be implemented in the UI too.
 type: :task
 component: ditz-gui
-release: v0.3
+release: v0.4
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
 creation_time: 2014-10-07 18:17:53.771544 Z
-references: []
-
+references: 
+- ditz-gui-34
 id: f79a2f804e09743b92483e54cfeacedac3e5e4db
 log_events: 
 - - 2014-10-07 18:17:54.643045 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-10 09:08:18.469572 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    There could be a search box on the tool bar which
+    affects what items are shown on the main list view.
+    This ticket relates to {issue d45f8e8310fc113259a8899d8ba9d033594cb12c}.
+- - 2014-10-10 09:08:50.198333 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - ""
+- - 2014-10-10 09:10:40.538598 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.4 from v0.3
   - ""

@@ -9,8 +9,8 @@ type: :task
 component: ditz-gui
 release: v0.0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-08 18:47:25.818245 Z
 references: 
 - ditz-gui-23
@@ -30,3 +30,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
   - Just do this from the code as it seems impossible to do from Qt Creator.
+- - 2014-10-10 21:05:55.045393 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    This has been done in code. You can still play around to see
+    if this can be done in UI too. Also if same actions are lauched
+    from multiple locations, then connect those actions together
+    using the UI.

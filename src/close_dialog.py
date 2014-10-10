@@ -14,7 +14,7 @@ from PyQt4 import QtGui, uic
 
 from ditzcontrol import DitzControl
 
-class CommentDialog(QtGui.QDialog):
+class CloseDialog(QtGui.QDialog):
     """
     A comment dialog with text input and Cancel/Ok buttons.
     """
@@ -25,30 +25,36 @@ class CommentDialog(QtGui.QDialog):
         Parameters:
         - ditz_id: Ditz item to comment
         """
-        super(CommentDialog, self).__init__()
+        super(CloseDialog, self).__init__()
 
         self.ditzControl = DitzControl()
         self.ditz_id = ditz_id
 
-        uic.loadUi('../ui/comment_dialog.ui', self)
+        uic.loadUi('../ui/close_dialog.ui', self)
 
     def accept(self):
         """
         Ok is pressed on the GUI
         """
+        #TODO: get disposition
+        #values = {"fixed" : 1, "won't fix" : 2, "reorganized" : 3}
+        #disposition_str = str(self.comboBox.itemData(self.comboBox.currentIndex()).toString())
+        #print "DS:" + disposition_str
+        #disposition = values[disposition_str]
+        disposition = self.comboBox.currentIndex() + 1
         comment = str(self.plainTextEdit.toPlainText())
-        if comment != "":
-            self.ditzControl.add_comment(self.ditz_id, comment)
-        super(CommentDialog, self).accept()
+        self.ditzControl.close_issue(self.ditz_id, disposition, comment)
+        super(CloseDialog, self).accept()
 
     def reject(self):
         """
         Cancel is clicked on the GUI
         """
-        super(CommentDialog, self).reject()
+        super(CloseDialog, self).reject()
 
-    def askComment(self):
+    def askIssueClose(self):
         """
-        Show the dialog and get a comment from the user
+        Show the dialog and get disposition and a comment from the user
         """
         self.exec_()
+

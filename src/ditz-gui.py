@@ -20,6 +20,7 @@ from PyQt4.QtCore import SIGNAL
 
 from ditzcontrol import DitzControl
 from comment_dialog import CommentDialog
+from close_dialog import CloseDialog
 
 class DitzGui(QtGui.QMainWindow):
     """
@@ -89,9 +90,8 @@ class DitzGui(QtGui.QMainWindow):
         dialog.askComment()
 
     def close_issue(self, ditz_id):
-        #TODO: dont do this here, do this from a close dialog, where you can give a disposition and comment
-        disposition = 1
-        self.ditzControl.close_issue(ditz_id, disposition)
+        dialog = CloseDialog(ditz_id)
+        dialog.askIssueClose()
 
     def quit_application(self):
         QtGui.qApp.quit()

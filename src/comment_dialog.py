@@ -31,7 +31,7 @@ class CommentDialog(QtGui.QDialog):
         self.ditzControl = DitzControl()
         self.ditz_id = ditz_id
         self.save = save
-        self.comment = ""
+        self.comment = None
 
         uic.loadUi('../ui/comment_dialog.ui', self)
 

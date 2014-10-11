@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Show a "Closed"-stamp
+desc: |-
+  Show a "Closed"-stamp on the issue text view when the issue has been closed,
+  but the text is still on the view. This gives a nice impression, and
+  also turns a current unwanted feature of showing the text into a wanted
+  feature.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-11 12:18:31.463615 Z
+references: []
+
+id: e40b53bfebcd16253d39c14bf85959a30faffc9b
+log_events: 
+- - 2014-10-11 12:18:35.695493 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

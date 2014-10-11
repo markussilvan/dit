@@ -16,7 +16,7 @@ directory can be kept under version control, alongside project code.
 
 import sys
 from PyQt4 import QtGui, uic
-from PyQt4.QtCore import SIGNAL
+from PyQt4.QtCore import SIGNAL, QModelIndex
 
 from ditzcontrol import DitzControl
 from comment_dialog import CommentDialog
@@ -66,30 +66,37 @@ class DitzGui(QtGui.QMainWindow):
         menu = QtGui.QMenu(self)
         menu.addAction("New issue")
         menu.addAction("Comment " + ditz_id, lambda:self.comment(ditz_id))
+        #TODO: only show start/stop when applicable
         menu.addAction("Start work on " + ditz_id, lambda:self.start_work(ditz_id))
+        menu.addAction("Stop work on " + ditz_id, lambda:self.stop_work(ditz_id))
         menu.addAction("Close " + ditz_id, lambda:self.close_issue(ditz_id))
         menu.addAction("Drop " + ditz_id)
         menu.exec_(QtGui.QCursor.pos())
 
-    def reload_data(self):
+    def reload_data(self, ditz_id=None):
         data = self.ditzControl.get_items()
         self.listWidgetDitzItems.clear()
         for item in data:
             self.listWidgetDitzItems.addItem(item)
+        if ditz_id:
+            self.show_item(ditz_id)
+
         #TODO: set cool icons and/or formatting based on item being release or issue?
         #TODO: or releases and issues should be organized differently already in ditzcontrol?
 
-    def show_item(self):
-        ditz_id = self.get_selected_item_id()
+    def show_item(self, ditz_id=None):
+        if not ditz_id or isinstance(ditz_id, QModelIndex):
+            # so the same function can be connected to GUI
+            ditz_id = self.get_selected_item_id()
         item = self.ditzControl.get_item(ditz_id)
-        if item != None:
+        if item:
             self.textEditDitzItem.setText(str(item))
         #TODO: format the data
 
     def comment(self, ditz_id):
         dialog = CommentDialog(ditz_id, save=True)
         dialog.askComment()
-        self.show_item(ditz_id) # to reload item data to include the comment
+        self.show_item() # to reload item data to include the comment
 
     def close_issue(self, ditz_id):
         dialog = CloseDialog(ditz_id)
@@ -99,13 +106,25 @@ class DitzGui(QtGui.QMainWindow):
     def start_work(self, ditz_id):
         dialog = CommentDialog(ditz_id)
         comment = dialog.askComment()
-        self.ditzControl.start_work(ditz_id, comment)
+        if comment != None:
+            self.ditzControl.start_work(ditz_id, comment)
+            self.reload_data(ditz_id)
+
+    def stop_work(self, ditz_id):
+        dialog = CommentDialog(ditz_id)
+        comment = dialog.askComment()
+        if comment != None:
+            self.ditzControl.stop_work(ditz_id, comment)
+            self.reload_data(ditz_id)
 
     def quit_application(self):
         QtGui.qApp.quit()
 
     def get_selected_item_id(self):
-        text = str(self.listWidgetDitzItems.currentItem().text())
+        item = self.listWidgetDitzItems.currentItem()
+        if not item:
+            return None
+        text = str(item.text())
         if len(text) == 0:
             return None
         ditz_id = text.split()[1][:-1]

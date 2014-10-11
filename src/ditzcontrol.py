@@ -159,19 +159,34 @@ class DitzControl():
             #TODO: reraise or return something, so an error can be shown to user?
             return
 
-
     def start_work(self, ditz_id, comment):
         """
-        Start working on a Ditz item
+        Start working on an Ditz item
 
         Parameters:
         - ditz_id: Ditz identifier hash of an issue to close
-        - comment: (optional) comment text, no formatting, to add to the closed issue
+        - comment: (optional) comment text, no formatting, to add to the issue
         """
         if ditz_id == None or ditz_id == "":
             return
         try:
             item = self.run_interactive_command("start " + ditz_id, comment, "/stop")
+        except ApplicationError:
+            #TODO: reraise or return something, so an error can be shown to user?
+            return
+
+    def stop_work(self, ditz_id, comment):
+        """
+        Stop working on an Ditz item
+
+        Parameters:
+        - ditz_id: Ditz identifier hash of an issue to close
+        - comment: (optional) comment text, no formatting, to add to the issue
+        """
+        if ditz_id == None or ditz_id == "":
+            return
+        try:
+            item = self.run_interactive_command("stop " + ditz_id, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return

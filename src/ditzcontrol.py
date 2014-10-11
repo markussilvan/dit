@@ -104,7 +104,10 @@ class DitzControl():
         Returns:
         - list of release names
         """
-        releases = self.run_command("releases")
+        releases = []
+        release_data = self.run_command("releases")
+        for line in release_data:
+            releases.append(line.split()[0])
         return releases
 
     def get_items(self):
@@ -156,7 +159,7 @@ class DitzControl():
         if ditz_id == None or ditz_id == "":
             return
         try:
-            item = self.run_interactive_command("comment " + ditz_id, comment, "/stop")
+            self.run_interactive_command("comment " + ditz_id, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return
@@ -175,7 +178,7 @@ class DitzControl():
         if disposition < 1 or disposition > 3:
             return
         try:
-            item = self.run_interactive_command("close " + ditz_id, disposition, comment, "/stop")
+            self.run_interactive_command("close " + ditz_id, disposition, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return
@@ -191,7 +194,7 @@ class DitzControl():
         if ditz_id == None or ditz_id == "":
             return
         try:
-            item = self.run_interactive_command("start " + ditz_id, comment, "/stop")
+            self.run_interactive_command("start " + ditz_id, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return
@@ -207,8 +210,23 @@ class DitzControl():
         if ditz_id == None or ditz_id == "":
             return
         try:
-            item = self.run_interactive_command("stop " + ditz_id, comment, "/stop")
+            self.run_interactive_command("stop " + ditz_id, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return
 
+    def make_release(self, release_name, comment):
+        """
+        Release a release
+
+        Parameters:
+        - release_name: Name of a release in Ditz
+        - comment: (optional) comment text, no formatting, to add to the issue
+        """
+        if release_name == None or release_name == "":
+            return
+        try:
+            self.run_interactive_command("release " + release_name, comment, "/stop")
+        except ApplicationError:
+            #TODO: reraise or return something, so an error can be shown to user?
+            return

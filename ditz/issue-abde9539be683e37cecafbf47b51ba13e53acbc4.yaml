@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: get_releases() needs better parsing
+desc: |-
+  Better parsing of release names from Ditz output.
+  Multiword release names are not currently supported.
+type: :bug
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-11 16:15:03.580975 Z
+references: []
+
+id: abde9539be683e37cecafbf47b51ba13e53acbc4
+log_events: 
+- - 2014-10-11 16:15:04.940827 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

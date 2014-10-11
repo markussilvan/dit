@@ -8,8 +8,8 @@ type: :task
 component: ditz-gui
 release: v0.0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-09 19:58:25.536624 Z
 references: []
 
@@ -25,3 +25,17 @@ log_events:
   - |-
     Lets see how I can make the UI look better.
     I'll also take a look at adding a toolbar.
+- - 2014-10-11 14:01:52.278198 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    ScrollArea removed. That was easy.
+    Modifying the UI seems to be quite easy and
+    writing code for it doesn't tie it down too much.
+- - 2014-10-11 15:26:24.880057 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Ok, now also a Toolbar is added and the ScrollArea was
+    already removed earlier. Looks nice. Functinality for the
+    toolbar needs to be implemented. I'll create a task for that.

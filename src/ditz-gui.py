@@ -16,7 +16,7 @@ directory can be kept under version control, alongside project code.
 
 import sys
 from PyQt4 import QtGui, uic
-from PyQt4.QtCore import SIGNAL, QModelIndex
+from PyQt4.QtCore import SIGNAL, QModelIndex, QSize
 
 from ditzcontrol import DitzControl
 from comment_dialog import CommentDialog
@@ -46,6 +46,8 @@ class DitzGui(QtGui.QMainWindow):
         self.actionExit.triggered.connect(self.quit_application)
         self.listWidgetDitzItems.clicked.connect(self.show_item)
 
+        self.toolbar_menu_actions()
+
         self.resize(800, 500)
         self.center()
         self.setWindowTitle('Ditz GUI')
@@ -74,6 +76,27 @@ class DitzGui(QtGui.QMainWindow):
         menu.addAction("Close " + ditz_id, lambda:self.close_issue(ditz_id))
         menu.addAction("Drop " + ditz_id)
         menu.exec_(QtGui.QCursor.pos())
+
+    def toolbar_menu_actions(self):
+        ditz_id = self.get_selected_item_id()
+        status = self.get_selected_item_status()
+
+        #self.toolBar.setIconSize(QSize(32,32))
+        action_new_issue = QtGui.QAction(QtGui.QIcon('../graphics/new.png'), 'New Issue', self)
+        action_comment_issue = QtGui.QAction(QtGui.QIcon('../graphics/comment.png'), 'Comment Issue', self)
+        action_start_work = QtGui.QAction(QtGui.QIcon('../graphics/start.png'), 'Start working', self)
+        action_stop_work = QtGui.QAction(QtGui.QIcon('../graphics/stop.png'), 'Stop working', self)
+        action_close_issue = QtGui.QAction(QtGui.QIcon('../graphics/close.png'), 'Close issue', self)
+        action_drop_issue = QtGui.QAction(QtGui.QIcon('../graphics/drop.png'), 'Drop issue', self)
+
+        action_close_issue.triggered.connect(self.make_release) #TODO: just to try
+
+        self.toolBar.addAction(action_new_issue)
+        self.toolBar.addAction(action_comment_issue)
+        self.toolBar.addAction(action_start_work)
+        self.toolBar.addAction(action_stop_work)
+        self.toolBar.addAction(action_close_issue)
+        self.toolBar.addAction(action_drop_issue)
 
     def reload_data(self, ditz_id=None):
         data = self.ditzControl.get_items()
@@ -119,6 +142,16 @@ class DitzGui(QtGui.QMainWindow):
             self.ditzControl.stop_work(ditz_id, comment)
             self.reload_data(ditz_id)
 
+    def make_release(self, release_name):
+        release_name = self.get_selected_release_name()
+        if release_name == None:
+            return
+        dialog = CommentDialog(None)
+        comment = dialog.askComment()
+        if comment != None:
+            self.ditzControl.make_release(release_name, comment)
+            self.reload_data()
+
     def quit_application(self):
         QtGui.qApp.quit()
 
@@ -142,6 +175,18 @@ class DitzGui(QtGui.QMainWindow):
             return None
         status_identifier = text.split()[0][:1]
         return self.ditzControl.status_identifier_to_string(status_identifier)
+
+    def get_selected_release_name(self):
+        item = self.listWidgetDitzItems.currentItem()
+        if not item:
+            return None
+        text = str(item.text())
+        if len(text) == 0:
+            return None
+        release_name = text.split()[0]
+        if release_name not in self.ditzControl.get_releases():
+            return None
+        return release_name
 
 def main():
     app = QtGui.QApplication(sys.argv)

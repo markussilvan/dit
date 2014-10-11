@@ -20,3 +20,7 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-11 13:37:20.828119 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - When implementing this think also about the possibility of showin a dropped stamp for dropped items. Or a nice green stamp for completed tasks.

@@ -18,3 +18,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-11 14:06:17.148127 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Jenkins jobs added for unit testing and pylint.
+    Jobs are empty and don't do anything except checkout the code.

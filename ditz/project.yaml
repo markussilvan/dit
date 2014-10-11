@@ -7,8 +7,8 @@ components:
 releases: 
 - !ditz.rubyforge.org,2008-03-06/release 
   name: v0.0.1
-  status: :unreleased
-  release_time: 
+  status: :released
+  release_time: 2014-10-11 16:25:53.253218 Z
   log_events: 
   - - 2014-10-07 20:10:21.855007 Z
     - Markus Silvan <markus.silvan@iki.fi>
@@ -16,6 +16,12 @@ releases:
     - |-
       First version that can talk to ditz
       and show something
+  - - 2014-10-11 16:25:53.253226 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - released
+    - |-
+      First functional version has been completed.
+      This release exceeds all expectations.
 - !ditz.rubyforge.org,2008-03-06/release 
   name: v0.1
   status: :unreleased

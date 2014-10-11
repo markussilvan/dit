@@ -13,7 +13,6 @@ parent_path = os.path.realpath(script_path + "/..")
 if parent_path not in sys.path:
      sys.path.insert(0, parent_path)
 
-#from ditzcontrol import DitzControl
 import ditzcontrol
 
 class NullWriter:
@@ -29,20 +28,28 @@ class testDitzControl(unittest.TestCase):
         self.out = NullWriter()
         self.dc = ditzcontrol.DitzControl()
 
+    #TODO: this must be run in its own "ditz repo" so effects of the commands can be tested
+    #TODO: and the effect can be also verified from the files that ditz creates
+    def testClose(self):
+        pass
+
+    def testComment(self):
+        pass
+
     def testGetReleases(self):
         releases = self.dc.get_releases()
         self.assertTrue(isinstance(releases, list))
         #print "Releases: " + str(releases)
 
-    def testGetItems(self):
-        items = self.dc.get_items()
-        self.assertTrue(isinstance(items, list))
-        print "Items: " + str(items)
+    #def testGetItems(self):
+    #    items = self.dc.get_items()
+    #    self.assertTrue(isinstance(items, list))
+    #    print "Items: " + str(items)
 
-    def testGetItem(self):
-        item = self.dc.get_item("ditz-gui-1")
-        self.assertTrue(isinstance(item, list))
-        print "Item: " + str(item)
+    #def testGetItem(self):
+    #    item = self.dc.get_item("ditz-gui-1")
+    #    self.assertTrue(isinstance(item, list))
+    #    print "Item: " + str(item)
 
 def suite():
     testsuite = unittest.TestSuite()

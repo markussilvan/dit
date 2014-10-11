@@ -14,7 +14,7 @@ type: :task
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-07 18:15:16.306920 Z
 references: []
@@ -29,3 +29,7 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - edited title, description
   - ""
+- - 2014-10-11 11:20:32.877787 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - If starting work on an issue now works from the UI, then next thing to implement is stopping working.

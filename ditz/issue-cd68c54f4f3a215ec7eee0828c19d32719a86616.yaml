@@ -18,3 +18,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-11 11:02:49.565716 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This could also include a feature to change release ordering.
+    It would change order of releases in project.yaml file.
+    (And thus in the main view.)

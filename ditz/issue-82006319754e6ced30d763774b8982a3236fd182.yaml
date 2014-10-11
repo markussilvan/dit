@@ -16,8 +16,8 @@ type: :task
 component: ditz-gui
 release: v0.0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-08 07:58:39.684618 Z
 references: []
 
@@ -40,3 +40,11 @@ log_events:
     Comment dialog .ui file shows how signal<->slot connections are made
     in XML. Maybe there is a way to do that in the Qt Creator.
     Or at least these standard dialog templates seem to have some implemented.
+- - 2014-10-11 10:56:17.168664 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    I have my way of working with this project pretty
+    much figured out. Of course there is always room
+    for improvement, but a known good solution exist.
+    This task can be closed.

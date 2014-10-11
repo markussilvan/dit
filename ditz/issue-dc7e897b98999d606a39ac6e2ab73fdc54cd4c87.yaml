@@ -10,8 +10,8 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-10 19:11:24.376325 Z
 references: []
 
@@ -33,3 +33,10 @@ log_events:
            |_ fixed
            |_ wont fix
            |_ reorganized
+- - 2014-10-11 10:53:05.303776 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Seems to work nicely.
+    Closing issues with a "sub-contextmenu" has been split
+    to a separate task.

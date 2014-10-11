@@ -66,6 +66,7 @@ class DitzGui(QtGui.QMainWindow):
         menu = QtGui.QMenu(self)
         menu.addAction("New issue")
         menu.addAction("Comment " + ditz_id, lambda:self.comment(ditz_id))
+        menu.addAction("Start work on " + ditz_id, lambda:self.start_work(ditz_id))
         menu.addAction("Close " + ditz_id, lambda:self.close_issue(ditz_id))
         menu.addAction("Drop " + ditz_id)
         menu.exec_(QtGui.QCursor.pos())
@@ -86,12 +87,19 @@ class DitzGui(QtGui.QMainWindow):
         #TODO: format the data
 
     def comment(self, ditz_id):
-        dialog = CommentDialog(ditz_id)
+        dialog = CommentDialog(ditz_id, save=True)
         dialog.askComment()
+        self.show_item(ditz_id) # to reload item data to include the comment
 
     def close_issue(self, ditz_id):
         dialog = CloseDialog(ditz_id)
         dialog.askIssueClose()
+        self.reload_data()
+
+    def start_work(self, ditz_id):
+        dialog = CommentDialog(ditz_id)
+        comment = dialog.askComment()
+        self.ditzControl.start_work(ditz_id, comment)
 
     def quit_application(self):
         QtGui.qApp.quit()

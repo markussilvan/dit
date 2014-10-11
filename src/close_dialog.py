@@ -35,12 +35,12 @@ class CloseDialog(QtGui.QDialog):
     def accept(self):
         """
         Ok is pressed on the GUI
+
+        Allowed disposition values:
+            "fixed" -> 1
+            "won't fix" -> 2
+            "reorganized" -> 3
         """
-        #TODO: get disposition
-        #values = {"fixed" : 1, "won't fix" : 2, "reorganized" : 3}
-        #disposition_str = str(self.comboBox.itemData(self.comboBox.currentIndex()).toString())
-        #print "DS:" + disposition_str
-        #disposition = values[disposition_str]
         disposition = self.comboBox.currentIndex() + 1
         comment = str(self.plainTextEdit.toPlainText())
         self.ditzControl.close_issue(self.ditz_id, disposition, comment)

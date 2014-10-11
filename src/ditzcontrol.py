@@ -76,9 +76,30 @@ class DitzControl():
             raise ApplicationError("Ditz returned an error")
         return p.stdout.readlines()
 
+    def status_identifier_to_string(self, status_id):
+        """
+        Convert a status identifier character from Ditz text output
+        to string representation.
+
+        Parameters:
+        - status_id: status character
+
+        Returns:
+        - status string
+        - None on invalid input
+        """
+        states = {
+            '_': "new",
+            '>': "started",
+            '=': "paused"
+        }
+        if status_id in states:
+            return states[status_id]
+        return None
+
     def get_releases(self):
         """
-        TODO
+        Get a list of release names from Ditz
 
         Returns:
         - list of release names

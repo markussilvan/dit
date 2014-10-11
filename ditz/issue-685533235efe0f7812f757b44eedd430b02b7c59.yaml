@@ -8,7 +8,7 @@ type: :task
 component: ditz-gui
 release: v0.0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-09 19:58:25.536624 Z
 references: []
@@ -19,3 +19,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-11 13:18:37.018367 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Lets see how I can make the UI look better.
+    I'll also take a look at adding a toolbar.

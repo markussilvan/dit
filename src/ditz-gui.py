@@ -63,12 +63,14 @@ class DitzGui(QtGui.QMainWindow):
 
     def context_menu(self):
         ditz_id = self.get_selected_item_id()
+        status = self.get_selected_item_status()
         menu = QtGui.QMenu(self)
         menu.addAction("New issue")
         menu.addAction("Comment " + ditz_id, lambda:self.comment(ditz_id))
-        #TODO: only show start/stop when applicable
-        menu.addAction("Start work on " + ditz_id, lambda:self.start_work(ditz_id))
-        menu.addAction("Stop work on " + ditz_id, lambda:self.stop_work(ditz_id))
+        if status != "started":
+            menu.addAction("Start work on " + ditz_id, lambda:self.start_work(ditz_id))
+        else:
+            menu.addAction("Stop work on " + ditz_id, lambda:self.stop_work(ditz_id))
         menu.addAction("Close " + ditz_id, lambda:self.close_issue(ditz_id))
         menu.addAction("Drop " + ditz_id)
         menu.exec_(QtGui.QCursor.pos())
@@ -128,8 +130,18 @@ class DitzGui(QtGui.QMainWindow):
         if len(text) == 0:
             return None
         ditz_id = text.split()[1][:-1]
-        #TODO: check if its an issue or an release or empty line selected...
+        #TODO: check if its an issue or an release selected...
         return ditz_id
+
+    def get_selected_item_status(self):
+        item = self.listWidgetDitzItems.currentItem()
+        if not item:
+            return None
+        text = str(item.text())
+        if len(text) == 0:
+            return None
+        status_identifier = text.split()[0][:1]
+        return self.ditzControl.status_identifier_to_string(status_identifier)
 
 def main():
     app = QtGui.QApplication(sys.argv)

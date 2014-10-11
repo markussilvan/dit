@@ -64,8 +64,8 @@ class DitzGui(QtGui.QMainWindow):
         self.move(rect.topLeft())
 
     def context_menu(self):
-        ditz_id = self.get_selected_item_id()
-        status = self.get_selected_item_status()
+        ditz_id = self._get_selected_item_id()
+        status = self._get_selected_item_status()
         menu = QtGui.QMenu(self)
         menu.addAction("New issue")
         menu.addAction("Comment " + ditz_id, lambda:self.comment(ditz_id))
@@ -78,8 +78,8 @@ class DitzGui(QtGui.QMainWindow):
         menu.exec_(QtGui.QCursor.pos())
 
     def toolbar_menu_actions(self):
-        ditz_id = self.get_selected_item_id()
-        status = self.get_selected_item_status()
+        ditz_id = self._get_selected_item_id()
+        status = self._get_selected_item_status()
 
         #self.toolBar.setIconSize(QSize(32,32))
         action_new_issue = QtGui.QAction(QtGui.QIcon('../graphics/new.png'), 'New Issue', self)
@@ -108,20 +108,39 @@ class DitzGui(QtGui.QMainWindow):
 
         #TODO: set cool icons and/or formatting based on item being release or issue?
         #TODO: or releases and issues should be organized differently already in ditzcontrol?
+        for item in self.iterate_all_items():
+            item_text = str(item.text())
+            if len(item_text) == 0:
+                continue
+            item_type = self._get_item_type(item_text)
+            if item_type == 'issue':
+                item_status = self._get_item_status(item_text)
+                if item_status == 'new':
+                    item.setIcon(QtGui.QIcon('../graphics/new.png'))
+                elif item_status == 'started':
+                    item.setIcon(QtGui.QIcon('../graphics/start.png'))
+                elif item_status == 'paused':
+                    item.setIcon(QtGui.QIcon('../graphics/pause.png'))
+            #elif item_type == 'release':
+            #    item.setIcon(QtGui.QIcon('../graphics/close.png'))
+
+    def iterate_all_items(self):
+        for i in range(self.listWidgetDitzItems.count()):
+            yield self.listWidgetDitzItems.item(i)
 
     def show_item(self, ditz_id=None):
         if not ditz_id or isinstance(ditz_id, QModelIndex):
-            # so the same function can be connected to GUI
-            ditz_id = self.get_selected_item_id()
+            # needed so the same function can be connected to GUI
+            ditz_id = self._get_selected_item_id()
         item = self.ditzControl.get_item(ditz_id)
         if item:
             self.textEditDitzItem.setText(str(item))
-        #TODO: format the data
+        #TODO: format the data or use a form
 
     def comment(self, ditz_id):
         dialog = CommentDialog(ditz_id, save=True)
         dialog.askComment()
-        self.show_item() # to reload item data to include the comment
+        self.show_item() # to reload item data to include the added comment
 
     def close_issue(self, ditz_id):
         dialog = CloseDialog(ditz_id)
@@ -143,7 +162,7 @@ class DitzGui(QtGui.QMainWindow):
             self.reload_data(ditz_id)
 
     def make_release(self, release_name):
-        release_name = self.get_selected_release_name()
+        release_name = self._get_selected_release_name()
         if release_name == None:
             return
         dialog = CommentDialog(None)
@@ -155,38 +174,56 @@ class DitzGui(QtGui.QMainWindow):
     def quit_application(self):
         QtGui.qApp.quit()
 
-    def get_selected_item_id(self):
-        item = self.listWidgetDitzItems.currentItem()
-        if not item:
+    def _get_selected_item_id(self):
+        text = self._get_selected_item_text()
+        if not text:
             return None
-        text = str(item.text())
-        if len(text) == 0:
+        item_type = self._get_selected_item_type()
+        if item_type != "issue":
             return None
         ditz_id = text.split()[1][:-1]
-        #TODO: check if its an issue or an release selected...
         return ditz_id
 
-    def get_selected_item_status(self):
-        item = self.listWidgetDitzItems.currentItem()
-        if not item:
+    def _get_selected_item_status(self):
+        text = self._get_selected_item_text()
+        if not text:
             return None
-        text = str(item.text())
-        if len(text) == 0:
-            return None
-        status_identifier = text.split()[0][:1]
-        return self.ditzControl.status_identifier_to_string(status_identifier)
+        return self._get_item_status(text)
 
-    def get_selected_release_name(self):
-        item = self.listWidgetDitzItems.currentItem()
-        if not item:
-            return None
-        text = str(item.text())
-        if len(text) == 0:
+    def _get_selected_release_name(self):
+        text = self._get_selected_item_text()
+        if not text:
             return None
         release_name = text.split()[0]
         if release_name not in self.ditzControl.get_releases():
             return None
         return release_name
+
+    def _get_selected_item_type(self):
+        text = self._get_selected_item_text()
+        if not text:
+            return None
+        return self._get_item_type(text)
+
+    def _get_selected_item_text(self):
+        item = self.listWidgetDitzItems.currentItem()
+        if not item:
+            return None
+        text = str(item.text())
+        if len(text) == 0:
+            return None
+        return text
+
+    def _get_item_status(self, item_text):
+        status_identifier = item_text.split()[0][:1]
+        return self.ditzControl.status_identifier_to_string(status_identifier)
+
+    def _get_item_type(self, item_text):
+        if self.ditzControl.status_identifier_to_string(item_text.split()[0][:1]) != None:
+            return "issue"
+        if item_text.split()[0] in self.ditzControl.get_releases():
+            return "release"
+        return None
 
 def main():
     app = QtGui.QApplication(sys.argv)

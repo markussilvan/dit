@@ -1,0 +1,26 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Draw colorful icons for list items
+desc: |-
+  List items need small (16x16 pixels) icons to show their state.
+  The current blue icon set can be used as a base. But change their colors.
+  Have the icons in separate files, item_icon_xxx.png to signify
+  for what they are used.
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-11 18:09:17.791545 Z
+references: 
+- graphics/*.png
+id: 4d291967c80e66e17f98184548f5faf00f897af8
+log_events: 
+- - 2014-10-11 18:09:19.103351 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-11 18:10:43.383390 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - ""

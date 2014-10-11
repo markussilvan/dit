@@ -25,3 +25,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
   - "A good example: http://pythoncentral.io/pyside-pyqt-tutorial-the-qlistwidget/"
+- - 2014-10-11 18:12:19.503471 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Some implementation to add icons has been added.
+    I expect it will look nice with the right graphics.

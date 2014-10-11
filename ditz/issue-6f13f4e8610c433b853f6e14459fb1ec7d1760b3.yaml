@@ -9,7 +9,7 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-10 09:14:09.906233 Z
 references: []
@@ -20,3 +20,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-11 17:12:45.583875 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Toolbar was already added (partially as a part of a different task). Looks good, so it's here to stay.
+    
+    Toolbar is still mostly non-functional. Create/refactor actions that can be used both in context menu and the toolbar together. If this is not possible, at least make them use the
+    same implementation (slots).

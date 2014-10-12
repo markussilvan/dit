@@ -25,6 +25,20 @@ class ApplicationError(Exception):
         self.error_message = error_message
 
 
+class DitzItem():
+    """
+    A Ditz item which can be an issue or an release.
+    Doesn't contain all data of that particular item,
+    just the type and a header.
+    A status can also be set for issues.
+    """
+    def __init__(self, item_type, item_header, item_name=None, status=None):
+        self.item_type = item_type
+        self.item_header = item_header
+        self.item_name = item_name
+        self.item_status = status
+
+
 class DitzControl():
     """
     This class handles communication to Ditz command line interface.
@@ -32,6 +46,7 @@ class DitzControl():
     """
     def __init__(self):
         self.ditz_cmd = "ditz"
+        self.ditz_items = []
 
     def run_command(self, cmd):
         """
@@ -70,7 +85,6 @@ class DitzControl():
                 stderr=subprocess.STDOUT)
         for argument in args:
             p.stdin.write(str(argument) + "\n")
-            #p.stdin.write("/stop\n")
         retval = p.wait()
         if retval != 0:
             raise ApplicationError("Ditz returned an error")
@@ -117,13 +131,63 @@ class DitzControl():
         Returns:
         - A list of id's and topics of all items
         """
+        del self.ditz_items[:]
         items = self.run_command("todo")
         for i, item in enumerate(items):
-                items[i] = item.replace('\n', '')
-        #TODO: parse the output and return it in a sensible format
-        # the first character of the line can be used to recognize
-        # if the line contains a name of a release or an issue
-        return items
+            item_text = item.replace('\n', '')
+
+            item_data = item_text.split(':', 1)
+            if len(item_data[0]) == 0:
+                # empty line, skip
+                continue
+            name_and_status = item_data[0]
+            status = self.status_identifier_to_string(name_and_status[:1])
+            if status != None:
+                # an issue
+                item_header = item_data[1].strip()
+                item_name = name_and_status[1:].strip() # drop status from the beginning
+                self.ditz_items.append(DitzItem('issue', item_header, item_name, status))
+            else:
+                # a release
+                item_name = None
+                item_header = name_and_status.split('(', 1)[0].rstrip() # just take the version
+                if item_data[0] != "Unassigned":
+                    item_name = "Release"
+                self.ditz_items.append(DitzItem('release', item_header, item_name))
+
+        return self.ditz_items
+
+    def get_item_status_by_ditz_id(self, ditz_id):
+        """
+        Get status of an Ditz issue loaded in the list of issues.
+
+        Parameters:
+        - ditz_id: Ditz name of an issue
+
+        Returns:
+        - issue status
+        - None if issue not found
+        """
+        for item in self.ditz_items:
+            if item.item_name == ditz_id:
+                return item.item_status
+        return None
+
+    def get_item_type_by_ditz_id(self, ditz_id):
+        """
+        Get status of an Ditz issue loaded in the list of issues.
+
+        Parameters:
+        - ditz_id: Ditz name of an issue
+
+        Returns:
+        - issue type
+        - None if issue not found
+        """
+        for item in self.ditz_items:
+            if item.item_name == ditz_id:
+                return item.item_type
+        return None
 
     def get_item(self, ditz_id):
         """

@@ -81,7 +81,6 @@ class DitzGui(QtGui.QMainWindow):
         ditz_id = self._get_selected_item_id()
         status = self._get_selected_item_status()
 
-        #self.toolBar.setIconSize(QSize(32,32))
         action_new_issue = QtGui.QAction(QtGui.QIcon('../graphics/new.png'), 'New Issue', self)
         action_comment_issue = QtGui.QAction(QtGui.QIcon('../graphics/comment.png'), 'Comment Issue', self)
         action_start_work = QtGui.QAction(QtGui.QIcon('../graphics/start.png'), 'Start working', self)
@@ -102,29 +101,36 @@ class DitzGui(QtGui.QMainWindow):
         data = self.ditzControl.get_items()
         self.listWidgetDitzItems.clear()
         for item in data:
-            self.listWidgetDitzItems.addItem(item)
+            if item.item_type == 'release' and self.listWidgetDitzItems.count() > 0:
+                # add one empty line as a spacer (except on the first line)
+                self.listWidgetDitzItems.addItem("")
+            if item.item_name == None:
+                header = item.item_header
+            else:
+                header = "{0} {1}".format(item.item_name, item.item_header)
+            self.listWidgetDitzItems.addItem(header)
+
         if ditz_id:
             self.show_item(ditz_id)
 
-        #TODO: set cool icons and/or formatting based on item being release or issue?
-        #TODO: or releases and issues should be organized differently already in ditzcontrol?
         for item in self.iterate_all_items():
             item_text = str(item.text())
             if len(item_text) == 0:
                 continue
-            item_type = self._get_item_type(item_text)
-            if item_type == 'issue':
-                item_status = self._get_item_status(item_text)
-                if item_status == 'new':
-                    item.setIcon(QtGui.QIcon('../graphics/new.png'))
-                elif item_status == 'started':
-                    item.setIcon(QtGui.QIcon('../graphics/start.png'))
-                elif item_status == 'paused':
-                    item.setIcon(QtGui.QIcon('../graphics/pause.png'))
-            #elif item_type == 'release':
-            #    item.setIcon(QtGui.QIcon('../graphics/close.png'))
+            item_status = self.ditzControl.get_item_status_by_ditz_id(item_text.split(' ', 1)[0])
+            if item_status == 'new':
+                item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
+            elif item_status == 'started':
+                item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
+            elif item_status == 'paused':
+                item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
+            #else:
+            #    item.setIcon(QtGui.QIcon('../graphics/list_release.png'))
 
     def iterate_all_items(self):
+        """
+        A lazy generator for iterating all items in the list
+        """
         for i in range(self.listWidgetDitzItems.count()):
             yield self.listWidgetDitzItems.item(i)
 
@@ -132,10 +138,11 @@ class DitzGui(QtGui.QMainWindow):
         if not ditz_id or isinstance(ditz_id, QModelIndex):
             # needed so the same function can be connected to GUI
             ditz_id = self._get_selected_item_id()
+
         item = self.ditzControl.get_item(ditz_id)
         if item:
             self.textEditDitzItem.setText(str(item))
-        #TODO: format the data or use a form
+        #TODO: format the data or use a form instead
 
     def comment(self, ditz_id):
         dialog = CommentDialog(ditz_id, save=True)
@@ -178,10 +185,10 @@ class DitzGui(QtGui.QMainWindow):
         text = self._get_selected_item_text()
         if not text:
             return None
-        item_type = self._get_selected_item_type()
+        ditz_id = text.split(' ', 1)[0]
+        item_type = self.ditzControl.get_item_type_by_ditz_id(ditz_id)
         if item_type != "issue":
             return None
-        ditz_id = text.split()[1][:-1]
         return ditz_id
 
     def _get_selected_item_status(self):
@@ -215,8 +222,11 @@ class DitzGui(QtGui.QMainWindow):
         return text
 
     def _get_item_status(self, item_text):
-        status_identifier = item_text.split()[0][:1]
-        return self.ditzControl.status_identifier_to_string(status_identifier)
+        if not item_text:
+            return None
+        ditz_id = item_text.split(' ', 1)
+        item_status = self.ditzControl.get_item_status_by_ditz_id(ditz_id)
+        return item_status
 
     def _get_item_type(self, item_text):
         if self.ditzControl.status_identifier_to_string(item_text.split()[0][:1]) != None:

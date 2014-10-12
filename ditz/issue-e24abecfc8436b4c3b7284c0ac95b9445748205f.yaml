@@ -31,3 +31,10 @@ log_events:
   - |-
     Some implementation to add icons has been added.
     I expect it will look nice with the right graphics.
+- - 2014-10-12 10:30:01.385971 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    After severe refactoring, the view now looks a bit better.
+    Ditz items are now stored as DitzItem objects in a list.
+    Type, status, etc can be asked easily from DitzControl.

@@ -9,8 +9,8 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-11 18:09:17.791545 Z
 references: 
 - graphics/*.png
@@ -24,3 +24,20 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 1
   - ""
+- - 2014-10-11 19:04:16.961104 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - I quess I need to finish this now that I have started it.
+- - 2014-10-11 19:14:10.453117 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    All the icons need to be big round balls, or I need a
+    different set of thin icons. The thin icon for new item looked good, so I could try making such icons for all types of items.
+- - 2014-10-12 10:39:34.301908 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Done. Better graphics can be made later.
+    Preferably couple of different sets of icons that
+    can be changed from settings even.

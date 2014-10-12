@@ -1,0 +1,28 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Just testing
+desc: |-
+  To test what happens if an issue still exists for an already released
+  release.
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-12 08:37:35.179345 Z
+references: []
+
+id: 9d0c1b20b154ff90162a1d601c5485e7d00122e4
+log_events: 
+- - 2014-10-12 08:37:36.483089 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-12 08:39:08.363176 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Seems those tasks are not shown on the "ditz todo" view.
+- - 2014-10-12 08:39:56.571172 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1 from v0.0.1
+  - Move around. Next I can use this to test dropping an issue.

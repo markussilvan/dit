@@ -9,7 +9,7 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
+status: :paused
 disposition: 
 creation_time: 2014-10-10 09:14:09.906233 Z
 references: []
@@ -28,3 +28,9 @@ log_events:
     
     Toolbar is still mostly non-functional. Create/refactor actions that can be used both in context menu and the toolbar together. If this is not possible, at least make them use the
     same implementation (slots).
+- - 2014-10-11 19:05:07.634074 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from in_progress to paused
+  - |-
+    I'll continue with this, when I have all the icons sorted out.
+    Then I can concentrate on the actions code.

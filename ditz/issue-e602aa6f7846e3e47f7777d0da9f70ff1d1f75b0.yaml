@@ -1,0 +1,29 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Make font and list view alignment configurable
+desc: |-
+  Settings view should have a tab for setting
+  list view properties. Most important settings are
+  the font (so everyone can select a nice monospaced font),
+  and the alingment of fields in the list.
+  The perfect alignment depends on the font and
+  the project being worked on.
+  
+  Hopefully some of these settings can be made even
+  project dependent using save config files
+  as Ditz. Then there could be global alignment
+  and project specified alignment, if necessary.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-12 14:18:03.811050 Z
+references: []
+
+id: e602aa6f7846e3e47f7777d0da9f70ff1d1f75b0
+log_events: 
+- - 2014-10-12 14:18:05.250825 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

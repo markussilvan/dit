@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Improve DitzControl error handling
+desc: |-
+  DitzControl is not handling errors very well.
+  Use ApplicationError (or DitzError) to show when running Ditz
+  commands fails. Maybe that exception should be thrown
+  all the way to the UI?
+  Or should I get rid of Exceptions all together?
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-12 13:21:05.857788 Z
+references: []
+
+id: 1d7244803305474ea207f8dc13467c8aff7b7437
+log_events: 
+- - 2014-10-12 13:21:07.601600 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

@@ -24,6 +24,18 @@ class ApplicationError(Exception):
         super(Exception, self).__init__()
         self.error_message = error_message
 
+class DitzError(ApplicationError):
+    """
+    A specific error type for errors originating from Ditz command line tool
+    """
+    def __init__(self, error_message):
+        """
+        Initilize a new exception
+
+        Parameters:
+        - error_message: a description of the error
+        """
+        super(Exception, self).__init__(error_message)
 
 class DitzItem():
     """
@@ -48,69 +60,6 @@ class DitzControl():
         self.ditz_cmd = "ditz"
         self.ditz_items = []
 
-    def run_command(self, cmd):
-        """
-        Run a Ditz command on the command line tool
-
-        Parameters:
-        - cmd: the Ditz command and its parameters
-
-        Returns:
-        - output of the command as string
-        """
-        cmd = "{0} {1}".format(self.ditz_cmd, cmd)
-        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        retval = p.wait()
-        if retval != 0:
-            raise ApplicationError("Ditz returned an error")
-        return p.stdout.readlines()
-
-    def run_interactive_command(self, cmdline, *args):
-        """
-        Run a Ditz command on the command line tool
-        Other arguments are given to the command one by one, when
-        Ditz prompts for more input
-
-        Parameters:
-        - cmdline: the Ditz command and its parameters in a list
-        - args: (optional) arguments to give to the command, one by one
-
-        Returns:
-        - output of the command as string
-        """
-        cmd = [self.ditz_cmd]
-        for parameter in cmdline.split(' '):
-            cmd.append(parameter)
-        p = subprocess.Popen(cmd, shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT)
-        for argument in args:
-            p.stdin.write(str(argument) + "\n")
-        retval = p.wait()
-        if retval != 0:
-            raise ApplicationError("Ditz returned an error")
-        return p.stdout.readlines()
-
-    def status_identifier_to_string(self, status_id):
-        """
-        Convert a status identifier character from Ditz text output
-        to string representation.
-
-        Parameters:
-        - status_id: status character
-
-        Returns:
-        - status string
-        - None on invalid input
-        """
-        states = {
-            '_': "new",
-            '>': "started",
-            '=': "paused"
-        }
-        if status_id in states:
-            return states[status_id]
-        return None
-
     def get_releases(self):
         """
         Get a list of release names from Ditz
@@ -119,7 +68,7 @@ class DitzControl():
         - list of release names
         """
         releases = []
-        release_data = self.run_command("releases")
+        release_data = self._run_command("releases")
         for line in release_data:
             releases.append(line.split()[0])
         return releases
@@ -129,10 +78,10 @@ class DitzControl():
         Get a list of all tasks, features and bugs listed in Ditz.
 
         Returns:
-        - A list of id's and topics of all items
+        - A list of DitzItems
         """
         del self.ditz_items[:]
-        items = self.run_command("todo")
+        items = self._run_command("todo")
         for i, item in enumerate(items):
             item_text = item.replace('\n', '')
 
@@ -141,7 +90,7 @@ class DitzControl():
                 # empty line, skip
                 continue
             name_and_status = item_data[0]
-            status = self.status_identifier_to_string(name_and_status[:1])
+            status = self._status_identifier_to_string(name_and_status[:1])
             if status != None:
                 # an issue
                 item_header = item_data[1].strip()
@@ -162,7 +111,7 @@ class DitzControl():
         Get status of an Ditz issue loaded in the list of issues.
 
         Parameters:
-        - ditz_id: Ditz name of an issue
+        - ditz_id: Ditz hash or name identifier of an issue
 
         Returns:
         - issue status
@@ -194,7 +143,7 @@ class DitzControl():
         Get all content of one item by it's ditz id hash.
 
         Parameters:
-        - ditz_id: Ditz identifier hash of an issue
+        - ditz_id: Ditz hash or name identifier of an issue
 
         Returns:
         - A Ditz item object filled with information of that issue
@@ -203,7 +152,7 @@ class DitzControl():
         if ditz_id == None or ditz_id == "":
             return None
         try:
-            item = self.run_command("show " + ditz_id)
+            item = self._run_command("show " + ditz_id)
         except ApplicationError:
             return None
         serialized_item = ""
@@ -217,13 +166,13 @@ class DitzControl():
         Write a new comment to a Ditz item
 
         Parameters:
-        - ditz_id: Ditz identifier hash of an issue
+        - ditz_id: Ditz hash or name identifier of an issue
         - comment: comment text, no formatting
         """
         if ditz_id == None or ditz_id == "":
             return
         try:
-            self.run_interactive_command("comment " + ditz_id, comment, "/stop")
+            self._run_interactive_command("comment " + ditz_id, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return
@@ -233,7 +182,7 @@ class DitzControl():
         Close an existing Ditz item
 
         Parameters:
-        - ditz_id: Ditz identifier hash of an issue to close
+        - ditz_id: Ditz hash or name identifier of an issue to close
         - disposition: 1) fixed, 2) won't fix, 3) reorganized
         - comment: (optional) comment text, no formatting, to add to the closed issue
         """
@@ -242,23 +191,43 @@ class DitzControl():
         if disposition < 1 or disposition > 3:
             return
         try:
-            self.run_interactive_command("close " + ditz_id, disposition, comment, "/stop")
+            self._run_interactive_command("close " + ditz_id, disposition, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return
+
+    def drop_issue(self, ditz_id, comment=""):
+        """
+        Remove an existing Ditz item
+
+        Parameters:
+        - ditz_id: Ditz hash or name identifier of an issue to drop
+        - disposition: 1) fixed, 2) won't fix, 3) reorganized
+        - comment: (optional) comment text, no formatting, to add to the dropped issue
+
+        Raises:
+        - DitzError if running Ditz command fails
+        """
+        if ditz_id == None or ditz_id == "":
+            return
+        try:
+            self._run_interactive_command("drop " + ditz_id, comment, "/stop")
+        except DitzError:
+            print "Dropping issue failed"
+            raise
 
     def start_work(self, ditz_id, comment):
         """
         Start working on an Ditz item
 
         Parameters:
-        - ditz_id: Ditz identifier hash of an issue to close
+        - ditz_id: Ditz hash or name identifier of an issue
         - comment: (optional) comment text, no formatting, to add to the issue
         """
         if ditz_id == None or ditz_id == "":
             return
         try:
-            self.run_interactive_command("start " + ditz_id, comment, "/stop")
+            self._run_interactive_command("start " + ditz_id, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return
@@ -268,13 +237,13 @@ class DitzControl():
         Stop working on an Ditz item
 
         Parameters:
-        - ditz_id: Ditz identifier hash of an issue to close
+        - ditz_id: Ditz hash or name identifier of an issue
         - comment: (optional) comment text, no formatting, to add to the issue
         """
         if ditz_id == None or ditz_id == "":
             return
         try:
-            self.run_interactive_command("stop " + ditz_id, comment, "/stop")
+            self._run_interactive_command("stop " + ditz_id, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return
@@ -285,12 +254,76 @@ class DitzControl():
 
         Parameters:
         - release_name: Name of a release in Ditz
-        - comment: (optional) comment text, no formatting, to add to the issue
+        - comment: (optional) comment text, no formatting, to add to the release
         """
         if release_name == None or release_name == "":
             return
         try:
-            self.run_interactive_command("release " + release_name, comment, "/stop")
+            self._run_interactive_command("release " + release_name, comment, "/stop")
         except ApplicationError:
             #TODO: reraise or return something, so an error can be shown to user?
             return
+
+    def _run_command(self, cmd):
+        """
+        Run a Ditz command on the command line tool
+
+        Parameters:
+        - cmd: the Ditz command and its parameters
+
+        Returns:
+        - output of the command as string
+        """
+        cmd = "{0} {1}".format(self.ditz_cmd, cmd)
+        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        retval = p.wait()
+        if retval != 0:
+            raise ApplicationError("Ditz returned an error")
+        return p.stdout.readlines()
+
+    def _run_interactive_command(self, cmdline, *args):
+        """
+        Run a Ditz command on the command line tool
+        Other arguments are given to the command one by one, when
+        Ditz prompts for more input
+
+        Parameters:
+        - cmdline: the Ditz command and its parameters in a list
+        - args: (optional) arguments to give to the command, one by one
+
+        Returns:
+        - output of the command as string
+        """
+        cmd = [self.ditz_cmd]
+        for parameter in cmdline.split(' '):
+            cmd.append(parameter)
+        p = subprocess.Popen(cmd, shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT)
+        for argument in args:
+            p.stdin.write(str(argument) + "\n")
+        retval = p.wait()
+        if retval != 0:
+            raise ApplicationError("Ditz returned an error")
+        return p.stdout.readlines()
+
+    def _status_identifier_to_string(self, status_id):
+        """
+        Convert a status identifier character from Ditz text output
+        to string representation.
+
+        Parameters:
+        - status_id: status character
+
+        Returns:
+        - status string
+        - None on invalid input
+        """
+        states = {
+            '_': "new",
+            '>': "started",
+            '=': "paused"
+        }
+        if status_id in states:
+            return states[status_id]
+        return None
+

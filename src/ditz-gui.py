@@ -18,7 +18,7 @@ import sys
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import SIGNAL, QModelIndex, QSize
 
-from ditzcontrol import DitzControl
+from ditzcontrol import DitzControl, DitzError
 from comment_dialog import CommentDialog
 from close_dialog import CloseDialog
 
@@ -74,7 +74,7 @@ class DitzGui(QtGui.QMainWindow):
         else:
             menu.addAction("Stop work on " + ditz_id, lambda:self.stop_work(ditz_id))
         menu.addAction("Close " + ditz_id, lambda:self.close_issue(ditz_id))
-        menu.addAction("Drop " + ditz_id)
+        menu.addAction("Drop " + ditz_id, lambda:self.drop_issue(ditz_id))
         menu.exec_(QtGui.QCursor.pos())
 
     def toolbar_menu_actions(self):
@@ -107,7 +107,7 @@ class DitzGui(QtGui.QMainWindow):
             if item.item_name == None:
                 header = item.item_header
             else:
-                header = "{0} {1}".format(item.item_name, item.item_header)
+                header = "{:<13}{}".format(item.item_name, item.item_header)
             self.listWidgetDitzItems.addItem(header)
 
         if ditz_id:
@@ -153,6 +153,18 @@ class DitzGui(QtGui.QMainWindow):
         dialog = CloseDialog(ditz_id)
         dialog.askIssueClose()
         self.reload_data()
+
+    def drop_issue(self, ditz_id):
+        dialog = CommentDialog(ditz_id)
+        comment = dialog.askComment()
+        if comment != None:
+            try:
+                self.ditzControl.drop_issue(ditz_id, comment)
+            except DitzError, e:
+                #TODO: is this ok? if it is, use it with other commands too
+                QMessageBox.warning(self, "Ditz error", e.error_message)
+                return
+            self.reload_data(ditz_id)
 
     def start_work(self, ditz_id):
         dialog = CommentDialog(ditz_id)

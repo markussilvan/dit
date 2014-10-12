@@ -7,8 +7,8 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-09 19:05:31.511234 Z
 references: []
 
@@ -38,3 +38,17 @@ log_events:
     After severe refactoring, the view now looks a bit better.
     Ditz items are now stored as DitzItem objects in a list.
     Type, status, etc can be asked easily from DitzControl.
+- - 2014-10-12 14:13:35.400720 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Now, using monospaced font, the list is also aligned.
+    Too bad the monospaced fonts don't look as good as
+    the default font. (Of course that could be different
+    for different users too.)
+    
+    Font should be configurable from settings.
+- - 2014-10-12 14:14:09.174676 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - ""

@@ -8,8 +8,8 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-07 17:46:30.203865 Z
 references: []
 
@@ -23,3 +23,13 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
   - In ditz language this is known as "dropping" an issue.
+- - 2014-10-12 13:07:26.795621 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Lets implement some new functionality for a change.
+    This should be easy.
+- - 2014-10-12 14:32:48.497210 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Ok. Dropping issues works now.

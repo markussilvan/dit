@@ -6,7 +6,7 @@ Ditz-gui
 
 A GUI frontend for Ditz issue tracker
 
-A common comment dialog box
+A dialog for close resolution and comment for closing a Ditz issue
 """
 
 import sys
@@ -16,14 +16,14 @@ from ditzcontrol import DitzControl
 
 class CloseDialog(QtGui.QDialog):
     """
-    A comment dialog with text input and Cancel/Ok buttons.
+    A dialog with couple of inputs and Cancel/Ok buttons.
     """
     def __init__(self, ditz_id):
         """
         Initialize user interface for the dialog
 
         Parameters:
-        - ditz_id: Ditz item to comment
+        - ditz_id: Ditz item to close
         """
         super(CloseDialog, self).__init__()
 
@@ -52,9 +52,10 @@ class CloseDialog(QtGui.QDialog):
         """
         super(CloseDialog, self).reject()
 
-    def askIssueClose(self):
+    def ask_issue_close(self):
         """
-        Show the dialog and get disposition and a comment from the user
+        Show the dialog (modal)
+        to get disposition and a comment from the user
         """
         self.exec_()
 

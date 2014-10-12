@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Make Ditz windows remember their size
+desc: |-
+  Users have different preferences and different sizes of displays and fonts.
+  Ditz-gui windows should also adapt to that. As they do.
+  But the windows should also remember their size, so user doesn't always
+  need to adjust it when starting ditz-gui.
+type: :task
+component: ditz-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-12 18:43:43.033124 Z
+references: []
+
+id: f7dab286472d0577e3040d4e954b1520065db881
+log_events: 
+- - 2014-10-12 18:43:43.984955 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

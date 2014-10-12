@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Custom context menu options for releases
+desc: |-
+  Show different context menu for releases
+  Currently context menu is only shown for ditz items.
+  Implwmwntation is easy, but it should be done using
+  "global" actions. No temporary hack for testing is needed.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-12 17:49:33.247930 Z
+references: []
+
+id: a4bd75141aa0ea3fef72290a4c8344f9e3fb014f
+log_events: 
+- - 2014-10-12 17:49:33.991694 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

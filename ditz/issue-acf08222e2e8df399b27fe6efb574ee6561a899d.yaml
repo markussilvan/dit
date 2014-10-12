@@ -1,0 +1,26 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Changeable window title for CommentDialog
+desc: |-
+  As CommentDialog is used in multiple contexts, it could
+  have a customizable window title. The title could be given
+  as parameter when the dialog is created. This would
+  allow showing titles like "Close issue - Comment"
+  instead of just "Comment". The user would see what
+  action was selected for the item.
+  The selected item is visible on the list on the
+  main window.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-12 17:41:54.047699 Z
+references: []
+
+id: acf08222e2e8df399b27fe6efb574ee6561a899d
+log_events: 
+- - 2014-10-12 17:41:55.159469 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

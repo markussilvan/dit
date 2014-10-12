@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FormIssue</class>
+ <widget class="QWidget" name="FormIssue">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>461</width>
+    <height>492</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="labelHeader">
+     <property name="text">
+      <string>Issue header</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="lineEditHeader"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="labelDescription">
+     <property name="text">
+      <string>Description</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPlainTextEdit" name="plainTextEditDescription"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="labelType">
+     <property name="text">
+      <string>Issue type</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="comboBoxType"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="labelStatus">
+     <property name="text">
+      <string>Status</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QComboBox" name="comboBoxStatus"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="labelCreator">
+     <property name="text">
+      <string>Creator</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="lineEditCreator"/>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="labelAge">
+     <property name="text">
+      <string>Age</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLabel" name="labelAgeValue">
+     <property name="text">
+      <string>0 seconds</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="labelRelease">
+     <property name="text">
+      <string>Release</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QComboBox" name="comboBoxRelease"/>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="labelReferences">
+     <property name="text">
+      <string>References</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1">
+    <widget class="QLineEdit" name="lineEditReferences"/>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="labelIdentifier">
+     <property name="text">
+      <string>Identifier</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <widget class="QLabel" name="labelIdentifierValue">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

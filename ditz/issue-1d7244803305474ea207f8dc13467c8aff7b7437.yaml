@@ -10,7 +10,7 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-12 13:21:05.857788 Z
 references: []
@@ -20,4 +20,15 @@ log_events:
 - - 2014-10-12 13:21:07.601600 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-12 14:55:29.288669 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Error handling improved on DitzControl side to
+    raise DitzExceptions. Now make the GUI side
+    react to them.
+- - 2014-10-12 17:44:23.736442 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
   - ""

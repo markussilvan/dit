@@ -16,3 +16,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-12 18:41:24.182054 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This comes cheaply along with the implementation to add
+    new issues. After adding new issues works perfectly, do
+    the editing part.

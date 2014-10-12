@@ -50,7 +50,7 @@ class CommentDialog(QtGui.QDialog):
         """
         super(CommentDialog, self).reject()
 
-    def askComment(self):
+    def ask_comment(self):
         """
         Show the dialog and get a comment from the user
         If Ditz id and comment are given, save the comment to Ditz

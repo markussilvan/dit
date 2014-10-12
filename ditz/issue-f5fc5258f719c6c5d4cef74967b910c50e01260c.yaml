@@ -8,7 +8,7 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-07 17:44:07.845134 Z
 references: []
@@ -26,3 +26,14 @@ log_events:
     Can be done in a separate dialog, but can the same dialog, widget or
     something be used in the main window when browsing items.
     (Just thinking ahead for the future versions.)
+- - 2014-10-12 18:40:15.573759 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Work on this has been started. The form exists. Now
+    improve ways to handle Ditz data. Do this hand in hand
+    with reading and parsing Ditz data to a object and filling
+    such object from the Add Issue -form.
+    
+    Just extend DitzItem to (optionally) contain all item data or
+    derive a new subclass to do that.

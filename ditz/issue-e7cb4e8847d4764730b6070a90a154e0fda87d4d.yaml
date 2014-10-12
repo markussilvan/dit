@@ -20,3 +20,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-12 14:46:57.008477 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Not sure if this is needed. Standard QMessageBox might
+    be enough.

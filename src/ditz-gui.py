@@ -20,6 +20,7 @@ from PyQt4.QtCore import SIGNAL, QModelIndex, QSize
 
 from ditzcontrol import DitzControl, DitzError
 from comment_dialog import CommentDialog
+from issue_dialog import IssueDialog
 from close_dialog import CloseDialog
 
 class DitzGui(QtGui.QMainWindow):
@@ -65,9 +66,12 @@ class DitzGui(QtGui.QMainWindow):
 
     def context_menu(self):
         ditz_id = self._get_selected_item_id()
+        if ditz_id == None:
+            #TODO: show different menus for releases
+            return
         status = self._get_selected_item_status()
         menu = QtGui.QMenu(self)
-        menu.addAction("New issue")
+        menu.addAction("New issue", lambda:self.new_issue())
         menu.addAction("Comment " + ditz_id, lambda:self.comment(ditz_id))
         if status != "started":
             menu.addAction("Start work on " + ditz_id, lambda:self.start_work(ditz_id))
@@ -139,24 +143,29 @@ class DitzGui(QtGui.QMainWindow):
             # needed so the same function can be connected to GUI
             ditz_id = self._get_selected_item_id()
 
-        item = self.ditzControl.get_item(ditz_id)
+        item = self.ditzControl.get_item_content(ditz_id)
         if item:
             self.textEditDitzItem.setText(str(item))
         #TODO: format the data or use a form instead
 
     def comment(self, ditz_id):
         dialog = CommentDialog(ditz_id, save=True)
-        dialog.askComment()
+        dialog.ask_comment()
         self.show_item() # to reload item data to include the added comment
+
+    def new_issue(self):
+        dialog = IssueDialog()
+        dialog.ask_new_issue()
+        self.reload_data()
 
     def close_issue(self, ditz_id):
         dialog = CloseDialog(ditz_id)
-        dialog.askIssueClose()
+        dialog.ask_issue_close()
         self.reload_data()
 
     def drop_issue(self, ditz_id):
         dialog = CommentDialog(ditz_id)
-        comment = dialog.askComment()
+        comment = dialog.ask_comment()
         if comment != None:
             try:
                 self.ditzControl.drop_issue(ditz_id, comment)
@@ -168,14 +177,14 @@ class DitzGui(QtGui.QMainWindow):
 
     def start_work(self, ditz_id):
         dialog = CommentDialog(ditz_id)
-        comment = dialog.askComment()
+        comment = dialog.ask_comment()
         if comment != None:
             self.ditzControl.start_work(ditz_id, comment)
             self.reload_data(ditz_id)
 
     def stop_work(self, ditz_id):
         dialog = CommentDialog(ditz_id)
-        comment = dialog.askComment()
+        comment = dialog.ask_comment()
         if comment != None:
             self.ditzControl.stop_work(ditz_id, comment)
             self.reload_data(ditz_id)
@@ -185,7 +194,7 @@ class DitzGui(QtGui.QMainWindow):
         if release_name == None:
             return
         dialog = CommentDialog(None)
-        comment = dialog.askComment()
+        comment = dialog.ask_comment()
         if comment != None:
             self.ditzControl.make_release(release_name, comment)
             self.reload_data()

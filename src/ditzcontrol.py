@@ -138,7 +138,7 @@ class DitzControl():
                 return item.item_type
         return None
 
-    def get_item(self, ditz_id):
+    def get_item_content(self, ditz_id):
         """
         Get all content of one item by it's ditz id hash.
 
@@ -173,9 +173,9 @@ class DitzControl():
             return
         try:
             self._run_interactive_command("comment " + ditz_id, comment, "/stop")
-        except ApplicationError:
-            #TODO: reraise or return something, so an error can be shown to user?
-            return
+        except DitzError,e:
+            e.error_message = "Adding a comment on Ditz failed"
+            raise
 
     def close_issue(self, ditz_id, disposition, comment=""):
         """
@@ -192,9 +192,9 @@ class DitzControl():
             return
         try:
             self._run_interactive_command("close " + ditz_id, disposition, comment, "/stop")
-        except ApplicationError:
-            #TODO: reraise or return something, so an error can be shown to user?
-            return
+        except DitzError,e:
+            e.error_message = "Closing an issue on Ditz failed"
+            raise
 
     def drop_issue(self, ditz_id, comment=""):
         """
@@ -212,8 +212,8 @@ class DitzControl():
             return
         try:
             self._run_interactive_command("drop " + ditz_id, comment, "/stop")
-        except DitzError:
-            print "Dropping issue failed"
+        except DitzError,e:
+            e.error_message = "Dropping issue failed"
             raise
 
     def start_work(self, ditz_id, comment):
@@ -223,14 +223,17 @@ class DitzControl():
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue
         - comment: (optional) comment text, no formatting, to add to the issue
+
+        Raises:
+        - DitzError if running Ditz command fails
         """
         if ditz_id == None or ditz_id == "":
             return
         try:
             self._run_interactive_command("start " + ditz_id, comment, "/stop")
-        except ApplicationError:
-            #TODO: reraise or return something, so an error can be shown to user?
-            return
+        except DitzError,e:
+            e.error_message = "Starting work on a Ditz issue failed"
+            raise
 
     def stop_work(self, ditz_id, comment):
         """
@@ -244,9 +247,9 @@ class DitzControl():
             return
         try:
             self._run_interactive_command("stop " + ditz_id, comment, "/stop")
-        except ApplicationError:
-            #TODO: reraise or return something, so an error can be shown to user?
-            return
+        except DitzError,e:
+            e.error_message = "Stopping work on a Ditz issue failed"
+            raise
 
     def make_release(self, release_name, comment):
         """
@@ -260,9 +263,9 @@ class DitzControl():
             return
         try:
             self._run_interactive_command("release " + release_name, comment, "/stop")
-        except ApplicationError:
-            #TODO: reraise or return something, so an error can be shown to user?
-            return
+        except DitzError,e:
+            e.error_message = "Making release on Ditz failed"
+            raise
 
     def _run_command(self, cmd):
         """
@@ -278,7 +281,7 @@ class DitzControl():
         p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         retval = p.wait()
         if retval != 0:
-            raise ApplicationError("Ditz returned an error")
+            raise DitzError("Ditz returned an error")
         return p.stdout.readlines()
 
     def _run_interactive_command(self, cmdline, *args):
@@ -303,7 +306,7 @@ class DitzControl():
             p.stdin.write(str(argument) + "\n")
         retval = p.wait()
         if retval != 0:
-            raise ApplicationError("Ditz returned an error")
+            raise DitzError("Ditz returned an error")
         return p.stdout.readlines()
 
     def _status_identifier_to_string(self, status_id):

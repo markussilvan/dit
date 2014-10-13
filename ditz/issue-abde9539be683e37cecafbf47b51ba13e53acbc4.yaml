@@ -3,7 +3,7 @@ title: get_releases() needs better parsing
 desc: |-
   Better parsing of release names from Ditz output.
   Multiword release names are not currently supported.
-type: :bug
+type: :bugfix
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>

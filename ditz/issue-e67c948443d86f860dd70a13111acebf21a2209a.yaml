@@ -1,0 +1,28 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Rename fields in DitzItem and code in general
+desc: |-
+  Start using same naming as is used in Ditz.
+  Instead of header, use title. Ditz_id should be ditz_name
+  unless it means either is accepted (name or identifier).
+  
+  This is a minor task to replace the names in all files.
+  UI code already uses correct naming, so no changes there.
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-13 08:55:29.312316 Z
+references: []
+
+id: e67c948443d86f860dd70a13111acebf21a2209a
+log_events: 
+- - 2014-10-13 08:55:30.207897 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-13 19:25:02.337537 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Done. Item type and issue type are good enough. Other fields don't have item_ prefix anymore. It makes the code a bit cleaner.

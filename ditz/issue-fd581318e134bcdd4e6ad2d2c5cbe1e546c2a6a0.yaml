@@ -1,0 +1,30 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Improve dropping issues
+desc: |-
+  Does dropping issues really ask for a comment? No.
+  Checked. Modify the implementation accordingly.
+type: :task
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-13 06:24:26.242701 Z
+references: []
+
+id: fd581318e134bcdd4e6ad2d2c5cbe1e546c2a6a0
+log_events: 
+- - 2014-10-13 06:24:27.186799 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-13 06:27:52.090131 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited title, description
+  - ""
+- - 2014-10-13 07:15:15.250913 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Implemented, but not tested.
+    I'll try later if I still remember.

@@ -73,7 +73,7 @@ class DitzGui(QtGui.QMainWindow):
         menu = QtGui.QMenu(self)
         menu.addAction("New issue", lambda:self.new_issue())
         menu.addAction("Comment " + ditz_id, lambda:self.comment(ditz_id))
-        if status != "started":
+        if status != "in progress" and status != "started":
             menu.addAction("Start work on " + ditz_id, lambda:self.start_work(ditz_id))
         else:
             menu.addAction("Stop work on " + ditz_id, lambda:self.stop_work(ditz_id))
@@ -108,28 +108,45 @@ class DitzGui(QtGui.QMainWindow):
             if item.item_type == 'release' and self.listWidgetDitzItems.count() > 0:
                 # add one empty line as a spacer (except on the first line)
                 self.listWidgetDitzItems.addItem("")
-            if item.item_name == None:
-                header = item.item_header
+            if item.name == None:
+                title = item.title
             else:
-                header = "{:<13}{}".format(item.item_name, item.item_header)
-            self.listWidgetDitzItems.addItem(header)
+                title = "{:<13}{}".format(item.name, item.title)
+            self.listWidgetDitzItems.addItem(title)
+
+            # set icon to the added item
+            list_item = self.listWidgetDitzItems.item(self.listWidgetDitzItems.count() - 1)
+            if item.status == 'unstarted':
+                list_item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
+            elif item.status == 'in progress':
+                list_item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
+            elif item.status == 'paused':
+                list_item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
+            #TODO: alternative names...
+            if item.status == 'new':
+                list_item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
+            elif item.status == 'started':
+                list_item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
+            elif item.status == 'paused':
+                list_item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
 
         if ditz_id:
             self.show_item(ditz_id)
 
-        for item in self.iterate_all_items():
-            item_text = str(item.text())
-            if len(item_text) == 0:
-                continue
-            item_status = self.ditzControl.get_item_status_by_ditz_id(item_text.split(' ', 1)[0])
-            if item_status == 'new':
-                item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
-            elif item_status == 'started':
-                item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
-            elif item_status == 'paused':
-                item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
-            #else:
-            #    item.setIcon(QtGui.QIcon('../graphics/list_release.png'))
+        #for item in self.iterate_all_items():
+        #    item_text = str(item.text())
+        #    if len(item_text) == 0:
+        #        continue
+        #    #item_status = self.ditzControl.get_item_status_by_ditz_id(item_text.split(' ', 1)[0])
+        #    item_status = item.
+        #    if item_status == 'new':
+        #        item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
+        #    elif item_status == 'started':
+        #        item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
+        #    elif item_status == 'paused':
+        #        item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
+        #    #else:
+        #    #    item.setIcon(QtGui.QIcon('../graphics/list_release.png'))
 
     def iterate_all_items(self):
         """
@@ -143,10 +160,10 @@ class DitzGui(QtGui.QMainWindow):
             # needed so the same function can be connected to GUI
             ditz_id = self._get_selected_item_id()
 
-        item = self.ditzControl.get_item_content(ditz_id)
-        if item:
-            self.textEditDitzItem.setText(str(item))
-        #TODO: format the data or use a form instead
+        ditz_item = self.ditzControl.get_item_content(ditz_id)
+        if ditz_item:
+            self.textEditDitzItem.setText(str(ditz_item))
+        #TODO: format the data or use a form instead (it's already a DitzItem)
 
     def comment(self, ditz_id):
         dialog = CommentDialog(ditz_id, save=True)
@@ -164,22 +181,24 @@ class DitzGui(QtGui.QMainWindow):
         self.reload_data()
 
     def drop_issue(self, ditz_id):
-        dialog = CommentDialog(ditz_id)
-        comment = dialog.ask_comment()
-        if comment != None:
-            try:
-                self.ditzControl.drop_issue(ditz_id, comment)
-            except DitzError, e:
-                #TODO: is this ok? if it is, use it with other commands too
-                QMessageBox.warning(self, "Ditz error", e.error_message)
-                return
-            self.reload_data(ditz_id)
+        try:
+            self.ditzControl.drop_issue(ditz_id)
+        except DitzError, e:
+            #TODO: is this ok? if it is, use it with other commands too
+            QMessageBox.warning(self, "Ditz error", e.error_message)
+            return
+        self.reload_data(ditz_id)
 
     def start_work(self, ditz_id):
         dialog = CommentDialog(ditz_id)
         comment = dialog.ask_comment()
         if comment != None:
-            self.ditzControl.start_work(ditz_id, comment)
+            try:
+                self.ditzControl.start_work(ditz_id, comment)
+            except DitzError, e:
+                #TODO: is this ok? if it is, use it with other commands too
+                QMessageBox.warning(self, "Ditz error", e.error_message)
+                return
             self.reload_data(ditz_id)
 
     def stop_work(self, ditz_id):
@@ -245,7 +264,7 @@ class DitzGui(QtGui.QMainWindow):
     def _get_item_status(self, item_text):
         if not item_text:
             return None
-        ditz_id = item_text.split(' ', 1)
+        ditz_id = item_text.split(' ', 1)[0]
         item_status = self.ditzControl.get_item_status_by_ditz_id(ditz_id)
         return item_status
 

@@ -24,6 +24,7 @@ class ApplicationError(Exception):
         super(Exception, self).__init__()
         self.error_message = error_message
 
+
 class DitzError(ApplicationError):
     """
     A specific error type for errors originating from Ditz command line tool
@@ -37,19 +38,51 @@ class DitzError(ApplicationError):
         """
         super(Exception, self).__init__(error_message)
 
+
 class DitzItem():
     """
     A Ditz item which can be an issue or an release.
-    Doesn't contain all data of that particular item,
+    Can contain all data of that particular item or
     just the type and a header.
-    A status can also be set for issues.
+    A status is also commonly set for issues.
     """
-    def __init__(self, item_type, item_header, item_name=None, status=None):
+    def __init__(self, item_type, title, name=None, issue_type=None, status=None,
+            description=None, creator=None, age=None, release=None,
+            references=None, identifier=None, log=None):
+        """
+        Initialize new DitzItem.
+        At least type and title must be set for releases.
+        For issues, also status should be set.
+        """
         self.item_type = item_type
-        self.item_header = item_header
-        self.item_name = item_name
-        self.item_status = status
+        self.name = name
 
+        self.title = title
+        self.issue_type = issue_type
+        self.status = status
+        self.description = description
+        self.creator = creator
+        self.age = age
+        self.release = release
+        self.references = references
+        self.identifier = identifier
+        self.log = log
+
+    def __str__(self):
+        """
+        Serialize to string. Mimic output of Ditz command line.
+        """
+        return "Issue {}\n{}".format(self.name, len(self.name) * '-') + '\n' + \
+            "Title: {}".format(self.title) + '\n' + \
+            "Description:\n{}".format(self.description) + '\n' + \
+            "Type: {}".format(self.issue_type) + '\n' + \
+            "Status: {}".format(self.status) + '\n' + \
+            "Creator: {}".format(self.creator) + '\n' + \
+            "Age: {}".format(self.age) + '\n' + \
+            "Release: {}".format(self.release) + '\n' + \
+            "References: {}".format(self.references) + '\n' + \
+            "Identifier: {}".format(self.identifier) + '\n' + \
+            "Event log:\n{}".format(self.log)
 
 class DitzControl():
     """
@@ -93,33 +126,33 @@ class DitzControl():
             status = self._status_identifier_to_string(name_and_status[:1])
             if status != None:
                 # an issue
-                item_header = item_data[1].strip()
-                item_name = name_and_status[1:].strip() # drop status from the beginning
-                self.ditz_items.append(DitzItem('issue', item_header, item_name, status))
+                title = item_data[1].strip()
+                name = name_and_status[1:].strip() # drop status from the beginning
+                self.ditz_items.append(DitzItem('issue', title, name, None, status))
             else:
                 # a release
-                item_name = None
-                item_header = name_and_status.split('(', 1)[0].rstrip() # just take the version
+                name = None
+                title = name_and_status.split('(', 1)[0].rstrip() # just take the version
                 if item_data[0] != "Unassigned":
-                    item_name = "Release"
-                self.ditz_items.append(DitzItem('release', item_header, item_name))
+                    name = "Release"
+                self.ditz_items.append(DitzItem('release', title, name))
 
         return self.ditz_items
 
     def get_item_status_by_ditz_id(self, ditz_id):
         """
-        Get status of an Ditz issue loaded in the list of issues.
+        Get status of an Ditz issue loaded in the cached list of issues.
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue
 
         Returns:
         - issue status
-        - None if issue not found
+        - None if requested issue is not found
         """
         for item in self.ditz_items:
-            if item.item_name == ditz_id:
-                return item.item_status
+            if item.name == ditz_id:
+                return item.status
         return None
 
     def get_item_type_by_ditz_id(self, ditz_id):
@@ -131,10 +164,10 @@ class DitzControl():
 
         Returns:
         - issue type
-        - None if issue not found
+        - None if requested issue is not found
         """
         for item in self.ditz_items:
-            if item.item_name == ditz_id:
+            if item.name == ditz_id:
                 return item.item_type
         return None
 
@@ -152,14 +185,80 @@ class DitzControl():
         if ditz_id == None or ditz_id == "":
             return None
         try:
-            item = self._run_command("show " + ditz_id)
-        except ApplicationError:
+            ditz_data = iter(self._run_command("show " + ditz_id))
+        except DitzError:
             return None
-        serialized_item = ""
-        for line in item:
-            serialized_item += line.lstrip()
-        #TODO: format output more nicely? or structure output in a list?
-        return serialized_item
+        #TODO: check if ditz returned error
+        name = ditz_data.next().split()[1].strip()
+
+        ditz_data.next() # skip line 1, it's just a line (no pun intended)
+
+        title = self._parse_ditz_item_variable(ditz_data, "Title")
+
+        description_line = ditz_data.next()
+        if description_line == "Description: \n":
+            # multi-line description
+            description = ""
+            for line in ditz_data:
+                if len(line) > 2:
+                    description = "{}{}".format(description, line[2:])
+                else:
+                    break
+        elif description_line[:12] == "Description:":
+            # one line description
+            description = self._parse_ditz_item_variable(ditz_data, "Description", description_line)
+        else:
+            raise DitzError("Error parsing issue description from Ditz output")
+
+        issue_type = self._parse_ditz_item_variable(ditz_data, "Type")
+        if self._issue_type_string_to_id(issue_type) == None:
+            raise DitzError("Error parsing issue type from Ditz output data, unrecognized value")
+
+        status = self._parse_ditz_item_variable(ditz_data, "Status")
+        if status not in ['unstarted', 'in progress', 'paused']: #TODO: make a function (also check UI options)
+            raise DitzError("Error parsing issue status from Ditz output data, unrecognized value")
+
+        creator = self._parse_ditz_item_variable(ditz_data, "Creator")
+        age = self._parse_ditz_item_variable(ditz_data, "Age")
+        release = self._parse_ditz_item_variable(ditz_data, "Release")
+
+        # references and identifier in one go
+        references_line = ditz_data.next().lstrip()
+        references = ""
+        identifier_line = ""
+        if references_line != "References: \n":
+            raise DitzError("Error parsing issue references from Ditz output")
+        for line in ditz_data:
+            if line.lstrip().split(' ', 1)[0] != "Identifier:":
+                references = "{}{}".format(references, line[2:]) #TODO: line breaks?
+            else:
+                identifier = self._parse_ditz_item_variable(ditz_data, "Identifier", line)
+                break
+
+
+        # skip one empty line before event log starts
+        if ditz_data.next().strip() != "":
+            raise DitzError("Error parsing event log from Ditz output data")
+
+        if ditz_data.next().strip() != "Event log:":
+            raise DitzError("Error parsing event log from Ditz output data")
+
+        log = ""
+        for line in ditz_data:
+            stripped_line = line.strip() #TODO: clean this up, model after description part?
+            if len(stripped_line) > 0:
+                if len(log) > 0:
+                    log = "{}\n{}".format(log, stripped_line)
+                else:
+                    log = stripped_line
+            else:
+                break
+
+        ditz_item = DitzItem("issue", title, name, issue_type, status, description, creator, age,
+                release, references, identifier, log)
+        #TODO: use existing item in cache instead? (that would cache all this data too)
+        #      or replace the item with this new item
+        return ditz_item
 
     def add_comment(self, ditz_id, comment):
         """
@@ -196,14 +295,12 @@ class DitzControl():
             e.error_message = "Closing an issue on Ditz failed"
             raise
 
-    def drop_issue(self, ditz_id, comment=""):
+    def drop_issue(self, ditz_id):
         """
         Remove an existing Ditz item
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue to drop
-        - disposition: 1) fixed, 2) won't fix, 3) reorganized
-        - comment: (optional) comment text, no formatting, to add to the dropped issue
 
         Raises:
         - DitzError if running Ditz command fails
@@ -211,7 +308,7 @@ class DitzControl():
         if ditz_id == None or ditz_id == "":
             return
         try:
-            self._run_interactive_command("drop " + ditz_id, comment, "/stop")
+            self._run_command("drop " + ditz_id)
         except DitzError,e:
             e.error_message = "Dropping issue failed"
             raise
@@ -322,11 +419,35 @@ class DitzControl():
         - None on invalid input
         """
         states = {
-            '_': "new",
-            '>': "started",
+            '_': "unstarted",
+            '>': "in progress",
             '=': "paused"
         }
         if status_id in states:
             return states[status_id]
         return None
+
+    def _issue_type_string_to_id(self, issue_type):
+        issue_types = {
+            'bugfix' : 1,
+            'feature' : 2,
+            'task' : 3
+        }
+        if issue_type in issue_types:
+            return issue_types[issue_type]
+        return None
+
+    def _parse_ditz_item_variable(self, ditz_data, variable_name, input_line=None):
+        if input_line == None:
+            variable_line = ditz_data.next().strip().split(' ', 1)
+        else:
+            variable_line = input_line.strip().split(' ', 1)
+        if variable_line[0][:-1] != variable_name:
+            raise DitzError("Error parsing {} from Ditz output data".format(variable_name))
+        if len(variable_line) > 1:
+            value = variable_line[1]
+        else:
+            value = ""
+        return value
+
 

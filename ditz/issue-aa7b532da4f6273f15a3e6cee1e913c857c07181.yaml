@@ -1,0 +1,32 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Parse references correctly
+desc: |-
+  Parsing references is the only part missing from reading item to DitzItems.
+  Should not be hard to do. Do it tomorrow.
+type: :bugfix
+component: ditz-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+disposition: 
+creation_time: 2014-10-13 19:04:55.970397 Z
+references: []
+
+id: aa7b532da4f6273f15a3e6cee1e913c857c07181
+log_events: 
+- - 2014-10-13 19:04:56.770189 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-13 19:26:52.181517 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - I should be able to do this tomorrow.
+- - 2014-10-13 20:59:39.236960 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Parsing works now. Fine tune the output format.
+    Test with something that has multiple references.
+    Add line breaks to DitzItem output, when printing
+    references?

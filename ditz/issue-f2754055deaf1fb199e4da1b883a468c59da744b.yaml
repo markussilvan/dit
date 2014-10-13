@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: A config file
+desc: |-
+  Can I share the config file with Ditz on the project level?
+  Add user settings to ~/.ditz-gui/config or something similar.
+  What is the most useful format? Is there a common parser?
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-13 07:25:34.249604 Z
+references: []
+
+id: f2754055deaf1fb199e4da1b883a468c59da744b
+log_events: 
+- - 2014-10-13 07:25:35.833952 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

@@ -11,18 +11,18 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Issue</string>
   </property>
   <layout class="QFormLayout" name="formLayout">
    <item row="0" column="0">
-    <widget class="QLabel" name="labelHeader">
+    <widget class="QLabel" name="labelTitle">
      <property name="text">
-      <string>Issue header</string>
+      <string>Issue title</string>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QLineEdit" name="lineEditHeader"/>
+    <widget class="QLineEdit" name="lineEditTitle"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="labelDescription">
@@ -35,14 +35,14 @@
     <widget class="QPlainTextEdit" name="plainTextEditDescription"/>
    </item>
    <item row="2" column="0">
-    <widget class="QLabel" name="labelType">
+    <widget class="QLabel" name="labelIssueType">
      <property name="text">
       <string>Issue type</string>
      </property>
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QComboBox" name="comboBoxType"/>
+    <widget class="QComboBox" name="comboBoxIssueType"/>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="labelStatus">

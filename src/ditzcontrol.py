@@ -93,6 +93,24 @@ class DitzControl():
         self.ditz_cmd = "ditz"
         self.ditz_items = []
 
+    def get_valid_issue_states(self):
+        """
+        Get a list of valid states for a Ditz issue
+
+        Returns:
+        - list of states
+        """
+        return ["unstarted", "in progress", "paused"]
+
+    def get_valid_issue_types(self):
+        """
+        Get a list of valid issue types for a Ditz issue
+
+        Returns:
+        - list of issue types
+        """
+        return ["bugfix", "feature", "task"]
+
     def get_releases(self):
         """
         Get a list of release names from Ditz
@@ -215,7 +233,7 @@ class DitzControl():
             raise DitzError("Error parsing issue type from Ditz output data, unrecognized value")
 
         status = self._parse_ditz_item_variable(ditz_data, "Status")
-        if status not in ['unstarted', 'in progress', 'paused']: #TODO: make a function (also check UI options)
+        if not self._is_valid_issue_status(status):
             raise DitzError("Error parsing issue status from Ditz output data, unrecognized value")
 
         creator = self._parse_ditz_item_variable(ditz_data, "Creator")
@@ -245,7 +263,7 @@ class DitzControl():
 
         log = ""
         for line in ditz_data:
-            stripped_line = line.strip() #TODO: clean this up, model after description part?
+            stripped_line = line.strip()
             if len(stripped_line) > 0:
                 if len(log) > 0:
                     log = "{}\n{}".format(log, stripped_line)
@@ -259,6 +277,27 @@ class DitzControl():
         #TODO: use existing item in cache instead? (that would cache all this data too)
         #      or replace the item with this new item
         return ditz_item
+
+    def add_issue(self, issue):
+        """
+        Add new issue to Ditz
+        Ditz also asks for a comment when an issue is added,
+        but saving a comment is not supported.
+
+        Parameters:
+        - a DitzItem filled with data to save
+        """
+        try:
+            #TODO: hardcoded release to 2
+            if issue.release != None and issue.release != "":
+                self._run_interactive_command("add", issue.title, issue.description, "/stop",
+                        issue.issue_type[:1], 'y', 2, issue.creator, "/stop")
+            else:
+                self._run_interactive_command("add", issue.title, issue.description, "/stop",
+                        issue.issue_type[:1], 'n', issue.creator, "/stop")
+        except DitzError,e:
+            e.error_message = "Adding a new issue to Ditz failed"
+            raise
 
     def add_comment(self, ditz_id, comment):
         """
@@ -428,6 +467,16 @@ class DitzControl():
         return None
 
     def _issue_type_string_to_id(self, issue_type):
+        """
+        Convert issue type, as string, to a number representation
+
+        Parameters:
+        - issue_type: issue type as string
+
+        Returns:
+        - a number value, an index that represents that same issue type
+        - None, if given issue type is not recognized
+        """
         issue_types = {
             'bugfix' : 1,
             'feature' : 2,
@@ -438,6 +487,18 @@ class DitzControl():
         return None
 
     def _parse_ditz_item_variable(self, ditz_data, variable_name, input_line=None):
+        """
+        Parse a variable value from "ditz show" command output.
+
+        Parameters:
+        - ditz_data: ditz command output,
+                     starting from the line containing the variable
+        - variable_name: name of the variable to parse from the output data
+        - input_line: (optional) if given, use this text line instead of ditz command output
+
+        Returns:
+        - value set for the variable
+        """
         if input_line == None:
             variable_line = ditz_data.next().strip().split(' ', 1)
         else:
@@ -449,5 +510,20 @@ class DitzControl():
         else:
             value = ""
         return value
+
+    def _is_valid_issue_status(self, status):
+        """
+        Check if a given string is valid status for a Ditz issue.
+
+        Parameters:
+        - status: issue status string
+
+        Returns:
+        - True if string is a valid issue status
+        - False if not
+        """
+        if status in ['unstarted', 'in progress', 'paused']:
+            return True
+        return False
 
 

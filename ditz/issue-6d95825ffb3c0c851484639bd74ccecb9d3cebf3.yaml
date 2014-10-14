@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Improve DitzItem __str__()
+desc: |-
+  The function is currently very simple and fragile.
+  Improve the function to work with partial data also.
+  It shouldn't break in any situation, even if mandatory
+  data fields are missing.
+type: :bugfix
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-14 19:56:07.292454 Z
+references: []
+
+id: 6d95825ffb3c0c851484639bd74ccecb9d3cebf3
+log_events: 
+- - 2014-10-14 19:56:10.644155 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

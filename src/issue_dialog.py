@@ -12,7 +12,7 @@ A dialog for adding and editing Ditz issues
 import sys
 from PyQt4 import QtGui, uic
 
-from ditzcontrol import DitzControl
+from ditzcontrol import DitzControl, DitzItem
 
 class IssueDialog(QtGui.QDialog):
     """
@@ -34,6 +34,15 @@ class IssueDialog(QtGui.QDialog):
         uic.loadUi('../ui/form_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
 
+        for state in self.ditzControl.get_valid_issue_states():
+            self.widgetForm.comboBoxStatus.addItem(state)
+
+        for issue_type in self.ditzControl.get_valid_issue_types():
+            self.widgetForm.comboBoxIssueType.addItem(issue_type)
+
+        for release in self.ditzControl.get_releases():
+            self.widgetForm.comboBoxRelease.addItem(release)
+
     def accept(self):
         """
         Ok is pressed on the GUI
@@ -43,10 +52,26 @@ class IssueDialog(QtGui.QDialog):
         """
         #TODO: encapsulate all those field into DitzIssue objects (add those fields to DitzIssue)
         #TODO: read all the fields from the form to a DitzIssue
-        description = str(self.plainTextEditDescription.toPlainText())
-        #status = self.comboBoxStatus.currentIndex() + 1
-        #if self.ditz_id == None:
-        #    self.ditzControl.add_issue(header, description, issue_type, status, creator, release, references)
+        title = str(self.widgetForm.lineEditTitle.text())
+        description = str(self.widgetForm.plainTextEditDescription.toPlainText())
+        issue_type = self.widgetForm.comboBoxIssueType.currentText()
+        status = self.widgetForm.comboBoxStatus.currentText()
+        creator = str(self.widgetForm.lineEditCreator.text())
+        age = "0 seconds"
+        release = str(self.widgetForm.comboBoxRelease.currentText())
+        references = ""
+        identifier = "N/A"
+        log = ""
+
+        try:
+            issue = DitzItem('issue', title, None, issue_type, status, description,
+                    creator, age, release, references, identifier, log)
+        except ApplicationError:
+            #TODO: show error, cancel accept, change invalid fields to red
+            return
+
+        #print issue
+        self.ditzControl.add_issue(issue)
         super(IssueDialog, self).accept()
 
     def reject(self):

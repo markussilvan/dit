@@ -35,3 +35,12 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.4 from v0.3
   - ""
+- - 2014-10-14 09:52:20.447912 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This could be implemented also as a search box on top the list view.
+    Then list view would updated accordingly with help from
+    "ditz grep". All functions to DitzControl should still work
+    as they refer to items with names or identifiers, and never
+    use list indices or anything UI specific.

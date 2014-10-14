@@ -7,11 +7,12 @@ type: :bugfix
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-13 19:04:55.970397 Z
-references: []
-
+references: 
+- ditz-gui-15
+- ditz add-references command
 id: aa7b532da4f6273f15a3e6cee1e913c857c07181
 log_events: 
 - - 2014-10-13 19:04:56.770189 Z
@@ -30,3 +31,22 @@ log_events:
     Test with something that has multiple references.
     Add line breaks to DitzItem output, when printing
     references?
+- - 2014-10-14 11:55:40.831655 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - After testing with multiple references this issue can be closed.
+- - 2014-10-14 15:30:54.814068 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - ""
+- - 2014-10-14 15:31:09.126095 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 2
+  - ""
+- - 2014-10-14 16:30:37.970571 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    This also seems to work now. Time to return to this
+    when support for plugins is needed, or some changes
+    are required because the edit dialog.

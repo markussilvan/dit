@@ -32,3 +32,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - changed status from unstarted to in_progress
   - ""
+- - 2014-10-14 11:57:32.099835 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Verify that error handling works by "asking for" invalid Ditz items
+    from the GUI with hardcoded ditz names or identifiers.

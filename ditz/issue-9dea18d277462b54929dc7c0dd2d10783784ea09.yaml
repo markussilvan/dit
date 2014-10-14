@@ -21,3 +21,15 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-14 13:57:13.468134 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    The place to be is https://gitorious.org/ditz and old mailing list
+    archives can be found at
+    http://rss.gmane.org/topics/complete/gmane.comp.bug-tracking.ditz.general
+    Ditz Ubuntu bugs: https://bugs.launchpad.net/ubuntu/+source/ditz
+    
+    Seems 0.6 version has been under works, but hasn't been released.
+    Last activity is from summer 2013. Let's see if there will be more
+    activity if a submit some patches or show them Ditz GUI.

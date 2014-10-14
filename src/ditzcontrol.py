@@ -80,7 +80,7 @@ class DitzItem():
             "Creator: {}".format(self.creator) + '\n' + \
             "Age: {}".format(self.age) + '\n' + \
             "Release: {}".format(self.release) + '\n' + \
-            "References: {}".format(self.references) + '\n' + \
+            "References:\n{}".format(self.references) + \
             "Identifier: {}".format(self.identifier) + '\n' + \
             "Event log:\n{}".format(self.log)
 
@@ -230,7 +230,7 @@ class DitzControl():
             raise DitzError("Error parsing issue references from Ditz output")
         for line in ditz_data:
             if line.lstrip().split(' ', 1)[0] != "Identifier:":
-                references = "{}{}".format(references, line[2:]) #TODO: line breaks?
+                references = "{}{}".format(references, line[2:])
             else:
                 identifier = self._parse_ditz_item_variable(ditz_data, "Identifier", line)
                 break

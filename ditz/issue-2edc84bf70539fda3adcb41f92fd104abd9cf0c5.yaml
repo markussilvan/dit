@@ -1,0 +1,28 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Support for Ditz plugings
+desc: |-
+  Ditz plugins may alter the output of Ditz commands.
+  In these cases Ditz should have a good parser to go through
+  the data or preferably it should be able to read .yaml files
+  directly.
+  Even if everything else is done via Ditz commands, reading
+  information for a complete Ditz issue could be done
+  with a yaml-parser from the file directly.
+  Possibly new data fields, for example priority, could
+  be supported even when using Ditz command line output,
+  if the output parser is good enough.
+type: :task
+component: ditz-gui
+release: v0.4
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-14 13:48:31.481241 Z
+references: []
+
+id: 2edc84bf70539fda3adcb41f92fd104abd9cf0c5
+log_events: 
+- - 2014-10-14 13:48:32.969121 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

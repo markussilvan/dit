@@ -1,0 +1,28 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Reordering releases
+desc: |-
+  Changing order of releases is not supported by Ditz.
+  It can be implemented by modifying the content of
+  project.yaml and changing the order of releases there.
+  
+  In the GUI this should be done on the Releases-dialog
+  where you can select a release, then use up/down -arrows
+  to move it.
+type: :task
+component: ditz-gui
+release: v0.4
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-14 13:43:33.630234 Z
+references: []
+
+id: b898daf2bfafcef374f2009b3e19cfe38ab95be3
+log_events: 
+- - 2014-10-14 13:44:31.600328 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    This is more common then I originally expected. New releases
+    added between releases that were planned in the beginning
+    could be coming all the time.

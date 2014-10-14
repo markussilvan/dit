@@ -116,37 +116,18 @@ class DitzGui(QtGui.QMainWindow):
 
             # set icon to the added item
             list_item = self.listWidgetDitzItems.item(self.listWidgetDitzItems.count() - 1)
-            if item.status == 'unstarted':
-                list_item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
-            elif item.status == 'in progress':
-                list_item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
-            elif item.status == 'paused':
-                list_item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
-            #TODO: alternative names...
-            if item.status == 'new':
-                list_item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
-            elif item.status == 'started':
-                list_item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
-            elif item.status == 'paused':
-                list_item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
+            if item.item_type == 'issue':
+                if item.status == 'unstarted':
+                    list_item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
+                elif item.status == 'in progress':
+                    list_item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
+                elif item.status == 'paused':
+                    list_item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
+                else:
+                    print "Unrecognized issue status"
 
         if ditz_id:
             self.show_item(ditz_id)
-
-        #for item in self.iterate_all_items():
-        #    item_text = str(item.text())
-        #    if len(item_text) == 0:
-        #        continue
-        #    #item_status = self.ditzControl.get_item_status_by_ditz_id(item_text.split(' ', 1)[0])
-        #    item_status = item.
-        #    if item_status == 'new':
-        #        item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
-        #    elif item_status == 'started':
-        #        item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
-        #    elif item_status == 'paused':
-        #        item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
-        #    #else:
-        #    #    item.setIcon(QtGui.QIcon('../graphics/list_release.png'))
 
     def iterate_all_items(self):
         """

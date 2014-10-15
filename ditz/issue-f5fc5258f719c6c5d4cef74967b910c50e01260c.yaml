@@ -8,8 +8,8 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-07 17:44:07.845134 Z
 references: []
 
@@ -37,3 +37,13 @@ log_events:
     
     Just extend DitzItem to (optionally) contain all item data or
     derive a new subclass to do that.
+- - 2014-10-15 20:11:52.535874 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    At least adding new issues on DitzControl level now works.
+    Also the GUI dialogs are done.
+- - 2014-10-15 20:18:00.528139 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Also integration seems to work.

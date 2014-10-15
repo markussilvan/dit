@@ -8,7 +8,7 @@ A GUI frontend for Ditz issue tracker
 """
 
 import subprocess
-
+import time
 
 class ApplicationError(Exception):
     """
@@ -206,7 +206,6 @@ class DitzControl():
             ditz_data = iter(self._run_command("show " + ditz_id))
         except DitzError:
             return None
-        #TODO: check if ditz returned error
         name = ditz_data.next().split()[1].strip()
 
         ditz_data.next() # skip line 1, it's just a line (no pun intended)
@@ -290,12 +289,16 @@ class DitzControl():
         try:
             #TODO: hardcoded release to 2
             if issue.release != None and issue.release != "":
+                print "DEBUG: release method"
                 self._run_interactive_command("add", issue.title, issue.description, "/stop",
-                        issue.issue_type[:1], 'y', 2, issue.creator, "/stop")
+                        issue.issue_type[:1], 'y', '2', issue.creator, "/stop")
             else:
-                self._run_interactive_command("add", issue.title, issue.description, "/stop",
+                # example: title, description, t, n, creator, /stop
+                print "DEBUG: no release method"
+                self._run_interactive_command("add", issue.title, issue.description + "\n" + "/stop",
                         issue.issue_type[:1], 'n', issue.creator, "/stop")
         except DitzError,e:
+            print "DEBUG: ditz error"
             e.error_message = "Adding a new issue to Ditz failed"
             raise
 
@@ -436,14 +439,18 @@ class DitzControl():
         cmd = [self.ditz_cmd]
         for parameter in cmdline.split(' '):
             cmd.append(parameter)
-        p = subprocess.Popen(cmd, shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT)
+
+        p = subprocess.Popen(cmd,
+                stdin = subprocess.PIPE,
+                stdout = subprocess.PIPE,
+                stderr = subprocess.PIPE, shell = False)
+
+        # issue commands
         for argument in args:
+            # send arguments
+            time.sleep(0.5)
             p.stdin.write(str(argument) + "\n")
-        retval = p.wait()
-        if retval != 0:
-            raise DitzError("Ditz returned an error")
-        return p.stdout.readlines()
+
 
     def _status_identifier_to_string(self, status_id):
         """

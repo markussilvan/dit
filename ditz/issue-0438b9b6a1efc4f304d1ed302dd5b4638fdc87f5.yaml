@@ -1,0 +1,27 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Support for specifying path on command line
+desc: |-
+  Path to Ditz location should be definable.
+  Python subprocess.Popen() takes cwd argument to specify
+  working directory. This could be an easy way to change
+  where ditz commands are being run regardless where
+  the software was started.
+  
+  Also think about starting the sorftware from a link.
+  Then "opening" ditz location using Ditz->Open from
+  the menus.
+type: :feature
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-15 10:13:11.458474 Z
+references: []
+
+id: 0438b9b6a1efc4f304d1ed302dd5b4638fdc87f5
+log_events: 
+- - 2014-10-15 10:13:12.722103 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

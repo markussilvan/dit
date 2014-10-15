@@ -20,3 +20,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-15 12:23:21.747108 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    References are not just references to other issues, but references
+    to files or dates or anything.
+    A nice autocomplete for ditz identifiers, filenames, dates, etc
+    could be created for this field in the GUI.

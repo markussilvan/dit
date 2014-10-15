@@ -58,3 +58,12 @@ releases:
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - Better usability beyond original Ditz.
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: v0.5
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2014-10-15 12:17:53.703125 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - created
+    - Extended functionality release.

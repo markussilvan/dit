@@ -13,7 +13,7 @@ desc: |-
   if the output parser is good enough.
 type: :task
 component: ditz-gui
-release: v0.4
+release: v0.5
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
@@ -25,4 +25,8 @@ log_events:
 - - 2014-10-14 13:48:32.969121 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-15 12:18:20.728039 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.5 from v0.4
   - ""

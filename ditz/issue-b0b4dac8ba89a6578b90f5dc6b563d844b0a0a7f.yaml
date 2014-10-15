@@ -18,8 +18,8 @@ type: :task
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-12 10:36:38.414046 Z
 references: []
 
@@ -29,3 +29,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-15 20:10:39.620306 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    I have aligned the fields using a monospaced font
+    and aligning text that is printed to the list items rows.
+    That is a good enough solution. QTableWidget can be
+    considered is there is proven life with the Ditz project.

@@ -8,7 +8,7 @@ desc: |-
   could be added.
 type: :task
 component: ditz-gui
-release: v0.4
+release: v0.5
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
@@ -37,4 +37,8 @@ log_events:
 - - 2014-10-10 09:10:58.107081 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.4 from v0.3
+  - ""
+- - 2014-10-15 12:20:10.444992 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.5 from v0.4
   - ""

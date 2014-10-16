@@ -10,6 +10,8 @@ A GUI frontend for Ditz issue tracker
 import subprocess
 import time
 
+from nonblockingstreamreader import NonBlockingStreamReader
+
 class ApplicationError(Exception):
     """
     A common exception type to use in an application
@@ -21,7 +23,7 @@ class ApplicationError(Exception):
         Parameters:
         - error_message: a description of the error
         """
-        super(Exception, self).__init__()
+        super(ApplicationError, self).__init__()
         self.error_message = error_message
 
 
@@ -36,8 +38,16 @@ class DitzError(ApplicationError):
         Parameters:
         - error_message: a description of the error
         """
-        super(Exception, self).__init__(error_message)
+        super(DitzError, self).__init__(error_message)
 
+    def __str__(self):
+        """
+        Printing out the exception
+
+        Returns:
+        - exception information string
+        """
+        return "DitzError: {}".format(e.error_message)
 
 class DitzItem():
     """
@@ -157,7 +167,7 @@ class DitzControl():
 
         return self.ditz_items
 
-    def get_item_status_by_ditz_id(self, ditz_id):
+    def get_issue_status_by_ditz_id(self, ditz_id):
         """
         Get status of an Ditz issue loaded in the cached list of issues.
 
@@ -173,20 +183,20 @@ class DitzControl():
                 return item.status
         return None
 
-    def get_item_type_by_ditz_id(self, ditz_id):
+    def get_item_from_cache(self, ditz_id):
         """
-        Get status of an Ditz issue loaded in the list of issues.
+        Get DitzItem from cache by Ditz identifier or name.
 
         Parameters:
-        - ditz_id: Ditz name of an issue
+        - ditz_id: Ditz name or identifier of an issue
 
         Returns:
-        - issue type
-        - None if requested issue is not found
+        - DitzItem object
+        - None if requested item is not found
         """
         for item in self.ditz_items:
-            if item.name == ditz_id:
-                return item.item_type
+            if item.name == ditz_id or item.identifier == ditz_id:
+                return item
         return None
 
     def get_item_content(self, ditz_id):
@@ -290,15 +300,15 @@ class DitzControl():
             #TODO: hardcoded release to 2
             if issue.release != None and issue.release != "":
                 print "DEBUG: release method"
-                self._run_interactive_command("add", issue.title, issue.description, "/stop",
+                self._run_interactive_command("add", issue.title, issue.description + "\n" + "/stop",
                         issue.issue_type[:1], 'y', '2', issue.creator, "/stop")
             else:
                 # example: title, description, t, n, creator, /stop
                 print "DEBUG: no release method"
-                self._run_interactive_command("add", issue.title, issue.description + "\n" + "/stop",
+                #self._run_interactive_command("add", issue.title, issue.description + "\n" + "/stop",
+                self._run_interactive_command("add", issue.title, issue.description, "/stop",
                         issue.issue_type[:1], 'n', issue.creator, "/stop")
         except DitzError,e:
-            print "DEBUG: ditz error"
             e.error_message = "Adding a new issue to Ditz failed"
             raise
 
@@ -328,11 +338,11 @@ class DitzControl():
         - comment: (optional) comment text, no formatting, to add to the closed issue
         """
         if ditz_id == None or ditz_id == "":
-            return
+            raise ApplicationError("Invalid ditz item identifier")
         if disposition < 1 or disposition > 3:
-            return
+            raise ApplicationError("Invalid disposition value")
         try:
-            self._run_interactive_command("close " + ditz_id, disposition, comment, "/stop")
+            self._run_interactive_command("close ".format(ditz_id), disposition, comment, "/stop")
         except DitzError,e:
             e.error_message = "Closing an issue on Ditz failed"
             raise
@@ -416,9 +426,14 @@ class DitzControl():
         Returns:
         - output of the command as string
         """
-        cmd = "{0} {1}".format(self.ditz_cmd, cmd)
-        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        retval = p.wait()
+        cmd = [self.ditz_cmd, cmd]
+        try:
+            p = subprocess.Popen(cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT)
+            retval = p.wait()
+        except OSError:
+            raise DitzError("Error running Ditz")
         if retval != 0:
             raise DitzError("Ditz returned an error")
         return p.stdout.readlines()
@@ -441,16 +456,38 @@ class DitzControl():
             cmd.append(parameter)
 
         p = subprocess.Popen(cmd,
-                stdin = subprocess.PIPE,
-                stdout = subprocess.PIPE,
-                stderr = subprocess.PIPE, shell = False)
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT, shell=False)
 
-        # issue commands
+        reader = NonBlockingStreamReader(p.stdout)
+
+        # read output and issue commands
         for argument in args:
+            # read Ditz output
+            self._read_all_input(reader)
             # send arguments
-            time.sleep(0.5)
             p.stdin.write(str(argument) + "\n")
 
+    def _read_all_input(self, reader, timeout=0.5):
+        """
+        Read all input from given stream until
+        no new character have arrived during
+        given timeout.
+
+        Parameters:
+        - stream: stream to read
+
+        Returns:
+        - lines read from stream
+        """
+        output = ""
+        while True:
+            line = reader.read(timeout)
+            if not line:
+                break
+            output = output + line
+        return output
 
     def _status_identifier_to_string(self, status_id):
         """

@@ -1,0 +1,25 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Activate/deactive toolbar buttons actively
+desc: |-
+  Toolbar button need to be activated and
+  deactivated based on what type of item
+  is selected from the list.
+  
+  If an issue is selected, only generic actions and specific actions related
+  to issues should be active. Same
+  goes for releases and empty lines.
+type: :feature
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan
+status: :unstarted
+disposition: 
+creation_time: 2014-10-16 17:21:12.541348 Z
+references: []
+
+id: 926c63953c0d413ba4e9cc67e4d469667d08489a
+log_events: 
+- - 2014-10-16 17:21:13.042853 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

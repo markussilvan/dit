@@ -1,0 +1,27 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Show icons in context menus
+desc: |-
+  Currently icons from actions don't
+  show up in the context menu.
+  This might be happening just because of
+  some property on QMenu or QAction.
+  
+  Search online for a possible solution and
+  go through all properties on these two
+  classes. Also check if context menu requires
+  different size of images or something else.
+type: :bugfix
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan
+status: :unstarted
+disposition: 
+creation_time: 2014-10-16 16:39:05.930722 Z
+references: []
+
+id: 7e9ab6d76804655c59ac8efd562da45f0e61cce2
+log_events: 
+- - 2014-10-16 16:39:06.432401 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

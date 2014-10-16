@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Showing a global status line
+desc: |-
+  A footer which show text messages
+  like "Saving issue..." or just "Writing data...". Same footer can show statistical
+  data, like how many teleases and
+  issues there are.
+type: :feature
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-16 15:10:03.736188 Z
+references: []
+
+id: 1a063910ff2655fffe885883df4ba4124d2e965c
+log_events: 
+- - 2014-10-16 15:10:04.237738 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

@@ -26,3 +26,9 @@ log_events:
   - |-
     Not sure if this is needed. Standard QMessageBox might
     be enough.
+- - 2014-10-16 16:08:12.142185 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Standard warning box added in couple of places.
+    Lets see how that works out.

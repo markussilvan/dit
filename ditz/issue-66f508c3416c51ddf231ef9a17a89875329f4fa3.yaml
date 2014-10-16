@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Drag'n'drop?
+desc: |-
+  Should drag and drop be supported for
+  moving issues from release to
+  one another?
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan
+status: :unstarted
+disposition: 
+creation_time: 2014-10-16 16:11:32.600090 Z
+references: []
+
+id: 66f508c3416c51ddf231ef9a17a89875329f4fa3
+log_events: 
+- - 2014-10-16 16:11:33.101658 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

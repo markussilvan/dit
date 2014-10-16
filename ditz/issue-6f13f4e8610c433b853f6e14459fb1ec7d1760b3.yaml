@@ -9,8 +9,8 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :paused
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-10 09:14:09.906233 Z
 references: []
 
@@ -34,3 +34,9 @@ log_events:
   - |-
     I'll continue with this, when I have all the icons sorted out.
     Then I can concentrate on the actions code.
+- - 2014-10-16 14:59:20.121490 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Now toolbar and context menus are using same actions.
+    Works like a charm. Looks great.

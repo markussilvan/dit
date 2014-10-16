@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Support for selecting release on add dialog
+desc: |-
+  Currently release option is hardcoded
+  to "2" on the command that adds new
+  issues. Fix that to get the actual release
+  "number" from somewhere.
+type: :bugfix
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan
+status: :unstarted
+disposition: 
+creation_time: 2014-10-16 15:59:05.428161 Z
+references: []
+
+id: 402cfe94039a3f9fe41f466ee89799640aa7f2e9
+log_events: 
+- - 2014-10-16 15:59:05.929962 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

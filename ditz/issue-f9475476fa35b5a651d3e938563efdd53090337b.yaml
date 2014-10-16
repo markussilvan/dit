@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Tab ordering on dialogs
+desc: |-
+  Set proper tab ordering on existing dialogs. That makes entering data
+  easier and faster. First input field
+  should be active when the dialog
+  is opened.
+type: :feature
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-16 15:34:22.416163 Z
+references: []
+
+id: f9475476fa35b5a651d3e938563efdd53090337b
+log_events: 
+- - 2014-10-16 15:34:22.917730 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

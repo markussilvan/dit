@@ -9,8 +9,8 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :wontfix
 creation_time: 2014-10-08 13:32:48.988666 Z
 references: []
 
@@ -32,3 +32,9 @@ log_events:
   - |-
     Standard warning box added in couple of places.
     Lets see how that works out.
+- - 2014-10-16 17:25:51.595277 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition wontfix
+  - |-
+    The standard QMessageBox seems to do everything
+    that is needed. This issue can be consided closed.

@@ -12,9 +12,9 @@ desc: |-
   different size of images or something else.
 type: :bugfix
 component: ditz-gui
-release: v0.2
+release: v0.1
 reporter: Markus Silvan
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-16 16:39:05.930722 Z
 references: []
@@ -24,4 +24,21 @@ log_events:
 - - 2014-10-16 16:39:06.432401 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-16 17:28:40.250786 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    "So changing ALL the places where i use a QAction solved the problem."
+    "It was about iconVisibleInMenu" property."
+                     - Internet
+    
+    Try this, see if it helps.
+- - 2014-10-16 17:29:28.315128 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1 from v0.2
+  - ""
+- - 2014-10-16 17:29:37.474774 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
   - ""

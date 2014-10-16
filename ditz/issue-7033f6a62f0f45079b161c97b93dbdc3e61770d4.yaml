@@ -3,6 +3,22 @@ title: Archiving a release
 desc: |-
   I don't even know what this is supposed to do.
   Needs to be implemented anyway.
+  UPDATE: Archive is needed to get rid of old
+  ticket files for "closed" releases.
+  Ditz gets slow really fast when amount of tickets
+  is growing.
+  
+  Functionality itself is simple. Select a release
+  and directory where to archive. But implementation
+  is fragile. Path may not exist in advance, it can
+  only create one directory, ending slash must be
+  given(?), etc
+  
+  Write some sort of implementation for this
+  that preferably recognizes errors.
+  Also would be nice if the changed files
+  could be automatically added to git index.
+  (If so selected from settings.)
 type: :task
 component: ditz-gui
 release: v0.3
@@ -17,4 +33,8 @@ log_events:
 - - 2014-10-07 18:23:56.787205 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-16 21:03:14.011469 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited description
   - ""

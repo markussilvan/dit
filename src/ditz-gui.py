@@ -174,17 +174,28 @@ class DitzGui(QtGui.QMainWindow):
         if ditz_item:
             self.textEditDitzItem.setText(str(ditz_item))
         #TODO: format the data or use a form instead (it's already a DitzItem)
+        # any text formatting can be done already in __str__() of DitzItem
 
     def comment_issue(self):
         ditz_id = self._get_selected_issue_id()
-        if ditz_id != None:
+        if ditz_id == None:
+            QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
+            return
+        try:
             dialog = CommentDialog(ditz_id, save=True)
             dialog.ask_comment()
-            self.show_item() # to reload item data to include the added comment
+        except DitzError, e:
+            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+            return
+        self.show_item() # to reload item data to include the added comment
 
     def new_issue(self):
-        dialog = IssueDialog()
-        dialog.ask_new_issue()
+        try:
+            dialog = IssueDialog()
+            dialog.ask_new_issue()
+        except DitzError, e:
+            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+            return
         self.reload_data()
 
     def close_issue(self):

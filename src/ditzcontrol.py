@@ -323,7 +323,7 @@ class DitzControl():
         if ditz_id == None or ditz_id == "":
             return
         try:
-            self._run_interactive_command("comment " + ditz_id, comment, "/stop")
+            self._run_interactive_command("comment {}".format(ditz_id), comment, "/stop")
         except DitzError,e:
             e.error_message = "Adding a comment on Ditz failed"
             raise
@@ -342,7 +342,7 @@ class DitzControl():
         if disposition < 1 or disposition > 3:
             raise ApplicationError("Invalid disposition value")
         try:
-            self._run_interactive_command("close ".format(ditz_id), disposition, comment, "/stop")
+            self._run_interactive_command("close {}".format(ditz_id), disposition, comment, "/stop")
         except DitzError,e:
             e.error_message = "Closing an issue on Ditz failed"
             raise
@@ -426,7 +426,7 @@ class DitzControl():
         Returns:
         - output of the command as string
         """
-        cmd = [self.ditz_cmd, cmd]
+        cmd = [self.ditz_cmd] + cmd.split()
         try:
             p = subprocess.Popen(cmd,
                     stdout=subprocess.PIPE,
@@ -451,9 +451,7 @@ class DitzControl():
         Returns:
         - output of the command as string
         """
-        cmd = [self.ditz_cmd]
-        for parameter in cmdline.split(' '):
-            cmd.append(parameter)
+        cmd = [self.ditz_cmd] + cmdline.split()
 
         p = subprocess.Popen(cmd,
                 stdin=subprocess.PIPE,
@@ -483,7 +481,10 @@ class DitzControl():
         """
         output = ""
         while True:
-            line = reader.read(timeout)
+            try:
+                line = reader.read(timeout)
+            except Exception:
+                break
             if not line:
                 break
             output = output + line

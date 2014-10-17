@@ -1,0 +1,24 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Test pitz
+desc: |-
+  Is it ready and usable? Is the maintainer still active?
+  That is pretty much Ditz made in python, so it would
+  be easier for me to participate in development.
+  
+  Maybe Support for pitz could be added to the GUI with
+  just adding PitzControl? And adding some flexibility to UI?
+type: :task
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-17 11:42:27.130001 Z
+references: []
+
+id: 70d0cb80d5e7b527b4bef56ef07845ec9415803f
+log_events: 
+- - 2014-10-17 11:42:28.489837 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

@@ -10,8 +10,8 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-12 13:21:05.857788 Z
 references: []
 
@@ -38,3 +38,20 @@ log_events:
   - |-
     Verify that error handling works by "asking for" invalid Ditz items
     from the GUI with hardcoded ditz names or identifiers.
+- - 2014-10-17 06:36:12.531187 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    "Error handling" as in "showing QMessageBox dialogs when
+    DitzError is catched" has been verified to work nicely.
+    Extend this functionality to all user actions.
+- - 2014-10-17 07:49:48.505204 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Try-excepts with QMessageBoxes are now added to all user actions.
+    See if everything still works and then close this issue.
+- - 2014-10-17 16:08:38.243750 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - All good.

@@ -7,7 +7,7 @@ type: :bugfix
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-11 16:15:03.580975 Z
 references: []
@@ -30,3 +30,15 @@ log_events:
   - |-
     If Ditz can't reliably order releases then, optional ordering
     for release names could be used here too.
+- - 2014-10-18 11:34:50.404160 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    A yaml reading solution for this exists.
+    Maybe I should use that, just for kicks.
+    Dependency to python-yaml will come
+    eventually anyway.
+- - 2014-10-18 11:35:05.211678 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""

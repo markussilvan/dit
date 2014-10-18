@@ -23,3 +23,10 @@ log_events:
     This comes cheaply along with the implementation to add
     new issues. After adding new issues works perfectly, do
     the editing part.
+- - 2014-10-18 11:30:32.820029 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Doesn't come as cheaply as a originally hoped.
+    Adding became a lot more complex feature
+    than the other ditz commands.

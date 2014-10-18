@@ -11,7 +11,7 @@ import subprocess
 import time
 
 from utils.errors import ApplicationError, DitzError
-from nonblockingstreamreader import NonBlockingStreamReader
+from utils.nonblockingstreamreader import NonBlockingStreamReader
 
 class DitzItem():
     """

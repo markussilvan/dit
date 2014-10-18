@@ -13,6 +13,7 @@ import sys
 from PyQt4 import QtGui, uic
 
 from ditzcontrol import DitzControl, DitzItem
+from configcontrol import ConfigControl
 
 class IssueDialog(QtGui.QDialog):
     """
@@ -29,6 +30,7 @@ class IssueDialog(QtGui.QDialog):
         super(IssueDialog, self).__init__()
 
         self.ditzControl = DitzControl()
+        self.configControl = ConfigControl()
         self.ditz_id = ditz_id
 
         uic.loadUi('../ui/form_dialog.ui', self)
@@ -40,7 +42,7 @@ class IssueDialog(QtGui.QDialog):
         for issue_type in self.ditzControl.get_valid_issue_types():
             self.widgetForm.comboBoxIssueType.addItem(issue_type)
 
-        for release in self.ditzControl.get_releases():
+        for release in self.configControl.get_unreleased_releases():
             self.widgetForm.comboBoxRelease.addItem(release)
 
     def accept(self):
@@ -50,8 +52,7 @@ class IssueDialog(QtGui.QDialog):
         Check validity of given data.
         Add issue to Ditz or update an existing issue
         """
-        #TODO: encapsulate all those field into DitzIssue objects (add those fields to DitzIssue)
-        #TODO: read all the fields from the form to a DitzIssue
+        #TODO: read also references field
         title = str(self.widgetForm.lineEditTitle.text())
         description = str(self.widgetForm.plainTextEditDescription.toPlainText())
         issue_type = self.widgetForm.comboBoxIssueType.currentText()
@@ -67,10 +68,9 @@ class IssueDialog(QtGui.QDialog):
             issue = DitzItem('issue', title, None, issue_type, status, description,
                     creator, age, release, references, identifier, log)
         except ApplicationError:
-            #TODO: show error, cancel accept, change invalid fields to red
+            #TODO: show error, cancel accept, change invalid fields to red or something
             return
 
-        #print issue
         self.ditzControl.add_issue(issue)
         super(IssueDialog, self).accept()
 

@@ -10,7 +10,7 @@ A GUI frontend for Ditz issue tracker
 import subprocess
 import time
 
-from utils.errors import ApplicationError, DitzError
+from common.errors import ApplicationError, DitzError
 from utils.nonblockingstreamreader import NonBlockingStreamReader
 
 class DitzItem():

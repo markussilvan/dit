@@ -5,8 +5,8 @@ type: :bugfix
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-18 13:25:19.060591 Z
 references: []
 
@@ -28,3 +28,7 @@ log_events:
     "in between" an seeing what happens then.
     Also adding a release with completely different kind of name
     would set off any sorting related bugs.
+- - 2014-10-18 21:39:58.499962 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - This works just fine.

@@ -3,7 +3,7 @@ title: Editing issues
 desc: Editing should happen in the main window or in a separate dialog.
 type: :feature
 component: ditz-gui
-release: v0.1
+release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
@@ -30,3 +30,11 @@ log_events:
     Doesn't come as cheaply as a originally hoped.
     Adding became a lot more complex feature
     than the other ditz commands.
+- - 2014-10-18 21:10:51.757512 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1.2 from v0.1
+  - ""
+- - 2014-10-18 21:32:50.395798 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1.1 from v0.1.2
+  - ""

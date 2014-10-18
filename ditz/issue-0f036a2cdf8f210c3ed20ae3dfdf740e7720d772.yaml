@@ -11,11 +11,22 @@ reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
 creation_time: 2014-10-07 18:31:15.874594 Z
-references: []
-
+references: 
+- https://wiki.debian.org/IntroDebianPackaging
 id: 0f036a2cdf8f210c3ed20ae3dfdf740e7720d772
 log_events: 
 - - 2014-10-07 18:31:17.106449 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-18 21:31:51.124049 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This should be quite easy to do with instructions
+    found online.
+    And I have done this before.
+- - 2014-10-18 21:32:04.195877 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
   - ""

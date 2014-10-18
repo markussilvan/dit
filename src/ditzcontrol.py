@@ -260,21 +260,35 @@ class DitzControl():
         Parameters:
         - a DitzItem filled with data to save
         """
+        # run the commands
+        output = ""
         try:
-            #TODO: hardcoded release to 2
-            if issue.release != None and issue.release != "":
-                print "DEBUG: release method"
-                self._run_interactive_command("add", issue.title, issue.description + "\n" + "/stop",
-                        issue.issue_type[:1], 'y', '2', issue.creator, "/stop")
+            if issue.release not in [None, "", "Unassigned"]:
+                # first figure out right selection for release
+                release_selection = str(self.get_releases().index(issue.release) + 1)
+                output = self._run_interactive_command("add", issue.title, issue.description, "/stop",
+                        issue.issue_type[:1], 'y', release_selection, issue.creator, "/stop")
             else:
                 # example: title, description, t, n, creator, /stop
-                print "DEBUG: no release method"
-                #self._run_interactive_command("add", issue.title, issue.description + "\n" + "/stop",
-                self._run_interactive_command("add", issue.title, issue.description, "/stop",
+                output = self._run_interactive_command("add", issue.title, issue.description, "/stop",
                         issue.issue_type[:1], 'n', issue.creator, "/stop")
         except DitzError,e:
             e.error_message = "Adding a new issue to Ditz failed"
             raise
+
+        if issue.status != "unstarted":
+            # first get identifier for the new issue from Ditz output
+            if output[-6:] == ".yaml\n":
+                identifier = output[-46:-6]
+            else:
+                raise DitzError("Parsing ditz add output failed")
+            try:
+                self.start_work(identifier, "")
+                if issue.status == "paused":
+                    self.stop_work(identifier, "")
+            except DitzError,e:
+                e.error_message = "Setting issue state failed"
+                raise
 
     def add_comment(self, ditz_id, comment):
         """
@@ -425,11 +439,16 @@ class DitzControl():
         reader = NonBlockingStreamReader(p.stdout)
 
         # read output and issue commands
+        output = ""
         for argument in args:
             # read Ditz output
-            self._read_all_input(reader)
+            output = output + self._read_all_input(reader)
             # send arguments
             p.stdin.write(str(argument) + "\n")
+
+        # read last of the output
+        output = output + self._read_all_input(reader)
+        return output
 
     def _read_all_input(self, reader, timeout=0.5):
         """

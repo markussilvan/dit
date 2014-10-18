@@ -42,3 +42,12 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - changed status from unstarted to in_progress
   - ""
+- - 2014-10-18 13:37:40.170253 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Yaml solution is now used. And other dependies for
+    python-yaml have already shown up.
+    
+    get_releases() in DitzControl needs to be commented clearly.
+    These two functionalities should not be mixed unintentionally.

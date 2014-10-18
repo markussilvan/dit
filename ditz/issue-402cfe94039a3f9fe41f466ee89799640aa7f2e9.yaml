@@ -9,8 +9,8 @@ type: :bugfix
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-16 15:59:05.428161 Z
 references: []
 
@@ -24,3 +24,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.1 from v0.2
   - ""
+- - 2014-10-18 13:38:50.963969 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Ok, this works now.
+    Some testing is still needed to make sure the indices
+    and command line selections don't get mixed in any situation.

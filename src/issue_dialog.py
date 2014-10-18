@@ -42,6 +42,7 @@ class IssueDialog(QtGui.QDialog):
         for issue_type in self.ditzControl.get_valid_issue_types():
             self.widgetForm.comboBoxIssueType.addItem(issue_type)
 
+        self.widgetForm.comboBoxRelease.addItem("Unassigned")
         for release in self.configControl.get_unreleased_releases():
             self.widgetForm.comboBoxRelease.addItem(release)
 
@@ -60,7 +61,7 @@ class IssueDialog(QtGui.QDialog):
         creator = str(self.widgetForm.lineEditCreator.text())
         age = "0 seconds"
         release = str(self.widgetForm.comboBoxRelease.currentText())
-        references = ""
+        references = str(self.widgetForm.lineEditReferences.text())
         identifier = "N/A"
         log = ""
 

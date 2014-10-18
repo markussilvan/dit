@@ -14,7 +14,7 @@ type: :bugfix
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan
-status: :in_progress
+status: :paused
 disposition: 
 creation_time: 2014-10-16 16:39:05.930722 Z
 references: []
@@ -42,3 +42,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - changed status from unstarted to in_progress
   - ""
+- - 2014-10-18 13:40:39.888413 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from in_progress to paused
+  - |-
+    This is on pause while I figure out the releases.
+    And test all possibilities.

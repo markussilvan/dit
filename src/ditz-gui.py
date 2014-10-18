@@ -18,7 +18,8 @@ import sys
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import SIGNAL, QModelIndex, QSize
 
-from ditzcontrol import DitzControl, DitzError
+from utils.errors import ApplicationError, DitzError
+from ditzcontrol import DitzControl
 from comment_dialog import CommentDialog
 from issue_dialog import IssueDialog
 from close_dialog import CloseDialog

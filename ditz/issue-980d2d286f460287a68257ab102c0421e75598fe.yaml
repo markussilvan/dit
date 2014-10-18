@@ -20,3 +20,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - changed status from unstarted to in_progress
   - Try also adding issue directly to 'in progress'.
+- - 2014-10-18 18:24:54.277435 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Now they do, but the interesting part is adding a new version
+    "in between" an seeing what happens then.
+    Also adding a release with completely different kind of name
+    would set off any sorting related bugs.

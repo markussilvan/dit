@@ -23,6 +23,7 @@ List of Tools
  - Python 2.7
  - PyQt 4.7
  - python.unittest (aka PyUnit)
+ - python.yaml
  - PyLint
  - Jenkins
  - git

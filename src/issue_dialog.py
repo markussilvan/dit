@@ -33,7 +33,7 @@ class IssueDialog(QtGui.QDialog):
         self.configControl = ConfigControl()
         self.ditz_id = ditz_id
 
-        uic.loadUi('../ui/form_dialog.ui', self)
+        uic.loadUi('../ui/issue_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
 
         for state in self.ditzControl.get_valid_issue_states():

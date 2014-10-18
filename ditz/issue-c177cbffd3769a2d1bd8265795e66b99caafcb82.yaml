@@ -12,8 +12,8 @@ type: :task
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-16 20:45:02.892725 Z
 references: []
 
@@ -22,4 +22,8 @@ log_events:
 - - 2014-10-16 20:45:03.780665 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-18 18:55:44.081407 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
   - ""

@@ -276,18 +276,28 @@ class DitzControl():
             e.error_message = "Adding a new issue to Ditz failed"
             raise
 
+        # first get identifier for the new issue from Ditz output
+        if output[-6:] == ".yaml\n":
+            identifier = output[-46:-6]
+        else:
+            raise DitzError("Parsing ditz add output failed")
+
+        # change issue status if needed
         if issue.status != "unstarted":
-            # first get identifier for the new issue from Ditz output
-            if output[-6:] == ".yaml\n":
-                identifier = output[-46:-6]
-            else:
-                raise DitzError("Parsing ditz add output failed")
             try:
                 self.start_work(identifier, "")
                 if issue.status == "paused":
                     self.stop_work(identifier, "")
             except DitzError,e:
                 e.error_message = "Setting issue state failed"
+                raise
+
+        # add a reference if given (input of only one reference supported)
+        if issue.references != None and issue.references != "":
+            try:
+                self.add_reference(identifier, issue.references)
+            except DitzError, e:
+                e.error_message = "Adding reference to issue failed"
                 raise
 
     def add_comment(self, ditz_id, comment):
@@ -304,6 +314,24 @@ class DitzControl():
             self._run_interactive_command("comment {}".format(ditz_id), comment, "/stop")
         except DitzError,e:
             e.error_message = "Adding a comment on Ditz failed"
+            raise
+
+    def add_reference(self, ditz_id, reference, comment=""):
+        """
+        Add a new reference to a Ditz item
+
+        Parameters:
+        - ditz_id: Ditz hash or name identifier of an issue
+        - reference: reference to add to the issue
+        - comment: comment text, if any comment should be added
+        """
+        if ditz_id == None or ditz_id == "":
+            return
+        try:
+            self._run_interactive_command("add-reference {}".format(ditz_id),
+                    reference, comment, "/stop")
+        except DitzError,e:
+            e.error_message = "Adding a reference on Ditz failed"
             raise
 
     def close_issue(self, ditz_id, disposition, comment=""):

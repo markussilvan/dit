@@ -1,0 +1,24 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Add more icons and actions
+desc: |-
+  Reorganize icons into separate directories or distinct filenames.
+  Add icons for releases and settings menu.
+  
+  Also consider adding some other graphics. A small background frame
+  for the issue text box? A twirl in
+  the top corner?
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-18 15:03:09.621533 Z
+references: []
+
+id: 87a22855bca8ef3ae619773eb07f89332fcd2c4b
+log_events: 
+- - 2014-10-18 15:03:10.122951 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

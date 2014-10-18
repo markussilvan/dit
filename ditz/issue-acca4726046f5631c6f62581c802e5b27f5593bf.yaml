@@ -1,0 +1,29 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Application icon
+desc: |-
+  Application icon is supposed to be there, but
+  it's not visible. Why is that?
+  It should be also visible on some of the forms, but
+  it is not.
+  Browse online and see the common pitfalls.
+  Check the code just in case there is a typo
+  in the file name or something.
+type: :bugfix
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-18 18:21:39.441553 Z
+references: 
+- ditz_gui_icon.png
+id: acca4726046f5631c6f62581c802e5b27f5593bf
+log_events: 
+- - 2014-10-18 18:21:39.942999 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-18 18:21:42.487359 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - ""

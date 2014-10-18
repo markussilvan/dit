@@ -10,8 +10,8 @@ type: :bugfix
 component: ditz-gui
 release: v0.1
 reporter: Markus Silvan
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-18 13:43:15.237413 Z
 references: []
 
@@ -20,4 +20,12 @@ log_events:
 - - 2014-10-18 13:43:15.739008 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-18 17:46:04.512060 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - This should be fast. Better do this out of the way.
+- - 2014-10-18 18:23:13.999540 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
   - ""

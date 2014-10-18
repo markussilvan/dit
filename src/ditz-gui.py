@@ -21,6 +21,7 @@ from PyQt4.QtCore import SIGNAL, QModelIndex, QSize
 from common.errors import ApplicationError, DitzError
 from ditzcontrol import DitzControl
 from comment_dialog import CommentDialog
+from reference_dialog import ReferenceDialog
 from issue_dialog import IssueDialog
 from close_dialog import CloseDialog
 
@@ -55,30 +56,34 @@ class DitzGui(QtGui.QMainWindow):
 
     def create_actions(self):
         # create action objects
-        self.action_new_issue = QtGui.QAction(QtGui.QIcon('../graphics/new.png'), 'New Issue', self)
-        self.action_comment_issue = QtGui.QAction(QtGui.QIcon('../graphics/comment.png'), 'Comment Issue', self)
-        self.action_start_work = QtGui.QAction(QtGui.QIcon('../graphics/start.png'), 'Start working', self)
-        self.action_stop_work = QtGui.QAction(QtGui.QIcon('../graphics/stop.png'), 'Stop working', self)
-        self.action_close_issue = QtGui.QAction(QtGui.QIcon('../graphics/close.png'), 'Close issue', self)
-        self.action_drop_issue = QtGui.QAction(QtGui.QIcon('../graphics/drop.png'), 'Drop issue', self)
-        #self.action_add_release = QtGui.QAction(QtGui.QIcon('../graphics/add_release.png'), 'Add release', self)
-        self.action_make_release = QtGui.QAction(QtGui.QIcon('../graphics/make_release.png'), 'Make release', self)
-        #self.action_open_settings = QtGui.QAction(QtGui.QIcon('../graphics/settings.png'), 'Make release', self)
+        self.actionNewIssue = QtGui.QAction(QtGui.QIcon('../graphics/new.png'), 'New Issue', self)
+        self.actionCommentIssue = QtGui.QAction(QtGui.QIcon('../graphics/comment.png'), 'Comment Issue', self)
+        self.actionStartWork = QtGui.QAction(QtGui.QIcon('../graphics/start.png'), 'Start working', self)
+        self.actionStopWork = QtGui.QAction(QtGui.QIcon('../graphics/stop.png'), 'Stop working', self)
+        self.actionCloseIssue = QtGui.QAction(QtGui.QIcon('../graphics/close.png'), 'Close issue', self)
+        self.actionDropIssue = QtGui.QAction(QtGui.QIcon('../graphics/drop.png'), 'Drop issue', self)
+        self.actionAddReference = QtGui.QAction(QtGui.QIcon('../graphics/add_reference.png'), 'Add reference', self)
 
-        self.action_new_issue.iconVisibleInMenu = True
+        #self.actionAddRelease = QtGui.QAction(QtGui.QIcon('../graphics/add_release.png'), 'Add release', self)
+        self.actionMakeRelease = QtGui.QAction(QtGui.QIcon('../graphics/make_release.png'), 'Make release', self)
+        #self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/settings.png'), 'Make release', self)
+
+        self.actionNewIssue.iconVisibleInMenu = True
 
         # connect
-        self.action_new_issue.triggered.connect(self.new_issue)
-        self.action_comment_issue.triggered.connect(self.comment_issue)
-        self.action_start_work.triggered.connect(self.start_work)
-        self.action_stop_work.triggered.connect(self.stop_work)
-        self.action_close_issue.triggered.connect(self.close_issue)
-        self.action_drop_issue.triggered.connect(self.drop_issue)
-        ##self.action_add_release.triggered.connect(self.add_release)
-        self.action_make_release.triggered.connect(self.make_release)
-        ##self.action_open_settings.triggered.connect(self.open_settings)
+        self.actionNewIssue.triggered.connect(self.new_issue)
+        self.actionCommentIssue.triggered.connect(self.comment_issue)
+        self.actionStartWork.triggered.connect(self.start_work)
+        self.actionStopWork.triggered.connect(self.stop_work)
+        self.actionCloseIssue.triggered.connect(self.close_issue)
+        self.actionDropIssue.triggered.connect(self.drop_issue)
+        self.actionAddReference.triggered.connect(self.add_reference)
 
-        # connect creator created actions
+        ##self.actionAddRelease.triggered.connect(self.add_release)
+        self.actionMakeRelease.triggered.connect(self.make_release)
+        ##self.actionOpenSettings.triggered.connect(self.open_settings)
+
+        # connect qt creator created actions
         self.actionReload.triggered.connect(self.reload_data)
         self.actionExit.triggered.connect(self.quit_application)
         self.listWidgetDitzItems.clicked.connect(self.show_item)
@@ -99,9 +104,10 @@ class DitzGui(QtGui.QMainWindow):
         status = self._get_selected_issue_status()
         menu = QtGui.QMenu(self)
         if item_type == 'issue':
-            menu.addAction(self.action_new_issue)
+            menu.addAction(self.actionNewIssue)
             # custom actions used here to get custom menu texts
             menu.addAction("Comment " + ditz_id, lambda:self.comment_issue())
+            menu.addAction("Add reference to " + ditz_id, lambda:self.add_reference())
             if status != "in progress" and status != "started":
                 menu.addAction("Start work on " + ditz_id, lambda:self.start_work())
             else:
@@ -109,27 +115,27 @@ class DitzGui(QtGui.QMainWindow):
             menu.addAction("Close " + ditz_id, lambda:self.close_issue())
             menu.addAction("Drop " + ditz_id, lambda:self.drop_issue())
         elif item_type == 'release':
-            menu.addAction(self.action_new_issue)
-            menu.addAction(self.action_make_release)
+            menu.addAction(self.actionNewIssue)
+            menu.addAction(self.actionMakeRelease)
             #TODO: add issue directly to this release?
             #TODO: make release?
             #TODO: drop release?
             # or just option to open releases dialog
         else:
             # empty lines
-            menu.addAction(self.action_new_issue)
+            menu.addAction(self.actionNewIssue)
         menu.exec_(QtGui.QCursor.pos())
 
     def build_toolbar_menu(self):
         ditz_id = self._get_selected_issue_id()
         status = self._get_selected_issue_status()
 
-        self.toolBar.addAction(self.action_new_issue)
-        self.toolBar.addAction(self.action_comment_issue)
-        self.toolBar.addAction(self.action_start_work)
-        self.toolBar.addAction(self.action_stop_work)
-        self.toolBar.addAction(self.action_close_issue)
-        self.toolBar.addAction(self.action_drop_issue)
+        self.toolBar.addAction(self.actionNewIssue)
+        self.toolBar.addAction(self.actionCommentIssue)
+        self.toolBar.addAction(self.actionStartWork)
+        self.toolBar.addAction(self.actionStopWork)
+        self.toolBar.addAction(self.actionCloseIssue)
+        self.toolBar.addAction(self.actionDropIssue)
 
     def reload_data(self, ditz_id=None):
         data = self.ditzControl.get_items()
@@ -185,6 +191,19 @@ class DitzGui(QtGui.QMainWindow):
         try:
             dialog = CommentDialog(ditz_id, save=True)
             dialog.ask_comment()
+        except DitzError, e:
+            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+            return
+        self.show_item() # to reload item data to include the added comment
+
+    def add_reference(self):
+        ditz_id = self._get_selected_issue_id()
+        if ditz_id == None:
+            QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
+            return
+        try:
+            dialog = ReferenceDialog(ditz_id)
+            dialog.ask_reference()
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return

@@ -11,11 +11,23 @@ reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
 creation_time: 2014-10-13 07:25:34.249604 Z
-references: []
-
+references: 
+- .ditz-config
 id: f2754055deaf1fb199e4da1b883a468c59da744b
 log_events: 
 - - 2014-10-13 07:25:35.833952 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-18 18:52:35.511970 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    As I understand the workings of these .yaml files, it could
+    be just fine to put own configs to the same file as Ditz does.
+    Global configs could be in a separate file in the users home
+    directory.
+- - 2014-10-18 18:52:53.667175 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
   - ""

@@ -9,8 +9,8 @@ type: :task
 component: ditz-gui
 release: v0.3
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-07 18:23:07.658777 Z
 references: []
 
@@ -28,3 +28,9 @@ log_events:
     to files or dates or anything.
     A nice autocomplete for ditz identifiers, filenames, dates, etc
     could be created for this field in the GUI.
+- - 2014-10-18 18:54:24.847607 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Done. This was easy to implement and was needed
+    for the existing (not very well designed add issue -dialog).

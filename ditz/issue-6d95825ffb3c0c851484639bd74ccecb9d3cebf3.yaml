@@ -7,7 +7,7 @@ desc: |-
   data fields are missing.
 type: :bugfix
 component: ditz-gui
-release: v0.1
+release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
@@ -23,4 +23,8 @@ log_events:
 - - 2014-10-15 12:20:59.982197 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.1 from unassigned
+  - ""
+- - 2014-10-18 18:59:13.085953 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2 from v0.1
   - ""

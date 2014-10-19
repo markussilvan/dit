@@ -33,6 +33,8 @@ class IssueDialog(QtGui.QDialog):
         self.configControl = ConfigControl()
         self.ditz_id = ditz_id
 
+        self.configControl.read_config_file()
+
         uic.loadUi('../ui/issue_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
 
@@ -45,6 +47,15 @@ class IssueDialog(QtGui.QDialog):
         self.widgetForm.comboBoxRelease.addItem("Unassigned")
         for release in self.configControl.get_unreleased_releases():
             self.widgetForm.comboBoxRelease.addItem(release)
+
+        try:
+            default_creator = "{} <{}>".format(self.configControl.settings["name"],
+                    self.configControl.settings["email"])
+        except KeyError:
+            # leave creator field empty
+            pass
+        else:
+            self.widgetForm.lineEditCreator.setText(default_creator)
 
     def accept(self):
         """

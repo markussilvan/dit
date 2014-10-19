@@ -27,6 +27,9 @@ class ConfigControl():
         self.ditz_config_file = ".ditz-config"
         self.path_to_config = None
 
+        # Ditz settings from config file
+        self.settings = None
+
         self.find_ditz_config()
 
     def find_ditz_config(self, path="."):
@@ -46,8 +49,14 @@ class ConfigControl():
     def read_config_file(self):
         """
         Read settings from ditz config file
+        Cache the settings in self.settings.
+
+        Returns:
+        - dictionary of the read settings
         """
-        pass
+        reader = DitzReader("{}/{}".format(self.path_to_config, self.ditz_config_file))
+        self.settings = reader.read_ditz_config()
+        return self.settings
 
     def get_unreleased_releases(self):
         """
@@ -58,7 +67,12 @@ class ConfigControl():
         Returns:
         - list of release names
         """
-        reader = DitzReader("{}/{}".format(self.path_to_config, self.ditz_config_file))
+        if self.settings == None:
+            return
+        if 'issue_dir' not in self.settings:
+            return
+        reader = DitzReader("{}/{}".format(self.path_to_config, self.ditz_config_file),
+                self.path_to_config + "/" + self.settings['issue_dir'] + "/project.yaml")
         return reader.read_release_names()
 
 
@@ -66,12 +80,9 @@ class DitzReader():
     """
     A class to read Ditz project.yaml file
     """
-    def __init__(self, config_file):
+    def __init__(self, config_file, project_file=None):
         self.config_file = config_file
-        self.project_file = None
-
-        #TODO: read the project dir from config
-        self.project_file = os.path.dirname(config_file) + "/ditz/project.yaml"
+        self.project_file = project_file
 
     def ditz_project(self, loader, node):
         #--- !ditz.rubyforge.org,2008-03-06/project
@@ -93,7 +104,7 @@ class DitzReader():
         return release_name
 
     def ditz_config(self, loader, node):
-        print str(loader.construct_mapping(node))
+        return loader.construct_mapping(node)
 
     def read_ditz_config(self):
         """
@@ -103,8 +114,7 @@ class DitzReader():
 
         stream = open(self.config_file, 'r')
         data = yaml.load(stream)
-
-        print data #TODO
+        return data
 
     def read_release_names(self):
         """

@@ -124,7 +124,7 @@ p, li { white-space: pre-wrap; }
     <string>Exit</string>
    </property>
    <property name="shortcut">
-    <string>X</string>
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionSettings">
@@ -132,7 +132,7 @@ p, li { white-space: pre-wrap; }
     <string>Settings</string>
    </property>
    <property name="shortcut">
-    <string>S</string>
+    <string>Ctrl+S</string>
    </property>
   </action>
  </widget>

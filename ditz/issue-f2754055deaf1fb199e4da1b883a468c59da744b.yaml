@@ -13,6 +13,7 @@ disposition:
 creation_time: 2014-10-13 07:25:34.249604 Z
 references: 
 - .ditz-config
+- fd394247e3d8cde094e3c63a0d3b6747925a9061
 id: f2754055deaf1fb199e4da1b883a468c59da744b
 log_events: 
 - - 2014-10-13 07:25:35.833952 Z
@@ -30,4 +31,8 @@ log_events:
 - - 2014-10-18 18:52:53.667175 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 1
+  - ""
+- - 2014-10-19 20:00:14.724322 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 2
   - ""

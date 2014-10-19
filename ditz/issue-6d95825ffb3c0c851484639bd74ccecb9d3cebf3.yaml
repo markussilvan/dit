@@ -28,3 +28,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.2 from v0.1
   - ""
+- - 2014-10-19 19:58:58.591151 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Nicer formatting of the event log
+    would make the GUI look much
+    better.

@@ -24,6 +24,7 @@ from comment_dialog import CommentDialog
 from reference_dialog import ReferenceDialog
 from issue_dialog import IssueDialog
 from close_dialog import CloseDialog
+from settings_dialog import SettingsDialog
 
 class DitzGui(QtGui.QMainWindow):
     """
@@ -66,7 +67,8 @@ class DitzGui(QtGui.QMainWindow):
 
         #self.actionAddRelease = QtGui.QAction(QtGui.QIcon('../graphics/add_release.png'), 'Add release', self)
         self.actionMakeRelease = QtGui.QAction(QtGui.QIcon('../graphics/make_release.png'), 'Make release', self)
-        #self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/settings.png'), 'Make release', self)
+
+        self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/settings.png'), 'Settings', self)
 
         self.actionNewIssue.iconVisibleInMenu = True
 
@@ -81,10 +83,12 @@ class DitzGui(QtGui.QMainWindow):
 
         ##self.actionAddRelease.triggered.connect(self.add_release)
         self.actionMakeRelease.triggered.connect(self.make_release)
-        ##self.actionOpenSettings.triggered.connect(self.open_settings)
+
+        self.actionOpenSettings.triggered.connect(self.open_settings)
 
         # connect qt creator created actions
         self.actionReload.triggered.connect(self.reload_data)
+        self.actionSettings.triggered.connect(self.open_settings)
         self.actionExit.triggered.connect(self.quit_application)
         self.listWidgetDitzItems.clicked.connect(self.show_item)
 
@@ -283,6 +287,15 @@ class DitzGui(QtGui.QMainWindow):
         if comment != None:
             self.ditzControl.make_release(release_name, comment)
             self.reload_data()
+
+    def open_settings(self):
+        try:
+            dialog = SettingsDialog()
+            dialog.show_settings()
+        except DitzError, e:
+            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+            return
+        self.reload_data()
 
     def quit_application(self):
         QtGui.qApp.quit()

@@ -21,3 +21,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-19 19:53:52.945957 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Setting added on the settings dialog.
+    Functionality missing.

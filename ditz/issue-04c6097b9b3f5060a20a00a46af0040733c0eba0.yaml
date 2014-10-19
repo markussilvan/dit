@@ -7,7 +7,7 @@ desc: |-
   to implement.
 type: :feature
 component: ditz-gui
-release: v0.2
+release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
@@ -20,3 +20,28 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-19 16:42:12.073557 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1.1 from v0.2
+  - ""
+- - 2014-10-19 16:48:37.793056 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This is what assigning looks like:
+    mape@nitro:~/workarea/ditz-gui/src$ ditz assign {issue 04c6097b9b3f5060a20a00a46af0040733c0eba0}
+    Issue {issue 04c6097b9b3f5060a20a00a46af0040733c0eba0} currently assigned to release v0.2.
+    Choose a release:
+      1) v0.5 (unreleased)
+      2) v0.4 (unreleased)
+      3) v0.1.1 (unreleased)
+      4) v0.1.2 (unreleased)
+      5) v0.3 (unreleased)
+      6) v0.0.1 (released 2014-10-11)
+      7) v0.1 (released 2014-10-18)
+    Release (1--7): 3
+    Comments (ctrl-d, ., or /stop to stop, /edit to edit, /reset to reset):
+    >
+    Assigned {issue 04c6097b9b3f5060a20a00a46af0040733c0eba0} to v0.1.1.
+    You may have to inform your SCM that the following files have been modified:
+      ../ditz/issue-04c6097b9b3f5060a20a00a46af0040733c0eba0.yaml

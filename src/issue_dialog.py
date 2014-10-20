@@ -29,28 +29,28 @@ class IssueDialog(QtGui.QDialog):
         """
         super(IssueDialog, self).__init__()
 
-        self.ditzControl = DitzControl()
-        self.configControl = ConfigControl()
+        self.ditz = DitzControl()
+        self.config = ConfigControl()
         self.ditz_id = ditz_id
 
-        self.configControl.read_config_file()
+        self.config.read_config_file()
 
         uic.loadUi('../ui/issue_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
 
-        for state in self.ditzControl.get_valid_issue_states():
+        for state in self.ditz.get_valid_issue_states():
             self.widgetForm.comboBoxStatus.addItem(state)
 
-        for issue_type in self.ditzControl.get_valid_issue_types():
+        for issue_type in self.ditz.get_valid_issue_types():
             self.widgetForm.comboBoxIssueType.addItem(issue_type)
 
         self.widgetForm.comboBoxRelease.addItem("Unassigned")
-        for release in self.configControl.get_unreleased_releases():
+        for release in self.config.get_unreleased_releases():
             self.widgetForm.comboBoxRelease.addItem(release)
 
         try:
-            default_creator = "{} <{}>".format(self.configControl.settings.name,
-                    self.configControl.settings.email)
+            default_creator = "{} <{}>".format(self.config.settings.name,
+                    self.config.settings.email)
         except KeyError:
             # leave creator field empty
             pass
@@ -83,7 +83,7 @@ class IssueDialog(QtGui.QDialog):
             #TODO: show error, cancel accept, change invalid fields to red or something
             return
 
-        self.ditzControl.add_issue(issue)
+        self.ditz.add_issue(issue)
         super(IssueDialog, self).accept()
 
     def reject(self):

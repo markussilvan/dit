@@ -10,7 +10,7 @@ desc: |-
   goes for releases and empty lines.
 type: :feature
 component: ditz-gui
-release: v0.2
+release: v0.1.1
 reporter: Markus Silvan
 status: :unstarted
 disposition: 
@@ -22,4 +22,8 @@ log_events:
 - - 2014-10-16 17:21:13.042853 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
+  - ""
+- - 2014-10-20 11:12:13.175733 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1.1 from v0.2
   - ""

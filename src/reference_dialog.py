@@ -28,7 +28,7 @@ class ReferenceDialog(QtGui.QDialog):
         """
         super(ReferenceDialog, self).__init__()
 
-        self.ditzControl = DitzControl()
+        self.ditz = DitzControl()
         self.ditz_id = ditz_id
         self.reference = None
 
@@ -40,7 +40,7 @@ class ReferenceDialog(QtGui.QDialog):
         """
         self.reference = str(self.lineEdit.text())
         if self.reference != "":
-            self.ditzControl.add_reference(self.ditz_id, self.reference)
+            self.ditz.add_reference(self.ditz_id, self.reference)
         super(ReferenceDialog, self).accept()
 
     def reject(self):

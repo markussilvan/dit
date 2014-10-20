@@ -1,0 +1,25 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Support "ditz init"
+desc: |-
+  If ditz-gui is started in a directory (tree) which
+  doesn't contain a .ditz-config file, ask the user
+  if he wants to initialize a new Ditz repo here.
+type: :feature
+component: ditz-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-20 16:58:22.861737 Z
+references: 
+- ditz init command
+id: c7c0ee77c6cdc485868884c4a2ea65b3e3487d1d
+log_events: 
+- - 2014-10-20 16:58:23.363225 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-20 16:58:25.496002 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - ""

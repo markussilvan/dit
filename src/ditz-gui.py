@@ -36,7 +36,7 @@ class DitzGui(QtGui.QMainWindow):
         """
         super(DitzGui, self).__init__()
 
-        self.ditzControl = DitzControl()
+        self.ditz = DitzControl()
 
         uic.loadUi('../ui/main_window.ui', self)
 
@@ -70,7 +70,17 @@ class DitzGui(QtGui.QMainWindow):
 
         self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/settings.png'), 'Settings', self)
 
+        # icons visible in custom context menu of items list view
         self.actionNewIssue.iconVisibleInMenu = True
+        self.actionCommentIssue.iconVisibleInMenu = True
+        self.actionStartWork.iconVisibleInMenu = True
+        self.actionStopWork.iconVisibleInMenu = True
+        self.actionCloseIssue.iconVisibleInMenu = True
+        self.actionDropIssue.iconVisibleInMenu = True
+        self.actionAddReference.iconVisibleInMenu = True
+        #self.actionAddRelease.iconVisibleInMenu = True
+        self.actionMakeRelease.iconVisibleInMenu = True
+        self.actionOpenSettings.iconVisibleInMenu = True
 
         # connect
         self.actionNewIssue.triggered.connect(self.new_issue)
@@ -142,7 +152,7 @@ class DitzGui(QtGui.QMainWindow):
         self.toolBar.addAction(self.actionDropIssue)
 
     def reload_data(self, ditz_id=None):
-        data = self.ditzControl.get_items()
+        data = self.ditz.get_items()
         self.listWidgetDitzItems.clear()
         for item in data:
             if item.item_type == 'release' and self.listWidgetDitzItems.count() > 0:
@@ -181,7 +191,7 @@ class DitzGui(QtGui.QMainWindow):
             # needed so the same function can be connected to GUI
             ditz_id = self._get_selected_issue_id()
 
-        ditz_item = self.ditzControl.get_item_content(ditz_id)
+        ditz_item = self.ditz.get_item_content(ditz_id)
         if ditz_item:
             self.textEditDitzItem.setText(str(ditz_item))
         #TODO: format the data or use a form instead (it's already a DitzItem)
@@ -238,7 +248,7 @@ class DitzGui(QtGui.QMainWindow):
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
-            self.ditzControl.drop_issue(ditz_id)
+            self.ditz.drop_issue(ditz_id)
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
@@ -253,7 +263,7 @@ class DitzGui(QtGui.QMainWindow):
         comment = dialog.ask_comment()
         if comment != None:
             try:
-                self.ditzControl.start_work(ditz_id, comment)
+                self.ditz.start_work(ditz_id, comment)
             except DitzError, e:
                 QMessageBox.warning(self, "Ditz error", e.error_message)
                 return
@@ -268,7 +278,7 @@ class DitzGui(QtGui.QMainWindow):
         comment = dialog.ask_comment()
         if comment != None:
             try:
-                self.ditzControl.stop_work(ditz_id, comment)
+                self.ditz.stop_work(ditz_id, comment)
             except DitzError, e:
                 QMessageBox.warning(self, "Ditz error", e.error_message)
                 return
@@ -285,7 +295,7 @@ class DitzGui(QtGui.QMainWindow):
         dialog = CommentDialog(None)
         comment = dialog.ask_comment()
         if comment != None:
-            self.ditzControl.make_release(release_name, comment)
+            self.ditz.make_release(release_name, comment)
             self.reload_data()
 
     def open_settings(self):
@@ -321,7 +331,7 @@ class DitzGui(QtGui.QMainWindow):
         if not text:
             return None
         release_name = text.split()[0]
-        if release_name not in self.ditzControl.get_releases():
+        if release_name not in self.ditz.get_releases():
             return None
         return release_name
 
@@ -344,12 +354,12 @@ class DitzGui(QtGui.QMainWindow):
         if not item_text:
             return None
         ditz_id = item_text.split(' ', 1)[0]
-        item_status = self.ditzControl.get_issue_status_by_ditz_id(ditz_id)
+        item_status = self.ditz.get_issue_status_by_ditz_id(ditz_id)
         return item_status
 
     def _get_item_type(self, item_text):
         ditz_id = item_text.split(' ', 1)[0]
-        item = self.ditzControl.get_item_from_cache(ditz_id)
+        item = self.ditz.get_item_from_cache(ditz_id)
         if item != None:
             return item.item_type
         return None

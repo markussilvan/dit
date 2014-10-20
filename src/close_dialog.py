@@ -27,7 +27,7 @@ class CloseDialog(QtGui.QDialog):
         """
         super(CloseDialog, self).__init__()
 
-        self.ditzControl = DitzControl()
+        self.ditz = DitzControl()
         self.ditz_id = ditz_id
 
         uic.loadUi('../ui/close_dialog.ui', self)
@@ -43,7 +43,7 @@ class CloseDialog(QtGui.QDialog):
         """
         disposition = self.comboBox.currentIndex() + 1
         comment = str(self.plainTextEdit.toPlainText())
-        self.ditzControl.close_issue(self.ditz_id, disposition, comment)
+        self.ditz.close_issue(self.ditz_id, disposition, comment)
         super(CloseDialog, self).accept()
 
     def reject(self):

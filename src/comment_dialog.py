@@ -28,7 +28,7 @@ class CommentDialog(QtGui.QDialog):
         """
         super(CommentDialog, self).__init__()
 
-        self.ditzControl = DitzControl()
+        self.ditz = DitzControl()
         self.ditz_id = ditz_id
         self.save = save
         self.comment = None
@@ -41,7 +41,7 @@ class CommentDialog(QtGui.QDialog):
         """
         self.comment = str(self.plainTextEdit.toPlainText())
         if self.save and self.comment != "":
-            self.ditzControl.add_comment(self.ditz_id, self.comment)
+            self.ditz.add_comment(self.ditz_id, self.comment)
         super(CommentDialog, self).accept()
 
     def reject(self):

@@ -5,10 +5,10 @@ desc: |-
   in .ditz-config file. There needs to be a GUI to set those settings.
 type: :feature
 component: ditz-gui
-release: v0.2
+release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-07 17:37:18.820502 Z
 references: []
 
@@ -37,3 +37,24 @@ log_events:
   - |-
     ConfigControl now supports writing .ditz-config.
     Integration to IssueDialog is the only missing part.
+- - 2014-10-20 12:15:29.078293 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    This should be ok now except for settings "settings_changed" flag
+    whenever settings have been modified on the settings dialog.
+    Settings dialog needs an action which does this, and that
+    action needs to be triggered from any input fields "modied" signal
+    (or equivalent).
+- - 2014-10-20 12:16:40.649524 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1.1 from v0.2
+  - ""
+- - 2014-10-20 16:44:48.107850 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    These settings are there and working.
+    More settings should be added later.
+    At least UI and git should have their own tabs.
+    That is another task. This issue can be considered done.

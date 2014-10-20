@@ -31,3 +31,9 @@ log_events:
     ConfigControl needs to implement writing the settings
     to .ditzconfig from a given dictionary.
     This can be done easily using python-yaml.
+- - 2014-10-20 10:30:05.145194 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    ConfigControl now supports writing .ditz-config.
+    Integration to IssueDialog is the only missing part.

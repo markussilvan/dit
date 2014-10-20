@@ -25,7 +25,7 @@ class SettingsDialog(QtGui.QDialog):
         super(SettingsDialog, self).__init__()
 
         self.configControl = ConfigControl()
-        self.settings = None
+        self.settings = None #TODO: use settings directly from configControl?
 
         uic.loadUi('../ui/settings_dialog.ui', self)
 

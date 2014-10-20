@@ -52,11 +52,18 @@ class ConfigControl():
         Cache the settings in self.settings.
 
         Returns:
-        - dictionary of the read settings
+        - a DitzConfig object containing settings
         """
         reader = DitzReader("{}/{}".format(self.path_to_config, self.ditz_config_file))
         self.settings = reader.read_ditz_config()
         return self.settings
+
+    def write_config_file(self):
+        """
+        Write settings from memory to ditz config file.
+        """
+        reader = DitzReader("{}/{}".format(self.path_to_config, self.ditz_config_file))
+        reader.write_ditz_config(self.settings)
 
     def get_unreleased_releases(self):
         """
@@ -69,12 +76,29 @@ class ConfigControl():
         """
         if self.settings == None:
             return
-        if 'issue_dir' not in self.settings:
+        if self.settings.issue_dir == None:
             return
         reader = DitzReader("{}/{}".format(self.path_to_config, self.ditz_config_file),
-                self.path_to_config + "/" + self.settings['issue_dir'] + "/project.yaml")
+                self.path_to_config + "/" + self.settings.issue_dir + "/project.yaml")
         return reader.read_release_names()
 
+
+class DitzSettings(yaml.YAMLObject):
+
+    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/config'
+
+    def __init__(self, name, email, issue_dir):
+        self.name = name
+        self.email = email
+        self.issue_dir = issue_dir
+
+    def __repr__(self):
+        return "%s (name=%r, email=%r, issue_dir=%r)" % (self.__class__.__name__, self.name, self.email, self.issue_dir)
+
+    #def __getitem__(self,):
+    #    return sel
+    #def __setitem__(self, key, item):
+    #    self.data[key] = item
 
 class DitzReader():
     """
@@ -103,18 +127,34 @@ class DitzReader():
             return None
         return release_name
 
-    def ditz_config(self, loader, node):
-        return loader.construct_mapping(node)
+    #def ditz_config(self, loader, node):
+    #    return loader.construct_mapping(node)
 
     def read_ditz_config(self):
         """
-        Read configuration settings from Ditz configuration yaml files
+        Read configuration settings from Ditz configuration yaml file
         """
-        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/config", self.ditz_config)
+        #yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/config", self.ditz_config)
 
-        stream = open(self.config_file, 'r')
-        data = yaml.load(stream)
-        return data
+        with open(self.config_file, 'r') as stream:
+            data = yaml.load(stream)
+            return data
+        raise ApplicationError("Error reading ditz settings file")
+
+    def write_ditz_config(self, settings):
+        """
+        Write configuration settings to Ditz configuration yaml file.
+        Settings currently cached in memory are written to the file.
+
+        Parameters:
+        - settings: DitzConfig object containing Ditz settings to write
+        """
+        try:
+            with open(self.config_file, 'w') as stream:
+                yaml_data = yaml.dump(settings, default_flow_style=False)
+                stream.write(yaml_data)
+        except Exception:
+            raise ApplicationError("Error writing ditz settings file")
 
     def read_release_names(self):
         """

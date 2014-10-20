@@ -49,8 +49,8 @@ class IssueDialog(QtGui.QDialog):
             self.widgetForm.comboBoxRelease.addItem(release)
 
         try:
-            default_creator = "{} <{}>".format(self.configControl.settings["name"],
-                    self.configControl.settings["email"])
+            default_creator = "{} <{}>".format(self.configControl.settings.name,
+                    self.configControl.settings.email)
         except KeyError:
             # leave creator field empty
             pass

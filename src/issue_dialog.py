@@ -32,6 +32,7 @@ class IssueDialog(QtGui.QDialog):
         self.ditz = DitzControl()
         self.config = ConfigControl()
         self.ditz_id = ditz_id
+        self._edit_mode = False
 
         self.config.read_config_file()
 
@@ -64,26 +65,31 @@ class IssueDialog(QtGui.QDialog):
         Check validity of given data.
         Add issue to Ditz or update an existing issue
         """
-        #TODO: read also references field
+        #TODO: multiple references? form would need changes
         title = str(self.widgetForm.lineEditTitle.text())
         description = str(self.widgetForm.plainTextEditDescription.toPlainText())
         issue_type = self.widgetForm.comboBoxIssueType.currentText()
         status = self.widgetForm.comboBoxStatus.currentText()
         creator = str(self.widgetForm.lineEditCreator.text())
-        age = "0 seconds"
+        age = str(self.widgetForm.labelAgeValue.text())
         release = str(self.widgetForm.comboBoxRelease.currentText())
         references = str(self.widgetForm.lineEditReferences.text())
-        identifier = "N/A"
+        identifier = self.ditz_id
         log = ""
 
         try:
             issue = DitzItem('issue', title, None, issue_type, status, description,
                     creator, age, release, references, identifier, log)
         except ApplicationError:
-            #TODO: show error, cancel accept, change invalid fields to red or something
+            QtGui.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
+            #TODO: change invalid fields to red or something?
             return
 
-        self.ditz.add_issue(issue)
+        if self._edit_mode == True:
+            self.ditz.edit_issue(issue)
+        else:
+            self.ditz.add_issue(issue)
+
         super(IssueDialog, self).accept()
 
     def reject(self):
@@ -102,7 +108,26 @@ class IssueDialog(QtGui.QDialog):
         """
         Show the dialog filled with data of a given Ditz issue
         """
-        #TODO: load item data from ditz
+        issue = self.ditz.get_item_content(ditz_id)
+        if issue == None:
+            QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
+            return
+
+        self._edit_mode = True
+
+        self.widgetForm.lineEditTitle.setText(issue.title)
+        self.widgetForm.plainTextEditDescription.insertPlainText(issue.description)
+        index = self.widgetForm.comboBoxIssueType.findText(issue.issue_type)
+        self.widgetForm.comboBoxIssueType.setCurrentIndex(index)
+        index = self.widgetForm.comboBoxStatus.findText(issue.status)
+        self.widgetForm.comboBoxStatus.setCurrentIndex(index)
+        self.widgetForm.lineEditCreator.setText(issue.creator)
+        self.widgetForm.labelAgeValue.setText(issue.age)
+        index = self.widgetForm.comboBoxRelease.findText(issue.release)
+        self.widgetForm.comboBoxRelease.setCurrentIndex(index)
+        self.widgetForm.lineEditReferences.setText(issue.references)
+        self.widgetForm.labelIdentifierValue.setText(issue.identifier)
+        #TODO: event log, multiple references
         self.exec_()
 
 

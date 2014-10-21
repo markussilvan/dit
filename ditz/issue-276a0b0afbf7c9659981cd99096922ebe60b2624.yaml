@@ -1,11 +1,11 @@
 --- !ditz.rubyforge.org,2008-03-06/issue 
 title: Editing issues
-desc: Editing should happen in the main window or in a separate dialog.
+desc: Editing should happen in the main window or in a separate dialog. It's complicated as it starts a separate editor.
 type: :feature
 component: ditz-gui
 release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-07 17:45:07.828058 Z
 references: []
@@ -38,3 +38,31 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.1.1 from v0.1.2
   - ""
+- - 2014-10-21 14:14:13.519649 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Actually it seems fairly easy to do
+    with the same dialogs as adding.
+    Let do this.
+- - 2014-10-21 19:59:55.579904 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Preliminary support for this has been
+    implemented in issue form and ditz-gui.
+    Now all is needed is DitzControl to
+    actually do the edit.
+- - 2014-10-22 10:39:36.226225 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited description
+  - ""
+- - 2014-10-22 10:42:08.296107 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Ok, not as simple as expected.
+    Editing starts an external editor to edit the yaml
+    directly. Thus I must implement a class to read/write
+    issue yaml-files to make this work.
+    Giving commands to the external editor is not an option.

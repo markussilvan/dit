@@ -10,8 +10,8 @@ type: :feature
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :reorg
 creation_time: 2014-10-16 10:18:27.121292 Z
 references: []
 
@@ -21,3 +21,7 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-20 20:06:12.497966 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition reorg
+  - Duplicate.

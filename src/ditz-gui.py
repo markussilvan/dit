@@ -58,6 +58,7 @@ class DitzGui(QtGui.QMainWindow):
     def create_actions(self):
         # create action objects
         self.actionNewIssue = QtGui.QAction(QtGui.QIcon('../graphics/new.png'), 'New Issue', self)
+        self.actionEditIssue = QtGui.QAction(QtGui.QIcon('../graphics/edit.png'), 'Edit Issue', self)
         self.actionCommentIssue = QtGui.QAction(QtGui.QIcon('../graphics/comment.png'), 'Comment Issue', self)
         self.actionStartWork = QtGui.QAction(QtGui.QIcon('../graphics/start.png'), 'Start working', self)
         self.actionStopWork = QtGui.QAction(QtGui.QIcon('../graphics/stop.png'), 'Stop working', self)
@@ -72,6 +73,7 @@ class DitzGui(QtGui.QMainWindow):
 
         # icons visible in custom context menu of items list view
         self.actionNewIssue.iconVisibleInMenu = True
+        self.actionEditIssue.iconVisibleInMenu = True
         self.actionCommentIssue.iconVisibleInMenu = True
         self.actionStartWork.iconVisibleInMenu = True
         self.actionStopWork.iconVisibleInMenu = True
@@ -84,6 +86,7 @@ class DitzGui(QtGui.QMainWindow):
 
         # connect
         self.actionNewIssue.triggered.connect(self.new_issue)
+        self.actionEditIssue.triggered.connect(self.edit_issue)
         self.actionCommentIssue.triggered.connect(self.comment_issue)
         self.actionStartWork.triggered.connect(self.start_work)
         self.actionStopWork.triggered.connect(self.stop_work)
@@ -120,6 +123,7 @@ class DitzGui(QtGui.QMainWindow):
         if item_type == 'issue':
             menu.addAction(self.actionNewIssue)
             # custom actions used here to get custom menu texts
+            menu.addAction("Edit " + ditz_id, lambda:self.edit_issue())
             menu.addAction("Comment " + ditz_id, lambda:self.comment_issue())
             menu.addAction("Add reference to " + ditz_id, lambda:self.add_reference())
             if status != "in progress" and status != "started":
@@ -145,6 +149,7 @@ class DitzGui(QtGui.QMainWindow):
         status = self._get_selected_issue_status()
 
         self.toolBar.addAction(self.actionNewIssue)
+        self.toolBar.addAction(self.actionEditIssue)
         self.toolBar.addAction(self.actionCommentIssue)
         self.toolBar.addAction(self.actionStartWork)
         self.toolBar.addAction(self.actionStopWork)
@@ -227,6 +232,19 @@ class DitzGui(QtGui.QMainWindow):
         try:
             dialog = IssueDialog()
             dialog.ask_new_issue()
+        except DitzError, e:
+            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+            return
+        self.reload_data()
+
+    def edit_issue(self):
+        ditz_id = self._get_selected_issue_id()
+        if ditz_id == None:
+            QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
+            return
+        try:
+            dialog = IssueDialog()
+            dialog.ask_edit_issue(ditz_id)
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return

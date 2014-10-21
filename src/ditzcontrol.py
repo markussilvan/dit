@@ -300,6 +300,58 @@ class DitzControl():
                 e.error_message = "Adding reference to issue failed"
                 raise
 
+    def edit_issue(self, issue):
+        """
+        Modify an existing Ditz issue.
+        Ditz also asks for a comment when an issue is edited,
+        but saving a comment is not supported.
+
+        Parameters:
+        - a DitzItem filled with data to save
+        """
+        pass
+        #TODO: must be implemented by reading/writing yaml files directly
+        # run the commands
+        #output = ""
+        #try:
+        #    if issue.release not in [None, "", "Unassigned"]:
+        #        # first figure out right selection for release
+        #        #TODO: release_selection = str(self.get_releases().index(issue.release) + 1)
+        #        # release selection is complicated, just like with assign-command (?)
+        #        output = self._run_interactive_command("edit", issue.title, issue.description, "/stop",
+        #                issue.issue_type[:1], 'y', release_selection, issue.creator, "/stop")
+        #    else:
+        #        # example: title, description, t, n, creator, /stop
+        #        output = self._run_interactive_command("edit", issue.title, issue.description, "/stop",
+        #                issue.issue_type[:1], 'n', issue.creator, "/stop")
+        #except DitzError,e:
+        #    e.error_message = "Editing a Ditz issue failed"
+        #    raise
+
+        ## get identifier for the issue from Ditz output
+        #if output[-6:] == ".yaml\n":
+        #    identifier = output[-46:-6]
+        #else:
+        #    raise DitzError("Parsing ditz add output failed")
+
+        ## change issue status if needed
+        #if issue.status != "unstarted":
+        #    try:
+        #        self.start_work(identifier, "")
+        #        if issue.status == "paused":
+        #            self.stop_work(identifier, "")
+        #    except DitzError,e:
+        #        e.error_message = "Setting issue state failed"
+        #        raise
+
+        ## add a reference if given (input of only one reference supported)
+        #if issue.references != None and issue.references != "":
+        #    try:
+        #        self.add_reference(identifier, issue.references)
+        #    except DitzError, e:
+        #        e.error_message = "Adding reference to issue failed"
+        #        raise
+
     def add_comment(self, ditz_id, comment):
         """
         Write a new comment to a Ditz item

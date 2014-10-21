@@ -1,0 +1,24 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Support adding/editing multiple references
+desc: |-
+  An issue has a numbered list of references.
+  Current issue form uses only one line to input
+  references. Update the form to use some nice
+  widget which supports multiple text items.
+  QListWidget or something simpler?
+  A separate form?
+type: :bugfix
+component: ditz-gui
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-21 19:58:09.281037 Z
+references: []
+
+id: 7e6c229568bbad091f38c434cec6a349b666c94e
+log_events: 
+- - 2014-10-21 19:58:09.782497 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

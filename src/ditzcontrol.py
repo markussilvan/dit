@@ -21,7 +21,7 @@ class DitzItem():
     A status is also commonly set for issues.
     """
     def __init__(self, item_type, title, name=None, issue_type=None, status=None,
-            description=None, creator=None, age=None, release=None,
+            description=None, creator=None, created=None, release=None,
             references=None, identifier=None, log=None):
         """
         Initialize new DitzItem.
@@ -34,9 +34,10 @@ class DitzItem():
         self.title = title
         self.issue_type = issue_type
         self.status = status
+        self.disposition = ""
         self.description = description
         self.creator = creator
-        self.age = age
+        self.created = created
         self.release = release
         self.references = references
         self.identifier = identifier
@@ -52,7 +53,7 @@ class DitzItem():
             "Type: {}".format(self.issue_type) + '\n' + \
             "Status: {}".format(self.status) + '\n' + \
             "Creator: {}".format(self.creator) + '\n' + \
-            "Age: {}".format(self.age) + '\n' + \
+            "Created: {}".format(self.created) + '\n' + \
             "Release: {}".format(self.release) + '\n' + \
             "References:\n{}".format(self.references) + \
             "Identifier: {}".format(self.identifier) + '\n' + \

@@ -14,6 +14,7 @@ from PyQt4 import QtGui, uic
 
 from ditzcontrol import DitzControl, DitzItem
 from configcontrol import ConfigControl
+import utils.time
 
 class IssueDialog(QtGui.QDialog):
     """
@@ -71,7 +72,7 @@ class IssueDialog(QtGui.QDialog):
         issue_type = self.widgetForm.comboBoxIssueType.currentText()
         status = self.widgetForm.comboBoxStatus.currentText()
         creator = str(self.widgetForm.lineEditCreator.text())
-        age = str(self.widgetForm.labelAgeValue.text())
+        created = str(self.widgetForm.labelCreatedValue.text())
         release = str(self.widgetForm.comboBoxRelease.currentText())
         references = str(self.widgetForm.lineEditReferences.text())
         identifier = self.ditz_id
@@ -122,7 +123,13 @@ class IssueDialog(QtGui.QDialog):
         index = self.widgetForm.comboBoxStatus.findText(issue.status)
         self.widgetForm.comboBoxStatus.setCurrentIndex(index)
         self.widgetForm.lineEditCreator.setText(issue.creator)
-        self.widgetForm.labelAgeValue.setText(issue.age)
+        # two alternative formats allowed for created field
+        # needed temporarily until DitzItem always has created as DateTime read from file
+        try:
+            time_diff = utils.time.human_time_diff(issue.created)
+        except ValueError:
+            time_diff = issue.created
+        self.widgetForm.labelCreatedValue.setText(time_diff)
         index = self.widgetForm.comboBoxRelease.findText(issue.release)
         self.widgetForm.comboBoxRelease.setCurrentIndex(index)
         self.widgetForm.lineEditReferences.setText(issue.references)

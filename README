@@ -22,8 +22,9 @@ itself can be used as the issue tracker.
 List of Tools
  - Python 2.7
  - PyQt 4.7
- - python.unittest (aka PyUnit)
- - python.yaml
+ - python-unittest (aka PyUnit)
+ - python-yaml
+ - python-dateutil
  - PyLint
  - Jenkins
  - git

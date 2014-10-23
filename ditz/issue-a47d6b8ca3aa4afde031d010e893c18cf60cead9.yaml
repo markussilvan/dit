@@ -34,3 +34,9 @@ log_events:
     ReleaseYamlObject?
     
     Think and try different solutions.
+- - 2014-10-23 19:24:44.404477 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Custom implementation for showing textual time
+    differences done. Now use it to show "ago".

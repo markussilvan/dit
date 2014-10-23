@@ -1,0 +1,32 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Reading and writing issue to YAML
+desc: |-
+  Reading and writing issue files.
+  This should be compatible with Ditz,
+  at least for now.
+  
+  Most of this has been implemented already.
+  Some inconsistencies between existing DitzItem
+  and the .yaml representation of issues.
+  For example, creation_time.
+  Fix these and try to get editing issue to
+  work using these facilities.
+type: :feature
+component: ditz-gui
+release: v0.1.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+disposition: 
+creation_time: 2014-10-23 14:18:47.712157 Z
+references: []
+
+id: 28eea1c5dfc659296e90cb16e91073e976a4534a
+log_events: 
+- - 2014-10-23 14:18:48.975588 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-23 14:19:10.432294 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""

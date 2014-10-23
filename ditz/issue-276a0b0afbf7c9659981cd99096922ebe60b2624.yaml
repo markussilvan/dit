@@ -66,3 +66,9 @@ log_events:
     directly. Thus I must implement a class to read/write
     issue yaml-files to make this work.
     Giving commands to the external editor is not an option.
+- - 2014-10-23 07:49:39.437287 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    First version of reading and writing .yaml is now working.
+    Ditz is also able to read those files.

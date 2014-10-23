@@ -1,0 +1,36 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: DitzItem <-> IssueYamlObject type conversions
+desc: |-
+  Editing issues requires these type conversions
+  for convenience. Reading and writing .yaml files
+  can be then encapsulated more effectively.
+type: :task
+component: ditz-gui
+release: v0.1.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-23 07:46:41.782957 Z
+references: []
+
+id: a47d6b8ca3aa4afde031d010e893c18cf60cead9
+log_events: 
+- - 2014-10-23 07:46:42.630799 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-23 14:30:49.658392 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This is mostly done, but there are some inconsistencies.
+      - Component is missing from DitzItem
+      - Creation_time is missing from DitzItem (uses "ago" string instead)
+      - Order of items is different, but this doesn't matter, at least for now
+      - References should stored as list of strings(?)
+    
+    Could I even go as far as using some sort of derived type of IssueYamlObject?
+    Turning DitzItem into a hierarchy of objects? Releases could have their own
+    ReleaseYamlObject?
+    
+    Think and try different solutions.

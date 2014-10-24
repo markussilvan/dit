@@ -45,3 +45,12 @@ log_events:
     Assigned {issue 04c6097b9b3f5060a20a00a46af0040733c0eba0} to v0.1.1.
     You may have to inform your SCM that the following files have been modified:
       ../ditz/issue-04c6097b9b3f5060a20a00a46af0040733c0eba0.yaml
+- - 2014-10-24 09:19:41.688925 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This task could be used as the first test
+    to read and write ditz issues from yaml
+    in real environment.
+    Implementing this feature by others means
+    is not rally feasible at this point.

@@ -79,8 +79,8 @@ class IssueDialog(QtGui.QDialog):
         log = ""
 
         try:
-            issue = DitzItem('issue', title, None, issue_type, status, description,
-                    creator, age, release, references, identifier, log)
+            issue = DitzItem('issue', title, None, issue_type, None, status, None,
+                    description, creator, age, release, references, identifier, log)
         except ApplicationError:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
             #TODO: change invalid fields to red or something?

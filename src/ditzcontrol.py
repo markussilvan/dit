@@ -20,9 +20,9 @@ class DitzItem():
     just the type and a header.
     A status is also commonly set for issues.
     """
-    def __init__(self, item_type, title, name=None, issue_type=None, status=None,
-            description=None, creator=None, created=None, release=None,
-            references=None, identifier=None, log=None):
+    def __init__(self, item_type, title, name=None, issue_type=None, component=None,
+            status=None, disposition=None, description=None, creator=None, created=None,
+            release=None, references=None, identifier=None, log=None):
         """
         Initialize new DitzItem.
         At least type and title must be set for releases.
@@ -33,6 +33,7 @@ class DitzItem():
 
         self.title = title
         self.issue_type = issue_type
+        self.component = component
         self.status = status
         self.disposition = ""
         self.description = description
@@ -121,7 +122,7 @@ class DitzControl():
                 # an issue
                 title = item_data[1].strip()
                 name = name_and_status[1:].strip() # drop status from the beginning
-                self.ditz_items.append(DitzItem('issue', title, name, None, status))
+                self.ditz_items.append(DitzItem('issue', title, name, None, None, status))
             else:
                 # a release
                 name = None
@@ -246,8 +247,8 @@ class DitzControl():
             else:
                 break
 
-        ditz_item = DitzItem("issue", title, name, issue_type, status, description, creator, age,
-                release, references, identifier, log)
+        ditz_item = DitzItem("issue", title, name, issue_type, None, status, None,
+                description, creator, age, release, references, identifier, log)
         #TODO: use existing item in cache instead? (that would cache all this data too)
         #      or replace the item with this new item
         return ditz_item

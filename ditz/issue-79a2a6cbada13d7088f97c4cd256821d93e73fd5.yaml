@@ -19,3 +19,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-10-24 09:35:32.411837 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Comment field added to DitzItem. Its also used by YamlIssueObject.
+    So component information is read from files and stored, but
+    it's not used anywhere else. Support for components is
+    to be added later.

@@ -125,7 +125,7 @@ class IssueYamlObject(yaml.YAMLObject):
         Parameters:
         - item: a DitzItem issue
         """
-        return cls(item.title, item.description, item.item_type, None, item.release,
+        return cls(item.title, item.description, item.item_type, item.component, item.release,
                 item.creator, item.status, item.disposition, item.created, item.references,
                 item.identifier, item.log)
 
@@ -133,7 +133,7 @@ class IssueYamlObject(yaml.YAMLObject):
         """
         Create a new DitzItem containing the information in this class
         """
-        return DitzItem('issue', self.title, None, self.type, self.status,
+        return DitzItem('issue', self.title, None, self.type, None, self.status, None,
                 self.desc, self.reporter, self.creation_time, self.release,
                 self.references, self.id, self.log_events)
 

@@ -7,6 +7,25 @@ import datetime
 from ditzcontrol import DitzItem
 from common.errors import ApplicationError
 
+def str_representer(self, data):
+    tag = None
+    if '\n' in data:
+        style = '|'
+    else: style = None
+    try:
+        data = unicode(data, 'ascii')
+        tag = u'tag:yaml.org,2002:str'
+    except UnicodeDecodeError:
+        try:
+            data = unicode(data, 'utf-8')
+            tag = u'tag:yaml.org,2002:str'
+        except UnicodeDecodeError:
+            data = data.encode('base64')
+            tag = u'tag:yaml.org,2002:binary'
+            style = '|'
+    return self.represent_scalar(tag, data, style=style)
+
+yaml.add_representer(str, str_representer)
 
 def datetime_representer(dumper, data):
     value = unicode(data.isoformat(' ') + ' Z')
@@ -106,7 +125,6 @@ class IssueYamlObject(yaml.YAMLObject):
         Parameters:
         - item: a DitzItem issue
         """
-        #TODO: item.created in the right format? (datetime vs. "ago")
         return cls(item.title, item.description, item.item_type, None, item.release,
                 item.creator, item.status, item.disposition, item.created, item.references,
                 item.identifier, item.log)

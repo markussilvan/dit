@@ -10,55 +10,11 @@ A GUI frontend for Ditz issue tracker
 import subprocess
 import time
 
+from common.items import DitzItem
 from common.errors import ApplicationError, DitzError
 from utils.nonblockingstreamreader import NonBlockingStreamReader
+from yamlcontrol import IssueYamlControl, IssueYamlObject
 
-class DitzItem():
-    """
-    A Ditz item which can be an issue or an release.
-    Can contain all data of that particular item or
-    just the type and a header.
-    A status is also commonly set for issues.
-    """
-    def __init__(self, item_type, title, name=None, issue_type=None, component=None,
-            status=None, disposition=None, description=None, creator=None, created=None,
-            release=None, references=None, identifier=None, log=None):
-        """
-        Initialize new DitzItem.
-        At least type and title must be set for releases.
-        For issues, also status should be set.
-        """
-        self.item_type = item_type
-        self.name = name
-
-        self.title = title
-        self.issue_type = issue_type
-        self.component = component
-        self.status = status
-        self.disposition = ""
-        self.description = description
-        self.creator = creator
-        self.created = created
-        self.release = release
-        self.references = references
-        self.identifier = identifier
-        self.log = log
-
-    def __str__(self):
-        """
-        Serialize to string. Mimic output of Ditz command line.
-        """
-        return "Issue {}\n{}".format(self.name, len(self.name) * '-') + '\n' + \
-            "Title: {}".format(self.title) + '\n' + \
-            "Description:\n{}".format(self.description) + '\n' + \
-            "Type: {}".format(self.issue_type) + '\n' + \
-            "Status: {}".format(self.status) + '\n' + \
-            "Creator: {}".format(self.creator) + '\n' + \
-            "Created: {}".format(self.created) + '\n' + \
-            "Release: {}".format(self.release) + '\n' + \
-            "References:\n{}".format(self.references) + \
-            "Identifier: {}".format(self.identifier) + '\n' + \
-            "Event log:\n{}".format(self.log)
 
 class DitzControl():
     """
@@ -68,6 +24,7 @@ class DitzControl():
     def __init__(self):
         self.ditz_cmd = "ditz"
         self.ditz_items = []
+        self.issuecontrol = IssueYamlControl()
 
     def get_valid_issue_states(self):
         """
@@ -165,9 +122,47 @@ class DitzControl():
                 return item
         return None
 
-    def get_item_content(self, ditz_id):
+    def get_issue_identifier(self, issue_name):
         """
-        Get all content of one item by it's ditz id hash.
+        Get SHA identifier of a given issue.
+
+        Parameters:
+        - issue_name: name of the issue
+
+        Returns:
+        - issue identifier
+        """
+        #FIXME: this is a total hack, just to be used during refactoring.
+        issue = self.get_issue_content_from_ditz(issue_name)
+        return issue.identifier
+
+    def get_issue_content(self, identifier):
+        """
+        Get all content of one issue by its identifier hash.
+
+        Parameters:
+        - ditz_id: Ditz hash or name identifier of an issue
+
+        Returns:
+        - A Ditz item object filled with information of that issue
+        - None if ditz_id is invalid
+        """
+        #FIXME: 
+        #identifier = "fe168c3920141ea12a7e555f486144fae3e98164"
+        if identifier == None or identifier == "":
+            return None
+        if len(identifier) != 40:
+            # issue name given instead?
+            identifier = self.get_issue_identifier(identifier)
+            if len(identifier) != 40:
+                return None
+        yaml_issue = issuecontrol.read_issue_yaml(identifier)
+        ditz_item = yaml_issue.toDitzItem()
+        return ditz_item
+
+    def get_issue_content_from_ditz(self, ditz_id):
+        """
+        Get all content of one item by its ditz id hash.
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue
@@ -409,7 +404,7 @@ class DitzControl():
 
     def drop_issue(self, ditz_id):
         """
-        Remove an existing Ditz item
+        Remove an existing Ditz issue
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue to drop
@@ -425,9 +420,25 @@ class DitzControl():
             e.error_message = "Dropping issue failed"
             raise
 
+    def assign_issue(self, ditz_id, release, comment):
+        """
+        Assign a Ditz issue to a release
+
+        Parameters:
+        - ditz_id: Ditz hash or name identifier of an issue
+        - release: which release to assign the issue
+        - comment: (optional) comment text, no formatting, to add to the issue
+
+        Raises:
+        - DitzError if running Ditz command fails
+        """
+        ditz_issue = self.get_issue_content(ditz_id)
+        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        issuecontrol.write_issue_yaml(yaml_issue)
+
     def start_work(self, ditz_id, comment):
         """
-        Start working on an Ditz item
+        Start working on an Ditz issue
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue
@@ -446,7 +457,7 @@ class DitzControl():
 
     def stop_work(self, ditz_id, comment):
         """
-        Stop working on an Ditz item
+        Stop working on an Ditz issue
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue

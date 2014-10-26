@@ -12,7 +12,8 @@ A dialog for adding and editing Ditz issues
 import sys
 from PyQt4 import QtGui, uic
 
-from ditzcontrol import DitzControl, DitzItem
+from common.items import DitzItem
+from ditzcontrol import DitzControl
 from configcontrol import ConfigControl
 import utils.time
 
@@ -109,7 +110,7 @@ class IssueDialog(QtGui.QDialog):
         """
         Show the dialog filled with data of a given Ditz issue
         """
-        issue = self.ditz.get_item_content(ditz_id)
+        issue = self.ditz.get_issue_content(ditz_id)
         if issue == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return

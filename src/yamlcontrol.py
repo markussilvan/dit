@@ -4,7 +4,7 @@
 import yaml
 import datetime
 
-from ditzcontrol import DitzItem
+from common.items import DitzItem
 from common.errors import ApplicationError
 
 def str_representer(self, data):

@@ -196,7 +196,7 @@ class DitzGui(QtGui.QMainWindow):
             # needed so the same function can be connected to GUI
             ditz_id = self._get_selected_issue_id()
 
-        ditz_item = self.ditz.get_item_content(ditz_id)
+        ditz_item = self.ditz.get_issue_content(ditz_id)
         if ditz_item:
             self.textEditDitzItem.setText(str(ditz_item))
         #TODO: format the data or use a form instead (it's already a DitzItem)

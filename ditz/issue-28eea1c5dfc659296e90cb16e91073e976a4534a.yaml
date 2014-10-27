@@ -30,3 +30,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - changed status from unstarted to in_progress
   - ""
+- - 2014-10-27 20:21:24.021462 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Reading from .yaml to GUI now works, but it's quite a hack.
+    Also formatting of log entries is missing. This would need to be
+    added to DitzItem, as log is not just a string, but a complete
+    structure.

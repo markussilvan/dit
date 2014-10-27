@@ -27,10 +27,10 @@ def human_time_diff(date, max_elements=2):
         if diff > 0:
             explanation = "{}{} {}".format(explanation, str(diff), unit)
             if diff == 1:
-                explanation = explanation[:-1] + ' '
-            else:
-                explanation += ' '
+                explanation = explanation[:-1]
             elements = elements + 1
             if elements == max_elements:
-                return explanation[:-1]
+                break
+            explanation += ' '
+    return explanation.rstrip()
 

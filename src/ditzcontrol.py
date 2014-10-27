@@ -147,8 +147,6 @@ class DitzControl():
         - A Ditz item object filled with information of that issue
         - None if ditz_id is invalid
         """
-        #FIXME: 
-        #identifier = "fe168c3920141ea12a7e555f486144fae3e98164"
         if identifier == None or identifier == "":
             return None
         if len(identifier) != 40:
@@ -156,7 +154,7 @@ class DitzControl():
             identifier = self.get_issue_identifier(identifier)
             if len(identifier) != 40:
                 return None
-        yaml_issue = issuecontrol.read_issue_yaml(identifier)
+        yaml_issue = self.issuecontrol.read_issue_yaml(identifier)
         ditz_item = yaml_issue.toDitzItem()
         return ditz_item
 

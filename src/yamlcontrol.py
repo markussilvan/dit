@@ -133,9 +133,10 @@ class IssueYamlObject(yaml.YAMLObject):
         """
         Create a new DitzItem containing the information in this class
         """
-        return DitzItem('issue', self.title, None, self.type, None, self.status, None,
+        return DitzItem('issue', self.title, self.id, self.type, None, self.status, None,
                 self.desc, self.reporter, self.creation_time, self.release,
                 self.references, self.id, self.log_events)
+        #TODO: identifier used as name as there is no mechanism to generate names yet
 
     def __repr__(self):
         return "{} (title={}, desc={}, type={}, component={}, release={}, reporter={}, status={},\

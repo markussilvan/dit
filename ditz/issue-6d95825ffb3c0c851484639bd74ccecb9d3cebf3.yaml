@@ -35,3 +35,11 @@ log_events:
     Nicer formatting of the event log
     would make the GUI look much
     better.
+- - 2014-10-28 06:55:26.187070 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Current implementation crashes if any
+    property is set to None. It also happens
+    to be that None values are very common
+    with incomplete items.

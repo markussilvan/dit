@@ -57,19 +57,19 @@ class DitzGui(QtGui.QMainWindow):
 
     def create_actions(self):
         # create action objects
-        self.actionNewIssue = QtGui.QAction(QtGui.QIcon('../graphics/new.png'), 'New Issue', self)
-        self.actionEditIssue = QtGui.QAction(QtGui.QIcon('../graphics/edit.png'), 'Edit Issue', self)
-        self.actionCommentIssue = QtGui.QAction(QtGui.QIcon('../graphics/comment.png'), 'Comment Issue', self)
-        self.actionStartWork = QtGui.QAction(QtGui.QIcon('../graphics/start.png'), 'Start working', self)
-        self.actionStopWork = QtGui.QAction(QtGui.QIcon('../graphics/stop.png'), 'Stop working', self)
-        self.actionCloseIssue = QtGui.QAction(QtGui.QIcon('../graphics/close.png'), 'Close issue', self)
-        self.actionDropIssue = QtGui.QAction(QtGui.QIcon('../graphics/drop.png'), 'Drop issue', self)
-        self.actionAddReference = QtGui.QAction(QtGui.QIcon('../graphics/add_reference.png'), 'Add reference', self)
+        self.actionNewIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/new.png'), 'New Issue', self)
+        self.actionEditIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/edit.png'), 'Edit Issue', self)
+        self.actionCommentIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/comment.png'), 'Comment Issue', self)
+        self.actionStartWork = QtGui.QAction(QtGui.QIcon('../graphics/issue/start.png'), 'Start working', self)
+        self.actionStopWork = QtGui.QAction(QtGui.QIcon('../graphics/issue/stop.png'), 'Stop working', self)
+        self.actionCloseIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/close.png'), 'Close issue', self)
+        self.actionDropIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/drop.png'), 'Drop issue', self)
+        self.actionAddReference = QtGui.QAction(QtGui.QIcon('../graphics/issue/add_reference.png'), 'Add reference', self)
 
-        #self.actionAddRelease = QtGui.QAction(QtGui.QIcon('../graphics/add_release.png'), 'Add release', self)
-        self.actionMakeRelease = QtGui.QAction(QtGui.QIcon('../graphics/make_release.png'), 'Make release', self)
+        #self.actionAddRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/add_release.png'), 'Add release', self)
+        self.actionMakeRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/make_release.png'), 'Make release', self)
 
-        self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/settings.png'), 'Settings', self)
+        self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/release/settings.png'), 'Settings', self)
 
         # icons visible in custom context menu of items list view
         self.actionNewIssue.iconVisibleInMenu = True
@@ -173,11 +173,11 @@ class DitzGui(QtGui.QMainWindow):
             list_item = self.listWidgetDitzItems.item(self.listWidgetDitzItems.count() - 1)
             if item.item_type == 'issue':
                 if item.status == 'unstarted':
-                    list_item.setIcon(QtGui.QIcon('../graphics/list_new_bw.png'))
+                    list_item.setIcon(QtGui.QIcon('../graphics/list/balls/new.png'))
                 elif item.status == 'in progress':
-                    list_item.setIcon(QtGui.QIcon('../graphics/list_started.png'))
+                    list_item.setIcon(QtGui.QIcon('../graphics/list/balls/started.png'))
                 elif item.status == 'paused':
-                    list_item.setIcon(QtGui.QIcon('../graphics/list_paused.png'))
+                    list_item.setIcon(QtGui.QIcon('../graphics/list/balls/paused.png'))
                 else:
                     print "Unrecognized issue status"
 

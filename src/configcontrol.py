@@ -7,10 +7,6 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
-import os
-import sys
-import stat
-
 import yaml
 
 from common.errors import ApplicationError
@@ -41,7 +37,7 @@ class ConfigControl():
         """
         try:
             path = fileutils.find_file_along_path(self.ditz_config_file, path)
-        except Exception, e:
+        except Exception:
             raise ApplicationError("Can't find ditz root directory")
         self.path_to_config = path
         return path
@@ -172,7 +168,9 @@ class DitzReader():
         data = yaml.load(stream)
 
         releases = data["releases"]
-        releases = filter(lambda a: a != None, releases)
+        #TODO: get rid of this deprecated code in comment if the code cleaner list comprehension works
+        # releases = filter(lambda a: a != None, releases)    # pylint: disable=W0141
+        releases = [release for release in releases if release]
         return releases
 
 

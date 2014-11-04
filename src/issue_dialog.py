@@ -9,7 +9,6 @@ A GUI frontend for Ditz issue tracker
 A dialog for adding and editing Ditz issues
 """
 
-import sys
 from PyQt4 import QtGui, uic
 
 from common.items import DitzItem

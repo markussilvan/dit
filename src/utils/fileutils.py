@@ -6,7 +6,6 @@ General Python file utilities
 """
 
 import os
-import sys
 import stat
 
 def find_file_along_path(filename, path="."):

@@ -19,11 +19,12 @@ def human_time_diff(date, max_elements=2):
     """
     yourdate = dateutil.parser.parse(date)
     now = datetime.datetime.now()
-    timediff = dateutil.relativedelta.relativedelta(now, yourdate)
+    timediff = dateutil.relativedelta.relativedelta(now, yourdate) # pylint: disable=W0612
     elements = 0
     explanation = ""
     for unit in ['years', 'months', 'days', 'hours', 'minutes', 'seconds']:
-        exec('diff = timediff.' + unit)
+        # pylint: disable=E0602
+        exec('diff = timediff.' + unit) # pylint: disable=W0122
         if diff > 0:
             explanation = "{}{} {}".format(explanation, str(diff), unit)
             if diff == 1:

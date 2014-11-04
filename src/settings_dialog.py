@@ -9,7 +9,6 @@ A GUI frontend for Ditz issue tracker
 A settings dialog box
 """
 
-import sys
 from PyQt4 import QtGui, uic
 
 from configcontrol import ConfigControl

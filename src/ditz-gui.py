@@ -16,9 +16,9 @@ directory can be kept under version control, alongside project code.
 
 import sys
 from PyQt4 import QtGui, uic
-from PyQt4.QtCore import SIGNAL, QModelIndex, QSize
+from PyQt4.QtCore import SIGNAL, QModelIndex
 
-from common.errors import ApplicationError, DitzError
+from common.errors import DitzError
 from ditzcontrol import DitzControl
 from comment_dialog import CommentDialog
 from reference_dialog import ReferenceDialog
@@ -64,10 +64,13 @@ class DitzGui(QtGui.QMainWindow):
         self.actionStopWork = QtGui.QAction(QtGui.QIcon('../graphics/issue/stop.png'), 'Stop working', self)
         self.actionCloseIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/close.png'), 'Close issue', self)
         self.actionDropIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/drop.png'), 'Drop issue', self)
-        self.actionAddReference = QtGui.QAction(QtGui.QIcon('../graphics/issue/add_reference.png'), 'Add reference', self)
+        self.actionAddReference = QtGui.QAction(QtGui.QIcon('../graphics/issue/add_reference.png'),
+                'Add reference', self)
 
-        #self.actionAddRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/add_release.png'), 'Add release', self)
-        self.actionMakeRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/make_release.png'), 'Make release', self)
+        #self.actionAddRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/add_release.png'),
+        #       'Add release', self)
+        self.actionMakeRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/make_release.png'),
+                'Make release', self)
 
         self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/release/settings.png'), 'Settings', self)
 
@@ -145,9 +148,6 @@ class DitzGui(QtGui.QMainWindow):
         menu.exec_(QtGui.QCursor.pos())
 
     def build_toolbar_menu(self):
-        ditz_id = self._get_selected_issue_id()
-        status = self._get_selected_issue_status()
-
         self.toolBar.addAction(self.actionNewIssue)
         self.toolBar.addAction(self.actionEditIssue)
         self.toolBar.addAction(self.actionCommentIssue)
@@ -283,7 +283,7 @@ class DitzGui(QtGui.QMainWindow):
             try:
                 self.ditz.start_work(ditz_id, comment)
             except DitzError, e:
-                QMessageBox.warning(self, "Ditz error", e.error_message)
+                QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
                 return
             self.reload_data(ditz_id)
 
@@ -298,7 +298,7 @@ class DitzGui(QtGui.QMainWindow):
             try:
                 self.ditz.stop_work(ditz_id, comment)
             except DitzError, e:
-                QMessageBox.warning(self, "Ditz error", e.error_message)
+                QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
                 return
             self.reload_data(ditz_id)
 
@@ -384,7 +384,7 @@ class DitzGui(QtGui.QMainWindow):
 
 def main():
     app = QtGui.QApplication(sys.argv)
-    ditz_gui = DitzGui()
+    _ = DitzGui()
 
     sys.exit(app.exec_())
 

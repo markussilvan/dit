@@ -9,7 +9,6 @@ A GUI frontend for Ditz issue tracker
 A common comment dialog box
 """
 
-import sys
 from PyQt4 import QtGui, uic
 
 from ditzcontrol import DitzControl

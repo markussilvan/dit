@@ -42,6 +42,6 @@ class DitzError(ApplicationError):
         Returns:
         - exception information string
         """
-        return "DitzError: {}".format(e.error_message)
+        return "DitzError: {}".format(self.error_message)
 
 

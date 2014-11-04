@@ -8,7 +8,6 @@ A GUI frontend for Ditz issue tracker
 """
 
 import subprocess
-import time
 
 from common.items import DitzItem
 from common.errors import ApplicationError, DitzError
@@ -211,7 +210,6 @@ class DitzControl():
         # references and identifier in one go
         references_line = ditz_data.next().lstrip()
         references = ""
-        identifier_line = ""
         if references_line != "References: \n":
             raise DitzError("Error parsing issue references from Ditz output")
         for line in ditz_data:
@@ -267,7 +265,7 @@ class DitzControl():
                 # example: title, description, t, n, creator, /stop
                 output = self._run_interactive_command("add", issue.title, issue.description, "/stop",
                         issue.issue_type[:1], 'n', issue.creator, "/stop")
-        except DitzError,e:
+        except DitzError, e:
             e.error_message = "Adding a new issue to Ditz failed"
             raise
 
@@ -283,7 +281,7 @@ class DitzControl():
                 self.start_work(identifier, "")
                 if issue.status == "paused":
                     self.stop_work(identifier, "")
-            except DitzError,e:
+            except DitzError, e:
                 e.error_message = "Setting issue state failed"
                 raise
 
@@ -319,7 +317,7 @@ class DitzControl():
         #        # example: title, description, t, n, creator, /stop
         #        output = self._run_interactive_command("edit", issue.title, issue.description, "/stop",
         #                issue.issue_type[:1], 'n', issue.creator, "/stop")
-        #except DitzError,e:
+        #except DitzError, e:
         #    e.error_message = "Editing a Ditz issue failed"
         #    raise
 
@@ -335,7 +333,7 @@ class DitzControl():
         #        self.start_work(identifier, "")
         #        if issue.status == "paused":
         #            self.stop_work(identifier, "")
-        #    except DitzError,e:
+        #    except DitzError, e:
         #        e.error_message = "Setting issue state failed"
         #        raise
 
@@ -359,7 +357,7 @@ class DitzControl():
             return
         try:
             self._run_interactive_command("comment {}".format(ditz_id), comment, "/stop")
-        except DitzError,e:
+        except DitzError, e:
             e.error_message = "Adding a comment on Ditz failed"
             raise
 
@@ -377,7 +375,7 @@ class DitzControl():
         try:
             self._run_interactive_command("add-reference {}".format(ditz_id),
                     reference, comment, "/stop")
-        except DitzError,e:
+        except DitzError, e:
             e.error_message = "Adding a reference on Ditz failed"
             raise
 
@@ -396,7 +394,7 @@ class DitzControl():
             raise ApplicationError("Invalid disposition value")
         try:
             self._run_interactive_command("close {}".format(ditz_id), disposition, comment, "/stop")
-        except DitzError,e:
+        except DitzError, e:
             e.error_message = "Closing an issue on Ditz failed"
             raise
 
@@ -414,7 +412,7 @@ class DitzControl():
             return
         try:
             self._run_command("drop " + ditz_id)
-        except DitzError,e:
+        except DitzError, e:
             e.error_message = "Dropping issue failed"
             raise
 
@@ -431,8 +429,12 @@ class DitzControl():
         - DitzError if running Ditz command fails
         """
         ditz_issue = self.get_issue_content(ditz_id)
+        ditz_issue.release = release
+        if comment and comment != "":
+            #TODO: implementation to add a comment if given
+            pass
         yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
-        issuecontrol.write_issue_yaml(yaml_issue)
+        self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def start_work(self, ditz_id, comment):
         """
@@ -449,7 +451,7 @@ class DitzControl():
             return
         try:
             self._run_interactive_command("start " + ditz_id, comment, "/stop")
-        except DitzError,e:
+        except DitzError, e:
             e.error_message = "Starting work on a Ditz issue failed"
             raise
 
@@ -465,7 +467,7 @@ class DitzControl():
             return
         try:
             self._run_interactive_command("stop " + ditz_id, comment, "/stop")
-        except DitzError,e:
+        except DitzError, e:
             e.error_message = "Stopping work on a Ditz issue failed"
             raise
 
@@ -481,7 +483,7 @@ class DitzControl():
             return
         try:
             self._run_interactive_command("release " + release_name, comment, "/stop")
-        except DitzError,e:
+        except DitzError, e:
             e.error_message = "Making release on Ditz failed"
             raise
 

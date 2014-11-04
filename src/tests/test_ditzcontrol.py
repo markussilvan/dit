@@ -11,7 +11,7 @@ import os, sys, inspect
 script_path = os.path.abspath(os.path.split(inspect.getfile(inspect.currentframe()))[0])
 parent_path = os.path.realpath(script_path + "/..")
 if parent_path not in sys.path:
-     sys.path.insert(0, parent_path)
+    sys.path.insert(0, parent_path)
 
 import ditzcontrol
 

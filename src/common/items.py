@@ -15,7 +15,7 @@ class DitzItem():
     A status is also commonly set for issues.
     """
     def __init__(self, item_type, title, name=None, issue_type=None, component=None,
-            status=None, disposition=None, description=None, creator=None, created=None,
+            status=None, disposition="", description=None, creator=None, created=None,
             release=None, references=None, identifier=None, log=None):
         """
         Initialize new DitzItem.
@@ -29,7 +29,7 @@ class DitzItem():
         self.issue_type = issue_type
         self.component = component
         self.status = status
-        self.disposition = ""
+        self.disposition = disposition
         self.description = description
         self.creator = creator
         self.created = created

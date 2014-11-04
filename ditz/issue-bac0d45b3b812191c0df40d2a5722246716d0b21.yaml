@@ -24,3 +24,9 @@ log_events:
   - |-
     Jenkins jobs added for unit testing and pylint.
     Jobs are empty and don't do anything except checkout the code.
+- - 2014-11-04 13:14:23.476791 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Script to run pylint on all project source is now created.
+    I'll add it to Jenkins now.

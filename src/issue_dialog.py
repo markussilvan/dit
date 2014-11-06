@@ -12,6 +12,7 @@ A dialog for adding and editing Ditz issues
 from PyQt4 import QtGui, uic
 
 from common.items import DitzItem
+from common.errors import ApplicationError
 from ditzcontrol import DitzControl
 from configcontrol import ConfigControl
 import utils.time
@@ -80,7 +81,7 @@ class IssueDialog(QtGui.QDialog):
 
         try:
             issue = DitzItem('issue', title, None, issue_type, None, status, None,
-                    description, creator, age, release, references, identifier, log)
+                    description, creator, created, release, references, identifier, log)
         except ApplicationError:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
             #TODO: change invalid fields to red or something?

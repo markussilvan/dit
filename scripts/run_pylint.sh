@@ -7,11 +7,11 @@ if [ "`basename $PWD`" = "scripts" ]; then
     REPORT_DIR="../reports"
     SOURCE_DIR="../src/"
     PYLINT_CONFIG="pylint.cfg"
-#elif [ "`basename $PWD`" = "ditz-gui" ]; then
-#    REPORT_DIR="reports"
-#    SOURCE_DIR="src/"
-#    PYLINT_CONFIG="scripts/pylint.cfg"
-else
+elif [ "`basename $PWD`" = "src" ]; then
+    REPORT_DIR="../reports"
+    SOURCE_DIR="."
+    PYLINT_CONFIG="../scripts/pylint.cfg"
+else # assume "ditz-gui"
     REPORT_DIR="reports"
     SOURCE_DIR="src/"
     PYLINT_CONFIG="scripts/pylint.cfg"

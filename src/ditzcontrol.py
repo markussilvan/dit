@@ -65,7 +65,7 @@ class DitzControl():
         """
         del self.ditz_items[:]
         items = self._run_command("todo")
-        for i, item in enumerate(items):
+        for item in items:
             item_text = item.replace('\n', '')
 
             item_data = item_text.split(':', 1)

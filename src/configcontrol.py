@@ -10,6 +10,7 @@ A GUI frontend for Ditz issue tracker
 import yaml
 
 from common.errors import ApplicationError
+from common.utils import unused
 from utils import fileutils
 
 class ConfigControl():
@@ -104,12 +105,18 @@ class DitzReader():
         self.config_file = config_file
         self.project_file = project_file
 
+        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/project", self.ditz_project)
+        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/component", self.ditz_component)
+        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/release", self.ditz_release_name_only)
+
     def ditz_project(self, loader, node):
         #--- !ditz.rubyforge.org,2008-03-06/project
         return loader.construct_yaml_map(node)
 
     def ditz_component(self, loader, node):
         #--- !ditz.rubyforge.org,2008-03-06/component
+        unused(loader)
+        unused(node)
         return ""
 
     def ditz_release_name_only(self, loader, node):
@@ -159,17 +166,10 @@ class DitzReader():
         if self.project_file == None:
             raise ApplicationError("Project file location not known")
 
-        #TODO: dont load these again every time(?)
-        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/project", self.ditz_project)
-        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/component", self.ditz_component)
-        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/release", self.ditz_release_name_only)
-
         stream = open(self.project_file, 'r')
         data = yaml.load(stream)
 
         releases = data["releases"]
-        #TODO: get rid of this deprecated code in comment if the code cleaner list comprehension works
-        # releases = filter(lambda a: a != None, releases)    # pylint: disable=W0141
         releases = [release for release in releases if release]
         return releases
 

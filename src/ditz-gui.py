@@ -46,9 +46,26 @@ class DitzGui(QtGui.QMainWindow):
                 SIGNAL('customContextMenuRequested(const QPoint &)'),
                 self.context_menu)
 
+        self.actionCommentIssue = None
+        self.actionStartWork = None
+        self.actionStopWork = None
+        self.actionAddReference = None
+        self.actionEditIssue = None
+        self.actionNewIssue = None
+        self.actionDropIssue = None
+        self.actionCloseIssue = None
+        self.actionMakeRelease = None
+        self.actionOpenSettings = None
+
         self.create_actions()
         self.build_toolbar_menu()
 
+        self.show_main_window()
+
+    def show_main_window(self):
+        """
+        Show the main application window
+        """
         self.resize(800, 500)
         self.center()
         self.setWindowTitle('Ditz GUI')
@@ -118,7 +135,7 @@ class DitzGui(QtGui.QMainWindow):
         self.move(rect.topLeft())
 
     def context_menu(self):
-        #TODO: are actions named incorrectly, should be camelCase?
+        # pylint: disable=W0108
         ditz_id = self._get_selected_issue_id()
         item_type = self._get_selected_item_type()
         status = self._get_selected_issue_status()

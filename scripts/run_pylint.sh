@@ -2,20 +2,29 @@
 # Run pylint for all python code in ditz-gui
 #
 
-# find report, source and pylint config dirs
+# find source dir
 if [ "`basename $PWD`" = "scripts" ]; then
-    REPORT_DIR="../reports"
-    SOURCE_DIR="../src/"
-    PYLINT_CONFIG="pylint.cfg"
+    cd ../src
+    if [ $? -ne 0 ]; then
+        echo "Can't find source directory"
+        exit 1
+    fi
 elif [ "`basename $PWD`" = "src" ]; then
-    REPORT_DIR="../reports"
-    SOURCE_DIR="."
-    PYLINT_CONFIG="../scripts/pylint.cfg"
-else # assume "ditz-gui"
-    REPORT_DIR="reports"
-    SOURCE_DIR="src/"
-    PYLINT_CONFIG="scripts/pylint.cfg"
+    # ok, already there
+    :
+else
+    # assume "ditz-gui"
+    cd src
+    if [ $? -ne 0 ]; then
+        echo "Can't find source directory"
+        exit 1
+    fi
 fi
+
+# set locations for report and source dirs and pylint config file
+REPORT_DIR="../reports"
+SOURCE_DIR="."
+PYLINT_CONFIG="../scripts/pylint.cfg"
 
 # create report dir if it doesn't exist
 [ ! -e $REPORT_DIR ] && mkdir $REPORT_DIR

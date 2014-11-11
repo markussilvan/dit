@@ -10,8 +10,8 @@ A GUI frontend for Ditz issue tracker
 import yaml
 
 from common.errors import ApplicationError
-from common.utils import unused
-from utils import fileutils
+from common.utils import fileutils
+from common.unused import unused
 
 class ConfigControl():
     """
@@ -88,6 +88,7 @@ class DitzSettings(yaml.YAMLObject):
         self.name = name
         self.email = email
         self.issue_dir = issue_dir
+        super(DitzSettings, self).__init__()
 
     def __repr__(self):
         return "%s (name=%r, email=%r, issue_dir=%r)" % (self.__class__.__name__, self.name, self.email, self.issue_dir)

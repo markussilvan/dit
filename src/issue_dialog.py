@@ -15,7 +15,7 @@ from common.items import DitzItem
 from common.errors import ApplicationError
 from ditzcontrol import DitzControl
 from configcontrol import ConfigControl
-import utils.time
+import common.utils.time
 
 class IssueDialog(QtGui.QDialog):
     """

@@ -11,7 +11,7 @@ import subprocess
 
 from common.items import DitzItem
 from common.errors import ApplicationError, DitzError
-from utils.nonblockingstreamreader import NonBlockingStreamReader
+from common.utils.nonblockingstreamreader import NonBlockingStreamReader
 from yamlcontrol import IssueYamlControl, IssueYamlObject
 
 

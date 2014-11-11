@@ -116,6 +116,7 @@ class IssueYamlObject(yaml.YAMLObject):
         self.references = references            #TODO: osaako tää tehdä listan ihan näin?
         self.id = identifier                    #TODO: eri nimi?
         self.log_events = log_events
+        super(IssueYamlObject, self).__init__()
 
     @classmethod
     def fromDitzItem(cls, item):

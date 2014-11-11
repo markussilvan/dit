@@ -7,6 +7,8 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
+import utils.time
+
 class DitzItem():
     """
     A Ditz item which can be an issue or an release.
@@ -42,15 +44,35 @@ class DitzItem():
         """
         Serialize to string. Mimic output of Ditz command line.
         """
-        return "Issue {}\n{}".format(self.name, len(self.name) * '-') + '\n' + \
+        item_str = "Issue {}\n{}".format(self.name, len(self.name) * '-') + '\n' + \
             "Title: {}".format(self.title) + '\n' + \
             "Description:\n{}".format(self.description) + '\n' + \
             "Type: {}".format(self.issue_type) + '\n' + \
             "Status: {}".format(self.status) + '\n' + \
             "Creator: {}".format(self.creator) + '\n' + \
             "Created: {}".format(self.created) + '\n' + \
-            "Release: {}".format(self.release) + '\n' + \
-            "References:\n{}".format(self.references) + \
-            "Identifier: {}".format(self.identifier) + '\n' + \
-            "Event log:\n{}".format(self.log)
+            "Release: {}".format(self.release) + '\n'
+
+        item_str += "References:\n"
+        for i, reference in enumerate(self.references):
+            item_str += "    {}. {}\n".format(i+1, reference)
+
+        item_str += "Identifier: {}".format(self.identifier) + '\n'
+
+        # event log entries
+        for entry in self.log:
+            # timestamp, creator, action, comment
+            timestamp = utils.time.human_time_diff(entry[0].isoformat(' '))
+            creator = entry[1]
+            action = entry[2]
+            comment = entry[3]
+            #entry_str = "- {} ({}, {})\n".format(action, creator, timestamp)
+            entry_str = "---------------------------------\n"
+            entry_str += "- {}, {}\n".format(action, timestamp)
+            entry_str += "  {}\n".format(creator)
+            if comment != None and comment != "":
+                entry_str += "  {}\n".format(comment)
+            item_str += entry_str
+
+        return item_str
 

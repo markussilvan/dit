@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Using listview with keyboard
+desc: |-
+  Currently listview selection is not updated when
+  highlighted item is changed using keyboard. Using keyboard must be possible as power users want
+  to do that anyway. Especially on Linux. This
+  should be easy to fix.
+type: :bugfix
+component: ditz-gui
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-11-11 21:42:53.736234 Z
+references: []
+
+id: 15ab79e4eb03bd181a49f64165e95f1bee85eb1a
+log_events: 
+- - 2014-11-11 21:42:54.237695 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

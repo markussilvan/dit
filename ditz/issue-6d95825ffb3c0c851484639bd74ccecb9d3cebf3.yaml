@@ -12,8 +12,8 @@ reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
 creation_time: 2014-10-14 19:56:07.292454 Z
-references: []
-
+references: 
+- 38b74f96a97c67bb5ade1e86fdee57e1c7b5d322
 id: 6d95825ffb3c0c851484639bd74ccecb9d3cebf3
 log_events: 
 - - 2014-10-14 19:56:10.644155 Z
@@ -43,3 +43,10 @@ log_events:
     property is set to None. It also happens
     to be that None values are very common
     with incomplete items.
+- - 2014-11-12 14:38:13.224538 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - |-
+    Formatting has been improved already as the content is now read from
+    YAML files. It can be further improved using HTML formatting
+    capabilities of QTextEdit.

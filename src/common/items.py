@@ -44,13 +44,14 @@ class DitzItem():
         """
         Serialize to string. Mimic output of Ditz command line.
         """
+        created_ago = utils.time.human_time_diff(self.created.isoformat(' '))
         item_str = "Issue {}\n{}".format(self.name, len(self.name) * '-') + '\n' + \
             "Title: {}".format(self.title) + '\n' + \
             "Description:\n{}".format(self.description) + '\n' + \
             "Type: {}".format(self.issue_type) + '\n' + \
             "Status: {}".format(self.status) + '\n' + \
             "Creator: {}".format(self.creator) + '\n' + \
-            "Created: {}".format(self.created) + '\n' + \
+            "Created: {}".format(created_ago) + '\n' + \
             "Release: {}".format(self.release) + '\n'
 
         item_str += "References:\n"

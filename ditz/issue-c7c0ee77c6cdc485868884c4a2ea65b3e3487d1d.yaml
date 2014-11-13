@@ -23,3 +23,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 1
   - ""
+- - 2014-11-13 15:19:55.036937 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Implement this using custom .ditzconfig yaml writer.
+    Create issue directory from python after "initialization".
+    Don't actually rely on "ditz init".

@@ -28,3 +28,25 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-11-28 21:29:08.907257 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    A test script to help developing this is started.
+    The script should use YamlControl and other *Control
+    classes directly. Then the functionality is
+    easy take into use in the program when finished.
+    
+    Developing this way would also automatically
+    create an API that is easy to unit test.
+    
+    Yet I don't think it makes sense to write the
+    test script in the form of a unit test directly as
+    it would require a lot more work.
+- - 2014-11-28 21:31:16.435517 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    There could be a separate option for initial scan.
+    Only titles would be cached to memory and
+    "identifying names" generated for the issues.

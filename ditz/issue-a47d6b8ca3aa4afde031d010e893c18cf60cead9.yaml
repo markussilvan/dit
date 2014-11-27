@@ -8,8 +8,8 @@ type: :task
 component: ditz-gui
 release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-23 07:46:41.782957 Z
 references: []
 
@@ -40,3 +40,19 @@ log_events:
   - |-
     Custom implementation for showing textual time
     differences done. Now use it to show "ago".
+- - 2014-11-27 13:48:01.217358 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Creation time has been added to DitzItem.
+- - 2014-11-27 14:06:51.930326 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Also component has been added to DitzItem. It's only printed to output
+    if it has been set.
+- - 2014-11-27 14:18:23.571878 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Think this can be closed.
+    The issue with multiple references is handled in a separate ticket.

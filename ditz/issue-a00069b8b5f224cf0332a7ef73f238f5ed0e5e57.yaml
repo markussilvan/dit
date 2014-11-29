@@ -10,8 +10,8 @@ type: :bugfix
 component: ditz-gui
 release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-11-28 21:34:32.869214 Z
 references: []
 
@@ -21,3 +21,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-11-29 12:41:06.442140 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    human_time_diff() is now changed to always
+    use UTC times. Also times given as
+    parameters are assumed to be in UTC.

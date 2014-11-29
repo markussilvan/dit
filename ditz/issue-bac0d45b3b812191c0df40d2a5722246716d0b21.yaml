@@ -7,8 +7,8 @@ type: :task
 component: ditz-gui
 release: 
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-07 20:21:55.399510 Z
 references: []
 
@@ -38,3 +38,11 @@ log_events:
     All those warnings should be fixed.
     Also some sensible limits for unstable
     and failed builds should be set.
+- - 2014-11-29 12:45:21.661025 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Jenkins code analysis has been running smoothly.
+    There are no tests to run yet, but Jenkins is ready
+    for it, if tests are implemented.
+    This ticket can be closed.

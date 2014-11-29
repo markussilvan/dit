@@ -10,6 +10,9 @@ def human_time_diff(date, max_elements=2):
     Two timescales are used to explain the difference.
     Rest is just left off as it would provide too much details.
 
+    It's assumed that the times are given in UTC. Any time zone information
+    is disregarded.
+
     Parameters:
     - date: datetime to count the difference with current time
     - max_elements: how many words to use to explain the time difference
@@ -18,7 +21,7 @@ def human_time_diff(date, max_elements=2):
     - string explaining the difference, not exact
     """
     yourdate = dateutil.parser.parse(date)
-    now = datetime.datetime.now()
+    now = datetime.datetime.utcnow()
     timediff = dateutil.relativedelta.relativedelta(now, yourdate) # pylint: disable=W0612
     elements = 0
     explanation = ""

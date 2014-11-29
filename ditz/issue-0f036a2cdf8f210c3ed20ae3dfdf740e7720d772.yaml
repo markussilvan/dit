@@ -30,3 +30,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 1
   - ""
+- - 2014-11-29 13:00:43.671849 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    I have made a skeleton files for new Debian
+    packages before. Just try to find them :)

@@ -17,7 +17,7 @@ type: :feature
 component: ditz-gui
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-24 11:33:21.214821 Z
 references: []
@@ -50,3 +50,27 @@ log_events:
     There could be a separate option for initial scan.
     Only titles would be cached to memory and
     "identifying names" generated for the issues.
+- - 2014-12-01 08:40:57.970545 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Some implementation for this has been done.
+    More testing is needed to see if it is enough.
+- - 2014-12-01 11:14:42.346262 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    The issues in cache must be refreshed also when any changes
+    to an issue is made.
+    The interface to listview must be changed to get its information
+    from cache instead of files or Ditz directly.
+- - 2014-12-01 20:31:08.561562 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Simple implementation for cache has been started.
+    It should be taken into use throughout DitzControl
+    functions that affects issues.
+    
+    If that works well, then cache could be used to
+    form the main listview content.

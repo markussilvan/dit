@@ -15,15 +15,96 @@ from common.utils.nonblockingstreamreader import NonBlockingStreamReader
 from yamlcontrol import IssueYamlControl, IssueYamlObject
 
 
+class IssueCache():
+    """
+    This class form a cache of read issues to memory
+    for faster and easier access.
+
+    A cache is required so issues can be enumerated and named.
+    """
+    def __init__(self):
+        """
+        Initialize
+        """
+        self.issues = []
+
+    def add(self, issue):
+        """
+        Add new issue to cache.
+        If the issue already exists in the cache, it is overwritten.
+        Old issue is removed and new issue is appended to the end of the cache.
+
+        Parameters:
+        - issue: a new issue to add to cache (only title information is required)
+        """
+        # check if given issue contains required information
+        if not issue:
+            return False
+        if issue.title == None or issue.title == "":
+            return False
+        if issue.identifier == None or issue.identifier == "":
+            return False
+        if issue.created == None or issue.created == "":
+            return False
+
+        # check if the same issue already exists in cache
+        for cached_issue in self.issues:
+            if cached_issue.identifier == issue.identifier:
+                self.issues.remove(cached_issue)
+                break
+
+        # add the new issue to cache
+        self.issues.append(issue)
+        return True
+
+    def get(self, identifier):
+        """
+        Get a cache issue
+
+        Parameters:
+        - identifier: issue name or identifier hash
+
+        Returns:
+        - cached issue
+        - None if issue not found with given identifier
+        """
+        for issue in self.issues:
+            if issue.identifier == identifier:
+                return issue
+            if issue.name == identifier:
+                return issue
+
+        return None
+
+    def sort(self):
+        """
+        Sort the cache and write names for issues.
+        Old names, if any, are overwritten.
+        """
+        self.issues.sort(key=lambda issue: issue.created)
+
+    def clear(self):
+        """
+        Clear all issues from cache
+        """
+        self.issues[:] = []
+
+
 class DitzControl():
     """
     This class handles communication to Ditz command line interface.
     Ditz issue data is read using the Ditz command line tool.
     """
     def __init__(self):
+        """
+        Initialize
+        """
         self.ditz_cmd = "ditz"
         self.ditz_items = []
         self.issuecontrol = IssueYamlControl()
+        self.issue_cache = IssueCache()
+
+        self.initialize_cache()
 
     def get_valid_issue_states(self):
         """
@@ -55,6 +136,27 @@ class DitzControl():
         for line in release_data:
             releases.append(line.split()[0])
         return releases
+
+    def initialize_cache(self):
+        """
+        Get basic information for all issues in the system.
+        Cache that information to memory.
+        """
+        # (re)create the cache
+        self.issue_cache.clear()
+        identifiers = self.issuecontrol.list_issue_identifiers()
+        for issue_id in identifiers:
+            ditz_item = self.get_issue_content(issue_id, False)
+            self.issue_cache.add(ditz_item)
+        self.issue_cache.sort()
+
+        # (re)generate names for cached issues
+        for i, issue in enumerate(self.issue_cache.issues):
+            if issue.component != None and issue.component != "":
+                prefix = '{}-'.format(issue.component)
+            else:
+                prefix = 'issue-'
+            issue.name = '{}{}'.format(prefix, i+1)
 
     def get_items(self):
         """
@@ -135,12 +237,14 @@ class DitzControl():
         issue = self.get_issue_content_from_ditz(issue_name)
         return issue.identifier
 
-    def get_issue_content(self, identifier):
+    def get_issue_content(self, identifier, update_cache=True):
         """
         Get all content of one issue by its identifier hash.
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue
+        - update_cache: (optional) flag to show if issue cache content
+                        should be updated
 
         Returns:
         - A Ditz item object filled with information of that issue
@@ -155,6 +259,9 @@ class DitzControl():
                 return None
         yaml_issue = self.issuecontrol.read_issue_yaml(identifier)
         ditz_item = yaml_issue.toDitzItem()
+        if update_cache:
+            self.issue_cache.add(ditz_item)
+            self.issue_cache.sort()
         return ditz_item
 
     def get_issue_content_from_ditz(self, ditz_id):

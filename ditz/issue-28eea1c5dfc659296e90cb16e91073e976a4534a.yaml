@@ -18,8 +18,10 @@ reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :in_progress
 disposition: 
 creation_time: 2014-10-23 14:18:47.712157 Z
-references: []
-
+references: 
+- 5272dbdb850a41f5610c4fdc6702c9862a5b4a3c
+- 276a0b0afbf7c9659981cd99096922ebe60b2624
+- 04c6097b9b3f5060a20a00a46af0040733c0eba0
 id: 28eea1c5dfc659296e90cb16e91073e976a4534a
 log_events: 
 - - 2014-10-23 14:18:48.975588 Z
@@ -53,3 +55,15 @@ log_events:
     
     When this cache of items is created, all other operations are
     easier and faster.
+- - 2014-12-01 20:28:14.361225 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - ""
+- - 2014-12-01 20:28:33.590303 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 2
+  - ""
+- - 2014-12-01 20:28:47.878363 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 3
+  - ""

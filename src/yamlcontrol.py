@@ -3,6 +3,8 @@
 
 import yaml
 import datetime
+import glob
+import os.path
 
 from common.items import DitzItem
 from common.errors import ApplicationError
@@ -76,6 +78,27 @@ class IssueYamlControl():
                 stream.write(yaml_data)
         except Exception:
             raise ApplicationError("Error writing issue yaml file")
+
+    def list_issue_identifiers(self):
+        """
+        Return a list of all known issue identifiers.
+
+        Returns:
+        - a list of valid issue identifiers
+        """
+        issue_file_format = '/issue-*.yaml'
+        issue_files = glob.glob(self.issue_dir + issue_file_format)
+        identifiers = []
+
+        # loop all issue files
+        for i, f in enumerate(issue_files):
+            # first remove everything else except regular files
+            if not os.path.isfile(f):
+                issue_files.pop(i)
+                continue
+            identifiers.append(f[-45:-5])
+
+        return identifiers
 
 
 class IssueYamlObject(yaml.YAMLObject):

@@ -13,29 +13,31 @@ from common.items import DitzItem
 from common.errors import ApplicationError, DitzError
 from common.utils.nonblockingstreamreader import NonBlockingStreamReader
 from yamlcontrol import IssueYamlControl, IssueYamlObject
+from configcontrol import ConfigControl
 
 
-class IssueCache():
+class ItemCache():
     """
-    This class form a cache of read issues to memory
-    for faster and easier access.
+    This class form a cache of read issues and releases
+    to memory for faster and easier access.
 
     A cache is required so issues can be enumerated and named.
     """
     def __init__(self):
         """
-        Initialize
+        Initialize ItemCache.
         """
         self.issues = []
+        self.releases = []
 
-    def add(self, issue):
+    def add_issue(self, issue):
         """
         Add new issue to cache.
         If the issue already exists in the cache, it is overwritten.
         Old issue is removed and new issue is appended to the end of the cache.
 
         Parameters:
-        - issue: a new issue to add to cache (only title information is required)
+        - issue: a new issue to add to cache
         """
         # check if given issue contains required information
         if not issue:
@@ -48,8 +50,10 @@ class IssueCache():
             return False
 
         # check if the same issue already exists in cache
+        # if it does, remove it, but use the same name for the new issue
         for cached_issue in self.issues:
             if cached_issue.identifier == issue.identifier:
+                issue.name = cached_issue.name
                 self.issues.remove(cached_issue)
                 break
 
@@ -57,9 +61,9 @@ class IssueCache():
         self.issues.append(issue)
         return True
 
-    def get(self, identifier):
+    def get_issue(self, identifier):
         """
-        Get a cache issue
+        Get a cache issue.
 
         Parameters:
         - identifier: issue name or identifier hash
@@ -76,18 +80,109 @@ class IssueCache():
 
         return None
 
-    def sort(self):
+    def sort_issues(self, rename=False):
         """
-        Sort the cache and write names for issues.
-        Old names, if any, are overwritten.
+        Sort the cached issues.
+        Issues are sorted by creation date.
+
+        Parameters:
+        - rename: rename issues according to new sorted order
         """
         self.issues.sort(key=lambda issue: issue.created)
+        if rename:
+            self.rename_issues()
+
+    def sort_issues_by_status(self, issues):
+        """
+        Sort given issues by status.
+
+        Parameters:
+        - issues: list of issues to sort
+
+        Returns:
+        - sorted list
+        """
+        issues.sort(key=self._status_sorting_func)
+        return issues
+
+    def _status_sorting_func(self, issue):
+        if issue.status == "in progress":
+            return 0
+        elif issue.status == "paused":
+            return 1
+        elif issue.status == "unstarted":
+            return 2
+        else:
+            return 3 # closed
+
+    def get_issues_by_release(self, release_title, include_closed=False):
+        """
+        Get all issues belonging to a particular release.
+
+        Parameters:
+        - release: name of the release to find the issues for
+        - include_closed: list also closed tasks
+
+        Returns:
+        - list of issues for that release
+        """
+        release_issues = []
+        for issue in self.issues:
+            if issue.release == release_title and issue.status != "closed":
+                release_issues.append(issue)
+
+        return release_issues
+
+    def add_release(self, release):
+        """
+        Add new release to cache.
+        If the release already exists in the cache, it is overwritten.
+        Old release is removed and new release is appended to the end of the cache.
+
+        Parameters:
+        - release: a new release to add to cache
+        """
+        if not release:
+            return False
+        if release.title == None or release.title == "":
+            return False
+
+        # check if the same release already exists in cache
+        for cached_release in self.releases:
+            if cached_release.title == release.title:
+                self.releases.remove(cached_release)
+                break
+
+        # add the new release to cache
+        self.releases.append(release)
+        return True
+
+    def sort_releases(self):
+        """
+        Sort cached issues.
+        """
+        #TODO: sort releases by name / creation / semantic versioning / index (new variable)?
+        pass
 
     def clear(self):
         """
-        Clear all issues from cache
+        Clear all issues and releases from cache.
         """
         self.issues[:] = []
+        self.releases[:] = []
+
+    def rename_issues(self):
+        """
+        Regenerate names for cached issues.
+        Old names, if any, are overwritten.
+        Naming convention is <component>-<index>.
+        """
+        for i, issue in enumerate(self.issues):
+            if issue.component != None and issue.component != "":
+                prefix = '{}-'.format(issue.component)
+            else:
+                prefix = 'issue-'
+            issue.name = '{}{}'.format(prefix, i+1)
 
 
 class DitzControl():
@@ -100,11 +195,12 @@ class DitzControl():
         Initialize
         """
         self.ditz_cmd = "ditz"
-        self.ditz_items = []
         self.issuecontrol = IssueYamlControl()
-        self.issue_cache = IssueCache()
+        self.config = ConfigControl()
+        self.item_cache = ItemCache()
 
-        self.initialize_cache()
+        self.config.read_config_file()
+        self.reload_cache()
 
     def get_valid_issue_states(self):
         """
@@ -137,61 +233,51 @@ class DitzControl():
             releases.append(line.split()[0])
         return releases
 
-    def initialize_cache(self):
+    def reload_cache(self):
         """
         Get basic information for all issues in the system.
         Cache that information to memory.
         """
         # (re)create the cache
-        self.issue_cache.clear()
+        self.item_cache.clear()
         identifiers = self.issuecontrol.list_issue_identifiers()
         for issue_id in identifiers:
             ditz_item = self.get_issue_content(issue_id, False)
-            self.issue_cache.add(ditz_item)
-        self.issue_cache.sort()
+            self.item_cache.add_issue(ditz_item)
+        self.item_cache.sort_issues(rename = True)
 
-        # (re)generate names for cached issues
-        for i, issue in enumerate(self.issue_cache.issues):
-            if issue.component != None and issue.component != "":
-                prefix = '{}-'.format(issue.component)
-            else:
-                prefix = 'issue-'
-            issue.name = '{}{}'.format(prefix, i+1)
+        releases = self.config.get_unreleased_releases()
+        for title in releases:
+            self.item_cache.add_release(DitzItem('release', title, 'Release'))
+        self.item_cache.sort_releases()
 
     def get_items(self):
         """
-        Get a list of all tasks, features and bugs listed in Ditz.
+        Get a list of all releases and issues stored in Ditz.
+        Returned list is sorted by releases.
 
         Returns:
         - A list of DitzItems
         """
-        del self.ditz_items[:]
-        items = self._run_command("todo")
-        for item in items:
-            item_text = item.replace('\n', '')
+        items = []
+        self.reload_cache()
 
-            item_data = item_text.split(':', 1)
-            if len(item_data[0]) == 0:
-                # empty line, skip
-                continue
-            name_and_status = item_data[0]
-            status = self._status_identifier_to_string(name_and_status[:1])
-            if status != None:
-                # an issue
-                title = item_data[1].strip()
-                name = name_and_status[1:].strip() # drop status from the beginning
-                self.ditz_items.append(DitzItem('issue', title, name, None, None, status))
-            else:
-                # a release
-                name = None
-                title = name_and_status.split('(', 1)[0].rstrip() # just take the version
-                if item_data[0] != "Unassigned":
-                    name = "Release"
-                self.ditz_items.append(DitzItem('release', title, name))
+        for release in self.item_cache.releases:
+            items.append(release)
+            issues = self.item_cache.get_issues_by_release(release.title)
+            issues = self.item_cache.sort_issues_by_status(issues) #TODO: move this function to DitzControl or utils?
+            items.extend(issues)
 
-        return self.ditz_items
+        # add unassigned items
+        #items.append(DitzItem('release', 'Unassigned', ''))
+        items.append(DitzItem('release', 'Unassigned'))
+        issues = self.item_cache.get_issues_by_release(None)
+        issues = self.item_cache.sort_issues_by_status(issues)
+        items.extend(issues)
 
-    def get_issue_status_by_ditz_id(self, ditz_id):
+        return items
+
+    def get_issue_status_by_ditz_id(self, ditz_id): #TODO: move this function to ItemCache
         """
         Get status of an Ditz issue loaded in the cached list of issues.
 
@@ -202,12 +288,12 @@ class DitzControl():
         - issue status
         - None if requested issue is not found
         """
-        for item in self.ditz_items:
+        for item in self.item_cache.issues:
             if item.name == ditz_id:
                 return item.status
         return None
 
-    def get_item_from_cache(self, ditz_id):
+    def get_issue_from_cache(self, ditz_id):
         """
         Get DitzItem from cache by Ditz identifier or name.
 
@@ -218,10 +304,8 @@ class DitzControl():
         - DitzItem object
         - None if requested item is not found
         """
-        for item in self.ditz_items:
-            if item.name == ditz_id or item.identifier == ditz_id:
-                return item
-        return None
+        issue = self.item_cache.get_issue(ditz_id)
+        return issue
 
     def get_issue_identifier(self, issue_name):
         """
@@ -260,8 +344,8 @@ class DitzControl():
         yaml_issue = self.issuecontrol.read_issue_yaml(identifier)
         ditz_item = yaml_issue.toDitzItem()
         if update_cache:
-            self.issue_cache.add(ditz_item)
-            self.issue_cache.sort()
+            self.item_cache.add_issue(ditz_item)
+            #self.item_cache.sort_issues(rename = True)
         return ditz_item
 
     def get_issue_content_from_ditz(self, ditz_id):

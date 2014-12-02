@@ -196,7 +196,7 @@ class DitzGui(QtGui.QMainWindow):
                 elif item.status == 'paused':
                     list_item.setIcon(QtGui.QIcon('../graphics/list/balls/paused.png'))
                 else:
-                    print "Unrecognized issue status"
+                    print "Unrecognized issue status ({})".format(item.status)
 
         if ditz_id:
             self.show_item(ditz_id)
@@ -394,7 +394,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def _get_item_type(self, item_text):
         ditz_id = item_text.split(' ', 1)[0]
-        item = self.ditz.get_item_from_cache(ditz_id)
+        item = self.ditz.get_issue_from_cache(ditz_id)
         if item != None:
             return item.item_type
         return None

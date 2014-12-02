@@ -15,8 +15,8 @@ type: :feature
 component: ditz-gui
 release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-23 14:18:47.712157 Z
 references: 
 - 5272dbdb850a41f5610c4fdc6702c9862a5b4a3c
@@ -66,4 +66,16 @@ log_events:
 - - 2014-12-01 20:28:47.878363 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 3
+  - ""
+- - 2014-12-02 11:07:35.536595 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    A separate ticket for caching exists. This ticket can be closed.
+    Reading .yaml works perfectly. Writing works, except the ordering of
+    fields in the file changes compared to Ditz. But that is not a problem
+    at this point. It can be fixed later, in one class, if needed.
+- - 2014-12-02 11:07:45.376625 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
   - ""

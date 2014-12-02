@@ -72,9 +72,9 @@ class ConfigControl():
         - list of release names
         """
         if self.settings == None:
-            return
+            return None
         if self.settings.issue_dir == None:
-            return
+            return None
         reader = DitzReader("{}/{}".format(self.path_to_config, self.ditz_config_file),
                 self.path_to_config + "/" + self.settings.issue_dir + "/project.yaml")
         return reader.read_release_names()

@@ -45,7 +45,7 @@ class IssueYamlControl():
         Initialize new IssueYamlControl
         """
         self.issue_dir = "../ditz"          #TODO: hardcoded paths and names (do like ConfigControl does)
-        self.issue_prefix = "issue-"
+        self.issue_prefix = "issue-"        # check where else these are hardcoded and fix with a common solution
 
     def read_issue_yaml(self, identifier):
         """
@@ -149,18 +149,29 @@ class IssueYamlObject(yaml.YAMLObject):
         Parameters:
         - item: a DitzItem issue
         """
+        status = item.status
+        if status and status[0] != ':':
+            status = ':' + item.status
+        if status == 'in_progress':
+            status = 'in progress'
         return cls(item.title, item.description, item.item_type, item.component, item.release,
-                item.creator, item.status, item.disposition, item.created, item.references,
+                item.creator, status, item.disposition, item.created, item.references,
                 item.identifier, item.log)
 
     def toDitzItem(self):
         """
         Create a new DitzItem containing the information in this class
         """
-        return DitzItem('issue', self.title, self.id, self.type, None, self.status, None,
+        status = self.status
+        if status and status[0] == ':':
+            status = status[1:]
+        if status == 'in_progress':
+            status = 'in progress'
+
+        # identifier used also as name (name is generated and can't be known yet)
+        return DitzItem('issue', self.title, self.id, self.type, self.component, status, None,
                 self.desc, self.reporter, self.creation_time, self.release,
                 self.references, self.id, self.log_events)
-        #TODO: identifier used as name as there is no mechanism to generate names yet
 
     def __repr__(self):
         return "{} (title={}, desc={}, type={}, component={}, release={}, reporter={}, status={},\

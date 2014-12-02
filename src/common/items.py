@@ -44,7 +44,17 @@ class DitzItem():
         """
         Serialize to string. Mimic output of Ditz command line.
         """
-        created_ago = utils.time.human_time_diff(self.created.isoformat(' '))
+        # a release
+        if self.item_type == 'release':
+            item_str = "Release {}".format(self.title)
+            return item_str
+
+        # an issue
+        if self.created:
+            created_ago = utils.time.human_time_diff(self.created.isoformat(' '))
+        else:
+            created_ago = "?"
+
         item_str = "Issue {}\n{}\n".format(self.name, len(self.name) * '-') + \
             "Title: {}\n".format(self.title) + \
             "Description:\n{}\n".format(self.description) + \
@@ -58,25 +68,27 @@ class DitzItem():
             item_str += "Component: {}\n".format(self.component)
 
         item_str += "References:\n"
-        for i, reference in enumerate(self.references):
-            item_str += "    {}. {}\n".format(i+1, reference)
+        if self.references:
+            for i, reference in enumerate(self.references):
+                item_str += "    {}. {}\n".format(i+1, reference)
 
         item_str += "Identifier: {}\n".format(self.identifier)
 
         # event log entries
-        for entry in self.log:
-            # timestamp, creator, action, comment
-            timestamp = utils.time.human_time_diff(entry[0].isoformat(' '))
-            creator = entry[1]
-            action = entry[2]
-            comment = entry[3]
-            #entry_str = "- {} ({}, {})\n".format(action, creator, timestamp)
-            entry_str = "---------------------------------\n"
-            entry_str += "- {}, {}\n".format(action, timestamp)
-            entry_str += "  {}\n".format(creator)
-            if comment != None and comment != "":
-                entry_str += "  {}\n".format(comment)
-            item_str += entry_str
+        if self.log:
+            for entry in self.log:
+                # timestamp, creator, action, comment
+                timestamp = utils.time.human_time_diff(entry[0].isoformat(' '))
+                creator = entry[1]
+                action = entry[2]
+                comment = entry[3]
+                #entry_str = "- {} ({}, {})\n".format(action, creator, timestamp)
+                entry_str = "---------------------------------\n"
+                entry_str += "- {}, {}\n".format(action, timestamp)
+                entry_str += "  {}\n".format(creator)
+                if comment != None and comment != "":
+                    entry_str += "  {}\n".format(comment)
+                item_str += entry_str
 
         return item_str
 

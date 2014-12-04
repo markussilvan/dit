@@ -22,3 +22,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-12-04 08:00:44.721289 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    I wasn't even able to run it when I downloaded
+    the sources from git.
+    At the moment going towards my own solution
+    seems a better idea.

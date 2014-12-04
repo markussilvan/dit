@@ -1,0 +1,36 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Text formatting of issue type
+desc: |-
+  When issue type is read or written to YAML.
+  It should be noted that ':' is read as the first
+  character of the value. Issue status had the
+  same behaviour. This can be fixed in
+  IssueYAMLControl.
+type: :bugfix
+component: ditz-gui
+release: v0.1.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+disposition: 
+creation_time: 2014-12-04 19:16:45.712724 Z
+references: []
+
+id: 21262a1b0dc240a02a98903b4eb14a023594ef09
+log_events: 
+- - 2014-12-04 19:16:46.214186 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-12-04 19:21:11.740633 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This would be also good point to provide a separate
+    method for formatted output containing HTML or
+    whatever is needed for QTextEdit.
+- - 2014-12-04 20:14:54.360741 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    This should be fixed soon. It affects editing
+    and assigning issues too.

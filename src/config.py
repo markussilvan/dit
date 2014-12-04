@@ -80,7 +80,7 @@ class ConfigControl():
         return reader.read_release_names()
 
 
-class DitzSettings(yaml.YAMLObject):
+class DitzConfig(yaml.YAMLObject):
 
     yaml_tag = u'!ditz.rubyforge.org,2008-03-06/config'
 
@@ -88,7 +88,7 @@ class DitzSettings(yaml.YAMLObject):
         self.name = name
         self.email = email
         self.issue_dir = issue_dir
-        super(DitzSettings, self).__init__()
+        super(DitzConfig, self).__init__()
 
     def __repr__(self):
         return "%s (name=%r, email=%r, issue_dir=%r)" % (self.__class__.__name__, self.name, self.email, self.issue_dir)

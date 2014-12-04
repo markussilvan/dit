@@ -22,12 +22,13 @@ class ReferenceDialog(QtGui.QDialog):
         Initialize user interface for the dialog
 
         Parameters:
+        - ditz: DitzControl to use to access data
         - ditz_id: Ditz item to reference
         - save: Save the reference to Ditz
         """
         super(ReferenceDialog, self).__init__()
 
-        self.ditz = DitzControl()
+        self.ditz = ditz
         self.ditz_id = ditz_id
         self.reference = None
 

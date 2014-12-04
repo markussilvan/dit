@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Using identifiers from ditz-gui
+desc: |-
+  This is just refactoring, but might clean up the
+  code a bit.
+  Instead of making all requests with issue names
+  DitzGui could use identifiers instead now that it
+  knows them due the cached items.
+type: :task
+component: ditz-gui
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-12-04 19:49:32.617396 Z
+references: []
+
+id: 9ea8b669426afadace992eb525f17c3bfc482432
+log_events: 
+- - 2014-12-04 19:49:33.118902 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

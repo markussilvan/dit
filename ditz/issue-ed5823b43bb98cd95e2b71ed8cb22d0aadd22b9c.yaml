@@ -20,3 +20,18 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-12-04 08:55:56.236479 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Also think about renaming some files.
+    For example, configcontrol.py contains
+    ConfigControl and DitzSettings classes.
+    This file should be renamed to settings.py.
+    ConfigControl could be renamed to SettingsControl?
+- - 2014-12-04 08:59:31.827951 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Or alternatively rename DitzSettings to DitzConfig.
+    Using Config and Settings for the same purpose is ambiguous.

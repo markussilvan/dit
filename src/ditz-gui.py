@@ -19,6 +19,7 @@ from PyQt4 import QtGui, uic
 from PyQt4.QtCore import SIGNAL, QModelIndex
 
 from common.errors import DitzError
+from config import ConfigControl
 from ditzcontrol import DitzControl
 from comment_dialog import CommentDialog
 from reference_dialog import ReferenceDialog
@@ -36,7 +37,9 @@ class DitzGui(QtGui.QMainWindow):
         """
         super(DitzGui, self).__init__()
 
-        self.ditz = DitzControl()
+        self.config = ConfigControl()
+        self.config.read_config_file()
+        self.ditz = DitzControl(self.config)
 
         uic.loadUi('../ui/main_window.ui', self)
 
@@ -225,7 +228,7 @@ class DitzGui(QtGui.QMainWindow):
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
-            dialog = CommentDialog(ditz_id, save=True)
+            dialog = CommentDialog(self.ditz, ditz_id, save=True)
             dialog.ask_comment()
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
@@ -238,7 +241,7 @@ class DitzGui(QtGui.QMainWindow):
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
-            dialog = ReferenceDialog(ditz_id)
+            dialog = ReferenceDialog(self.ditz, ditz_id)
             dialog.ask_reference()
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
@@ -247,7 +250,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def new_issue(self):
         try:
-            dialog = IssueDialog()
+            dialog = IssueDialog(self.ditz)
             dialog.ask_new_issue()
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
@@ -260,7 +263,7 @@ class DitzGui(QtGui.QMainWindow):
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
-            dialog = IssueDialog()
+            dialog = IssueDialog(self.ditz)
             dialog.ask_edit_issue(ditz_id)
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
@@ -270,7 +273,7 @@ class DitzGui(QtGui.QMainWindow):
     def close_issue(self):
         ditz_id = self._get_selected_issue_id()
         if ditz_id != None:
-            dialog = CloseDialog(ditz_id)
+            dialog = CloseDialog(self.ditz, ditz_id)
             dialog.ask_issue_close()
             self.reload_data()
         else:
@@ -294,7 +297,7 @@ class DitzGui(QtGui.QMainWindow):
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
-        dialog = CommentDialog(ditz_id)
+        dialog = CommentDialog(self.ditz, ditz_id)
         comment = dialog.ask_comment()
         if comment != None:
             try:
@@ -309,7 +312,7 @@ class DitzGui(QtGui.QMainWindow):
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
-        dialog = CommentDialog(ditz_id)
+        dialog = CommentDialog(self.ditz, ditz_id)
         comment = dialog.ask_comment()
         if comment != None:
             try:
@@ -327,7 +330,7 @@ class DitzGui(QtGui.QMainWindow):
         release_name = self._get_selected_release_name()
         if release_name == None:
             return
-        dialog = CommentDialog(None)
+        dialog = CommentDialog(self.ditz, None)
         comment = dialog.ask_comment()
         if comment != None:
             self.ditz.make_release(release_name, comment)
@@ -335,7 +338,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def open_settings(self):
         try:
-            dialog = SettingsDialog()
+            dialog = SettingsDialog(self.config)
             dialog.show_settings()
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)

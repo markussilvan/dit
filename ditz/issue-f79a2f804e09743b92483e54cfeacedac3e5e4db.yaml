@@ -44,3 +44,10 @@ log_events:
     "ditz grep". All functions to DitzControl should still work
     as they refer to items with names or identifiers, and never
     use list indices or anything UI specific.
+- - 2014-12-04 13:16:59.021578 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Searches are easier to implement now
+    with ItemCache than with Ditz or .yaml
+    files directly.

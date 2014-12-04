@@ -4,7 +4,7 @@ import dateutil.relativedelta
 import dateutil.parser
 
 
-def human_time_diff(date, max_elements=2):
+def human_time_diff(date_string, max_elements=2):
     """
     Express a time difference in a human understandable form.
     Two timescales are used to explain the difference.
@@ -14,13 +14,13 @@ def human_time_diff(date, max_elements=2):
     is disregarded.
 
     Parameters:
-    - date: datetime to count the difference with current time
+    - date_string: ISO date format datetime to count the difference with current time
     - max_elements: how many words to use to explain the time difference
 
     Returns:
     - string explaining the difference, not exact
     """
-    yourdate = dateutil.parser.parse(date)
+    yourdate = dateutil.parser.parse(date_string)
     now = datetime.datetime.utcnow()
     timediff = dateutil.relativedelta.relativedelta(now, yourdate) # pylint: disable=W0612
     elements = 0

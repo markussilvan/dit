@@ -1,0 +1,73 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: ConfigControl as Singleton?
+desc: |-
+  Should ConfigControl implementation be changed
+  to Singleton? Make sure settings are read every
+  time before making changes based on them?
+  
+  If ConfigControl is a Singleton this won't be
+  such a big problem as ConfigControl will be
+  up to date every time settings are changed.
+  
+  For optimization it can also check the timestamp
+  of the settings file and reload settings only
+  if needed. (This is not an important feature.)
+type: :feature
+component: ditz-gui
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-12-04 08:50:47.041459 Z
+references: []
+
+id: 6730d1f060bed47a5a95c8ce3225f5beabc56146
+log_events: 
+- - 2014-12-04 08:50:49.009053 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-12-04 10:46:18.703678 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    A better option instead using a Singleton would be
+    to use Dependency Injection (in constructor).
+    DitzGui builds ConfigControl object, and gives it
+    as parameter to the DitzControl constructor.
+    Other option would be to have a separate function
+    setConfig() to provide the ConfigControl for
+    DitzControl.
+    
+    Anyway, this allows the settings to be built only
+    in DitzGui and same settings object can be
+    provided to any other class that needs it when
+    it is constructed (or later with a setter method).
+- - 2014-12-04 11:25:27.875756 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Just make sure you know where the objects are copied or referenced.
+    This has an effect when giving the same object for SettingsDialog.
+    Maybe in some other places too. Check the patch first before commiting.
+- - 2014-12-04 13:19:12.898315 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2014-12-04 19:44:44.030558 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    I think the "memory management" is fine.
+    Currently ItemCache's items are accessed all over
+    the program. Yet that is not causing any problems.
+    Better yet, it keeps the cache up to date.
+    If I want to change this behaviour, I should return
+    copies of items from DitzControl to it's clients.
+    That would be a minor change.
+- - 2014-12-04 19:59:59.195172 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    This is done except for the optimizations which
+    can be done later if needed.

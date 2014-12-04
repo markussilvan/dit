@@ -11,20 +11,23 @@ A settings dialog box
 
 from PyQt4 import QtGui, uic
 
-from configcontrol import ConfigControl
+from config import ConfigControl
 
 class SettingsDialog(QtGui.QDialog):
     """
     A settings dialog with multiple inputs and Cancel/Ok buttons.
     """
-    def __init__(self):
+    def __init__(self, config):
         """
         Initialize user interface for the dialog
+
+        Parameters:
+        - config: ConfigControl to access settings data
         """
         super(SettingsDialog, self).__init__()
 
-        self.configcontrol = ConfigControl()
-        self.configcontrol.read_config_file()
+        self.config = config
+        self.config.read_config_file() # reload, just in case
         self.ditz_settings_changed = False
 
         uic.loadUi('../ui/settings_dialog.ui', self)
@@ -33,9 +36,9 @@ class SettingsDialog(QtGui.QDialog):
         self.lineEditEmail.editingFinished.connect(self.ditz_settings_edited)
         self.lineEditIssueDir.editingFinished.connect(self.ditz_settings_edited)
 
-        self.lineEditName.setText(self.configcontrol.settings.name)
-        self.lineEditEmail.setText(self.configcontrol.settings.email)
-        self.lineEditIssueDir.setText(self.configcontrol.settings.issue_dir)
+        self.lineEditName.setText(self.config.settings.name)
+        self.lineEditEmail.setText(self.config.settings.email)
+        self.lineEditIssueDir.setText(self.config.settings.issue_dir)
 
     def ditz_settings_edited(self):
         """
@@ -50,10 +53,10 @@ class SettingsDialog(QtGui.QDialog):
         Save settings
         """
         if self.ditz_settings_changed == True:
-            self.configcontrol.settings.name = str(self.lineEditName.text())
-            self.configcontrol.settings.email = str(self.lineEditEmail.text())
-            self.configcontrol.settings.issue_dir = str(self.lineEditIssueDir.text())
-            self.configcontrol.write_config_file()
+            self.config.settings.name = str(self.lineEditName.text())
+            self.config.settings.email = str(self.lineEditEmail.text())
+            self.config.settings.issue_dir = str(self.lineEditIssueDir.text())
+            self.config.write_config_file()
             self.ditz_settings_changed = False
         super(SettingsDialog, self).accept()
 

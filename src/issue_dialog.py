@@ -14,7 +14,7 @@ from PyQt4 import QtGui, uic
 from common.items import DitzItem
 from common.errors import ApplicationError
 from ditzcontrol import DitzControl
-from configcontrol import ConfigControl
+from config import ConfigControl
 import common.utils.time
 
 class IssueDialog(QtGui.QDialog):
@@ -22,21 +22,22 @@ class IssueDialog(QtGui.QDialog):
     A dialog with form input (separate widget) and Cancel/Ok buttons.
     Same form can be used to add new issues or to edit existing ones.
     """
-    def __init__(self, ditz_id=None):
+    def __init__(self, ditz, ditz_id=None):
         """
         Initialize user interface for the dialog
 
         Parameters:
+        - ditz: DitzControl to access data
         - ditz_id: Ditz item to edit
         """
         super(IssueDialog, self).__init__()
 
-        self.ditz = DitzControl()
-        self.config = ConfigControl()
+        if not isinstance(ditz, DitzControl):
+            raise ApplicationError("Construction failed due to invalid ditz (DitzControl) parameter")
+
+        self.ditz = ditz
         self.ditz_id = ditz_id
         self._edit_mode = False
-
-        self.config.read_config_file()
 
         uic.loadUi('../ui/issue_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
@@ -48,12 +49,12 @@ class IssueDialog(QtGui.QDialog):
             self.widgetForm.comboBoxIssueType.addItem(issue_type)
 
         self.widgetForm.comboBoxRelease.addItem("Unassigned")
-        for release in self.config.get_unreleased_releases():
+        for release in self.ditz.config.get_unreleased_releases():
             self.widgetForm.comboBoxRelease.addItem(release)
 
         try:
-            default_creator = "{} <{}>".format(self.config.settings.name,
-                    self.config.settings.email)
+            default_creator = "{} <{}>".format(self.ditz.config.settings.name,
+                    self.ditz.config.settings.email)
         except KeyError:
             # leave creator field empty
             pass
@@ -127,13 +128,13 @@ class IssueDialog(QtGui.QDialog):
         # two alternative formats allowed for created field
         # needed temporarily until DitzItem always has created as DateTime read from file
         try:
-            time_diff = utils.time.human_time_diff(issue.created)
+            time_diff = common.utils.time.human_time_diff(issue.created.isoformat(' '))
         except ValueError:
             time_diff = issue.created
         self.widgetForm.labelCreatedValue.setText(time_diff)
         index = self.widgetForm.comboBoxRelease.findText(issue.release)
         self.widgetForm.comboBoxRelease.setCurrentIndex(index)
-        self.widgetForm.lineEditReferences.setText(issue.references)
+        self.widgetForm.lineEditReferences.setText(str(issue.references)) #TODO: multiple references
         self.widgetForm.labelIdentifierValue.setText(issue.identifier)
         #TODO: event log, multiple references
         self.exec_()

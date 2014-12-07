@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Adding a comment when editing issues
+desc: |-
+  Should there be a fixed comment to inform that issue was edited? If Ditz does this, the GUI
+  should too.
+  
+  Also a possibility to give an optional comment using comment dialog would be nice. And pretty easy to implement.
+type: :task
+component: ditz-gui
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-12-07 17:19:30.680650 Z
+references: []
+
+id: 756962081cef47e5546f46b116e10ffbb4e332d7
+log_events: 
+- - 2014-12-07 17:19:31.182133 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

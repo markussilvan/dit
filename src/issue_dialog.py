@@ -32,6 +32,8 @@ class IssueDialog(QtGui.QDialog):
         """
         super(IssueDialog, self).__init__()
 
+        self.issue = None
+
         if not isinstance(ditz, DitzControl):
             raise ApplicationError("Construction failed due to invalid ditz (DitzControl) parameter")
 
@@ -69,74 +71,74 @@ class IssueDialog(QtGui.QDialog):
         Add issue to Ditz or update an existing issue
         """
         #TODO: multiple references? form would need changes
-        title = str(self.widgetForm.lineEditTitle.text())
-        description = str(self.widgetForm.plainTextEditDescription.toPlainText())
-        issue_type = self.widgetForm.comboBoxIssueType.currentText()
-        status = self.widgetForm.comboBoxStatus.currentText()
-        creator = str(self.widgetForm.lineEditCreator.text())
-        created = str(self.widgetForm.labelCreatedValue.text())
-        release = str(self.widgetForm.comboBoxRelease.currentText())
-        references = str(self.widgetForm.lineEditReferences.text())
-        identifier = self.ditz_id
+        self.issue.title = str(self.widgetForm.lineEditTitle.text())
+        self.issue.description = str(self.widgetForm.plainTextEditDescription.toPlainText())
+        self.issue.issue_type = str(self.widgetForm.comboBoxIssueType.currentText())
+        self.issue.status = str(self.widgetForm.comboBoxStatus.currentText())
+        self.issue.creator = str(self.widgetForm.lineEditCreator.text())
+        #created = str(self.widgetForm.labelCreatedValue.text())
+        self.issue.release = str(self.widgetForm.comboBoxRelease.currentText())
+        #references = str(self.widgetForm.lineEditReferences.text())
+        # no need to change identifier
+        # self.issue.identifier = self.ditz_id
         log = ""
 
-        try:
-            issue = DitzItem('issue', title, None, issue_type, None, status, None,
-                    description, creator, created, release, references, identifier, log)
-        except ApplicationError:
-            QtGui.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
-            #TODO: change invalid fields to red or something?
-            return
-
         if self._edit_mode == True:
-            self.ditz.edit_issue(issue)
+            self.ditz.edit_issue(self.issue)
         else:
-            self.ditz.add_issue(issue)
+            self.ditz.add_issue(self.issue)
 
+        self.issue = None
         super(IssueDialog, self).accept()
 
     def reject(self):
         """
         Cancel is clicked on the GUI
         """
+        self.issue = None
         super(IssueDialog, self).reject()
 
     def ask_new_issue(self):
         """
         Show the dialog and get disposition and a comment from the user
         """
+        try:
+            self.issue = DitzItem('issue', '', None)
+        except ApplicationError:
+            QtGui.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
+            return
         self.exec_()
 
     def ask_edit_issue(self, ditz_id):
         """
         Show the dialog filled with data of a given Ditz issue
         """
-        issue = self.ditz.get_issue_content(ditz_id)
-        if issue == None:
+        self.issue = self.ditz.get_issue_from_cache(ditz_id)
+        if self.issue == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
 
         self._edit_mode = True
 
-        self.widgetForm.lineEditTitle.setText(issue.title)
-        self.widgetForm.plainTextEditDescription.insertPlainText(issue.description)
-        index = self.widgetForm.comboBoxIssueType.findText(issue.issue_type)
+        self.widgetForm.lineEditTitle.setText(self.issue.title)
+        self.widgetForm.plainTextEditDescription.insertPlainText(self.issue.description)
+        index = self.widgetForm.comboBoxIssueType.findText(self.issue.issue_type)
         self.widgetForm.comboBoxIssueType.setCurrentIndex(index)
-        index = self.widgetForm.comboBoxStatus.findText(issue.status)
+        index = self.widgetForm.comboBoxStatus.findText(self.issue.status)
         self.widgetForm.comboBoxStatus.setCurrentIndex(index)
-        self.widgetForm.lineEditCreator.setText(issue.creator)
+        self.widgetForm.lineEditCreator.setText(self.issue.creator)
         # two alternative formats allowed for created field
         # needed temporarily until DitzItem always has created as DateTime read from file
         try:
-            time_diff = common.utils.time.human_time_diff(issue.created.isoformat(' '))
+            time_diff = common.utils.time.human_time_diff(self.issue.created.isoformat(' '))
         except ValueError:
-            time_diff = issue.created
+            time_diff = self.issue.created
         self.widgetForm.labelCreatedValue.setText(time_diff)
-        index = self.widgetForm.comboBoxRelease.findText(issue.release)
+        index = self.widgetForm.comboBoxRelease.findText(self.issue.release)
         self.widgetForm.comboBoxRelease.setCurrentIndex(index)
-        self.widgetForm.lineEditReferences.setText(str(issue.references)) #TODO: multiple references
-        self.widgetForm.labelIdentifierValue.setText(issue.identifier)
-        #TODO: event log, multiple references
+        self.widgetForm.lineEditReferences.setText(str(self.issue.references)) #TODO: multiple references
+        self.widgetForm.labelIdentifierValue.setText(self.issue.identifier)
+        #TODO: event log (if needed), multiple references
         self.exec_()
 
 

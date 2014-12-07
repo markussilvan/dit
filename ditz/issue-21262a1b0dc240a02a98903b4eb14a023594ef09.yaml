@@ -10,8 +10,8 @@ type: :bugfix
 component: ditz-gui
 release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-12-04 19:16:45.712724 Z
 references: []
 
@@ -34,3 +34,7 @@ log_events:
   - |-
     This should be fixed soon. It affects editing
     and assigning issues too.
+- - 2014-12-07 17:10:49.774599 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Fixed.

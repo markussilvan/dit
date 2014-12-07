@@ -104,7 +104,6 @@ class DitzControl():
             items.extend(issues)
 
         # add unassigned items
-        #items.append(DitzItem('release', 'Unassigned', ''))
         items.append(DitzItem('release', 'Unassigned'))
         issues = self.item_cache.get_issues_by_release(None)
         issues = self.item_cache.sort_issues_by_status(issues)
@@ -154,7 +153,9 @@ class DitzControl():
         """
         #FIXME: this is a total hack, just to be used during refactoring.
         issue = self.get_issue_content_from_ditz(issue_name)
-        return issue.identifier
+        if issue:
+            return issue.identifier
+        return None
 
     def get_issue_content(self, identifier, update_cache=True):
         """
@@ -174,7 +175,7 @@ class DitzControl():
         if len(identifier) != 40:
             # issue name given instead?
             identifier = self.get_issue_identifier(identifier)
-            if len(identifier) != 40:
+            if identifier and len(identifier) != 40:
                 return None
         yaml_issue = self.issuecontrol.read_issue_yaml(identifier)
         ditz_item = yaml_issue.toDitzItem()
@@ -416,8 +417,10 @@ class DitzControl():
         Raises:
         - DitzError if running Ditz command fails
         """
-        #TODO: could be optimized to use cache
-        ditz_issue = self.get_issue_content(ditz_id)
+        ditz_issue = self.get_issue_from_cache(ditz_id)
+        if not ditz_issue:
+            # try to load issue in case it exists, but is not cached
+            ditz_issue = self.get_issue_content(ditz_id)
         ditz_issue.release = release
         if comment and comment != "":
             #TODO: implementation to add a comment if given

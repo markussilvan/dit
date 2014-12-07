@@ -9,7 +9,7 @@ type: :feature
 component: ditz-gui
 release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-07 18:00:52.132201 Z
 references: []
@@ -54,3 +54,20 @@ log_events:
     in real environment.
     Implementing this feature by others means
     is not rally feasible at this point.
+- - 2014-12-05 14:32:42.718879 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    DitzControl now supports assigning issues to a release.
+    Adding comments while doing that is not yet supported.
+    As YAML writing is still disabled, this feature is not
+    in use.
+    GUI portion needed to implement this is also still missing.
+- - 2014-12-07 17:12:32.529405 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Now that editing works (and assigning can be done with
+    edits by the way), this could be implemented.
+    Some implementation needed in the GUI for this.
+    Create an assign-dialog.

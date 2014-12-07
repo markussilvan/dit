@@ -70,8 +70,7 @@ class IssueYamlControl():
         Parameters:
         - issue: issue data as a IssueYamlObject
         """
-        #issue_file = "{}/{}{}.yaml".format(self.issue_dir, self.issue_prefix, identifier)
-        issue_file = "{}/{}{}.yaml".format(self.issue_dir, self.issue_prefix, "TESTI")
+        issue_file = "{}/{}{}.yaml".format(self.issue_dir, self.issue_prefix, issue.id)
         try:
             with open(issue_file, 'w') as stream:
                 yaml_data = yaml.dump(issue, default_flow_style=False, explicit_start=True)
@@ -149,27 +148,39 @@ class IssueYamlObject(yaml.YAMLObject):
         Parameters:
         - item: a DitzItem issue
         """
+        issue_type = item.issue_type
+        if issue_type and issue_type[0] != ":":
+            issue_type = ':' + issue_type
+
         status = item.status
+        status = status.replace(' ', '_')
         if status and status[0] != ':':
-            status = ':' + item.status
-        if status == 'in_progress':
-            status = 'in progress'
-        return cls(item.title, item.description, item.item_type, item.component, item.release,
-                item.creator, status, item.disposition, item.created, item.references,
+            status = ':' + status
+
+        if item.disposition == None:
+            disposition = ''
+        else:
+            disposition = item.disposition
+
+        return cls(item.title, item.description, item.issue_type, item.component, item.release,
+                item.creator, status, disposition, item.created, item.references,
                 item.identifier, item.log)
 
     def toDitzItem(self):
         """
         Create a new DitzItem containing the information in this class
         """
+        issue_type = self.type
+        if issue_type and issue_type[0] == ':':
+            issue_type = issue_type[1:]
+
         status = self.status
         if status and status[0] == ':':
             status = status[1:]
-        if status == 'in_progress':
-            status = 'in progress'
+        status = status.replace('_', ' ')
 
         # identifier used also as name (name is generated and can't be known yet)
-        return DitzItem('issue', self.title, self.id, self.type, self.component, status, None,
+        return DitzItem('issue', self.title, self.id, issue_type, self.component, status, None,
                 self.desc, self.reporter, self.creation_time, self.release,
                 self.references, self.id, self.log_events)
 

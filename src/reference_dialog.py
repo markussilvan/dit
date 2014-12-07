@@ -17,7 +17,7 @@ class ReferenceDialog(QtGui.QDialog):
     """
     A reference dialog with text input and Cancel/Ok buttons.
     """
-    def __init__(self, ditz_id):
+    def __init__(self, ditz, ditz_id):
         """
         Initialize user interface for the dialog
 

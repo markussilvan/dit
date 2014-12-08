@@ -43,13 +43,19 @@ releases:
       need to be done from the command line.
 - !ditz.rubyforge.org,2008-03-06/release 
   name: v0.1.1
-  status: :unreleased
-  release_time: 
+  status: :released
+  release_time: 2014-12-08 16:55:38.530939 Z
   log_events: 
   - - 2014-10-18 21:00:27.614329 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - Editing of issues added to v0.1.
+  - - 2014-12-08 16:55:38.530949 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - released
+    - |-
+      First enhancement and bug fix release for v0.1.
+      Software coming along nicely.
 - !ditz.rubyforge.org,2008-03-06/release 
   name: v0.1.2
   status: :unreleased

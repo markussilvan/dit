@@ -20,3 +20,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-12-08 16:52:03.716213 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Some other "commands" would also need
+    these automatic comments. More specifically
+    all commands implemented without Ditz
+    interaction need this.

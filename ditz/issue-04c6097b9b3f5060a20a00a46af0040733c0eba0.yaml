@@ -9,8 +9,8 @@ type: :feature
 component: ditz-gui
 release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: ""
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-07 18:00:52.132201 Z
 references: []
 
@@ -81,3 +81,10 @@ log_events:
     GUI part of this task.
     
     That still needs to be finished and tested.
+- - 2014-12-08 16:49:52.934824 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Ok. This works.
+    Automatically adding comments is to be added later
+    in a separate task.

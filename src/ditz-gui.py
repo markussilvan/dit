@@ -64,6 +64,7 @@ class DitzGui(QtGui.QMainWindow):
 
         self.create_actions()
         self.build_toolbar_menu()
+        self.enable_valid_actions()
 
         self.show_main_window()
 
@@ -132,6 +133,48 @@ class DitzGui(QtGui.QMainWindow):
         self.actionSettings.triggered.connect(self.open_settings)
         self.actionExit.triggered.connect(self.quit_application)
         self.listWidgetDitzItems.clicked.connect(self.show_item)
+
+    def enable_valid_actions(self):
+        """
+        Enabled (toolbar) actions that are valid at the moment.
+        Only common actions and actions valid for an item currently selected
+        should be enabled. Others are disabled.
+        """
+        item_type = self._get_selected_item_type()
+        if item_type == 'issue':
+            status = self._get_selected_issue_status()
+            if status == 'in progress':
+                start_state = False
+            else:
+                start_state = True
+            self._set_issue_actions(True, start_state)
+            self._set_release_actions(False)
+        elif item_type == 'release':
+            self._set_issue_actions(False)
+            self._set_release_actions(True)
+        else:
+            self._set_issue_actions(False)
+            self._set_release_actions(False)
+
+        #self.actionOpenSettings.setEnabled(True)
+
+    def _set_issue_actions(self, state, start_state=True):
+        self.actionEditIssue.setEnabled(state)
+        self.actionCommentIssue.setEnabled(state)
+        if state == True:
+            self.actionStartWork.setEnabled(start_state)
+            self.actionStopWork.setEnabled(not start_state)
+        else:
+            self.actionStartWork.setEnabled(state)
+            self.actionStopWork.setEnabled(state)
+        self.actionCloseIssue.setEnabled(state)
+        self.actionDropIssue.setEnabled(state)
+        self.actionAssignIssue.setEnabled(state)
+        self.actionAddReference.setEnabled(state)
+
+    def _set_release_actions(self, state):
+        #self.actionAddRelease.setEnabled(state)
+        self.actionMakeRelease.setEnabled(state)
 
     def center(self):
         """
@@ -225,8 +268,8 @@ class DitzGui(QtGui.QMainWindow):
         ditz_item = self.ditz.get_issue_content(ditz_id)
         if ditz_item:
             self.textEditDitzItem.setText(str(ditz_item))
-        #TODO: format the data or use a form instead (it's already a DitzItem)
-        # any text formatting can be done already in __str__() of DitzItem
+
+        self.enable_valid_actions()
 
     def comment_issue(self):
         ditz_id = self._get_selected_issue_id()

@@ -12,8 +12,8 @@ type: :feature
 component: ditz-gui
 release: v0.1.1
 reporter: Markus Silvan
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-16 17:21:12.541348 Z
 references: []
 
@@ -35,3 +35,13 @@ log_events:
     QPushButton->setEnabled(false).
     A simple if/else settings different options enabled
     depending on if an issue, release or an empty line is selected.
+- - 2014-12-08 15:07:41.578321 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Should be easy. Lets do this.
+    Then 0.1.1 will be done.
+- - 2014-12-08 16:50:22.198471 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - That was easy.

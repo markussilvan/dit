@@ -32,3 +32,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 1
   - ""
+- - 2014-12-08 16:49:11.337211 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    More generally this is the first "filter" used with
+    the list of Ditz items.

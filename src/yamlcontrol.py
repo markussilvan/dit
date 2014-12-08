@@ -162,7 +162,7 @@ class IssueYamlObject(yaml.YAMLObject):
         else:
             disposition = item.disposition
 
-        return cls(item.title, item.description, item.issue_type, item.component, item.release,
+        return cls(item.title, item.description, issue_type, item.component, item.release,
                 item.creator, status, disposition, item.created, item.references,
                 item.identifier, item.log)
 

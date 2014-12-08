@@ -26,6 +26,7 @@ from reference_dialog import ReferenceDialog
 from issue_dialog import IssueDialog
 from close_dialog import CloseDialog
 from settings_dialog import SettingsDialog
+from assign_dialog import AssignDialog
 
 class DitzGui(QtGui.QMainWindow):
     """
@@ -55,8 +56,9 @@ class DitzGui(QtGui.QMainWindow):
         self.actionAddReference = None
         self.actionEditIssue = None
         self.actionNewIssue = None
-        self.actionDropIssue = None
         self.actionCloseIssue = None
+        self.actionDropIssue = None
+        self.actionAssignIssue = None
         self.actionMakeRelease = None
         self.actionOpenSettings = None
 
@@ -84,6 +86,7 @@ class DitzGui(QtGui.QMainWindow):
         self.actionStopWork = QtGui.QAction(QtGui.QIcon('../graphics/issue/stop.png'), 'Stop working', self)
         self.actionCloseIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/close.png'), 'Close issue', self)
         self.actionDropIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/drop.png'), 'Drop issue', self)
+        self.actionAssignIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/assign.png'), 'Assign Issue to a release', self)
         self.actionAddReference = QtGui.QAction(QtGui.QIcon('../graphics/issue/add_reference.png'),
                 'Add reference', self)
 
@@ -102,6 +105,7 @@ class DitzGui(QtGui.QMainWindow):
         self.actionStopWork.iconVisibleInMenu = True
         self.actionCloseIssue.iconVisibleInMenu = True
         self.actionDropIssue.iconVisibleInMenu = True
+        self.actionAssignIssue.iconVisibleInMenu = True
         self.actionAddReference.iconVisibleInMenu = True
         #self.actionAddRelease.iconVisibleInMenu = True
         self.actionMakeRelease.iconVisibleInMenu = True
@@ -115,6 +119,7 @@ class DitzGui(QtGui.QMainWindow):
         self.actionStopWork.triggered.connect(self.stop_work)
         self.actionCloseIssue.triggered.connect(self.close_issue)
         self.actionDropIssue.triggered.connect(self.drop_issue)
+        self.actionAssignIssue.triggered.connect(self.assign_issue)
         self.actionAddReference.triggered.connect(self.add_reference)
 
         ##self.actionAddRelease.triggered.connect(self.add_release)
@@ -155,6 +160,7 @@ class DitzGui(QtGui.QMainWindow):
                 menu.addAction("Stop work on " + ditz_id, lambda:self.stop_work())
             menu.addAction("Close " + ditz_id, lambda:self.close_issue())
             menu.addAction("Drop " + ditz_id, lambda:self.drop_issue())
+            menu.addAction("Assign " + ditz_id, lambda:self.assign_issue())
         elif item_type == 'release':
             menu.addAction(self.actionNewIssue)
             menu.addAction(self.actionMakeRelease)
@@ -291,6 +297,19 @@ class DitzGui(QtGui.QMainWindow):
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.reload_data(ditz_id)
+
+    def assign_issue(self):
+        ditz_id = self._get_selected_issue_id()
+        if ditz_id == None:
+            QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
+            return
+        try:
+            dialog = AssignDialog(self.ditz)
+            dialog.ask_assign_issue(ditz_id)
+        except DitzError, e:
+            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+            return
+        self.reload_data()
 
     def start_work(self):
         ditz_id = self._get_selected_issue_id()

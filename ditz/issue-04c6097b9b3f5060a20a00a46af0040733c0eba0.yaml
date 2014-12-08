@@ -10,7 +10,7 @@ component: ditz-gui
 release: v0.1.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :in_progress
-disposition: 
+disposition: ""
 creation_time: 2014-10-07 18:00:52.132201 Z
 references: []
 
@@ -71,3 +71,13 @@ log_events:
     edits by the way), this could be implemented.
     Some implementation needed in the GUI for this.
     Create an assign-dialog.
+- - 2014-12-08 12:12:25.794628 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    More testing made with assigning
+    (as can be seen in the history of this task).
+    Some sketching for the implementation of the
+    GUI part of this task.
+    
+    That still needs to be finished and tested.

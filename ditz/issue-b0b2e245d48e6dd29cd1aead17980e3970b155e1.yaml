@@ -26,3 +26,12 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.4 from unassigned
   - ""
+- - 2014-12-08 21:45:14.593463 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    How does using multiple components affect the numbering scheme
+    used in Ditz (and ItemCache)? I suspect there is just
+    a running index for each component based on
+    creation timestamp.
+    This needs to be addressed in ItemCache.

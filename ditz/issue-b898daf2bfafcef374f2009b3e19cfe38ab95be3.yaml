@@ -26,3 +26,12 @@ log_events:
     This is more common then I originally expected. New releases
     added between releases that were planned in the beginning
     could be coming all the time.
+- - 2014-12-08 21:47:59.865454 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Some mechanism for ordering the releases needs to
+    be created. (This shouldn't affect Ditz.)
+    Hopefully an extra index field in the file can be used.
+    If not, then ordering by name or creation date might
+    be an option.

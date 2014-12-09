@@ -46,10 +46,6 @@ class DitzGui(QtGui.QMainWindow):
 
         self.reload_data()
 
-        self.connect(self.listWidgetDitzItems,
-                SIGNAL('customContextMenuRequested(const QPoint &)'),
-                self.context_menu)
-
         self.actionCommentIssue = None
         self.actionStartWork = None
         self.actionStopWork = None
@@ -63,6 +59,8 @@ class DitzGui(QtGui.QMainWindow):
         self.actionOpenSettings = None
 
         self.create_actions()
+        self.connect_actions()
+        self.add_action_shortcuts()
         self.build_toolbar_menu()
         self.enable_valid_actions()
 
@@ -79,7 +77,9 @@ class DitzGui(QtGui.QMainWindow):
         self.show()
 
     def create_actions(self):
-        # create action objects
+        """
+        Create action objects
+        """
         self.actionNewIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/new.png'), 'New Issue', self)
         self.actionEditIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/edit.png'), 'Edit Issue', self)
         self.actionCommentIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/comment.png'), 'Comment Issue', self)
@@ -112,7 +112,11 @@ class DitzGui(QtGui.QMainWindow):
         self.actionMakeRelease.iconVisibleInMenu = True
         self.actionOpenSettings.iconVisibleInMenu = True
 
-        # connect
+    def connect_actions(self):
+        """
+        Connect actions to slots
+        """
+        # issue related actions
         self.actionNewIssue.triggered.connect(self.new_issue)
         self.actionEditIssue.triggered.connect(self.edit_issue)
         self.actionCommentIssue.triggered.connect(self.comment_issue)
@@ -123,16 +127,41 @@ class DitzGui(QtGui.QMainWindow):
         self.actionAssignIssue.triggered.connect(self.assign_issue)
         self.actionAddReference.triggered.connect(self.add_reference)
 
+        # release related actions
         ##self.actionAddRelease.triggered.connect(self.add_release)
         self.actionMakeRelease.triggered.connect(self.make_release)
 
+        # common actions
         self.actionOpenSettings.triggered.connect(self.open_settings)
 
         # connect qt creator created actions
         self.actionReload.triggered.connect(self.reload_data)
         self.actionSettings.triggered.connect(self.open_settings)
         self.actionExit.triggered.connect(self.quit_application)
+
+        # main listwidget actions
         self.listWidgetDitzItems.clicked.connect(self.show_item)
+        self.connect(self.listWidgetDitzItems,
+                SIGNAL('customContextMenuRequested(const QPoint &)'),
+                self.context_menu)
+        self.connect(self.listWidgetDitzItems,
+                SIGNAL("itemSelectionChanged()"),
+                self.show_item)
+
+    def add_action_shortcuts(self):
+        """
+        Simple shortcuts for common actions to make the software usable
+        using only a keyboard.
+        """
+        self.actionNewIssue.setShortcut('N')
+        self.actionEditIssue.setShortcut('E')
+        self.actionCommentIssue.setShortcut('C')
+        self.actionStartWork.setShortcut('S')
+        self.actionStopWork.setShortcut('S')
+        self.actionCloseIssue.setShortcut('L')
+        self.actionDropIssue.setShortcut('D')
+        self.actionAssignIssue.setShortcut('A')
+        self.actionAddReference.setShortcut('R')
 
     def enable_valid_actions(self):
         """
@@ -187,6 +216,8 @@ class DitzGui(QtGui.QMainWindow):
 
     def context_menu(self):
         # pylint: disable=W0108
+        self.show_item() # to reload item data first
+
         ditz_id = self._get_selected_issue_id()
         item_type = self._get_selected_item_type()
         status = self._get_selected_issue_status()

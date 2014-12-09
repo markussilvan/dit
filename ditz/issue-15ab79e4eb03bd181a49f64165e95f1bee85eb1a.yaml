@@ -9,8 +9,8 @@ type: :bugfix
 component: ditz-gui
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-11-11 21:42:53.736234 Z
 references: []
 
@@ -20,3 +20,69 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-12-09 15:01:43.460275 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    This shoudn't need anything more than connecting
+    some existing signals to slots and maybe setting
+    some new shortcuts for actions.
+- - 2014-12-09 15:52:11.380993 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Ok. Moving up/down now works as expected.
+    Maybe shortcuts like E for edit, C for commenting, etc
+    should be added.
+- - 2014-12-09 19:36:15.457544 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Several simple keyboard shortcuts have now been added.
+    Lets see how that works.
+- - 2014-12-09 19:38:06.044017 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from in_progress to paused
+  - ""
+- - 2014-12-09 19:38:25.477093 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from paused to in_progress
+  - Just testing these shortcuts...
+- - 2014-12-09 19:40:58.100403 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Change the issue textedit to be non-editable.
+    Change TAB to change back to list view, if this can be
+    done easily.
+    
+    Same functionality for TAB would be preferable in other
+    text boxes too, for example, the CommentDialog.
+- - 2014-12-09 19:49:22.327196 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Ok. Now it's done for the main text edit and
+    the comment dialog. That was easy.
+    I'll check out other dialogs too. IssueDialog
+    might benefit from the same behaviour.
+- - 2014-12-09 19:51:11.423207 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    IssueDialog already does that.
+    What is focus is completely lost in the main window?
+    This happens at startup, and when closing other dialogs.
+- - 2014-12-09 19:53:08.543130 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Good enough. Add more shortcuts later.
+    Change the shortcuts to use a modifier key (CTRL?), if
+    problems arise from unintentional actions.
+- - 2014-12-09 19:55:03.188799 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Also, I changed the same "tabChangesFocus" property to
+    CloseDialog. Now all seems good.

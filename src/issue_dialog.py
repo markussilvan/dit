@@ -11,6 +11,7 @@ A dialog for adding and editing Ditz issues
 
 from PyQt4 import QtGui, uic
 
+from comment_dialog import CommentDialog
 from common.items import DitzItem
 from common.errors import ApplicationError
 from ditzcontrol import DitzControl
@@ -83,10 +84,18 @@ class IssueDialog(QtGui.QDialog):
         # self.issue.identifier = self.ditz_id
         log = ""
 
+        # ask for a comment
+        try:
+            dialog = CommentDialog(self.ditz, self.issue.identifier, save=False)
+            comment = dialog.ask_comment()
+        except DitzError, e:
+            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+            comment = ''
+
         if self._edit_mode == True:
-            self.ditz.edit_issue(self.issue)
+            self.ditz.edit_issue(self.issue, comment)
         else:
-            self.ditz.add_issue(self.issue)
+            self.ditz.add_issue(self.issue, comment)
 
         self.issue = None
         super(IssueDialog, self).accept()

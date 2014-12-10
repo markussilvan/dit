@@ -68,7 +68,7 @@ class AssignDialog(QtGui.QDialog):
         """
         if ditz_id != None:
             self.ditz_id = ditz_id
-        issue = self.ditz.get_issue_from_cache()
+        issue = self.ditz.get_issue_from_cache(ditz_id)
         if not issue:
             raise ApplicationError('Issue not found from cache')
         current_release = issue.release

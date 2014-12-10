@@ -1,16 +1,18 @@
 --- !ditz.rubyforge.org,2008-03-06/issue 
 title: Adding a comment when editing issues
 desc: |-
-  Should there be a fixed comment to inform that issue was edited? If Ditz does this, the GUI
+  There should be a fixed comment to inform that issue was edited. Ditz does this, the GUI
   should too.
   
-  Also a possibility to give an optional comment using comment dialog would be nice. And pretty easy to implement.
+  Also a possibility to give an optional comment using CommentDialog would be nice. And pretty easy to implement.
+  
+  EDIT: it should work now.
 type: :task
 component: ditz-gui
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-12-07 17:19:30.680650 Z
 references: []
 
@@ -28,3 +30,32 @@ log_events:
     these automatic comments. More specifically
     all commands implemented without Ditz
     interaction need this.
+- - 2014-12-10 15:30:42.293355 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    DitzControl now contains implementation to support this.
+    Some changes in GUI or other parts of DitzControl may still
+    be needed. Lets see.
+- - 2014-12-10 19:49:09.776548 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2014-12-10 19:50:09.590939 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ""
+- - 2014-12-10 20:05:09.184310 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - |-
+    Yes, indeed, it works.
+    Same mechanism should be used with all commands,
+    that don't use Ditz command line.
+- - 2014-12-10 20:25:35.920417 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Done for both "custom" commands now.
+    All commands that don't use Ditz commandline need to do
+    this, so remember to add it to all new commands, too.

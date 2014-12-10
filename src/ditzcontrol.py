@@ -271,15 +271,17 @@ class DitzControl():
         #      or replace the item with this new item
         return ditz_item
 
-    def add_issue(self, issue):
+    def add_issue(self, issue, comment=''):
         """
         Add new issue to Ditz
         Ditz also asks for a comment when an issue is added,
         but saving a comment is not supported.
 
         Parameters:
-        - a DitzItem filled with data to save
+        - issue: a DitzItem filled with data to save
+        - comment: (optional) comment to add to the issue's event log
         """
+        #TODO: comment not used
         # run the commands
         output = ""
         try:
@@ -320,17 +322,21 @@ class DitzControl():
                 e.error_message = "Adding reference to issue failed"
                 raise
 
-    def edit_issue(self, issue):
+    def edit_issue(self, issue, comment=''):
         """
         Modify an existing Ditz issue.
         Ditz also asks for a comment when an issue is edited,
         but saving a comment is not supported.
 
         Parameters:
-        - a DitzItem filled with data to save
+        - issue: a DitzItem filled with data to save
+        - comment: (optional) comment to add to the issue's event log
         """
         if issue.identifier == None or issue.identifier == "":
             raise DitzError("Issue has no identifier")
+
+        self._add_issue_log_entry(issue, 'edited', comment)
+
         yaml_issue = IssueYamlObject.fromDitzItem(issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
@@ -405,7 +411,7 @@ class DitzControl():
             e.error_message = "Dropping issue failed"
             raise
 
-    def assign_issue(self, ditz_id, release, comment):
+    def assign_issue(self, ditz_id, release, comment=''):
         """
         Assign a Ditz issue to a release
 
@@ -421,10 +427,15 @@ class DitzControl():
         if not ditz_issue:
             # try to load issue in case it exists, but is not cached
             ditz_issue = self.get_issue_content(ditz_id)
+
+        old_release = ditz_issue.release
+        if old_release == None or old_release == '':
+            old_release = 'Unassigned'
         ditz_issue.release = release
-        if comment and comment != "":
-            #TODO: implementation to add a comment if given
-            pass
+
+        action = "assigned to release {} from {}".format(release, old_release)
+        self._add_issue_log_entry(ditz_issue, action, comment)
+
         yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
@@ -638,5 +649,17 @@ class DitzControl():
         if status in ['unstarted', 'in progress', 'paused']:
             return True
         return False
+
+    def _add_issue_log_entry(self, issue, action='comment', comment=None):
+        """
+        Add a new log entry to an issue
+
+        Parameters:
+        - issue: issue to which to add the change
+        - action: (optional) title describing what was done, just a comment by default
+        - comment: (optional) a comment to the log, empty by default
+        """
+        creator = '{} <{}>'.format(self.config.settings.name, self.config.settings.email)
+        issue.add_log_entry(None, action, creator, comment)
 
 

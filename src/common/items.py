@@ -7,6 +7,8 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
+import datetime
+
 import utils.time
 
 class DitzItem():
@@ -91,4 +93,27 @@ class DitzItem():
                 item_str += entry_str
 
         return item_str
+
+    def add_log_entry(self, timestamp=None, action='comment', creator='Unknown', comment=None):
+        """
+        Add a new log entry to an issue
+
+        Parameters:
+        - timestamp: (optional) creation timestamp of the log entry, now by default
+        - action: (optional) title describing what was done, just a comment by default
+        - creator: who made the change
+        - comment: (optional) a comment to the log, empty by default
+        """
+        log_entry = [] # format: [ timestamp, creator, action, comment ]
+        if timestamp == None:
+            timestamp = datetime.datetime.utcnow()
+        if creator == None:
+            creator = '{} <{}>'.format(self.config.settings.name, self.config.settings.email)
+        if comment == None:
+            comment = ''
+        log_entry.append(timestamp)
+        log_entry.append(creator)
+        log_entry.append(action)
+        log_entry.append(comment)
+        self.log.append(log_entry)
 

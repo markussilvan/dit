@@ -390,7 +390,9 @@ class DitzGui(QtGui.QMainWindow):
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
-        dialog = CommentDialog(self.ditz, ditz_id)
+
+        title = 'Start work on {}'.format(ditz_id)
+        dialog = CommentDialog(self.ditz, ditz_id, title=title)
         comment = dialog.ask_comment()
         if comment != None:
             try:
@@ -405,7 +407,8 @@ class DitzGui(QtGui.QMainWindow):
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
-        dialog = CommentDialog(self.ditz, ditz_id)
+        title = 'Stop work on {}'.format(ditz_id)
+        dialog = CommentDialog(self.ditz, ditz_id, title=title)
         comment = dialog.ask_comment()
         if comment != None:
             try:
@@ -423,7 +426,8 @@ class DitzGui(QtGui.QMainWindow):
         release_name = self._get_selected_release_name()
         if release_name == None:
             return
-        dialog = CommentDialog(self.ditz, None)
+        title = 'Release {}'.format(release_name)
+        dialog = CommentDialog(self.ditz, None, title=title)
         comment = dialog.ask_comment()
         if comment != None:
             self.ditz.make_release(release_name, comment)

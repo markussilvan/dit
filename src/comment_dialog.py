@@ -17,7 +17,7 @@ class CommentDialog(QtGui.QDialog):
     """
     A comment dialog with text input and Cancel/Ok buttons.
     """
-    def __init__(self, ditz, ditz_id, save=False):
+    def __init__(self, ditz, ditz_id, save=False, title='Comment'):
         """
         Initialize user interface for the dialog
 
@@ -25,6 +25,7 @@ class CommentDialog(QtGui.QDialog):
         - ditz: DitzControl to access data
         - ditz_id: Ditz item to comment
         - save: Save the comment to Ditz
+        - title: Dialog window title to show, defaults to "Comment"
         """
         super(CommentDialog, self).__init__()
 
@@ -34,6 +35,8 @@ class CommentDialog(QtGui.QDialog):
         self.comment = None
 
         uic.loadUi('../ui/comment_dialog.ui', self)
+
+        self.setWindowTitle(title)
 
     def accept(self):
         """

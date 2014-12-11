@@ -1,6 +1,5 @@
---- !ditz.rubyforge.org,2008-03-06/issue
-component: ditz-gui
-creation_time: 2014-10-12 17:41:54.047699 Z
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Changeable window title for CommentDialog
 desc: |-
   As CommentDialog is used in multiple contexts, it could
   have a customizable window title. The title could be given
@@ -10,22 +9,32 @@ desc: |-
   action was selected for the item.
   The selected item is visible on the list on the
   main window.
-disposition: ''
+type: :task
+component: ditz-gui
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-12 17:41:54.047699 Z
+references: []
+
 id: acf08222e2e8df399b27fe6efb574ee6561a899d
-log_events:
+log_events: 
 - - 2014-10-12 17:41:55.159469 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ''
+  - ""
 - - 2014-12-10 20:20:30.234386 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.1.2 from v0.2
   - |-
     Small change which is easier to do earlier as
     CommentDialog will be taken into use in multiple places.
-references: []
-release: v0.1.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-title: Changeable window title for CommentDialog
-type: :task
+- - 2014-12-10 20:28:29.576767 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2014-12-11 12:43:02.779721 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Done.

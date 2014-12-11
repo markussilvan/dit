@@ -1,22 +1,25 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Cleanup DitzControl
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-12-10 20:34:30.489074 Z
 desc: |-
   Refactoring DitzControl has left behind some bad code that
   should be now removable.
   Some functions are even marked as 'to be removed'. Get rid of
   those, remove the hacks, add error checks and cleanup the code.
-type: :task
-component: ditz-gui
-release: v0.1.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-12-10 20:34:30.489074 Z
-references: []
-
+disposition: ''
 id: ae739705518934d506c56b08cedb6029163c3b0c
-log_events: 
+log_events:
 - - 2014-12-10 20:34:31.160826 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
+- - 2014-12-11 19:49:04.186425 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - See comments in 17caacdb987590f36c91cded17c2731769da496f
+references: []
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Cleanup DitzControl
+type: :task

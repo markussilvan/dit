@@ -1,0 +1,26 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Reimplement make_release() without Ditz
+desc: |-
+  Reimplement releasing releases without
+  dependency to Ditz commandline tool.
+  This might require some implementation
+  for reading and writing releases in
+  project.yaml file.
+  
+  That will help implementing other
+  releases-releted commands later.
+type: :task
+component: ditz-gui
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-12-11 20:00:01.174700 Z
+references: []
+
+id: 3c8eeeaccb3bc9ee3c57c4abda3cb85d8f7cb6b9
+log_events: 
+- - 2014-12-11 20:00:01.676137 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

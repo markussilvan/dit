@@ -1,30 +1,23 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Show icons in context menus
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-16 16:39:05.930722 Z
 desc: |-
   Currently icons from actions don't
   show up in the context menu.
   This might be happening just because of
   some property on QMenu or QAction.
-  
+
   Search online for a possible solution and
   go through all properties on these two
   classes. Also check if context menu requires
   different size of images or something else.
-type: :bugfix
-component: ditz-gui
-release: v0.1.2
-reporter: Markus Silvan
-status: :paused
-disposition: 
-creation_time: 2014-10-16 16:39:05.930722 Z
-references: []
-
+disposition: ''
 id: 7e9ab6d76804655c59ac8efd562da45f0e61cce2
-log_events: 
+log_events:
 - - 2014-10-16 16:39:06.432401 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
 - - 2014-10-16 17:28:40.250786 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -32,16 +25,16 @@ log_events:
     "So changing ALL the places where i use a QAction solved the problem."
     "It was about iconVisibleInMenu" property."
                      - Internet
-    
+
     Try this, see if it helps.
 - - 2014-10-16 17:29:28.315128 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.1 from v0.2
-  - ""
+  - ''
 - - 2014-10-16 17:29:37.474774 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - changed status from unstarted to in_progress
-  - ""
+  - ''
 - - 2014-10-18 13:40:39.888413 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - changed status from in_progress to paused
@@ -51,4 +44,19 @@ log_events:
 - - 2014-10-18 21:36:14.067582 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.1.2 from v0.1
-  - ""
+  - ''
+- - 2014-12-11 19:51:04.610447 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    The context menu actions are not the same actions.
+    Most of the actions are custom versions created to
+    get a custom label for the popup.
+    It would be better to use the same actions for everything.
+    Then these icons might even work.
+references: []
+release: v0.1.2
+reporter: Markus Silvan
+status: :paused
+title: Show icons in context menus
+type: :bugfix

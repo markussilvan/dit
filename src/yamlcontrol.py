@@ -4,7 +4,7 @@
 import yaml
 import datetime
 import glob
-import os.path
+import os
 
 from common.items import DitzItem
 from common.errors import ApplicationError
@@ -77,6 +77,16 @@ class IssueYamlControl():
                 stream.write(yaml_data)
         except Exception:
             raise ApplicationError("Error writing issue yaml file")
+
+    def remove_issue_yaml(self, identifier):
+        """
+        Remove issue .yaml file
+
+        Parameters:
+        - identifier: issue hash identifier
+        """
+        issue_file = "{}/{}{}.yaml".format(self.issue_dir, self.issue_prefix, identifier)
+        os.remove(issue_file)
 
     def list_issue_identifiers(self):
         """

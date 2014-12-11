@@ -55,6 +55,15 @@ class DitzControl():
         """
         return ["bugfix", "feature", "task"]
 
+    def get_valid_issue_dispositions(self):
+        """
+        Get a list of valid issue dispositions for a Ditz issue
+
+        Returns:
+        - list of issue dispositions
+        """
+        return ["fixed", "won't fix", "reorganized"]
+
     def get_releases(self):
         """
         Get a list of release names from Ditz
@@ -151,15 +160,14 @@ class DitzControl():
         Returns:
         - issue identifier
         """
-        #FIXME: this is a total hack, just to be used during refactoring.
-        issue = self.get_issue_content_from_ditz(issue_name)
+        issue = self._get_issue_by_id(issue_name)
         if issue:
             return issue.identifier
         return None
 
     def get_issue_content(self, identifier, update_cache=True):
         """
-        Get all content of one issue by its identifier hash.
+        Get all content of one issue from storage by its identifier hash.
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue
@@ -174,7 +182,9 @@ class DitzControl():
             return None
         if len(identifier) != 40:
             # issue name given instead?
-            identifier = self.get_issue_identifier(identifier)
+            issue = self._get_issue_by_id(identifier)
+            if issue:
+                identifier = issue.identifier
             if identifier and len(identifier) != 40:
                 return None
         yaml_issue = self.issuecontrol.read_issue_yaml(identifier)
@@ -182,93 +192,6 @@ class DitzControl():
         if update_cache:
             self.item_cache.add_issue(ditz_item)
             #self.item_cache.sort_issues(rename = True)
-        return ditz_item
-
-    def get_issue_content_from_ditz(self, ditz_id):
-        """
-        Get all content of one item by its ditz id hash.
-
-        Parameters:
-        - ditz_id: Ditz hash or name identifier of an issue
-
-        Returns:
-        - A Ditz item object filled with information of that issue
-        - None if ditz_id is invalid
-        """
-        if ditz_id == None or ditz_id == "":
-            return None
-        try:
-            ditz_data = iter(self._run_command("show " + ditz_id))
-        except DitzError:
-            return None
-        name = ditz_data.next().split()[1].strip()
-
-        ditz_data.next() # skip line 1, it's just a line (no pun intended)
-
-        title = self._parse_ditz_item_variable(ditz_data, "Title")
-
-        description_line = ditz_data.next()
-        if description_line == "Description: \n":
-            # multi-line description
-            description = ""
-            for line in ditz_data:
-                if len(line) > 2:
-                    description = "{}{}".format(description, line[2:])
-                else:
-                    break
-        elif description_line[:12] == "Description:":
-            # one line description
-            description = self._parse_ditz_item_variable(ditz_data, "Description", description_line)
-        else:
-            raise DitzError("Error parsing issue description from Ditz output")
-
-        issue_type = self._parse_ditz_item_variable(ditz_data, "Type")
-        if self._issue_type_string_to_id(issue_type) == None:
-            raise DitzError("Error parsing issue type from Ditz output data, unrecognized value")
-
-        status = self._parse_ditz_item_variable(ditz_data, "Status")
-        if not self._is_valid_issue_status(status):
-            raise DitzError("Error parsing issue status from Ditz output data, unrecognized value")
-
-        creator = self._parse_ditz_item_variable(ditz_data, "Creator")
-        age = self._parse_ditz_item_variable(ditz_data, "Age")
-        release = self._parse_ditz_item_variable(ditz_data, "Release")
-
-        # references and identifier in one go
-        references_line = ditz_data.next().lstrip()
-        references = ""
-        if references_line != "References: \n":
-            raise DitzError("Error parsing issue references from Ditz output")
-        for line in ditz_data:
-            if line.lstrip().split(' ', 1)[0] != "Identifier:":
-                references = "{}{}".format(references, line[2:])
-            else:
-                identifier = self._parse_ditz_item_variable(ditz_data, "Identifier", line)
-                break
-
-
-        # skip one empty line before event log starts
-        if ditz_data.next().strip() != "":
-            raise DitzError("Error parsing event log from Ditz output data")
-
-        if ditz_data.next().strip() != "Event log:":
-            raise DitzError("Error parsing event log from Ditz output data")
-
-        log = ""
-        for line in ditz_data:
-            stripped_line = line.strip()
-            if len(stripped_line) > 0:
-                if len(log) > 0:
-                    log = "{}\n{}".format(log, stripped_line)
-                else:
-                    log = stripped_line
-            else:
-                break
-
-        ditz_item = DitzItem("issue", title, name, issue_type, None, status, None,
-                description, creator, age, release, references, identifier, log)
-        #TODO: use existing item in cache instead? (that would cache all this data too)
-        #      or replace the item with this new item
         return ditz_item
 
     def add_issue(self, issue, comment=''):
@@ -345,16 +268,19 @@ class DitzControl():
         Write a new comment to a Ditz item
 
         Parameters:
-        - ditz_id: Ditz hash or name identifier of an issue
-        - comment: comment text, no formatting
+        - ditz_id: Ditz hash or name identifier of an issue to close
+        - comment: (optional) comment text, no formatting, to add to the closed issue
         """
         if ditz_id == None or ditz_id == "":
-            return
-        try:
-            self._run_interactive_command("comment {}".format(ditz_id), comment, "/stop")
-        except DitzError, e:
-            e.error_message = "Adding a comment on Ditz failed"
-            raise
+            raise ApplicationError("Invalid ditz issue identifier")
+        if comment == None or comment == "":
+            raise ApplicationError("Missing comment")
+
+        ditz_issue = self._get_issue_by_id(ditz_id)
+        self._add_issue_log_entry(ditz_issue, 'commented', comment)
+
+        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def add_reference(self, ditz_id, reference, comment=""):
         """
@@ -374,6 +300,19 @@ class DitzControl():
             e.error_message = "Adding a reference on Ditz failed"
             raise
 
+    def _disposition_to_str(self, disposition):
+        """
+        Convert disposition numerical (index) value to string
+
+        Parameters:
+        - disposition: disposition (numeric)
+
+        Returns:
+        - disposition as string
+        """
+        dispositions = self.get_valid_issue_dispositions()
+        return dispositions[disposition-1]
+
     def close_issue(self, ditz_id, disposition, comment=""):
         """
         Close an existing Ditz item
@@ -387,26 +326,40 @@ class DitzControl():
             raise ApplicationError("Invalid ditz item identifier")
         if disposition < 1 or disposition > 3:
             raise ApplicationError("Invalid disposition value")
-        try:
-            self._run_interactive_command("close {}".format(ditz_id), disposition, comment, "/stop")
-        except DitzError, e:
-            e.error_message = "Closing an issue on Ditz failed"
-            raise
 
-    def drop_issue(self, ditz_id):
+        ditz_issue = self._get_issue_by_id(ditz_id)
+        ditz_issue.status = 'closed'
+        ditz_issue.disposition = self._disposition_to_str(disposition)
+        action = "closed with disposition {}".format(disposition)
+        self._add_issue_log_entry(ditz_issue, action, comment)
+
+        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        self.issuecontrol.write_issue_yaml(yaml_issue)
+
+    def drop_issue(self, identifier):
         """
-        Remove an existing Ditz issue
+        Remove an existing Ditz issue.
+
+        The data is lost forever when an issue is dropped.
 
         Parameters:
-        - ditz_id: Ditz hash or name identifier of an issue to drop
+        - identifier: Ditz hash or name identifier of an issue to drop
 
         Raises:
         - DitzError if running Ditz command fails
         """
-        if ditz_id == None or ditz_id == "":
+        if identifier == None or identifier == "":
             return
+        if len(identifier) != 40:
+            # issue name given instead?
+            issue = self._get_issue_by_id(identifier)
+            if issue:
+                identifier = issue.identifier
+            if identifier and len(identifier) != 40:
+                return None
         try:
-            self._run_command("drop " + ditz_id)
+            self.issuecontrol.remove_issue_yaml(identifier)
+            self.item_cache.remove_issue(identifier)
         except DitzError, e:
             e.error_message = "Dropping issue failed"
             raise
@@ -423,15 +376,11 @@ class DitzControl():
         Raises:
         - DitzError if running Ditz command fails
         """
-        ditz_issue = self.get_issue_from_cache(ditz_id)
-        if not ditz_issue:
-            # try to load issue in case it exists, but is not cached
-            ditz_issue = self.get_issue_content(ditz_id)
-
+        ditz_issue = self._get_issue_by_id(ditz_id)
         old_release = ditz_issue.release
+        ditz_issue.release = release
         if old_release == None or old_release == '':
             old_release = 'Unassigned'
-        ditz_issue.release = release
 
         action = "assigned to release {} from {}".format(release, old_release)
         self._add_issue_log_entry(ditz_issue, action, comment)
@@ -439,7 +388,7 @@ class DitzControl():
         yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
-    def start_work(self, ditz_id, comment):
+    def start_work(self, ditz_id, comment=''):
         """
         Start working on an Ditz issue
 
@@ -450,15 +399,9 @@ class DitzControl():
         Raises:
         - DitzError if running Ditz command fails
         """
-        if ditz_id == None or ditz_id == "":
-            return
-        try:
-            self._run_interactive_command("start " + ditz_id, comment, "/stop")
-        except DitzError, e:
-            e.error_message = "Starting work on a Ditz issue failed"
-            raise
+        self._change_issue_status(ditz_id, 'in progress', comment)
 
-    def stop_work(self, ditz_id, comment):
+    def stop_work(self, ditz_id, comment=''):
         """
         Stop working on an Ditz issue
 
@@ -466,13 +409,7 @@ class DitzControl():
         - ditz_id: Ditz hash or name identifier of an issue
         - comment: (optional) comment text, no formatting, to add to the issue
         """
-        if ditz_id == None or ditz_id == "":
-            return
-        try:
-            self._run_interactive_command("stop " + ditz_id, comment, "/stop")
-        except DitzError, e:
-            e.error_message = "Stopping work on a Ditz issue failed"
-            raise
+        self._change_issue_status(ditz_id, 'paused', comment)
 
     def make_release(self, release_name, comment):
         """
@@ -489,6 +426,33 @@ class DitzControl():
         except DitzError, e:
             e.error_message = "Making release on Ditz failed"
             raise
+
+    def _change_issue_status(self, ditz_id, status, comment=''):
+        """
+        Change Ditz issue status.
+
+        Parameters:
+        - ditz_id: Ditz hash or name identifier of an issue
+        - status: new status to set for the issue
+        - comment: (optional) comment text, no formatting, to add to the issue
+
+        Raises:
+        - DitzError if running Ditz command fails
+        """
+        if ditz_id == None or ditz_id == "":
+            return
+        if status == None or status == "":
+            return
+
+        ditz_issue = self._get_issue_by_id(ditz_id)
+        old_status = ditz_issue.status
+        ditz_issue.status = status
+        ditz_issue.disposition = None
+        action = "status changed from {} to {}".format(old_status, status)
+        self._add_issue_log_entry(ditz_issue, action, comment)
+
+        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def _run_command(self, cmd):
         """
@@ -650,13 +614,38 @@ class DitzControl():
             return True
         return False
 
-    def _add_issue_log_entry(self, issue, action='comment', comment=None):
+    def _get_issue_by_id(self, ditz_id):
+        """
+        Get DitzIssue from cache or file.
+
+        Parameters:
+        - ditz_id: issue hash identifier or name
+        """
+        if ditz_id == None or ditz_id == "":
+            raise ApplicationError("Invalid ditz item identifier")
+
+        ditz_issue = self.get_issue_from_cache(ditz_id)
+        if not ditz_issue and len(ditz_id) == 40:
+            # try to load issue in case it exists, but is not cached
+            ditz_issue = self.get_issue_content(ditz_id)
+            if not ditz_issue:
+                raise ApplicationError('Unable to find issue: {}'.format(ditz_id))
+            self.reload_cache()
+
+            # use the cached issue to keep cache up to date
+            ditz_issue = self.get_issue_from_cache(ditz_id)
+            if not ditz_issue:
+                raise ApplicationError('Unable to find issue even after reload: {}'.format(ditz_id))
+
+        return ditz_issue
+
+    def _add_issue_log_entry(self, issue, action, comment=None):
         """
         Add a new log entry to an issue
 
         Parameters:
         - issue: issue to which to add the change
-        - action: (optional) title describing what was done, just a comment by default
+        - action: title describing what was done
         - comment: (optional) a comment to the log, empty by default
         """
         creator = '{} <{}>'.format(self.config.settings.name, self.config.settings.email)

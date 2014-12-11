@@ -17,8 +17,8 @@ type: :task
 component: ditz-gui
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :reorg
 creation_time: 2014-12-10 20:32:30.304995 Z
 references: []
 
@@ -28,3 +28,38 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-12-11 12:45:13.056741 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - I'll start with closing an issue.
+- - 2014-12-11 14:29:07.623335 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Implementations for start work, stop work
+    and close issue done.
+    I knew it was easy, but went easier than expected.
+    Test all functions and commit.
+    Convert the other functions, too.
+- - 2014-12-11 19:35:42.924746 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - comment
+  - |-
+    Now also "comment" command is reimplemented.
+    Add_issue() and maybe something else still
+    should be converted.
+- - 2014-12-11 19:40:23.914171 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Release related command will need this too,
+    a separate ticket can be made for those.
+    
+    Before DitzControl._run_command() and
+    DitzControl._run_interactive_command() is
+    removed, copy those to a library and make
+    examples.
+- - 2014-12-11 19:54:02.920785 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition reorg
+  - Separate tickets created for the commands still left.

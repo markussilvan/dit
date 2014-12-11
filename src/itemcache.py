@@ -73,6 +73,23 @@ class ItemCache():
 
         return None
 
+    def remove_issue(self, identifier):
+        """
+        Remove issue from cache.
+
+        Parameters:
+        - identifier: issue name or identifier hash
+
+        Returns:
+        - True if issue was removed successfully
+        - False if issue was not found
+        """
+        for issue in self.issues:
+            if issue.identifier == identifier:
+                self.issues.remove(issue)
+                return True
+        return False
+
     def sort_issues(self, rename=False):
         """
         Sort the cached issues.

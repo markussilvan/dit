@@ -463,10 +463,10 @@ class DitzGui(QtGui.QMainWindow):
 
     def _get_selected_release_name(self):
         text = self._get_selected_item_text()
-        if not text:
+        if not text or text == '':
             return None
         release_name = text.split()[0]
-        if release_name not in self.ditz.get_releases():
+        if release_name not in self.ditz.config.get_unreleased_releases():
             return None
         return release_name
 

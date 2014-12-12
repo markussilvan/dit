@@ -1,20 +1,30 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Refactor DitzIssue to a hierarchy
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-24 11:03:43.086030 Z
 desc: |-
   Derive separate classes from DitzItem for DitzIssue and DitzRelease.
   Start using these in the existing codebase.
-type: :task
-component: ditz-gui
-release: v0.1.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-24 11:03:43.086030 Z
-references: []
-
+disposition: ''
 id: cb4ebceb901616eae7d69d9a1f1f028d2808d6f0
-log_events: 
+log_events:
 - - 2014-10-24 11:03:44.301544 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
+- - 2014-12-12 20:28:08.052751 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    DitzItem objects containing issues are only
+    created in one place. It makes this change
+    simple. Releases are created in couple of
+    places, but that is still quite manageable.
+
+    If this change is needed, then it should be
+    done now.
+references: []
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Refactor DitzIssue to a hierarchy
+type: :task

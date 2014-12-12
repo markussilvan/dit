@@ -71,18 +71,14 @@ class IssueDialog(QtGui.QDialog):
         Check validity of given data.
         Add issue to Ditz or update an existing issue
         """
-        #TODO: multiple references? form would need changes
         self.issue.title = str(self.widgetForm.lineEditTitle.text())
         self.issue.description = str(self.widgetForm.plainTextEditDescription.toPlainText())
         self.issue.issue_type = str(self.widgetForm.comboBoxIssueType.currentText())
         self.issue.status = str(self.widgetForm.comboBoxStatus.currentText())
         self.issue.creator = str(self.widgetForm.lineEditCreator.text())
-        #created = str(self.widgetForm.labelCreatedValue.text())
         self.issue.release = str(self.widgetForm.comboBoxRelease.currentText())
+        #TODO: multiple references? form would need changes
         #references = str(self.widgetForm.lineEditReferences.text())
-        # no need to change identifier
-        # self.issue.identifier = self.ditz_id
-        log = ""
 
         # ask for a comment
         try:
@@ -139,10 +135,10 @@ class IssueDialog(QtGui.QDialog):
         # two alternative formats allowed for created field
         # needed temporarily until DitzItem always has created as DateTime read from file
         try:
-            time_diff = common.utils.time.human_time_diff(self.issue.created.isoformat(' '))
+            time_str = common.utils.time.human_time_diff(self.issue.created.isoformat(' '))
         except ValueError:
-            time_diff = self.issue.created
-        self.widgetForm.labelCreatedValue.setText(time_diff)
+            time_str = self.issue.created
+        self.widgetForm.labelCreatedValue.setText(time_str)
         index = self.widgetForm.comboBoxRelease.findText(self.issue.release)
         self.widgetForm.comboBoxRelease.setCurrentIndex(index)
         self.widgetForm.lineEditReferences.setText(str(self.issue.references)) #TODO: multiple references

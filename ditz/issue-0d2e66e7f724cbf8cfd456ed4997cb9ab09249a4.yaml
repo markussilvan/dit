@@ -1,22 +1,25 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Pulling and pushing issue to git
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-18 13:29:43.719190 Z
 desc: |-
   Add settings for using a separate branch
   for issues (like ditz-git). Add functionality to push and pull changes. Add possibility to make that
   automatic everytime something is
   changed.
-type: :bugfix
-component: ditz-gui
-release: v0.3
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-18 13:29:43.719190 Z
-references: []
-
+disposition: ''
 id: 0d2e66e7f724cbf8cfd456ed4997cb9ab09249a4
-log_events: 
+log_events:
 - - 2014-10-18 13:29:44.220641 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
+- - 2014-12-12 20:18:43.110333 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+references: []
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Pulling and pushing issue to a git branch
+type: :feature

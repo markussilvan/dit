@@ -20,7 +20,7 @@ class DitzItem():
     """
     def __init__(self, item_type, title, name=None, issue_type=None, component=None,
             status=None, disposition="", description=None, creator=None, created=None,
-            release=None, references=None, identifier=None, log=None):
+            release=None, references=[], identifier=None, log=None):
         """
         Initialize new DitzItem.
         At least type and title must be set for releases.
@@ -115,5 +115,7 @@ class DitzItem():
         log_entry.append(creator)
         log_entry.append(action)
         log_entry.append(comment)
+        if not self.log:
+            self.log = []
         self.log.append(log_entry)
 

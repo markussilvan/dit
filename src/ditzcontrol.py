@@ -8,6 +8,7 @@ A GUI frontend for Ditz issue tracker
 """
 
 import subprocess
+import datetime
 
 from itemcache import ItemCache
 from common.items import DitzItem
@@ -63,19 +64,6 @@ class DitzControl():
         - list of issue dispositions
         """
         return ["fixed", "won't fix", "reorganized"]
-
-    def get_releases(self):
-        """
-        Get a list of release names from Ditz
-
-        Returns:
-        - list of release names
-        """
-        releases = []
-        release_data = self._run_command("releases")
-        for line in release_data:
-            releases.append(line.split()[0])
-        return releases
 
     def reload_cache(self):
         """
@@ -204,46 +192,19 @@ class DitzControl():
         - issue: a DitzItem filled with data to save
         - comment: (optional) comment to add to the issue's event log
         """
-        #TODO: comment not used
-        # run the commands
-        output = ""
-        try:
-            if issue.release not in [None, "", "Unassigned"]:
-                # first figure out right selection for release
-                release_selection = str(self.get_releases().index(issue.release) + 1)
-                output = self._run_interactive_command("add", issue.title, issue.description, "/stop",
-                        issue.issue_type[:1], 'y', release_selection, issue.creator, "/stop")
-            else:
-                # example: title, description, t, n, creator, /stop
-                output = self._run_interactive_command("add", issue.title, issue.description, "/stop",
-                        issue.issue_type[:1], 'n', issue.creator, "/stop")
-        except DitzError, e:
-            e.error_message = "Adding a new issue to Ditz failed"
-            raise
+        if issue.identifier != None and issue.identifier != "":
+            raise DitzError("Issue has an identifier, not a new issue?")
 
-        # first get identifier for the new issue from Ditz output
-        if output[-6:] == ".yaml\n":
-            identifier = output[-46:-6]
-        else:
-            raise DitzError("Parsing ditz add output failed")
+        if issue.created == None:
+            issue.created = datetime.datetime.utcnow()
+        if issue.component == None:
+            issue.component = self.config.get_project_name()
 
-        # change issue status if needed
-        if issue.status != "unstarted":
-            try:
-                self.start_work(identifier, "")
-                if issue.status == "paused":
-                    self.stop_work(identifier, "")
-            except DitzError, e:
-                e.error_message = "Setting issue state failed"
-                raise
+        issue.identifier = self.issuecontrol.generate_new_identifier()
+        self._add_issue_log_entry(issue, 'created', comment)
 
-        # add a reference if given (input of only one reference supported)
-        if issue.references != None and issue.references != "":
-            try:
-                self.add_reference(identifier, issue.references)
-            except DitzError, e:
-                e.error_message = "Adding reference to issue failed"
-                raise
+        yaml_issue = IssueYamlObject.fromDitzItem(issue)
+        self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def edit_issue(self, issue, comment=''):
         """
@@ -616,7 +577,7 @@ class DitzControl():
 
     def _get_issue_by_id(self, ditz_id):
         """
-        Get DitzIssue from cache or file.
+        Get DitzItem (issue) from cache or file.
 
         Parameters:
         - ditz_id: issue hash identifier or name

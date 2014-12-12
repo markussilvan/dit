@@ -9,8 +9,8 @@ type: :task
 component: ditz-gui
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-12-11 19:56:11.402325 Z
 references: []
 
@@ -20,3 +20,14 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-12-12 11:58:22.342784 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2014-12-12 15:31:16.639071 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    All the supporting functionality for this
+    was already done, so this was easier than
+    expected. Done.

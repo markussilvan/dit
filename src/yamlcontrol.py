@@ -5,6 +5,7 @@ import yaml
 import datetime
 import glob
 import os
+import hashlib
 
 from common.items import DitzItem
 from common.errors import ApplicationError
@@ -109,6 +110,22 @@ class IssueYamlControl():
 
         return identifiers
 
+    def generate_new_identifier(self):
+        """
+        Generates a new unique identifier hash for an issue.
+
+        Returns:
+        - new issue identifier string
+        """
+        identifiers = self.list_issue_identifiers()
+        sha = hashlib.sha1()
+        for i in range(10):
+            sha.update(datetime.datetime.utcnow().strftime("%Y%m%d"))
+            identifier = sha.hexdigest()
+            if identifier not in identifiers:
+                return identifier
+
+        raise ApplicationError("Unable to generate unique issue identifier")
 
 class IssueYamlObject(yaml.YAMLObject):
     """

@@ -62,6 +62,21 @@ class ConfigControl():
         reader = DitzReader("{}/{}".format(self.path_to_config, self.ditz_config_file))
         reader.write_ditz_config(self.settings)
 
+    def get_project_name(self):
+        """
+        Read project name from config file
+
+        Returns:
+        - project name
+        """
+        if self.settings == None:
+            return None
+        if self.settings.issue_dir == None:
+            return None
+        reader = DitzReader("{}/{}".format(self.path_to_config, self.ditz_config_file),
+                self.path_to_config + "/" + self.settings.issue_dir + "/project.yaml")
+        return reader.read_project_name()
+
     def get_unreleased_releases(self):
         """
         Read names of unreleased releases from Ditz project.yaml file.
@@ -174,4 +189,16 @@ class DitzReader():
         releases = [release for release in releases if release]
         return releases
 
+    def read_project_name(self):
+        """
+        Read project name from project.yaml file
+        """
+        if self.project_file == None:
+            raise ApplicationError("Project file location not known")
+
+        stream = open(self.project_file, 'r')
+        data = yaml.load(stream)
+
+        project_name = data["name"]
+        return project_name
 

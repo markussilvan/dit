@@ -1,28 +1,21 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Support "ditz init"
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-20 16:58:22.861737 Z
 desc: |-
   If ditz-gui is started in a directory (tree) which
   doesn't contain a .ditz-config file, ask the user
   if he wants to initialize a new Ditz repo here.
-type: :feature
-component: ditz-gui
-release: v0.3
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-20 16:58:22.861737 Z
-references: 
-- ditz init command
+disposition: ''
 id: c7c0ee77c6cdc485868884c4a2ea65b3e3487d1d
-log_events: 
+log_events:
 - - 2014-10-20 16:58:23.363225 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
 - - 2014-10-20 16:58:25.496002 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 1
-  - ""
+  - ''
 - - 2014-11-13 15:19:55.036937 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -30,3 +23,16 @@ log_events:
     Implement this using custom .ditzconfig yaml writer.
     Create issue directory from python after "initialization".
     Don't actually rely on "ditz init".
+- - 2014-12-12 20:20:24.230632 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    All this requires is ability to write the .ditzconfig
+    file, the project.yaml file and the directory for issues.
+references:
+- ditz init command
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Support "ditz init"
+type: :feature

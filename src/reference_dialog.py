@@ -19,7 +19,7 @@ class ReferenceDialog(QtGui.QDialog):
     """
     A reference dialog with text input and Cancel/Ok buttons.
     """
-    def __init__(self, ditz, ditz_id):
+    def __init__(self, ditz, ditz_id=None, save=True):
         """
         Initialize user interface for the dialog
 
@@ -36,6 +36,7 @@ class ReferenceDialog(QtGui.QDialog):
         self.ditz = ditz
         self.ditz_id = ditz_id
         self.reference = None
+        self.save = save
 
         uic.loadUi('../ui/reference_dialog.ui', self)
 
@@ -44,7 +45,7 @@ class ReferenceDialog(QtGui.QDialog):
         Ok is pressed on the GUI
         """
         self.reference = str(self.lineEdit.text())
-        if self.reference != "":
+        if self.reference != "" and self.save == True and self.ditz_id != None:
             # ask for a comment
             try:
                 dialog = CommentDialog(self.ditz, self.ditz_id, save=False,

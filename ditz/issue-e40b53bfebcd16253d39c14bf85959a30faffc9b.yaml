@@ -1,26 +1,40 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Show a "Closed"-stamp
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-11 12:18:31.463615 Z
 desc: |-
   Show a "Closed"-stamp on the issue text view when the issue has been closed,
   but the text is still on the view. This gives a nice impression, and
   also turns a current unwanted feature of showing the text into a wanted
   feature.
-type: :task
-component: ditz-gui
-release: v0.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-11 12:18:31.463615 Z
-references: []
-
+disposition: ''
 id: e40b53bfebcd16253d39c14bf85959a30faffc9b
-log_events: 
+log_events:
 - - 2014-10-11 12:18:35.695493 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
 - - 2014-10-11 13:37:20.828119 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
-  - When implementing this think also about the possibility of showin a dropped stamp for dropped items. Or a nice green stamp for completed tasks.
+  - When implementing this think also about the possibility of showin a dropped stamp
+    for dropped items. Or a nice green stamp for completed tasks.
+- - 2014-12-13 21:34:55.000717 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-13 21:43:20.808365 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-13 21:49:41.000507 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+references:
+- 38b74f96a97c67bb5ade1e86fdee57e1c7b5d322
+- Release v0.2
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Show a "Closed"-stamp
+type: :task

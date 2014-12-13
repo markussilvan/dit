@@ -1,29 +1,41 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: HTML formatting in issue textedit
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-11-11 21:47:25.823889 Z
 desc: |-
   When browsing issue, it would be nice is some
   fields would be hightlighted.
   Colors and bold/italics also make the GUI look nice.
-  
+
   Adding DitzItems as HTML should be possible
   with setPlainText(), appendPlainText() and the
   corresponding HTML versions.
-  
+
   Try how they work. If it works easily, then
   add an option to DitzItem.__str__() or create toHTML() method to do some HTML formatting
   for issue output.
-type: :feature
-component: ditz-gui
-release: v0.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-11-11 21:47:25.823889 Z
-references: []
-
+disposition: ''
 id: 38b74f96a97c67bb5ade1e86fdee57e1c7b5d322
-log_events: 
+log_events:
 - - 2014-11-11 21:47:26.325376 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
+- - 2014-12-13 21:45:10.325253 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - |-
+    The GUI looks pretty good. I think this is the weak
+    link in the GUI currently. Should be fixed.
+- - 2014-12-13 21:50:10.337657 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+references:
+- e40b53bfebcd16253d39c14bf85959a30faffc9b
+- QTextEdit
+- Release v0.2
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: HTML formatting in issue textedit
+type: :feature

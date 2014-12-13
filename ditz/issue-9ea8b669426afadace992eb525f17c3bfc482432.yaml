@@ -1,23 +1,35 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Using identifiers from ditz-gui
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-12-04 19:49:32.617396 Z
 desc: |-
   This is just refactoring, but might clean up the
   code a bit.
   Instead of making all requests with issue names
   DitzGui could use identifiers instead now that it
   knows them due the cached items.
-type: :task
-component: ditz-gui
-release: v0.1.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-12-04 19:49:32.617396 Z
-references: []
-
+disposition: won't fix
 id: 9ea8b669426afadace992eb525f17c3bfc482432
-log_events: 
+log_events:
 - - 2014-12-04 19:49:33.118902 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
+- - 2014-12-13 11:12:37.717239 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - ''
+- - 2014-12-13 11:19:32.096374 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition 2
+  - |-
+    DitzGui can't know the identifiers, it only knows
+    the information shown on the screen.
+    And making it configurable doesn't make sense at this point.
+    Issue names are changed to identifiers as the first thing
+    on the DitzControl side. So I guess this is ok as is.
+references: []
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Using identifiers from ditz-gui
+type: :task

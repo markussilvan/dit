@@ -11,6 +11,7 @@ A dialog for adding and editing Ditz issues
 
 from PyQt4 import QtGui, uic
 
+from reference_dialog import ReferenceDialog
 from comment_dialog import CommentDialog
 from common.items import DitzItem
 from common.errors import ApplicationError, DitzError
@@ -64,6 +65,14 @@ class IssueDialog(QtGui.QDialog):
         else:
             self.widgetForm.lineEditCreator.setText(default_creator)
 
+        self._connect_actions()
+
+    def _connect_actions(self):
+        """
+        Connect actions used on this dialog
+        """
+        self.widgetForm.pushButtonAdd.clicked.connect(self._add_reference)
+
     def accept(self):
         """
         Ok is pressed on the GUI
@@ -77,8 +86,11 @@ class IssueDialog(QtGui.QDialog):
         self.issue.status = str(self.widgetForm.comboBoxStatus.currentText())
         self.issue.creator = str(self.widgetForm.lineEditCreator.text())
         self.issue.release = str(self.widgetForm.comboBoxRelease.currentText())
-        #TODO: multiple references? form would need changes
-        #references = str(self.widgetForm.lineEditReferences.text())
+
+        self.issue.references = []
+        for i in range(self.widgetForm.listWidgetReferences.count()):
+            reference = str(self.widgetForm.listWidgetReferences.item(i).text())
+            self.issue.references.append(reference)
 
         # ask for a comment
         try:
@@ -132,18 +144,31 @@ class IssueDialog(QtGui.QDialog):
         index = self.widgetForm.comboBoxStatus.findText(self.issue.status)
         self.widgetForm.comboBoxStatus.setCurrentIndex(index)
         self.widgetForm.lineEditCreator.setText(self.issue.creator)
-        # two alternative formats allowed for created field
-        # needed temporarily until DitzItem always has created as DateTime read from file
+
+        # two alternative formats allowed for created field (just in case)
         try:
             time_str = common.utils.time.human_time_diff(self.issue.created.isoformat(' '))
         except ValueError:
             time_str = self.issue.created
         self.widgetForm.labelCreatedValue.setText(time_str)
+
         index = self.widgetForm.comboBoxRelease.findText(self.issue.release)
         self.widgetForm.comboBoxRelease.setCurrentIndex(index)
-        self.widgetForm.lineEditReferences.setText(str(self.issue.references)) #TODO: multiple references
+
+        self.widgetForm.listWidgetReferences.clear()
+        for reference in self.issue.references:
+            self.widgetForm.listWidgetReferences.addItem(reference)
+
         self.widgetForm.labelIdentifierValue.setText(self.issue.identifier)
-        #TODO: event log (if needed), multiple references
         self.exec_()
 
+    def _add_reference(self):
+        """
+        Add a new reference to the issue being added or edited.
+        """
+        dialog = ReferenceDialog(self.ditz, save=False)
+        reference = dialog.ask_reference()
+
+        if reference != None and reference != '':
+            self.widgetForm.listWidgetReferences.addItem(reference)
 

@@ -6,17 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>545</width>
-    <height>488</height>
+    <width>585</width>
+    <height>576</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Issue</string>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <property name="fieldGrowthPolicy">
-    <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-   </property>
+  <layout class="QFormLayout" name="formLayout_2">
    <item row="0" column="0">
     <widget class="QLabel" name="labelTitle">
      <property name="text">
@@ -27,19 +24,19 @@
    <item row="0" column="1">
     <widget class="QLineEdit" name="lineEditTitle"/>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="labelDescription">
      <property name="text">
       <string>Description</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="2" column="1">
     <widget class="QPlainTextEdit" name="plainTextEditDescription">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
-       <verstretch>1</verstretch>
+       <verstretch>3</verstretch>
       </sizepolicy>
      </property>
      <property name="tabChangesFocus">
@@ -47,81 +44,134 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="4" column="0">
     <widget class="QLabel" name="labelIssueType">
      <property name="text">
       <string>Issue type</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="4" column="1">
     <widget class="QComboBox" name="comboBoxIssueType"/>
    </item>
-   <item row="3" column="0">
+   <item row="6" column="0">
     <widget class="QLabel" name="labelStatus">
      <property name="text">
       <string>Status</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
+   <item row="6" column="1">
     <widget class="QComboBox" name="comboBoxStatus"/>
    </item>
-   <item row="4" column="0">
+   <item row="8" column="0">
     <widget class="QLabel" name="labelCreator">
      <property name="text">
       <string>Creator</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
+   <item row="8" column="1">
     <widget class="QLineEdit" name="lineEditCreator"/>
    </item>
-   <item row="5" column="0">
+   <item row="10" column="0">
     <widget class="QLabel" name="labelCreated">
      <property name="text">
       <string>Age</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
+   <item row="10" column="1">
     <widget class="QLabel" name="labelCreatedValue">
      <property name="text">
       <string>0 seconds</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
+   <item row="12" column="0">
     <widget class="QLabel" name="labelRelease">
      <property name="text">
       <string>Release</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
+   <item row="12" column="1">
     <widget class="QComboBox" name="comboBoxRelease"/>
    </item>
-   <item row="7" column="0">
-    <widget class="QLabel" name="labelReferences">
-     <property name="text">
-      <string>References</string>
+   <item row="15" column="1">
+    <widget class="QWidget" name="widgetReferences" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
      </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QListWidget" name="listWidgetReferences">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="pushButtonAdd">
+          <property name="text">
+           <string comment="Add new reference">Add</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtonEdit">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string comment="Edit reference">Edit</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtonRemove">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string comment="Remove reference">Remove</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="7" column="1">
-    <widget class="QLineEdit" name="lineEditReferences"/>
-   </item>
-   <item row="8" column="0">
+   <item row="16" column="0">
     <widget class="QLabel" name="labelIdentifier">
      <property name="text">
       <string>Identifier</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="1">
+   <item row="16" column="1">
     <widget class="QLabel" name="labelIdentifierValue">
      <property name="text">
       <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="0">
+    <widget class="QLabel" name="labelReferences">
+     <property name="text">
+      <string>References</string>
      </property>
     </widget>
    </item>
@@ -134,7 +184,6 @@
   <tabstop>comboBoxStatus</tabstop>
   <tabstop>lineEditCreator</tabstop>
   <tabstop>comboBoxRelease</tabstop>
-  <tabstop>lineEditReferences</tabstop>
  </tabstops>
  <resources/>
  <connections/>

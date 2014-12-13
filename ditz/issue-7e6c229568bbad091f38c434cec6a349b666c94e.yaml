@@ -1,5 +1,6 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Support adding/editing multiple references
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-21 19:58:09.281037 Z
 desc: |-
   An issue has a numbered list of references.
   Current issue form uses only one line to input
@@ -7,18 +8,24 @@ desc: |-
   widget which supports multiple text items.
   QListWidget or something simpler?
   A separate form?
-type: :bugfix
-component: ditz-gui
-release: v0.1.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-21 19:58:09.281037 Z
-references: []
-
+disposition: ''
 id: 7e6c229568bbad091f38c434cec6a349b666c94e
-log_events: 
+log_events:
 - - 2014-10-21 19:58:09.782497 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
+- - 2014-12-13 12:58:44.176803 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    Not so interesting, but this just has to be done sometime.
+    No new functionality needed. Only GUI changes, but may
+    require a alot of those. Should only affect adding and
+    editing issues.
+references: []
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+title: Support adding/editing multiple references
+type: :bugfix

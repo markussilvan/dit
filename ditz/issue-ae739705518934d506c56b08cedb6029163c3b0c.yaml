@@ -37,10 +37,30 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference
   - ''
+- - 2014-12-13 18:28:54.108389 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference
+  - ''
+- - 2014-12-13 18:29:30.580173 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference
+  - Should this refactoring also be done as part of cleanup?
+- - 2014-12-13 21:46:52.425063 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-13 21:49:20.792560 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
 references:
 - c5d13c8f4f219ff80b957193858b7b80ddb0b25a
 - 3c8eeeaccb3bc9ee3c57c4abda3cb85d8f7cb6b9
 - 9ea8b669426afadace992eb525f17c3bfc482432
+- 7e6c229568bbad091f38c434cec6a349b666c94e
+- cb4ebceb901616eae7d69d9a1f1f028d2808d6f0
+- v0.1.2 tasks that reduce depency on obsolete code
+- Just a test
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :in_progress

@@ -218,7 +218,7 @@ class DitzGui(QtGui.QMainWindow):
         # pylint: disable=W0108
         self.show_item() # to reload item data first
 
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         item_type = self._get_selected_item_type()
         status = self._get_selected_issue_status()
         menu = QtGui.QMenu(self)
@@ -294,7 +294,7 @@ class DitzGui(QtGui.QMainWindow):
     def show_item(self, ditz_id=None):
         if not ditz_id or isinstance(ditz_id, QModelIndex):
             # needed so the same function can be connected to GUI
-            ditz_id = self._get_selected_issue_id()
+            ditz_id = self._get_selected_issue_name()
 
         ditz_item = self.ditz.get_issue_content(ditz_id)
         if ditz_item:
@@ -303,7 +303,7 @@ class DitzGui(QtGui.QMainWindow):
         self.enable_valid_actions()
 
     def comment_issue(self):
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
@@ -316,7 +316,7 @@ class DitzGui(QtGui.QMainWindow):
         self.show_item() # to reload item data to include the added comment
 
     def add_reference(self):
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
@@ -338,7 +338,7 @@ class DitzGui(QtGui.QMainWindow):
         self.reload_data()
 
     def edit_issue(self):
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
@@ -351,7 +351,7 @@ class DitzGui(QtGui.QMainWindow):
         self.reload_data()
 
     def close_issue(self):
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         if ditz_id != None:
             dialog = CloseDialog(self.ditz, ditz_id)
             dialog.ask_issue_close()
@@ -361,7 +361,7 @@ class DitzGui(QtGui.QMainWindow):
             return
 
     def drop_issue(self):
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
@@ -373,7 +373,7 @@ class DitzGui(QtGui.QMainWindow):
         self.reload_data(ditz_id)
 
     def assign_issue(self):
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
@@ -386,7 +386,7 @@ class DitzGui(QtGui.QMainWindow):
         self.reload_data()
 
     def start_work(self):
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
@@ -403,7 +403,7 @@ class DitzGui(QtGui.QMainWindow):
             self.reload_data(ditz_id)
 
     def stop_work(self):
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
@@ -419,7 +419,7 @@ class DitzGui(QtGui.QMainWindow):
             self.reload_data(ditz_id)
 
     def make_release(self):
-        ditz_id = self._get_selected_issue_id()
+        ditz_id = self._get_selected_issue_name()
         if ditz_id == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No item selected")
             return
@@ -445,7 +445,7 @@ class DitzGui(QtGui.QMainWindow):
     def quit_application(self):
         QtGui.qApp.quit()
 
-    def _get_selected_issue_id(self):
+    def _get_selected_issue_name(self):
         item_type = self._get_selected_item_type()
         if item_type != "issue":
             return None

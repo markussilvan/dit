@@ -127,6 +127,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditTitle</tabstop>
+  <tabstop>plainTextEditDescription</tabstop>
+  <tabstop>comboBoxIssueType</tabstop>
+  <tabstop>comboBoxStatus</tabstop>
+  <tabstop>lineEditCreator</tabstop>
+  <tabstop>comboBoxRelease</tabstop>
+  <tabstop>lineEditReferences</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

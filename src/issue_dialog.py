@@ -13,7 +13,7 @@ from PyQt4 import QtGui, uic
 
 from comment_dialog import CommentDialog
 from common.items import DitzItem
-from common.errors import ApplicationError
+from common.errors import ApplicationError, DitzError
 from ditzcontrol import DitzControl
 from config import ConfigControl
 import common.utils.time

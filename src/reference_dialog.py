@@ -11,6 +11,8 @@ A common issue reference dialog box
 
 from PyQt4 import QtGui, uic
 
+from comment_dialog import CommentDialog
+from common.errors import DitzError
 from ditzcontrol import DitzControl
 
 class ReferenceDialog(QtGui.QDialog):
@@ -28,6 +30,9 @@ class ReferenceDialog(QtGui.QDialog):
         """
         super(ReferenceDialog, self).__init__()
 
+        if not isinstance(ditz, DitzControl):
+            raise ApplicationError("Construction failed due to invalid ditz (DitzControl) parameter")
+
         self.ditz = ditz
         self.ditz_id = ditz_id
         self.reference = None
@@ -40,7 +45,16 @@ class ReferenceDialog(QtGui.QDialog):
         """
         self.reference = str(self.lineEdit.text())
         if self.reference != "":
-            self.ditz.add_reference(self.ditz_id, self.reference)
+            # ask for a comment
+            try:
+                dialog = CommentDialog(self.ditz, self.ditz_id, save=False,
+                        title='Comment to add with the reference')
+                comment = dialog.ask_comment()
+            except DitzError, e:
+                QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+                comment = ''
+            # add the reference
+            self.ditz.add_reference(self.ditz_id, self.reference, comment)
         super(ReferenceDialog, self).accept()
 
     def reject(self):

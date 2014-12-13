@@ -233,9 +233,9 @@ class DitzControl():
         - comment: (optional) comment text, no formatting, to add to the closed issue
         """
         if ditz_id == None or ditz_id == "":
-            raise ApplicationError("Invalid ditz issue identifier")
+            raise DitzError("Invalid ditz issue identifier")
         if comment == None or comment == "":
-            raise ApplicationError("Missing comment")
+            raise DitzError("Missing comment")
 
         ditz_issue = self._get_issue_by_id(ditz_id)
         self._add_issue_log_entry(ditz_issue, 'commented', comment)
@@ -253,13 +253,16 @@ class DitzControl():
         - comment: comment text, if any comment should be added
         """
         if ditz_id == None or ditz_id == "":
-            return
-        try:
-            self._run_interactive_command("add-reference {}".format(ditz_id),
-                    reference, comment, "/stop")
-        except DitzError, e:
-            e.error_message = "Adding a reference on Ditz failed"
-            raise
+            raise DitzError("Invalid ditz issue identifier")
+        if reference == None or reference == "":
+            raise DitzError("Invalid reference")
+
+        ditz_issue = self._get_issue_by_id(ditz_id)
+        ditz_issue.references.append(reference)
+        self._add_issue_log_entry(ditz_issue, 'added reference', comment)
+
+        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def _disposition_to_str(self, disposition):
         """
@@ -414,28 +417,6 @@ class DitzControl():
 
         yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
-
-    def _run_command(self, cmd):
-        """
-        Run a Ditz command on the command line tool
-
-        Parameters:
-        - cmd: the Ditz command and its parameters
-
-        Returns:
-        - output of the command as string
-        """
-        cmd = [self.ditz_cmd] + cmd.split()
-        try:
-            p = subprocess.Popen(cmd,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
-            retval = p.wait()
-        except OSError:
-            raise DitzError("Error running Ditz")
-        if retval != 0:
-            raise DitzError("Ditz returned an error")
-        return p.stdout.readlines()
 
     def _run_interactive_command(self, cmdline, *args):
         """

@@ -1,0 +1,28 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-12-13 07:02:52.564377 Z
+desc: |-
+  Convert adding a reference to a command
+  that is independent of Ditz command line tool.
+disposition: fixed
+id: c5d13c8f4f219ff80b957193858b7b80ddb0b25a
+log_events:
+- - 2014-12-13 07:02:52.586814 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-12-13 07:22:45.316803 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference
+  - Required also to be able to clean up code.
+- - 2014-12-13 07:24:09.587068 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition 1
+  - ''
+references:
+- ae739705518934d506c56b08cedb6029163c3b0c
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Reimplement add_reference()
+type: :task

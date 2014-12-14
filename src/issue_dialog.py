@@ -201,7 +201,15 @@ class IssueDialog(QtGui.QDialog):
         """
         Change the selected reference text.
         """
-        pass
+        reference = self._get_selected_reference_text()
+        if reference != None:
+            for selected in self.widgetForm.listWidgetReferences.selectedItems():
+                selected_row = self.widgetForm.listWidgetReferences.row(selected)
+                old_text = str(selected.text())
+                dialog = ReferenceDialog(self.ditz, save=False, reference_text=old_text)
+                edited_text = dialog.ask_reference()
+                selected.setText(edited_text)
+                break
 
     def _remove_reference(self):
         """

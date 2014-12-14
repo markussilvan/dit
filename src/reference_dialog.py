@@ -19,7 +19,7 @@ class ReferenceDialog(QtGui.QDialog):
     """
     A reference dialog with text input and Cancel/Ok buttons.
     """
-    def __init__(self, ditz, ditz_id=None, save=True):
+    def __init__(self, ditz, ditz_id=None, save=True, reference_text=None):
         """
         Initialize user interface for the dialog
 
@@ -27,6 +27,7 @@ class ReferenceDialog(QtGui.QDialog):
         - ditz: DitzControl to use to access data
         - ditz_id: Ditz item to reference
         - save: Save the reference to Ditz
+        - reference_text: Preset text for the reference to add, used when editing a reference
         """
         super(ReferenceDialog, self).__init__()
 
@@ -35,8 +36,8 @@ class ReferenceDialog(QtGui.QDialog):
 
         self.ditz = ditz
         self.ditz_id = ditz_id
-        self.reference = None
         self.save = save
+        self.reference = reference_text
 
         uic.loadUi('../ui/reference_dialog.ui', self)
 
@@ -70,7 +71,10 @@ class ReferenceDialog(QtGui.QDialog):
         If Ditz id and reference are given, save the comment to Ditz
 
         Returns:
-        - Comment written by the user
+        - Reference written by the user
         """
+        if self.reference:
+            self.lineEdit.setText(self.reference)
         self.exec_()
         return self.reference
+

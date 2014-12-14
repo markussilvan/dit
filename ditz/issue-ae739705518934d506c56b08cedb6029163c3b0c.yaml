@@ -53,6 +53,12 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - edited
   - ''
+- - 2014-12-14 09:54:57.377024 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - |-
+    Adding, editing and removing multiple references
+    works now.
 references:
 - c5d13c8f4f219ff80b957193858b7b80ddb0b25a
 - 3c8eeeaccb3bc9ee3c57c4abda3cb85d8f7cb6b9
@@ -60,7 +66,7 @@ references:
 - 7e6c229568bbad091f38c434cec6a349b666c94e
 - cb4ebceb901616eae7d69d9a1f1f028d2808d6f0
 - v0.1.2 tasks that reduce depency on obsolete code
-- Just a test
+- Just a test, which worked :)
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :in_progress

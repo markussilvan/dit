@@ -125,7 +125,17 @@
         <item>
          <widget class="QPushButton" name="pushButtonAdd">
           <property name="text">
-           <string comment="Add new reference">Add</string>
+           <string comment="Add new reference"/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../graphics/references/add.png</normaloff>../graphics/references/add.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -135,7 +145,11 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string comment="Edit reference">Edit</string>
+           <string comment="Edit reference"/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../graphics/references/edit.png</normaloff>../graphics/references/edit.png</iconset>
           </property>
          </widget>
         </item>
@@ -145,7 +159,11 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string comment="Remove reference">Remove</string>
+           <string comment="Remove reference"/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../graphics/references/remove.png</normaloff>../graphics/references/remove.png</iconset>
           </property>
          </widget>
         </item>

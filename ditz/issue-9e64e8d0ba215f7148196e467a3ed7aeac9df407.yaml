@@ -6,16 +6,23 @@ desc: |-
   create scrollbars when identifiers are added as
   references. Of course, if links to issues could be
   added, then this would be redundant.
-disposition: ''
+disposition: fixed
 id: 9e64e8d0ba215f7148196e467a3ed7aeac9df407
 log_events:
 - - 2014-12-13 18:32:17.378908 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ''
+- - 2014-12-14 16:04:31.990205 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition 1
+  - |-
+    Default size is now changed so it fits
+    identifiers in the references field nicely.
+    Still looks like a nice dialog like before.
 references: []
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :closed
 title: Default size of IssueDialog
 type: :bugfix

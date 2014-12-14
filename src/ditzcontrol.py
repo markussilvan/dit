@@ -13,7 +13,7 @@ import datetime
 from itemcache import ItemCache
 from common.items import DitzItem
 from common.errors import ApplicationError, DitzError
-from common.utils.nonblockingstreamreader import NonBlockingStreamReader
+from common.utils.issue import IssueUtils
 from yamlcontrol import IssueYamlControl, IssueYamlObject
 from config import ConfigControl
 
@@ -37,33 +37,6 @@ class DitzControl():
             raise ApplicationError('Construction failed due to invalid config parameter')
         self.config = config
         self.reload_cache()
-
-    def get_valid_issue_states(self):
-        """
-        Get a list of valid states for a Ditz issue
-
-        Returns:
-        - list of states
-        """
-        return ["unstarted", "in progress", "paused"]
-
-    def get_valid_issue_types(self):
-        """
-        Get a list of valid issue types for a Ditz issue
-
-        Returns:
-        - list of issue types
-        """
-        return ["bugfix", "feature", "task"]
-
-    def get_valid_issue_dispositions(self):
-        """
-        Get a list of valid issue dispositions for a Ditz issue
-
-        Returns:
-        - list of issue dispositions
-        """
-        return ["fixed", "won't fix", "reorganized"]
 
     def reload_cache(self):
         """
@@ -97,18 +70,18 @@ class DitzControl():
         for release in self.item_cache.releases:
             items.append(release)
             issues = self.item_cache.get_issues_by_release(release.title)
-            issues = self.item_cache.sort_issues_by_status(issues) #TODO: move this function to DitzControl or utils?
+            issues = IssueUtils.sort_issues_by_status(issues)
             items.extend(issues)
 
         # add unassigned items
         items.append(DitzItem('release', 'Unassigned'))
         issues = self.item_cache.get_issues_by_release(None)
-        issues = self.item_cache.sort_issues_by_status(issues)
+        issues = IssueUtils.sort_issues_by_status(issues)
         items.extend(issues)
 
         return items
 
-    def get_issue_status_by_ditz_id(self, ditz_id): #TODO: move this function to ItemCache
+    def get_issue_status_by_ditz_id(self, ditz_id):
         """
         Get status of an Ditz issue loaded in the cached list of issues.
 
@@ -119,10 +92,7 @@ class DitzControl():
         - issue status
         - None if requested issue is not found
         """
-        for item in self.item_cache.issues:
-            if item.name == ditz_id:
-                return item.status
-        return None
+        return self.item_cache.get_issue_status_by_id(ditz_id)
 
     def get_issue_from_cache(self, ditz_id):
         """
@@ -135,8 +105,7 @@ class DitzControl():
         - DitzItem object
         - None if requested item is not found
         """
-        issue = self.item_cache.get_issue(ditz_id)
-        return issue
+        return self.item_cache.get_issue(ditz_id)
 
     def get_issue_identifier(self, issue_name):
         """
@@ -274,7 +243,7 @@ class DitzControl():
         Returns:
         - disposition as string
         """
-        dispositions = self.get_valid_issue_dispositions()
+        dispositions = self.config.get_valid_issue_dispositions()
         return dispositions[disposition-1]
 
     def close_issue(self, ditz_id, disposition, comment=""):
@@ -385,11 +354,11 @@ class DitzControl():
         """
         if release_name == None or release_name == "":
             return
-        try:
-            self._run_interactive_command("release " + release_name, comment, "/stop")
-        except DitzError, e:
-            e.error_message = "Making release on Ditz failed"
-            raise
+        #try:
+        #    self._run_interactive_command("release " + release_name, comment, "/stop")
+        #except DitzError, e:
+        #    e.error_message = "Making release on Ditz failed"
+        #    raise
 
     def _change_issue_status(self, ditz_id, status, comment=''):
         """
@@ -417,144 +386,6 @@ class DitzControl():
 
         yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
-
-    def _run_interactive_command(self, cmdline, *args):
-        """
-        Run a Ditz command on the command line tool
-        Other arguments are given to the command one by one, when
-        Ditz prompts for more input
-
-        Parameters:
-        - cmdline: the Ditz command and its parameters in a list
-        - args: (optional) arguments to give to the command, one by one
-
-        Returns:
-        - output of the command as string
-        """
-        cmd = [self.ditz_cmd] + cmdline.split()
-
-        p = subprocess.Popen(cmd,
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT, shell=False)
-
-        reader = NonBlockingStreamReader(p.stdout)
-
-        # read output and issue commands
-        output = ""
-        for argument in args:
-            # read Ditz output
-            output = output + self._read_all_input(reader)
-            # send arguments
-            p.stdin.write(str(argument) + "\n")
-
-        # read last of the output
-        output = output + self._read_all_input(reader)
-        return output
-
-    def _read_all_input(self, reader, timeout=0.5):
-        """
-        Read all input from given stream until
-        no new character have arrived during
-        given timeout.
-
-        Parameters:
-        - stream: stream to read
-
-        Returns:
-        - lines read from stream
-        """
-        output = ""
-        while True:
-            try:
-                line = reader.read(timeout)
-            except Exception:
-                break
-            if not line:
-                break
-            output = output + line
-        return output
-
-    def _status_identifier_to_string(self, status_id):
-        """
-        Convert a status identifier character from Ditz text output
-        to string representation.
-
-        Parameters:
-        - status_id: status character
-
-        Returns:
-        - status string
-        - None on invalid input
-        """
-        states = {
-            '_': "unstarted",
-            '>': "in progress",
-            '=': "paused"
-        }
-        if status_id in states:
-            return states[status_id]
-        return None
-
-    def _issue_type_string_to_id(self, issue_type):
-        """
-        Convert issue type, as string, to a number representation
-
-        Parameters:
-        - issue_type: issue type as string
-
-        Returns:
-        - a number value, an index that represents that same issue type
-        - None, if given issue type is not recognized
-        """
-        issue_types = {
-            'bugfix' : 1,
-            'feature' : 2,
-            'task' : 3
-        }
-        if issue_type in issue_types:
-            return issue_types[issue_type]
-        return None
-
-    def _parse_ditz_item_variable(self, ditz_data, variable_name, input_line=None):
-        """
-        Parse a variable value from "ditz show" command output.
-
-        Parameters:
-        - ditz_data: ditz command output,
-                     starting from the line containing the variable
-        - variable_name: name of the variable to parse from the output data
-        - input_line: (optional) if given, use this text line instead of ditz command output
-
-        Returns:
-        - value set for the variable
-        """
-        if input_line == None:
-            variable_line = ditz_data.next().strip().split(' ', 1)
-        else:
-            variable_line = input_line.strip().split(' ', 1)
-        if variable_line[0][:-1] != variable_name:
-            raise DitzError("Error parsing {} from Ditz output data".format(variable_name))
-        if len(variable_line) > 1:
-            value = variable_line[1]
-        else:
-            value = ""
-        return value
-
-    def _is_valid_issue_status(self, status):
-        """
-        Check if a given string is valid status for a Ditz issue.
-
-        Parameters:
-        - status: issue status string
-
-        Returns:
-        - True if string is a valid issue status
-        - False if not
-        """
-        if status in ['unstarted', 'in progress', 'paused']:
-            return True
-        return False
 
     def _get_issue_by_id(self, ditz_id):
         """

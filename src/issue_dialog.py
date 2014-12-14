@@ -47,10 +47,10 @@ class IssueDialog(QtGui.QDialog):
         uic.loadUi('../ui/issue_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
 
-        for state in self.ditz.get_valid_issue_states():
+        for state in self.ditz.config.get_valid_issue_states():
             self.widgetForm.comboBoxStatus.addItem(state)
 
-        for issue_type in self.ditz.get_valid_issue_types():
+        for issue_type in self.ditz.config.get_valid_issue_types():
             self.widgetForm.comboBoxIssueType.addItem(issue_type)
 
         self.widgetForm.comboBoxRelease.addItem("Unassigned")

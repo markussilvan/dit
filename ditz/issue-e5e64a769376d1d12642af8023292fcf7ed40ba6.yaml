@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-12-14 10:06:54.817398 Z
+desc: |-
+  Instead of add/edit/remove buttons, use buttons
+  which only have icons. Use similar blue theme
+  that is used on the main window. A plus,
+  a minus and a pen. Maybe even the same
+  icons could be used? Or make square
+  versions of the same icons?
+disposition: ''
+id: e5e64a769376d1d12642af8023292fcf7ed40ba6
+log_events:
+- - 2014-12-14 10:06:54.837435 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Icons for handling references
+type: :task

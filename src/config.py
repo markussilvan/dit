@@ -94,6 +94,33 @@ class ConfigControl():
                 self.path_to_config + "/" + self.settings.issue_dir + "/project.yaml")
         return reader.read_release_names()
 
+    def get_valid_issue_states(self):
+        """
+        Get a list of valid states for a Ditz issue
+
+        Returns:
+        - list of states
+        """
+        return ["unstarted", "in progress", "paused"]
+
+    def get_valid_issue_types(self):
+        """
+        Get a list of valid issue types for a Ditz issue
+
+        Returns:
+        - list of issue types
+        """
+        return ["bugfix", "feature", "task"]
+
+    def get_valid_issue_dispositions(self):
+        """
+        Get a list of valid issue dispositions for a Ditz issue
+
+        Returns:
+        - list of issue dispositions
+        """
+        return ["fixed", "won't fix", "reorganized"]
+
 
 class DitzConfig(yaml.YAMLObject):
 

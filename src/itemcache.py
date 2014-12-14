@@ -102,29 +102,6 @@ class ItemCache():
         if rename:
             self.rename_issues()
 
-    def sort_issues_by_status(self, issues):
-        """
-        Sort given issues by status.
-
-        Parameters:
-        - issues: list of issues to sort
-
-        Returns:
-        - sorted list
-        """
-        issues.sort(key=self._status_sorting_func)
-        return issues
-
-    def _status_sorting_func(self, issue):
-        if issue.status == "in progress":
-            return 0
-        elif issue.status == "paused":
-            return 1
-        elif issue.status == "unstarted":
-            return 2
-        else:
-            return 3 # closed
-
     def get_issues_by_release(self, release_title, include_closed=False):
         """
         Get all issues belonging to a particular release.
@@ -142,6 +119,22 @@ class ItemCache():
                 release_issues.append(issue)
 
         return release_issues
+
+    def get_issue_status_by_id(self, identifier):
+        """
+        Get status of an issue loaded in the cached list of issues.
+
+        Parameters:
+        - identifier: hash or name identifier of an issue
+
+        Returns:
+        - issue status
+        - None if requested issue is not found
+        """
+        for item in self.issues:
+            if item.name == identifier:
+                return item.status
+        return None
 
     def add_release(self, release):
         """

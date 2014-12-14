@@ -1,25 +1,18 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Reorganizing directory structure
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-19 16:54:27.208712 Z
 desc: |-
   Move ui code under src/ui.
   Move all control classes under src/control.
   Make required changes to source file import statements.
   This makes sense as the software gets bigger.
-type: :task
-component: ditz-gui
-release: v0.1.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-19 16:54:27.208712 Z
-references: []
-
+disposition: ''
 id: ed5823b43bb98cd95e2b71ed8cb22d0aadd22b9c
-log_events: 
+log_events:
 - - 2014-10-19 16:54:28.048855 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
 - - 2014-12-04 08:55:56.236479 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -35,3 +28,16 @@ log_events:
   - |-
     Or alternatively rename DitzSettings to DitzConfig.
     Using Config and Settings for the same purpose is ambiguous.
+- - 2014-12-14 10:22:17.815836 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2 from v0.1.2
+  - |-
+    I still don't have a clear idea how the files should
+    be  divided. Currect setup is fine so far.
+    Lets look at this later.
+references: []
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Reorganizing directory structure
+type: :task

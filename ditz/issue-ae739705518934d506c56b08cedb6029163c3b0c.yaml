@@ -6,7 +6,7 @@ desc: |-
   should be now removable.
   Some functions are even marked as 'to be removed'. Get rid of
   those, remove the hacks, add error checks and cleanup the code.
-disposition: ''
+disposition: fixed
 id: ae739705518934d506c56b08cedb6029163c3b0c
 log_events:
 - - 2014-12-10 20:34:31.160826 Z
@@ -59,6 +59,38 @@ log_events:
   - |-
     Adding, editing and removing multiple references
     works now.
+- - 2014-12-14 10:40:20.611543 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - |-
+    Some code also moved around.
+    For example, the get_valid_xxxxxx() functions clearly
+    belonged to some config/settings class.
+    Maybe those will be again refactored in v0.2 when
+    it's clear what kind of config file this program will have.
+- - 2014-12-14 11:01:21.248245 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Ok. Some ItemCache related cleanup done.
+    And some sorting functionality moved to newly
+    created IssueUtils.
+- - 2014-12-14 11:09:46.059503 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Going through all functions, and checking if those
+    are used anywhere, helped to remove a lot of
+    unused obsolete code.
+
+    Now DitzControl looks good enough so this
+    ticket can be closed. More refactoring
+    after proper settings file management has been
+    implemented.
+- - 2014-12-14 11:09:53.552922 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition 1
+  - ''
 references:
 - c5d13c8f4f219ff80b957193858b7b80ddb0b25a
 - 3c8eeeaccb3bc9ee3c57c4abda3cb85d8f7cb6b9
@@ -66,9 +98,8 @@ references:
 - 7e6c229568bbad091f38c434cec6a349b666c94e
 - cb4ebceb901616eae7d69d9a1f1f028d2808d6f0
 - v0.1.2 tasks that reduce depency on obsolete code
-- Just a test, which worked :)
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
+status: :closed
 title: Cleanup DitzControl
 type: :task

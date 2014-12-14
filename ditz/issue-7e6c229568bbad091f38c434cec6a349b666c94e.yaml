@@ -23,7 +23,25 @@ log_events:
     No new functionality needed. Only GUI changes, but may
     require a alot of those. Should only affect adding and
     editing issues.
-references: []
+- - 2014-12-14 07:45:53.854828 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - I'll use this same ticket to test how it works :)
+- - 2014-12-14 07:46:46.726765 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-14 07:55:55.742483 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-14 08:00:13.550592 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+references:
+- QListWidget
+- ditz-gui
 release: v0.1.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :in_progress

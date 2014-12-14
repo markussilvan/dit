@@ -10,6 +10,7 @@ A dialog for adding and editing Ditz issues
 """
 
 from PyQt4 import QtGui, uic
+from PyQt4.QtCore import SIGNAL
 
 from reference_dialog import ReferenceDialog
 from comment_dialog import CommentDialog
@@ -66,12 +67,6 @@ class IssueDialog(QtGui.QDialog):
             self.widgetForm.lineEditCreator.setText(default_creator)
 
         self._connect_actions()
-
-    def _connect_actions(self):
-        """
-        Connect actions used on this dialog
-        """
-        self.widgetForm.pushButtonAdd.clicked.connect(self._add_reference)
 
     def accept(self):
         """
@@ -162,6 +157,36 @@ class IssueDialog(QtGui.QDialog):
         self.widgetForm.labelIdentifierValue.setText(self.issue.identifier)
         self.exec_()
 
+    def _connect_actions(self):
+        """
+        Connect custom actions used on this dialog
+
+        Ok/Cancel are already connected to accept/reject.
+        """
+        self.widgetForm.pushButtonAdd.clicked.connect(self._add_reference)
+        self.widgetForm.pushButtonEdit.clicked.connect(self._edit_reference)
+        self.widgetForm.pushButtonRemove.clicked.connect(self._remove_reference)
+        self.widgetForm.listWidgetReferences.clicked.connect(self._set_button_states)
+        self.connect(self.widgetForm.listWidgetReferences,
+                SIGNAL("itemSelectionChanged()"),
+                self._set_button_states)
+
+    def _set_button_states(self):
+        """
+        Enable the correct buttons
+
+        Depending on selection on the references list,
+        different buttons need to be enabled.
+        """
+        if self._get_selected_reference_text() != None:
+            # a reference is selected
+            self.widgetForm.pushButtonEdit.setEnabled(True)
+            self.widgetForm.pushButtonRemove.setEnabled(True)
+        else:
+            # no refererence selected
+            self.widgetForm.pushButtonEdit.setEnabled(False)
+            self.widgetForm.pushButtonRemove.setEnabled(False)
+
     def _add_reference(self):
         """
         Add a new reference to the issue being added or edited.
@@ -171,4 +196,29 @@ class IssueDialog(QtGui.QDialog):
 
         if reference != None and reference != '':
             self.widgetForm.listWidgetReferences.addItem(reference)
+
+    def _edit_reference(self):
+        """
+        Change the selected reference text.
+        """
+        pass
+
+    def _remove_reference(self):
+        """
+        Remove the selected reference from the issues being added or edited.
+        """
+        reference = self._get_selected_reference_text()
+        if reference != None:
+            for selected in self.widgetForm.listWidgetReferences.selectedItems():
+                selected_row = self.widgetForm.listWidgetReferences.row(selected)
+                self.widgetForm.listWidgetReferences.takeItem(selected_row)
+
+    def _get_selected_reference_text(self):
+        item = self.widgetForm.listWidgetReferences.currentItem()
+        if not item:
+            return None
+        text = str(item.text())
+        if len(text) == 0:
+            return None
+        return text
 

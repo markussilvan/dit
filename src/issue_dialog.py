@@ -14,7 +14,7 @@ from PyQt4.QtCore import SIGNAL
 
 from reference_dialog import ReferenceDialog
 from comment_dialog import CommentDialog
-from common.items import DitzItem
+from common.items import DitzIssue
 from common.errors import ApplicationError, DitzError
 from ditzcontrol import DitzControl
 from config import ConfigControl
@@ -115,7 +115,7 @@ class IssueDialog(QtGui.QDialog):
         Show the dialog and get disposition and a comment from the user
         """
         try:
-            self.issue = DitzItem('issue', '', None)
+            self.issue = DitzIssue('', None)
         except ApplicationError:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
             return

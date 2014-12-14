@@ -18,6 +18,7 @@ import sys
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import SIGNAL, QModelIndex
 
+from common.items import DitzRelease, DitzIssue
 from common.errors import DitzError
 from config import ConfigControl
 from ditzcontrol import DitzControl
@@ -169,16 +170,16 @@ class DitzGui(QtGui.QMainWindow):
         Only common actions and actions valid for an item currently selected
         should be enabled. Others are disabled.
         """
-        item_type = self._get_selected_item_type()
-        if item_type == 'issue':
-            status = self._get_selected_issue_status()
-            if status == 'in progress':
+        issue = self._get_selected_issue()
+        release = self._get_selected_release_name()
+        if issue:
+            if issue.status == 'in progress':
                 start_state = False
             else:
                 start_state = True
             self._set_issue_actions(True, start_state)
             self._set_release_actions(False)
-        elif item_type == 'release':
+        elif release:
             self._set_issue_actions(False)
             self._set_release_actions(True)
         else:
@@ -218,24 +219,24 @@ class DitzGui(QtGui.QMainWindow):
         # pylint: disable=W0108
         self.show_item() # to reload item data first
 
-        ditz_id = self._get_selected_issue_name()
-        item_type = self._get_selected_item_type()
-        status = self._get_selected_issue_status()
+        issue = self._get_selected_issue()
+        release = self._get_selected_release_name()
         menu = QtGui.QMenu(self)
-        if item_type == 'issue':
+
+        if issue:
             menu.addAction(self.actionNewIssue)
             # custom actions used here to get custom menu texts
-            menu.addAction("Edit " + ditz_id, lambda:self.edit_issue())
-            menu.addAction("Comment " + ditz_id, lambda:self.comment_issue())
-            menu.addAction("Add reference to " + ditz_id, lambda:self.add_reference())
-            if status != "in progress" and status != "started":
-                menu.addAction("Start work on " + ditz_id, lambda:self.start_work())
+            menu.addAction("Edit " + issue.name, lambda:self.edit_issue())
+            menu.addAction("Comment " + issue.name, lambda:self.comment_issue())
+            menu.addAction("Add reference to " + issue.name, lambda:self.add_reference())
+            if issue.status != "in progress" and issue.status != "started":
+                menu.addAction("Start work on " + issue.name, lambda:self.start_work())
             else:
-                menu.addAction("Stop work on " + ditz_id, lambda:self.stop_work())
-            menu.addAction("Close " + ditz_id, lambda:self.close_issue())
-            menu.addAction("Drop " + ditz_id, lambda:self.drop_issue())
-            menu.addAction("Assign " + ditz_id, lambda:self.assign_issue())
-        elif item_type == 'release':
+                menu.addAction("Stop work on " + issue.name, lambda:self.stop_work())
+            menu.addAction("Close " + issue.name, lambda:self.close_issue())
+            menu.addAction("Drop " + issue.name, lambda:self.drop_issue())
+            menu.addAction("Assign " + issue.name, lambda:self.assign_issue())
+        elif release:
             menu.addAction(self.actionNewIssue)
             menu.addAction(self.actionMakeRelease)
             #TODO: add issue directly to this release?
@@ -245,6 +246,7 @@ class DitzGui(QtGui.QMainWindow):
         else:
             # empty lines
             menu.addAction(self.actionNewIssue)
+
         menu.exec_(QtGui.QCursor.pos())
 
     def build_toolbar_menu(self):
@@ -260,18 +262,18 @@ class DitzGui(QtGui.QMainWindow):
         data = self.ditz.get_items()
         self.listWidgetDitzItems.clear()
         for item in data:
-            if item.item_type == 'release' and self.listWidgetDitzItems.count() > 0:
+            if isinstance(item, DitzRelease) and self.listWidgetDitzItems.count() > 0:
                 # add one empty line as a spacer (except on the first line)
                 self.listWidgetDitzItems.addItem("")
             if item.name == None:
                 title = item.title
             else:
-                title = "{:<13}{}".format(item.name, item.title)
+                title = "{:<13}{}".format(item.name, item.title)  #TODO: hardcoded column width
             self.listWidgetDitzItems.addItem(title)
 
             # set icon to the added item
             list_item = self.listWidgetDitzItems.item(self.listWidgetDitzItems.count() - 1)
-            if item.item_type == 'issue':
+            if isinstance(item, DitzIssue):
                 if item.status == 'unstarted':
                     list_item.setIcon(QtGui.QIcon('../graphics/list/balls/new.png'))
                 elif item.status == 'in progress':
@@ -294,21 +296,21 @@ class DitzGui(QtGui.QMainWindow):
     def show_item(self, ditz_id=None):
         if not ditz_id or isinstance(ditz_id, QModelIndex):
             # needed so the same function can be connected to GUI
-            ditz_id = self._get_selected_issue_name()
-
-        ditz_item = self.ditz.get_issue_content(ditz_id)
+            ditz_item = self._get_selected_issue()
+        else:
+            ditz_item = self.ditz.get_issue_content(ditz_id)
         if ditz_item:
             self.textEditDitzItem.setText(str(ditz_item))
 
         self.enable_valid_actions()
 
     def comment_issue(self):
-        ditz_id = self._get_selected_issue_name()
-        if ditz_id == None:
+        issue = self._get_selected_issue()
+        if issue == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
-            dialog = CommentDialog(self.ditz, ditz_id, save=True)
+            dialog = CommentDialog(self.ditz, issue.identifier, save=True)
             dialog.ask_comment()
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
@@ -316,12 +318,12 @@ class DitzGui(QtGui.QMainWindow):
         self.show_item() # to reload item data to include the added comment
 
     def add_reference(self):
-        ditz_id = self._get_selected_issue_name()
-        if ditz_id == None:
+        issue = self._get_selected_issue()
+        if issue == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
-            dialog = ReferenceDialog(self.ditz, ditz_id)
+            dialog = ReferenceDialog(self.ditz, issue.identifier)
             dialog.ask_reference()
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
@@ -338,22 +340,22 @@ class DitzGui(QtGui.QMainWindow):
         self.reload_data()
 
     def edit_issue(self):
-        ditz_id = self._get_selected_issue_name()
-        if ditz_id == None:
+        issue = self._get_selected_issue()
+        if issue == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
             dialog = IssueDialog(self.ditz)
-            dialog.ask_edit_issue(ditz_id)
+            dialog.ask_edit_issue(issue.identifier)
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.reload_data()
 
     def close_issue(self):
-        ditz_id = self._get_selected_issue_name()
-        if ditz_id != None:
-            dialog = CloseDialog(self.ditz, ditz_id)
+        issue = self._get_selected_issue()
+        if issue != None:
+            dialog = CloseDialog(self.ditz, issue.identifier)
             dialog.ask_issue_close()
             self.reload_data()
         else:
@@ -361,54 +363,54 @@ class DitzGui(QtGui.QMainWindow):
             return
 
     def drop_issue(self):
-        ditz_id = self._get_selected_issue_name()
-        if ditz_id == None:
+        issue = self._get_selected_issue()
+        if issue == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
-            self.ditz.drop_issue(ditz_id)
+            self.ditz.drop_issue(issue.identifier)
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
-        self.reload_data(ditz_id)
+        self.reload_data(issue.identifier)
 
     def assign_issue(self):
-        ditz_id = self._get_selected_issue_name()
-        if ditz_id == None:
+        issue = self._get_selected_issue()
+        if issue == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
             dialog = AssignDialog(self.ditz)
-            dialog.ask_assign_issue(ditz_id)
+            dialog.ask_assign_issue(issue.identifier)
         except DitzError, e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.reload_data()
 
     def start_work(self):
-        ditz_id = self._get_selected_issue_name()
-        if ditz_id == None:
+        issue = self._get_selected_issue()
+        if issue == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
 
-        title = 'Start work on {}'.format(ditz_id)
-        dialog = CommentDialog(self.ditz, ditz_id, title=title)
+        title = 'Start work on {}'.format(issue.name)
+        dialog = CommentDialog(self.ditz, issue.identifier, title=title)
         comment = dialog.ask_comment()
         if comment != None:
             try:
-                self.ditz.start_work(ditz_id, comment)
+                self.ditz.start_work(issue.identifier, comment)
             except DitzError, e:
                 QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
                 return
-            self.reload_data(ditz_id)
+            self.reload_data(issue.identifier)
 
     def stop_work(self):
-        ditz_id = self._get_selected_issue_name()
-        if ditz_id == None:
+        issue = self._get_selected_issue()
+        if issue == None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
-        title = 'Stop work on {}'.format(ditz_id)
-        dialog = CommentDialog(self.ditz, ditz_id, title=title)
+        title = 'Stop work on {}'.format(issue.name)
+        dialog = CommentDialog(self.ditz, issue.identifier, title=title)
         comment = dialog.ask_comment()
         if comment != None:
             try:
@@ -416,13 +418,9 @@ class DitzGui(QtGui.QMainWindow):
             except DitzError, e:
                 QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
                 return
-            self.reload_data(ditz_id)
+            self.reload_data(issue.identifier)
 
     def make_release(self):
-        ditz_id = self._get_selected_issue_name()
-        if ditz_id == None:
-            QtGui.QMessageBox.warning(self, "ditz-gui error", "No item selected")
-            return
         release_name = self._get_selected_release_name()
         if release_name == None:
             return
@@ -446,14 +444,10 @@ class DitzGui(QtGui.QMainWindow):
         QtGui.qApp.quit()
 
     def _get_selected_issue_name(self):
-        item_type = self._get_selected_item_type()
-        if item_type != "issue":
+        issue = self._get_selected_issue()
+        if not issue:
             return None
-        text = self._get_selected_item_text()
-        if not text:
-            return None
-        ditz_id = text.split(' ', 1)[0]
-        return ditz_id
+        return issue.name
 
     def _get_selected_issue_status(self):
         text = self._get_selected_item_text()
@@ -469,12 +463,6 @@ class DitzGui(QtGui.QMainWindow):
         if release_name not in self.ditz.config.get_unreleased_releases():
             return None
         return release_name
-
-    def _get_selected_item_type(self):
-        text = self._get_selected_item_text()
-        if not text:
-            return None
-        return self._get_item_type(text)
 
     def _get_selected_item_text(self):
         item = self.listWidgetDitzItems.currentItem()
@@ -492,12 +480,14 @@ class DitzGui(QtGui.QMainWindow):
         item_status = self.ditz.get_issue_status_by_ditz_id(ditz_id)
         return item_status
 
-    def _get_item_type(self, item_text):
+    def _get_selected_issue(self):
+        item_text = self._get_selected_item_text()
+        if not item_text:
+            return None
         ditz_id = item_text.split(' ', 1)[0]
         item = self.ditz.get_issue_from_cache(ditz_id)
-        if item != None:
-            return item.item_type
-        return None
+        return item
+
 
 def main():
     app = QtGui.QApplication(sys.argv)

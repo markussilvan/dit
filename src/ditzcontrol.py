@@ -11,14 +11,14 @@ import subprocess
 import datetime
 
 from itemcache import ItemCache
-from common.items import DitzItem
+from common.items import DitzRelease
 from common.errors import ApplicationError, DitzError
 from common.utils.issue import IssueUtils
 from yamlcontrol import IssueYamlControl, IssueYamlObject
 from config import ConfigControl
 
 
-class DitzControl():
+class DitzControl(object):
     """
     This class handles communication to Ditz command line interface.
     Ditz issue data is read using the Ditz command line tool.
@@ -53,7 +53,7 @@ class DitzControl():
 
         releases = self.config.get_unreleased_releases()
         for title in releases:
-            self.item_cache.add_release(DitzItem('release', title, 'Release'))
+            self.item_cache.add_release(DitzRelease(title, 'Release'))
         self.item_cache.sort_releases()
 
     def get_items(self):
@@ -74,7 +74,7 @@ class DitzControl():
             items.extend(issues)
 
         # add unassigned items
-        items.append(DitzItem('release', 'Unassigned'))
+        items.append(DitzRelease('Unassigned'))
         issues = self.item_cache.get_issues_by_release(None)
         issues = IssueUtils.sort_issues_by_status(issues)
         items.extend(issues)
@@ -96,13 +96,13 @@ class DitzControl():
 
     def get_issue_from_cache(self, ditz_id):
         """
-        Get DitzItem from cache by Ditz identifier or name.
+        Get DitzIssue from cache by Ditz identifier or name.
 
         Parameters:
         - ditz_id: Ditz name or identifier of an issue
 
         Returns:
-        - DitzItem object
+        - DitzIssue object
         - None if requested item is not found
         """
         return self.item_cache.get_issue(ditz_id)
@@ -145,7 +145,7 @@ class DitzControl():
             if identifier and len(identifier) != 40:
                 return None
         yaml_issue = self.issuecontrol.read_issue_yaml(identifier)
-        ditz_item = yaml_issue.toDitzItem()
+        ditz_item = yaml_issue.toDitzIssue()
         if update_cache:
             self.item_cache.add_issue(ditz_item)
             #self.item_cache.sort_issues(rename = True)
@@ -158,7 +158,7 @@ class DitzControl():
         but saving a comment is not supported.
 
         Parameters:
-        - issue: a DitzItem filled with data to save
+        - issue: a DitzIssue filled with data to save
         - comment: (optional) comment to add to the issue's event log
         """
         if issue.identifier != None and issue.identifier != "":
@@ -172,7 +172,7 @@ class DitzControl():
         issue.identifier = self.issuecontrol.generate_new_identifier()
         self._add_issue_log_entry(issue, 'created', comment)
 
-        yaml_issue = IssueYamlObject.fromDitzItem(issue)
+        yaml_issue = IssueYamlObject.fromDitzIssue(issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def edit_issue(self, issue, comment=''):
@@ -182,7 +182,7 @@ class DitzControl():
         but saving a comment is not supported.
 
         Parameters:
-        - issue: a DitzItem filled with data to save
+        - issue: a DitzIssue filled with data to save
         - comment: (optional) comment to add to the issue's event log
         """
         if issue.identifier == None or issue.identifier == "":
@@ -190,7 +190,7 @@ class DitzControl():
 
         self._add_issue_log_entry(issue, 'edited', comment)
 
-        yaml_issue = IssueYamlObject.fromDitzItem(issue)
+        yaml_issue = IssueYamlObject.fromDitzIssue(issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def add_comment(self, ditz_id, comment):
@@ -209,7 +209,7 @@ class DitzControl():
         ditz_issue = self._get_issue_by_id(ditz_id)
         self._add_issue_log_entry(ditz_issue, 'commented', comment)
 
-        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def add_reference(self, ditz_id, reference, comment=""):
@@ -230,7 +230,7 @@ class DitzControl():
         ditz_issue.references.append(reference)
         self._add_issue_log_entry(ditz_issue, 'added reference', comment)
 
-        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def _disposition_to_str(self, disposition):
@@ -266,7 +266,7 @@ class DitzControl():
         action = "closed with disposition {}".format(disposition)
         self._add_issue_log_entry(ditz_issue, action, comment)
 
-        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def drop_issue(self, identifier):
@@ -318,7 +318,7 @@ class DitzControl():
         action = "assigned to release {} from {}".format(release, old_release)
         self._add_issue_log_entry(ditz_issue, action, comment)
 
-        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def start_work(self, ditz_id, comment=''):
@@ -384,12 +384,12 @@ class DitzControl():
         action = "status changed from {} to {}".format(old_status, status)
         self._add_issue_log_entry(ditz_issue, action, comment)
 
-        yaml_issue = IssueYamlObject.fromDitzItem(ditz_issue)
+        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
         self.issuecontrol.write_issue_yaml(yaml_issue)
 
     def _get_issue_by_id(self, ditz_id):
         """
-        Get DitzItem (issue) from cache or file.
+        Get DitzIssue from cache or file.
 
         Parameters:
         - ditz_id: issue hash identifier or name

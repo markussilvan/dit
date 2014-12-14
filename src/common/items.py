@@ -7,18 +7,66 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
+import abc
 import datetime
 
 import utils.time
 
-class DitzItem():
+class DitzItem(object):
     """
-    A Ditz item which can be an issue or an release.
-    Can contain all data of that particular item or
-    just the type and a header.
+    A Ditz item abstract baseclass.
+
+    An item can be an issue or an release.
+    The object can contain all data of that
+    particular item or just the type and a title.
+    """
+    __metaclass__ = abc.ABCMeta
+
+    @abc.abstractmethod
+    def __init__(self, title):
+        """
+        Initialize new DitzItem.
+
+        All kinds of items must have a title.
+
+        Parameters:
+        - title: item title
+        """
+        self.title = title
+
+    @abc.abstractmethod
+    def __str__(self):
+        pass
+
+
+class DitzRelease(DitzItem):
+    """
+    A Ditz item containing the information of a release.
+    """
+    def __init__(self, title, name=None):
+        """
+        Initialize new DitzRelease.
+        """
+        super(DitzRelease, self).__init__(title)
+        self.name = name
+
+    def __str__(self):
+        """
+        Serialize to string. Mimic output of Ditz command line.
+        """
+        item_str = "Release {}".format(self.title)
+        return item_str
+
+
+class DitzIssue(DitzItem):
+    """
+    A Ditz item containing information of an issue.
+
+    The item can contain all data of that particular issue or
+    just the type and a title.
     A status is also commonly set for issues.
     """
-    def __init__(self, item_type, title, name=None, issue_type=None, component=None,
+    def __init__(self, title, name=None, issue_type=None, component=None,
             status=None, disposition="", description=None, creator=None, created=None,
             release=None, references=[], identifier=None, log=None):
         """
@@ -26,10 +74,8 @@ class DitzItem():
         At least type and title must be set for releases.
         For issues, also status should be set.
         """
-        self.item_type = item_type
+        super(DitzIssue, self).__init__(title)
         self.name = name
-
-        self.title = title
         self.issue_type = issue_type
         self.component = component
         self.status = status
@@ -46,12 +92,6 @@ class DitzItem():
         """
         Serialize to string. Mimic output of Ditz command line.
         """
-        # a release
-        if self.item_type == 'release':
-            item_str = "Release {}".format(self.title)
-            return item_str
-
-        # an issue
         if self.created:
             created_ago = utils.time.human_time_diff(self.created.isoformat(' '))
         else:

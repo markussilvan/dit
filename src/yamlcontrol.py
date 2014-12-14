@@ -7,7 +7,7 @@ import glob
 import os
 import hashlib
 
-from common.items import DitzItem
+from common.items import DitzIssue
 from common.errors import ApplicationError
 
 def str_representer(self, data):
@@ -168,34 +168,37 @@ class IssueYamlObject(yaml.YAMLObject):
         super(IssueYamlObject, self).__init__()
 
     @classmethod
-    def fromDitzItem(cls, item):
+    def fromDitzIssue(cls, issue):
         """
-        Initialize a new IssueYamlObject from an existing DitzItem object
+        Initialize a new IssueYamlObject from an existing DitzIssue object
 
         Parameters:
-        - item: a DitzItem issue
+        - issue: a DitzItem issue
         """
-        issue_type = item.issue_type
+        issue_type = issue.issue_type
         if issue_type and issue_type[0] != ":":
             issue_type = ':' + issue_type
 
-        status = item.status
+        status = issue.status
         status = status.replace(' ', '_')
         if status and status[0] != ':':
             status = ':' + status
 
-        if item.disposition == None:
+        if issue.disposition == None:
             disposition = ''
         else:
-            disposition = item.disposition
+            disposition = issue.disposition
 
-        return cls(item.title, item.description, issue_type, item.component, item.release,
-                item.creator, status, disposition, item.created, item.references,
-                item.identifier, item.log)
+        return cls(issue.title, issue.description, issue_type, issue.component, issue.release,
+                issue.creator, status, disposition, issue.created, issue.references,
+                issue.identifier, issue.log)
 
-    def toDitzItem(self):
+    def toDitzIssue(self):
         """
-        Create a new DitzItem containing the information in this class
+        Create a new DitzIssue containing the information in this class
+
+        Returns:
+        - new DitzIssue
         """
         issue_type = self.type
         if issue_type and issue_type[0] == ':':
@@ -207,7 +210,7 @@ class IssueYamlObject(yaml.YAMLObject):
         status = status.replace('_', ' ')
 
         # identifier used also as name (name is generated and can't be known yet)
-        return DitzItem('issue', self.title, self.id, issue_type, self.component, status, None,
+        return DitzIssue(self.title, self.id, issue_type, self.component, status, None,
                 self.desc, self.reporter, self.creation_time, self.release,
                 self.references, self.id, self.log_events)
 

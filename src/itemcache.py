@@ -7,8 +7,6 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
-from common.items import DitzItem
-
 class ItemCache():
     """
     This class form a cache of read issues and releases

@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Implement sort_releases()
+desc: |-
+  Implementation for sort_releases() is missing.
+  Figure out logic how releases could be sorted.
+  After that implementation is trivial.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-12-15 09:24:08.031302 Z
+references: []
+
+id: 41d5dbb1678d7a97dde0f1f26788da1689dbac42
+log_events: 
+- - 2014-12-15 09:24:09.007948 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

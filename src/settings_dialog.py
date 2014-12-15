@@ -11,8 +11,6 @@ A settings dialog box
 
 from PyQt4 import QtGui, uic
 
-from config import ConfigControl
-
 class SettingsDialog(QtGui.QDialog):
     """
     A settings dialog with multiple inputs and Cancel/Ok buttons.

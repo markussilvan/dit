@@ -12,7 +12,7 @@ A common issue reference dialog box
 from PyQt4 import QtGui, uic
 
 from comment_dialog import CommentDialog
-from common.errors import DitzError
+from common.errors import ApplicationError, DitzError
 from ditzcontrol import DitzControl
 
 class ReferenceDialog(QtGui.QDialog):

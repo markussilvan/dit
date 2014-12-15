@@ -7,7 +7,6 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
-import subprocess
 import datetime
 
 from itemcache import ItemCache

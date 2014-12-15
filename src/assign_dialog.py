@@ -12,6 +12,7 @@ A dialog for assigning an issue to a release
 from PyQt4 import QtGui, uic
 
 from ditzcontrol import DitzControl
+from common.errors import ApplicationError
 
 class AssignDialog(QtGui.QDialog):
     """

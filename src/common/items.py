@@ -10,7 +10,7 @@ A GUI frontend for Ditz issue tracker
 from abc import ABCMeta, abstractmethod
 import datetime
 
-import utils.time
+import common.utils.time
 
 class DitzItem(object):
     """

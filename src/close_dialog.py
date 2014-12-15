@@ -11,8 +11,6 @@ A dialog for close resolution and comment for closing a Ditz issue
 
 from PyQt4 import QtGui, uic
 
-from ditzcontrol import DitzControl
-
 class CloseDialog(QtGui.QDialog):
     """
     A dialog with couple of inputs and Cancel/Ok buttons.

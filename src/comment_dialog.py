@@ -11,8 +11,6 @@ A common comment dialog box
 
 from PyQt4 import QtGui, uic
 
-from ditzcontrol import DitzControl
-
 class CommentDialog(QtGui.QDialog):
     """
     A comment dialog with text input and Cancel/Ok buttons.

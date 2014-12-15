@@ -17,7 +17,6 @@ from comment_dialog import CommentDialog
 from common.items import DitzIssue
 from common.errors import ApplicationError, DitzError
 from ditzcontrol import DitzControl
-from config import ConfigControl
 import common.utils.time
 
 class IssueDialog(QtGui.QDialog):
@@ -204,7 +203,6 @@ class IssueDialog(QtGui.QDialog):
         reference = self._get_selected_reference_text()
         if reference != None:
             for selected in self.widgetForm.listWidgetReferences.selectedItems():
-                selected_row = self.widgetForm.listWidgetReferences.row(selected)
                 old_text = str(selected.text())
                 dialog = ReferenceDialog(self.ditz, save=False, reference_text=old_text)
                 edited_text = dialog.ask_reference()

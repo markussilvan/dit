@@ -88,7 +88,8 @@ class DitzGui(QtGui.QMainWindow):
         self.actionStopWork = QtGui.QAction(QtGui.QIcon('../graphics/issue/stop.png'), 'Stop working', self)
         self.actionCloseIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/close.png'), 'Close issue', self)
         self.actionDropIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/drop.png'), 'Drop issue', self)
-        self.actionAssignIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/assign.png'), 'Assign Issue to a release', self)
+        self.actionAssignIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/assign.png'),
+                'Assign Issue to a release', self)
         self.actionAddReference = QtGui.QAction(QtGui.QIcon('../graphics/issue/add_reference.png'),
                 'Add reference', self)
 
@@ -428,7 +429,7 @@ class DitzGui(QtGui.QMainWindow):
         comment = dialog.ask_comment()
         if comment != None:
             try:
-                self.ditz.stop_work(ditz_id, comment)
+                self.ditz.stop_work(issue.identifier, comment)
             except DitzError, e:
                 QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
                 return

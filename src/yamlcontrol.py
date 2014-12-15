@@ -120,7 +120,7 @@ class IssueYamlControl():
         identifiers = self.list_issue_identifiers()
         sha = hashlib.sha1()
         for i in range(10):
-            sha.update(datetime.datetime.utcnow().strftime("%Y%m%d"))
+            sha.update(datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S-{}".format(i)))
             identifier = sha.hexdigest()
             if identifier not in identifiers:
                 return identifier

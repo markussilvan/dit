@@ -113,8 +113,9 @@ class ItemCache():
         """
         release_issues = []
         for issue in self.issues:
-            if issue.release == release_title and issue.status != "closed":
-                release_issues.append(issue)
+            if issue.release == release_title:
+                if include_closed != False or issue.status != "closed":
+                    release_issues.append(issue)
 
         return release_issues
 

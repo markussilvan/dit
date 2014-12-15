@@ -46,6 +46,8 @@ class IssueDialog(QtGui.QDialog):
         uic.loadUi('../ui/issue_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
 
+        settings = self.ditz.config.get_ditz_configs()
+
         for state in self.ditz.config.get_valid_issue_states():
             self.widgetForm.comboBoxStatus.addItem(state)
 
@@ -57,8 +59,7 @@ class IssueDialog(QtGui.QDialog):
             self.widgetForm.comboBoxRelease.addItem(release)
 
         try:
-            default_creator = "{} <{}>".format(self.ditz.config.settings.name,
-                    self.ditz.config.settings.email)
+            default_creator = "{} <{}>".format(settings.name, settings.email)
         except KeyError:
             # leave creator field empty
             pass

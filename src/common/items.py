@@ -93,7 +93,7 @@ class DitzIssue(DitzItem):
         Serialize to string. Mimic output of Ditz command line.
         """
         if self.created:
-            created_ago = utils.time.human_time_diff(self.created.isoformat(' '))
+            created_ago = common.utils.time.human_time_diff(self.created.isoformat(' '))
         else:
             created_ago = "?"
 
@@ -120,7 +120,7 @@ class DitzIssue(DitzItem):
         if self.log:
             for entry in self.log:
                 # timestamp, creator, action, comment
-                timestamp = utils.time.human_time_diff(entry[0].isoformat(' '))
+                timestamp = common.utils.time.human_time_diff(entry[0].isoformat(' '))
                 creator = entry[1]
                 action = entry[2]
                 comment = entry[3]

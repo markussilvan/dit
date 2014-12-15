@@ -1,0 +1,5 @@
+!ditz.rubyforge.org,2008-03-06/guiconfig
+default_issue_type: task
+window_size:
+- 1024
+- 768

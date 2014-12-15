@@ -8,12 +8,13 @@ type: :task
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-10-13 07:25:34.249604 Z
 references: 
 - .ditz-config
 - fd394247e3d8cde094e3c63a0d3b6747925a9061
+- .ditz-gui-config
 id: f2754055deaf1fb199e4da1b883a468c59da744b
 log_events: 
 - - 2014-10-13 07:25:35.833952 Z
@@ -35,4 +36,19 @@ log_events:
 - - 2014-10-19 20:00:14.724322 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 2
+  - ""
+- - 2014-12-16 08:40:00.016792 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Configs can't be added to Ditz config file.
+    Ditz will give a warning about those.
+    Instead a .ditz-gui-config has been created.
+    That file should be moved to user's home
+    directory, but make sure it works on Linux
+    and Windows. If not easily possible, leave
+    it at project root directory.
+- - 2014-12-16 10:38:38.534769 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 3
   - ""

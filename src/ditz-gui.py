@@ -40,7 +40,7 @@ class DitzGui(QtGui.QMainWindow):
         super(DitzGui, self).__init__()
 
         self.config = ConfigControl()
-        self.config.read_config_file()
+        self.config.load_configs()
         self.ditz = DitzControl(self.config)
 
         uic.loadUi('../ui/main_window.ui', self)

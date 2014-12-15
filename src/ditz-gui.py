@@ -215,6 +215,12 @@ class DitzGui(QtGui.QMainWindow):
         rect.moveCenter(desktop_center)
         self.move(rect.topLeft())
 
+    def _add_context_menu_action(self, menu, description, icon_file, action_cb):
+            action_object = QtGui.QAction(QtGui.QIcon(icon_file), description, self)
+            action_object.iconVisibleInMenu = True
+            action_object.triggered.connect(action_cb)
+            menu.addAction(action_object)
+
     def context_menu(self):
         # pylint: disable=W0108
         self.show_item() # to reload item data first
@@ -226,16 +232,24 @@ class DitzGui(QtGui.QMainWindow):
         if issue:
             menu.addAction(self.actionNewIssue)
             # custom actions used here to get custom menu texts
-            menu.addAction("Edit " + issue.name, lambda:self.edit_issue())
-            menu.addAction("Comment " + issue.name, lambda:self.comment_issue())
-            menu.addAction("Add reference to " + issue.name, lambda:self.add_reference())
+            self._add_context_menu_action(menu, 'Edit ' + issue.name,
+                    '../graphics/issue/edit.png', lambda:self.edit_issue())
+            self._add_context_menu_action(menu, 'Comment ' + issue.name,
+                    '../graphics/issue/comment.png', lambda:self.comment_issue())
+            self._add_context_menu_action(menu, 'Add reference to ' + issue.name,
+                    '../graphics/issue/add_reference.png', lambda:self.add_reference())
             if issue.status != "in progress" and issue.status != "started":
-                menu.addAction("Start work on " + issue.name, lambda:self.start_work())
+                self._add_context_menu_action(menu, 'Start work on ' + issue.name,
+                        '../graphics/issue/start.png', lambda:self.start_work())
             else:
-                menu.addAction("Stop work on " + issue.name, lambda:self.stop_work())
-            menu.addAction("Close " + issue.name, lambda:self.close_issue())
-            menu.addAction("Drop " + issue.name, lambda:self.drop_issue())
-            menu.addAction("Assign " + issue.name, lambda:self.assign_issue())
+                self._add_context_menu_action(menu, 'Stop work on ' + issue.name,
+                        '../graphics/issue/stop.png', lambda:self.stop_work())
+            self._add_context_menu_action(menu, 'Close ' + issue.name,
+                    '../graphics/issue/close.png', lambda:self.close_issue())
+            self._add_context_menu_action(menu, 'Drop ' + issue.name,
+                    '../graphics/issue/drop.png', lambda:self.drop_issue())
+            self._add_context_menu_action(menu, 'Assign ' + issue.name,
+                    '../graphics/issue/assign.png', lambda:self.assign_issue())
         elif release:
             menu.addAction(self.actionNewIssue)
             menu.addAction(self.actionMakeRelease)

@@ -7,7 +7,7 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
-import abc
+from abc import ABCMeta, abstractmethod
 import datetime
 
 import utils.time
@@ -20,9 +20,9 @@ class DitzItem(object):
     The object can contain all data of that
     particular item or just the type and a title.
     """
-    __metaclass__ = abc.ABCMeta
+    __metaclass__ = ABCMeta
 
-    @abc.abstractmethod
+    @abstractmethod
     def __init__(self, title):
         """
         Initialize new DitzItem.
@@ -34,7 +34,7 @@ class DitzItem(object):
         """
         self.title = title
 
-    @abc.abstractmethod
+    @abstractmethod
     def __str__(self):
         pass
 

@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Support for file path completion
+desc: |-
+  Support automatic file path completion
+  on ReferencesDialog.
+type: :feature
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-12-15 07:45:05.827348 Z
+references: []
+
+id: 95947583aca35c98dcfbf6015c52e006fd0b7145
+log_events: 
+- - 2014-12-15 07:45:07.075234 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

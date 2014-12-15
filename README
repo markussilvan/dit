@@ -11,6 +11,7 @@ like SVN. Ditz maintains an issue database directory on disk, with
 files written in a line-based and human-editable format. This
 directory can be kept under version control, alongside project code.
 
+
 Tools
 
 Jenkins is used as a continuous integration platform to build
@@ -19,7 +20,9 @@ And of course, git is used as version control system and tickets, bugs
 are tracked using Ditz. As the development progresses the program
 itself can be used as the issue tracker.
 
+
 List of Tools
+
  - Python 2.7
  - PyQt 4.7
  - python-unittest (aka PyUnit)
@@ -28,5 +31,12 @@ List of Tools
  - PyLint
  - Jenkins
  - git
- - Ditz 0.5
+ - Ditz 0.5 (not required)
+
+
+Enabling Menu Icons On Ubuntu
+
+By default menu icons are disabled on Ubuntu.
+To enable, run:
+gconftool-2 --type Boolean --set /desktop/gnome/interface/menus_have_icons True
 

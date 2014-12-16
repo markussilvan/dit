@@ -58,13 +58,20 @@ releases:
       Software coming along nicely.
 - !ditz.rubyforge.org,2008-03-06/release 
   name: v0.1.2
-  status: :unreleased
-  release_time: 
+  status: :released
+  release_time: 2014-12-16 21:55:43.352062 Z
   log_events: 
   - - 2014-10-18 21:07:19.438204 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - Another fix release. Polishing the v0.1.
+  - - 2014-12-16 21:55:43.352072 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - released
+    - |-
+      Finally. This was hard as there were many tasks, but
+      not much visible results. The program is coming
+      along nicely.
 - !ditz.rubyforge.org,2008-03-06/release 
   name: v0.2
   status: :unreleased

@@ -315,7 +315,7 @@ class DitzGui(QtGui.QMainWindow):
         else:
             ditz_item = self.ditz.get_issue_content(ditz_id)
         if ditz_item:
-            self.textEditDitzItem.setText(str(ditz_item))
+            self.textEditDitzItem.setHtml(ditz_item.toHtml())
 
         self.enable_valid_actions()
 

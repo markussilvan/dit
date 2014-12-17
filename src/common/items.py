@@ -36,8 +36,17 @@ class DitzItem(object):
 
     @abstractmethod
     def __str__(self):
+        """
+        Representation of the item's content as text.
+        """
         pass
 
+    @abstractmethod
+    def toHtml(self):
+        """
+        Representation of the item's content as HTML.
+        """
+        pass
 
 class DitzRelease(DitzItem):
     """
@@ -57,6 +66,11 @@ class DitzRelease(DitzItem):
         item_str = "Release {}".format(self.title)
         return item_str
 
+    def toHtml(self):
+        """
+        Representation of the item's content as HTML.
+        """
+        return "<h1>Release {}</h1>".format(self.title)
 
 class DitzIssue(DitzItem):
     """
@@ -133,6 +147,74 @@ class DitzIssue(DitzItem):
                 item_str += entry_str
 
         return item_str
+
+    def toHtml(self):
+        """
+        Representation of the item's content as HTML.
+        """
+        issue_template_file = '../ui/issue_template.html'
+        issue_log_template_file = '../ui/issue_log_entry_template.html'
+
+        with open(issue_template_file, 'r') as stream:
+            template_html = stream.readlines()
+
+        if self.created:
+            created_ago = common.utils.time.human_time_diff(self.created.isoformat(' '))
+        else:
+            created_ago = "?"
+
+        if self.status == 'in progress':
+            status_color = '#92F72A'
+        elif self.status == 'paused':
+            status_color = '#FF0000'
+        else:
+            status_color = '#0095FF'
+
+        references_html = '<ol>'
+        if self.references:
+            for reference in self.references:
+                references_html += "<li>{}</li>\n".format(reference)
+        references_html += '</ol>'
+
+        # event log entries
+        if self.log:
+            with open(issue_log_template_file, 'r') as stream:
+                log_template_html = stream.readlines()
+
+            log_html = ''
+            for entry in self.log:
+                # timestamp, creator, action, comment
+                timestamp = common.utils.time.human_time_diff(entry[0].isoformat(' '))
+                creator = entry[1]
+                action = entry[2]
+                comment = entry[3]
+                entry_html = "<tr><td colspan=2><hr>"
+                entry_html += "- <i>{}</i>, {}<br />\n".format(action, timestamp)
+                entry_html += "  {}\n".format(creator)
+                if comment != None and comment != "":
+                    entry_html += "  {}<br />\n".format(comment)
+                entry_html += "</td></tr>"
+                log_html += entry_html
+
+        html = ''
+        for line in template_html:
+            line = line.replace('[NAME]', self.name, 1)
+            line = line.replace('[TITLE]', self.title, 1)
+            line = line.replace('[DESCRIPTION]', self.description, 1)
+            line = line.replace('[ISSUE_TYPE]', self.issue_type, 1)
+            line = line.replace('[CREATOR]', self.creator, 1)
+            line = line.replace('[STATUS]', self.status, 1)
+            line = line.replace('[STATUS_COLOR]', status_color, 1)
+            line = line.replace('[CREATOR]', self.creator, 1)
+            line = line.replace('[CREATED]', created_ago, 1)
+            line = line.replace('[RELEASE]', self.release, 1)
+            line = line.replace('[COMPONENT]', self.component, 1)
+            line = line.replace('[REFERENCES]', references_html, 1)
+            line = line.replace('[IDENTIFIER]', self.identifier, 1)
+            line = line.replace('[EVENT_LOG]', log_html, 1)
+            html += line
+
+        return html
 
     def add_log_entry(self, timestamp=None, action='comment', creator='Unknown', comment=None):
         """

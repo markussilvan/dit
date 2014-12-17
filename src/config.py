@@ -54,6 +54,15 @@ class ConfigControl(object):
         """
         return self.appconfig.settings
 
+    def get_project_name(self):
+        """
+        Get project name
+
+        Returns:
+        - project name string
+        """
+        return self.projectconfig.get_project_name()
+
     def get_unreleased_releases(self):
         """
         Get a list of unreleased releases

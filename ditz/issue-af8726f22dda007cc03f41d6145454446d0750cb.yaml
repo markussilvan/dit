@@ -10,8 +10,8 @@ type: :feature
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-10-19 15:59:52.931523 Z
 references: []
 
@@ -27,3 +27,10 @@ log_events:
   - |-
     Setting added on the settings dialog.
     Functionality missing.
+- - 2014-12-17 11:41:31.924218 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Already done. The first setting that was
+    added when implementing application specific
+    configuration file.

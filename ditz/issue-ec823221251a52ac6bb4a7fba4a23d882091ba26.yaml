@@ -9,7 +9,7 @@ type: :task
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 disposition: 
 creation_time: 2014-12-16 14:52:38.812680 Z
 references: []
@@ -20,3 +20,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-12-17 11:39:25.440276 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    The setting has been implemented.
+    Now the functinality to use the setting
+    in DitzGui is needed.

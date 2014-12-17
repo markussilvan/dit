@@ -66,29 +66,28 @@
       </attribute>
       <layout class="QFormLayout" name="formLayout_2">
        <item row="0" column="0">
+        <widget class="QLabel" name="labelRememberWindowSize">
+         <property name="text">
+          <string>Remember Window Size</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="checkBoxRememberWindowSize">
+         <property name="text">
+          <string>Remember Window Size</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
         <widget class="QLabel" name="labelDefaultIssueType">
          <property name="text">
           <string>Default issue type</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="1">
         <widget class="QComboBox" name="comboBoxIssueType">
-         <item>
-          <property name="text">
-           <string>bugfix</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>feature</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>task</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>

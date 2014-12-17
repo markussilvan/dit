@@ -243,8 +243,9 @@ class AppConfigYaml(yaml.YAMLObject):
         super(DitzConfigYaml, self).__init__()
 
     def __repr__(self):
-        return "%s (window_size=%r, default_issue_type=%r)" % (self.__class__.__name__,
-                self.window_size, self.default_issue_type)
+        return "%s (window_size=%r, remember_window_size=%r, default_issue_type=%r)" % (
+                self.__class__.__name__, self.window_size, self.remember_window_size,
+                self.default_issue_type)
 
 
 class DitzProjectModel(object):

@@ -58,7 +58,11 @@ class SettingsDialog(QtGui.QDialog):
         """
         settings = self.config.get_app_configs()
 
+        self.checkBoxRememberWindowSize.toggled.connect(self.app_settings_edited)
         self.comboBoxIssueType.currentIndexChanged.connect(self.app_settings_edited)
+
+        for issue_type in self.config.get_valid_issue_types():
+            self.comboBoxIssueType.addItem(issue_type)
 
         default_issue_type = settings.default_issue_type
         index = self.comboBoxIssueType.findText(default_issue_type)
@@ -95,6 +99,7 @@ class SettingsDialog(QtGui.QDialog):
 
         if self.app_settings_changed == True:
             app_settings.default_issue_type = str(self.comboBoxIssueType.currentText())
+            app_settings.remember_window_size = bool(self.checkBoxRememberWindowSize.isChecked())
             self.config.appconfig.write_config_file()
             self.app_settings_changed = False
 

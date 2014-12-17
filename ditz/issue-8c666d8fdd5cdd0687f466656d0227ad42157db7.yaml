@@ -1,0 +1,24 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Use same QActions in context menu
+desc: |-
+  Only context menu uses text property in those actions.
+  Same actions could be used, and their text property
+  changed every time the context menu is built.
+  
+  Still more effient than the current implementation.
+  And more simple.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-12-17 14:07:54.745721 Z
+references: []
+
+id: 8c666d8fdd5cdd0687f466656d0227ad42157db7
+log_events: 
+- - 2014-12-17 14:07:55.529263 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

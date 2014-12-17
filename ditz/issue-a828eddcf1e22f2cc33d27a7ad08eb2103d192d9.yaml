@@ -14,8 +14,8 @@ type: :task
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2014-12-15 12:46:08.688833 Z
 references: []
 
@@ -25,3 +25,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-12-17 11:37:27.787733 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Done as part of implementing application specific
+    configuration file handling.
+    Still not sure this is the right way to go, but works.

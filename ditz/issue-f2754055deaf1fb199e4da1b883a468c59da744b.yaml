@@ -52,3 +52,7 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 3
   - ""
+- - 2014-12-17 11:13:52.871855 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - A setting to remember window size has been added.

@@ -30,6 +30,12 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - edited
   - ''
+- - 2014-12-20 17:14:33.232359 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |
+    Maybe this can be nicely implemented with the
+    help of the DitzIssues' toHtml() and html template files.
 references:
 - 38b74f96a97c67bb5ade1e86fdee57e1c7b5d322
 - Release v0.2

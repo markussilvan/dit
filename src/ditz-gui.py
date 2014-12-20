@@ -475,8 +475,8 @@ class DitzGui(QtGui.QMainWindow):
         """
         settings = self.config.get_app_configs()
         if settings.remember_window_size == True:
-            width = self.frameGeometry().width()
-            height = self.frameGeometry().height()
+            width = self.geometry().width()
+            height = self.geometry().height()
             settings.window_size = [width, height]
             self.config.appconfig.write_config_file()
 

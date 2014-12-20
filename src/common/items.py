@@ -137,7 +137,10 @@ class DitzIssue(DitzItem):
                 timestamp = common.utils.time.human_time_diff(entry[0].isoformat(' '))
                 creator = entry[1]
                 action = entry[2]
-                comment = entry[3]
+                if len(entry) > 3:
+                    comment = entry[3]
+                else:
+                    comment = ''
                 #entry_str = "- {} ({}, {})\n".format(action, creator, timestamp)
                 entry_str = "---------------------------------\n"
                 entry_str += "- {}, {}\n".format(action, timestamp)
@@ -187,7 +190,10 @@ class DitzIssue(DitzItem):
                 timestamp = common.utils.time.human_time_diff(entry[0].isoformat(' '))
                 creator = entry[1]
                 action = entry[2]
-                comment = entry[3]
+                if len(entry) > 3:
+                    comment = entry[3]
+                else:
+                    comment = ''
                 entry_html = "<tr><td colspan=2><hr>"
                 entry_html += "- <i>{}</i>, {}<br />\n".format(action, timestamp)
                 entry_html += "  {}\n".format(creator)

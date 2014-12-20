@@ -1,6 +1,6 @@
 !ditz.rubyforge.org,2008-03-06/guiconfig
 default_issue_type: task
-remember_window_size: true
+remember_window_size: false
 window_size:
-- 1024
-- 768
+- 1222
+- 841

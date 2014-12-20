@@ -11,8 +11,8 @@ type: :bugfix
 component: ditz-gui
 release: 
 reporter: Markus Silvan
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :reorg
 creation_time: 2014-10-18 18:06:30.974207 Z
 references: []
 
@@ -22,3 +22,9 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2014-12-20 16:41:39.842236 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition reorg
+  - |-
+    This has been implemented in other tickets.
+    This ticket can be closed as an obsolete duplicate.

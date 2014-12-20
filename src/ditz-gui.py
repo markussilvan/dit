@@ -71,7 +71,8 @@ class DitzGui(QtGui.QMainWindow):
         """
         Show the main application window
         """
-        self.resize(800, 500)
+        window_size = self.config.get_app_configs().window_size
+        self.resize(window_size[0], window_size[1])
         self.center()
         self.setWindowTitle('Ditz GUI')
         self.setWindowIcon(QtGui.QIcon('../graphics/ditz_gui_icon.png'))
@@ -455,7 +456,11 @@ class DitzGui(QtGui.QMainWindow):
             return
         self.reload_data()
 
+    def closeEvent(self, event):
+        self._save_window_size()
+
     def quit_application(self):
+        self._save_window_size()
         QtGui.qApp.quit()
 
     def _get_selected_issue_name(self):
@@ -463,6 +468,17 @@ class DitzGui(QtGui.QMainWindow):
         if not issue:
             return None
         return issue.name
+
+    def _save_window_size(self):
+        """
+        Application is about to be closed. Save window size, if the setting is enabled.
+        """
+        settings = self.config.get_app_configs()
+        if settings.remember_window_size == True:
+            width = self.frameGeometry().width()
+            height = self.frameGeometry().height()
+            settings.window_size = [width, height]
+            self.config.appconfig.write_config_file()
 
     def _get_selected_issue_status(self):
         text = self._get_selected_item_text()

@@ -1,21 +1,34 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Creating a release
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-07 18:04:59.139525 Z
 desc: |-
   Creating new releases where issues can be assigned to.
   This shoud be a simple dialog. Releases just have a name and a comment
   field.
-type: :task
-component: ditz-gui
-release: v0.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-07 18:04:59.139525 Z
-references: []
-
+disposition: ''
 id: 6822d660c0217d29b24df6c2ad34fa02efb3b0d9
-log_events: 
+log_events:
 - - 2014-10-07 18:05:00.299384 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
+- - 2014-12-21 08:10:44.186648 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    This used to be a simple task, but not so simple anymore.
+    Implementing this without Ditz commandline tools is a bit
+    more complicated. Anyway, now is the time to implement
+    it.
+- - 2014-12-31 18:57:30.931497 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from in progress to paused
+  - |-
+    This can wait until reading releases works.
+    Showing release information in main view is in the works.
+references: []
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :paused
+title: Creating a release
+type: :task

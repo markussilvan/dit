@@ -70,7 +70,18 @@ class DitzRelease(DitzItem):
         """
         Representation of the item's content as HTML.
         """
-        return "<h1>Release {}</h1>".format(self.title)
+        release_template_file = '../ui/release_template.html'
+
+        with open(release_template_file, 'r') as stream:
+            template_html = stream.readlines()
+
+        html = ''
+        for line in template_html:
+            line = line.replace('[NAME]', self.name, 1)
+            line = line.replace('[TITLE]', self.title, 1)
+            html += line
+
+        return html
 
 class DitzIssue(DitzItem):
     """

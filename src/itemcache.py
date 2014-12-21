@@ -159,6 +159,17 @@ class ItemCache():
         self.releases.append(release)
         return True
 
+    def get_release_by_name(self, release_title):
+        """
+        Find a release from cache by name. First match is returned.
+
+        Parameters:
+        - release_title: name of the release
+        """
+        for release in self.releases:
+            if release.title == release_title:
+                return release
+
     def sort_releases(self):
         """
         Sort cached issues.

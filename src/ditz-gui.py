@@ -327,6 +327,16 @@ class DitzGui(QtGui.QMainWindow):
             ditz_item = self.ditz.get_issue_content(ditz_id)
         if ditz_item:
             self.textEditDitzItem.setHtml(ditz_item.toHtml())
+        else:
+            release_name = self._get_selected_release_name()
+            if release_name:
+                release = self.ditz.item_cache.get_release_by_name(release_name)
+                if release:
+                    self.textEditDitzItem.setHtml(release.toHtml())
+                else:
+                    self.textEditDitzItem.setHtml("Release not found")
+            else:
+                self.textEditDitzItem.setHtml("")
 
         self.enable_valid_actions()
         self.update_action_texts()
@@ -501,7 +511,7 @@ class DitzGui(QtGui.QMainWindow):
         text = self._get_selected_item_text()
         if not text or text == '':
             return None
-        release_name = text.split()[0]
+        release_name = text.split()[1]
         if release_name not in self.ditz.config.get_unreleased_releases():
             return None
         return release_name

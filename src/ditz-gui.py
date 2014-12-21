@@ -217,11 +217,28 @@ class DitzGui(QtGui.QMainWindow):
         rect.moveCenter(desktop_center)
         self.move(rect.topLeft())
 
-    def _add_context_menu_action(self, menu, description, icon_file, action_cb):
-            action_object = QtGui.QAction(QtGui.QIcon(icon_file), description, self)
-            action_object.iconVisibleInMenu = True
-            action_object.triggered.connect(action_cb)
-            menu.addAction(action_object)
+    def update_action_texts(self):
+        issue = self._get_selected_issue()
+        release = self._get_selected_release_name()
+
+        if issue:
+            self.actionEditIssue.setText('Edit ' + issue.name)
+            self.actionCommentIssue.setText('Comment ' + issue.name)
+            self.actionStartWork.setText('Start working on ' + issue.name)
+            self.actionStopWork.setText('Stop work on ' + issue.name)
+            self.actionCloseIssue.setText('Close ' + issue.name)
+            self.actionDropIssue.setText('Drop ' + issue.name)
+            self.actionAssignIssue.setText('Assign issue ' + issue.name + ' to a release')
+            self.actionAddReference.setText('Add reference to ' + issue.name)
+        else:
+            self.actionEditIssue.setText('Edit issue')
+            self.actionCommentIssue.setText('Comment issue')
+            self.actionStartWork.setText('Start working')
+            self.actionStopWork.setText('Stop working')
+            self.actionCloseIssue.setText('Close issue')
+            self.actionDropIssue.setText('Drop issue')
+            self.actionAssignIssue.setText('Assign issue to a release')
+            self.actionAddReference.setText('Add reference')
 
     def context_menu(self):
         # pylint: disable=W0108
@@ -232,26 +249,19 @@ class DitzGui(QtGui.QMainWindow):
         menu = QtGui.QMenu(self)
 
         if issue:
+            self.update_action_texts()
+
             menu.addAction(self.actionNewIssue)
-            # custom actions used here to get custom menu texts
-            self._add_context_menu_action(menu, 'Edit ' + issue.name,
-                    '../graphics/issue/edit.png', lambda:self.edit_issue())
-            self._add_context_menu_action(menu, 'Comment ' + issue.name,
-                    '../graphics/issue/comment.png', lambda:self.comment_issue())
-            self._add_context_menu_action(menu, 'Add reference to ' + issue.name,
-                    '../graphics/issue/add_reference.png', lambda:self.add_reference())
+            menu.addAction(self.actionEditIssue)
+            menu.addAction(self.actionCommentIssue)
+            menu.addAction(self.actionAddReference)
             if issue.status != "in progress" and issue.status != "started":
-                self._add_context_menu_action(menu, 'Start work on ' + issue.name,
-                        '../graphics/issue/start.png', lambda:self.start_work())
+                menu.addAction(self.actionStartWork)
             else:
-                self._add_context_menu_action(menu, 'Stop work on ' + issue.name,
-                        '../graphics/issue/stop.png', lambda:self.stop_work())
-            self._add_context_menu_action(menu, 'Close ' + issue.name,
-                    '../graphics/issue/close.png', lambda:self.close_issue())
-            self._add_context_menu_action(menu, 'Drop ' + issue.name,
-                    '../graphics/issue/drop.png', lambda:self.drop_issue())
-            self._add_context_menu_action(menu, 'Assign ' + issue.name,
-                    '../graphics/issue/assign.png', lambda:self.assign_issue())
+                menu.addAction(self.actionStopWork)
+            menu.addAction(self.actionCloseIssue)
+            menu.addAction(self.actionDropIssue)
+            menu.addAction(self.actionAssignIssue)
         elif release:
             menu.addAction(self.actionNewIssue)
             menu.addAction(self.actionMakeRelease)
@@ -319,6 +329,7 @@ class DitzGui(QtGui.QMainWindow):
             self.textEditDitzItem.setHtml(ditz_item.toHtml())
 
         self.enable_valid_actions()
+        self.update_action_texts()
 
     def comment_issue(self):
         issue = self._get_selected_issue()

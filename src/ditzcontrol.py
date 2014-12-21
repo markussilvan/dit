@@ -262,7 +262,7 @@ class DitzControl(object):
         ditz_issue = self._get_issue_by_id(ditz_id)
         ditz_issue.status = 'closed'
         ditz_issue.disposition = self._disposition_to_str(disposition)
-        action = "closed with disposition {}".format(disposition)
+        action = "closed with disposition {}".format(ditz_issue.disposition)
         self._add_issue_log_entry(ditz_issue, action, comment)
 
         yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)

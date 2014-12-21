@@ -6,7 +6,7 @@ desc: |-
   Instead the value should be shown/converted to a string.
   If the value is already stored as a number, then it is saved
   incorrectly when closing items.
-disposition: ''
+disposition: fixed
 id: 6c0d5a230ff68ed5d11ddff50efe30830910c191
 log_events:
 - - 2014-12-21 06:32:36.337328 Z
@@ -14,9 +14,19 @@ log_events:
   - created
   - |
     This might have permanent effect on the history of issues.
+- - 2014-12-21 06:37:10.957673 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    As this might have permanent effect on the issues being
+    edited, it's better to fix this right away.
+- - 2014-12-21 06:45:42.579668 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Easier than expected. One function call missing.
 references: []
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :closed
 title: Disposition is shown as number value
 type: :bugfix

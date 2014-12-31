@@ -70,7 +70,7 @@ class DitzRelease(DitzItem):
         """
         Representation of the item's content as HTML.
         """
-        release_template_file = '../ui/release_template.html'
+        release_template_file = '../ui/templates/release_template.html'
 
         with open(release_template_file, 'r') as stream:
             template_html = stream.readlines()
@@ -166,8 +166,8 @@ class DitzIssue(DitzItem):
         """
         Representation of the item's content as HTML.
         """
-        issue_template_file = '../ui/issue_template.html'
-        issue_log_template_file = '../ui/issue_log_entry_template.html'
+        issue_template_file = '../ui/templates/issue_template.html'
+        issue_log_template_file = '../ui/templates/issue_log_entry_template.html'
 
         with open(issue_template_file, 'r') as stream:
             template_html = stream.readlines()

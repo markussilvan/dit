@@ -512,7 +512,7 @@ class DitzGui(QtGui.QMainWindow):
         if not text or text == '':
             return None
         release_name = text.split()[1]
-        if release_name not in self.ditz.config.get_unreleased_releases():
+        if release_name not in self.ditz.config.get_releases(':unreleased'):
             return None
         return release_name
 

@@ -50,7 +50,7 @@ class DitzControl(object):
             self.item_cache.add_issue(ditz_item)
         self.item_cache.sort_issues(rename = True)
 
-        releases = self.config.get_unreleased_releases()
+        releases = self.config.get_releases(':unreleased')
         for title in releases:
             self.item_cache.add_release(DitzRelease(title, 'Release'))
         self.item_cache.sort_releases()

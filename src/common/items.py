@@ -68,7 +68,7 @@ class DitzRelease(DitzItem):
 
     def toHtml(self):
         """
-        Representation of the item's content as HTML.
+        Representation of the release content as HTML.
         """
         release_template_file = '../ui/templates/release_template.html'
 
@@ -164,7 +164,7 @@ class DitzIssue(DitzItem):
 
     def toHtml(self):
         """
-        Representation of the item's content as HTML.
+        Representation of the issue content as HTML.
         """
         issue_template_file = '../ui/templates/issue_template.html'
         issue_log_template_file = '../ui/templates/issue_log_entry_template.html'

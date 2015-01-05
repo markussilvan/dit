@@ -1,23 +1,16 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Releases dialog
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-07 18:09:46.411764 Z
 desc: |-
   A view that shows a list of releases is needed for assigning issues
   to a release, viewing releases and removing releases.
-type: :task
-component: ditz-gui
-release: v0.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-07 18:09:46.411764 Z
-references: []
-
+disposition: ''
 id: cd68c54f4f3a215ec7eee0828c19d32719a86616
-log_events: 
+log_events:
 - - 2014-10-07 18:09:47.643318 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
 - - 2014-10-11 11:02:49.565716 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -25,3 +18,17 @@ log_events:
     This could also include a feature to change release ordering.
     It would change order of releases in project.yaml file.
     (And thus in the main view.)
+- - 2015-01-06 08:28:41.158362 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    I am not sure if this is even needed.
+    All these things can be also done from the
+    main QListWidget as it already lists
+    all releases.
+references: []
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Releases dialog
+type: :task

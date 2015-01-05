@@ -1,0 +1,44 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Git commit hooks
+desc: |-
+  A git commit hook to close issues fixed in a commit
+  would be very nice. If possible, the hook could also
+  add the changed ditz issue to the commit.
+  If ditz issues are in a separate branch, the hook
+  could make the change there.
+  
+  This is quite a complicated hook. Sounds more like
+  a pre-commit hook, or a combination of multiple hooks.
+  
+  An example of a similar hook implementation can be found
+  from git<->trac commit hook implementation which
+  closes the related Trac issues.
+  
+  Also think about the possible security implications
+  of this implementation. The hooks require www-data
+  access rights in this case, and that could be a problem.
+  Could that be avoided somehow? Or is it worth it to waste
+  time on that at this point?
+type: :feature
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-03 11:42:25.962857 Z
+references: []
+
+id: 6afe8087132ea974575f4d7ee043aaa840e931d5
+log_events: 
+- - 2015-01-03 11:42:31.962598 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2015-01-03 11:47:21.418239 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    The git<->trac commit hook is also described in NitroWiki.
+    Check there for explanation on how it works.
+    
+    https://localhost/wiki/doku.php?id=trac_configuration

@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Use of the lazy generator in ditz-gui
+desc: |-
+  Take more advantage of the existing lazy generator
+  in ditz-gui.py. The generator can be used for all
+  iteration of QListWidgetDitzItems items.
+  Also the generator can be made a private method, so
+  add an underscore to its name while at it.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-05 08:49:09.086511 Z
+references: []
+
+id: 60e224fbbc8e3b974b224e0338e7e2ab181c65b7
+log_events: 
+- - 2015-01-05 08:49:10.526580 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

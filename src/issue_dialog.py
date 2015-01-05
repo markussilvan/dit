@@ -55,7 +55,7 @@ class IssueDialog(QtGui.QDialog):
             self.widgetForm.comboBoxIssueType.addItem(issue_type)
 
         self.widgetForm.comboBoxRelease.addItem("Unassigned")
-        for release in self.ditz.config.get_unreleased_releases():
+        for release in self.ditz.config.get_releases(':unreleased'):
             self.widgetForm.comboBoxRelease.addItem(release)
 
         try:

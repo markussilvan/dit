@@ -35,6 +35,7 @@ class ConfigControl(object):
         project_file = '{}/{}/{}'.format(self.ditzconfig.project_root,
                 self.ditzconfig.settings.issue_dir, 'project.yaml')
         self.projectconfig.project_file = project_file
+        self.projectconfig.read_config_file()
 
     def get_ditz_configs(self):
         """
@@ -63,14 +64,17 @@ class ConfigControl(object):
         """
         return self.projectconfig.get_project_name()
 
-    def get_unreleased_releases(self):
+    def get_releases(self, status=None):
         """
-        Get a list of unreleased releases
+        Get a list of releases
+
+        Parameters:
+        - status: (optional) release status of releases to list, by default all releases are listed
 
         Returns:
         - list of unreleased releases
         """
-        return self.projectconfig.get_unreleased_releases()
+        return self.projectconfig.get_releases(status)
 
     def get_valid_issue_states(self):
         """
@@ -266,6 +270,26 @@ class DitzProjectModel(object):
         Initialize DitzProjectModel.
         """
         self.project_file = project_file
+        self.project_data = None
+
+    def read_config_file(self):
+        """
+        Read all project information from project.yaml file
+        """
+        if self.project_file == None:
+            return None
+        writer = DitzProjectWriter(self.project_file)
+        self.project_data = writer.read_config_file()
+        return self.project_data
+
+    def write_config_file(self):
+        """
+        Read all project information to project.yaml file
+        """
+        if self.project_file == None or self.project_data == None:
+            return None
+        writer = DitzProjectWriter(self.project_file)
+        return writer.write_config_file()
 
     def get_project_name(self):
         """
@@ -276,34 +300,46 @@ class DitzProjectModel(object):
         """
         if self.project_file == None:
             return None
-        writer = DitzProjectWriter(self.project_file)
-        return writer.read_project_name()
+        if self.project_data == None:
+            self.read_config_file()
+        return self.project_data["name"]
 
-    def get_unreleased_releases(self):
+    def get_releases(self, status=None):
         """
-        Read names of unreleased releases from Ditz project.yaml file.
+        Read names of releases from Ditz project.yaml file.
         Config file must be read first, or the settings set by other means,
-        so we can know where the file can be found.
+        so we can know where the file can be found. If project file is not
+        read, then it is read first, if the path to the project root is known.
+
+        Parameters:
+        - status: (optional) release status of releases to list, by default all releases are listed
 
         Returns:
         - list of release names
         """
         if self.project_file == None:
             return None
-        writer = DitzProjectWriter(self.project_file)
-        return writer.read_release_names()
+        if self.project_data == None:
+            self.read_config_file()
+        if status:
+            releases = [release["name"] for release in self.project_data["releases"]
+                    if release["status"] == status]
+        else:
+            releases = [release["name"] for release in self.project_data["releases"]]
+        return releases
 
 
 class DitzProjectWriter():
     """
-    A class to read Ditz project.yaml file
+    A class to read and write Ditz project.yaml file
     """
     def __init__(self, project_file):
         self.project_file = project_file
 
         yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/project", self.ditz_project)
         yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/component", self.ditz_component)
-        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/release", self.ditz_release_name_only)
+        #yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/release", self.ditz_release_name_only)
+        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/release", self.ditz_project)
 
     def ditz_project(self, loader, node):
         #--- !ditz.rubyforge.org,2008-03-06/project
@@ -326,31 +362,19 @@ class DitzProjectWriter():
             return None
         return release_name
 
-    #TODO: instead of these functions, cache entire file at once, like DitzSettingsModel does
-    def read_release_names(self):
+    def read_config_file(self):
         """
-        Read names of yet unreleased releases from project.yaml file
-        """
-        if self.project_file == None:
-            raise ApplicationError("Project file location not known")
-
-        stream = open(self.project_file, 'r')
-        data = yaml.load(stream)
-
-        releases = data["releases"]
-        releases = [release for release in releases if release]
-        return releases
-
-    def read_project_name(self):
-        """
-        Read project name from project.yaml file
+        Read all project information from project.yaml file
         """
         if self.project_file == None:
             raise ApplicationError("Project file location not known")
 
         stream = open(self.project_file, 'r')
-        data = yaml.load(stream)
+        return yaml.load(stream)
 
-        project_name = data["name"]
-        return project_name
+    def write_config_file(self):
+        """
+        Read all project information to project.yaml file
+        """
+        pass
 

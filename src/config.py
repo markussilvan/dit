@@ -9,6 +9,7 @@ A GUI frontend for Ditz issue tracker
 
 import yaml
 
+from common.items import DitzRelease
 from common.errors import ApplicationError
 from common.utils import fileutils
 from common.unused import unused
@@ -64,17 +65,18 @@ class ConfigControl(object):
         """
         return self.projectconfig.get_project_name()
 
-    def get_releases(self, status=None):
+    def get_releases(self, status=None, names_only=False):
         """
         Get a list of releases
 
         Parameters:
         - status: (optional) release status of releases to list, by default all releases are listed
+        - names_only: (optional) list DitzReleases or just release names
 
         Returns:
         - list of unreleased releases
         """
-        return self.projectconfig.get_releases(status)
+        return self.projectconfig.get_releases(status, names_only)
 
     def get_valid_issue_states(self):
         """
@@ -304,28 +306,42 @@ class DitzProjectModel(object):
             self.read_config_file()
         return self.project_data["name"]
 
-    def get_releases(self, status=None):
+    def get_releases(self, status=None, names_only=False):
         """
-        Read names of releases from Ditz project.yaml file.
+        Read releases from Ditz project.yaml file.
         Config file must be read first, or the settings set by other means,
         so we can know where the file can be found. If project file is not
         read, then it is read first, if the path to the project root is known.
 
         Parameters:
         - status: (optional) release status of releases to list, by default all releases are listed
+        - names_only: (optional) list DitzReleases or just release names
 
         Returns:
-        - list of release names
+        - list of DitzRelease objects or release names
         """
         if self.project_file == None:
             return None
         if self.project_data == None:
             self.read_config_file()
-        if status:
-            releases = [release["name"] for release in self.project_data["releases"]
-                    if release["status"] == status]
+        if names_only == True:
+            if status != None:
+                releases = [release["name"] for release in self.project_data["releases"]
+                        if release["status"] == status]
+            else:
+                releases = [release["name"] for release in self.project_data["releases"]]
         else:
-            releases = [release["name"] for release in self.project_data["releases"]]
+            if status != None:
+                releases_data = [release for release in self.project_data["releases"]
+                        if release["status"] == status]
+            else:
+                releases_data = [release for release in self.project_data["releases"]]
+            releases = []
+            for rel in releases_data:
+                release = DitzRelease(rel['name'], 'Release', rel['status'],
+                        rel['release_time'], rel['log_events'])
+                releases.append(release)
+
         return releases
 
 
@@ -338,7 +354,6 @@ class DitzProjectWriter():
 
         yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/project", self.ditz_project)
         yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/component", self.ditz_component)
-        #yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/release", self.ditz_release_name_only)
         yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/release", self.ditz_project)
 
     def ditz_project(self, loader, node):
@@ -350,17 +365,6 @@ class DitzProjectWriter():
         unused(loader)
         unused(node)
         return ""
-
-    def ditz_release_name_only(self, loader, node):
-        #--- !ditz.rubyforge.org,2008-03-06/release
-        # this version returns just the name of the release
-        # or None if the release has been released already
-        mapping = loader.construct_mapping(node)
-        release_status = mapping["status"]
-        release_name = mapping["name"]
-        if release_status != ":unreleased":
-            return None
-        return release_name
 
     def read_config_file(self):
         """

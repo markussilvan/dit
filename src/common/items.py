@@ -52,18 +52,21 @@ class DitzRelease(DitzItem):
     """
     A Ditz item containing the information of a release.
     """
-    def __init__(self, title, name=None):
+    def __init__(self, title, name=None, status=None, release_time=None, log=None):
         """
         Initialize new DitzRelease.
         """
         super(DitzRelease, self).__init__(title)
         self.name = name
+        self.status = status
+        self.release_time = release_time
+        self.log = log
 
     def __str__(self):
         """
         Serialize to string. Mimic output of Ditz command line.
         """
-        item_str = "Release {}".format(self.title)
+        item_str = "{} {}".format(self.name, self.title)
         return item_str
 
     def toHtml(self):
@@ -71,14 +74,55 @@ class DitzRelease(DitzItem):
         Representation of the release content as HTML.
         """
         release_template_file = '../ui/templates/release_template.html'
+        release_log_template_file = '../ui/templates/release_log_template.html'
 
         with open(release_template_file, 'r') as stream:
             template_html = stream.readlines()
 
+        # event log entries
+        if self.log:
+            with open(release_log_template_file, 'r') as stream:
+                log_template_html = stream.readlines()
+
+            log_html = ''
+            for entry in self.log:
+                # timestamp, creator, action, comment
+                timestamp = common.utils.time.human_time_diff(entry[0].isoformat(' '))
+                creator = entry[1]
+                action = entry[2]
+                if len(entry) > 3:
+                    comment = entry[3]
+                else:
+                    comment = ''
+
+                entry_html = ''
+                for line in log_template_html:
+                    line = line.replace('[ACTION]', action, 1)
+                    line = line.replace('[TIMESTAMP]', timestamp, 1)
+                    line = line.replace('[CREATOR]', creator, 1)
+                    line = line.replace('[COMMENT]', comment, 1)
+                    entry_html += line
+
+                log_html += entry_html
+        else:
+            log_html = ''
+
+        # release html output
         html = ''
         for line in template_html:
             line = line.replace('[NAME]', self.name, 1)
             line = line.replace('[TITLE]', self.title, 1)
+            if self.status:
+                status = self.status[1:]
+            else:
+                status = 'unknown'
+            line = line.replace('[STATUS]', status, 1)
+            if self.release_time:
+                release_time = self.release_time
+            else:
+                release_time = 'N/A'
+            line = line.replace('[RELEASE_TIME]', release_time, 1)
+            line = line.replace('[EVENT_LOG]', log_html, 1)
             html += line
 
         return html
@@ -172,9 +216,6 @@ class DitzIssue(DitzItem):
         with open(issue_template_file, 'r') as stream:
             template_html = stream.readlines()
 
-        with open(issue_log_template_file, 'r') as stream:
-            log_template_html = stream.readlines()
-
         if self.created:
             created_ago = common.utils.time.human_time_diff(self.created.isoformat(' '))
         else:
@@ -218,6 +259,8 @@ class DitzIssue(DitzItem):
                     entry_html += line
 
                 log_html += entry_html
+        else:
+            log_html = ''
 
         html = ''
         for line in template_html:

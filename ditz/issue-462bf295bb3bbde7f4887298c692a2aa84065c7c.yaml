@@ -1,26 +1,19 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Show release information in the main window
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-12-21 08:01:22.770829 Z
 desc: |-
   When a release is selected from the main QListWidget,
   then release information could be shown in the main
   QTextEdit. Just like issues.
   This could be implemented in the same way using the
   toHtml() of DitzRelease and a HTML template file.
-type: :feature
-component: ditz-gui
-release: v0.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: ""
-creation_time: 2014-12-21 08:01:22.770829 Z
-references: []
-
+disposition: fixed
 id: 462bf295bb3bbde7f4887298c692a2aa84065c7c
-log_events: 
+log_events:
 - - 2014-12-21 08:01:22.796858 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
 - - 2014-12-21 08:04:19.139200 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -45,3 +38,16 @@ log_events:
     in the ItemCache. After that then only thing
     left is to modify the toHtml() function and the
     HTML template.
+- - 2015-01-06 20:30:23.232679 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    First version of this completed.
+    If the graphical outlook needs changes,
+    those can be done later in a separate task.
+references: []
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Show release information in the main window
+type: :feature

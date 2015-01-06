@@ -37,7 +37,7 @@ class testDitzControl(unittest.TestCase):
         pass
 
     def testGetReleases(self):
-        releases = self.dc.get_releases()
+        releases = self.dc.get_releases(names_only=True)
         self.assertTrue(isinstance(releases, list))
         #print "Releases: " + str(releases)
 

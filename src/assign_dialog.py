@@ -37,7 +37,7 @@ class AssignDialog(QtGui.QDialog):
         uic.loadUi('../ui/assign_dialog.ui', self)
 
         self.comboBoxRelease.addItem("Unassigned")
-        for release in self.ditz.config.get_releases(':unreleased'):
+        for release in self.ditz.config.get_releases(':unreleased', True):
             self.comboBoxRelease.addItem(release)
 
     def accept(self):

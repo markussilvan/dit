@@ -20,6 +20,7 @@ from PyQt4.QtCore import SIGNAL, QModelIndex
 
 from common.items import DitzRelease, DitzIssue
 from common.errors import DitzError
+from common.unused import unused
 from config import ConfigControl
 from ditzcontrol import DitzControl
 from comment_dialog import CommentDialog
@@ -478,6 +479,7 @@ class DitzGui(QtGui.QMainWindow):
         self.reload_data()
 
     def closeEvent(self, event):
+        unused(event)
         self._save_window_size()
 
     def quit_application(self):

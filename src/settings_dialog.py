@@ -12,6 +12,7 @@ A settings dialog box
 from PyQt4 import QtGui, uic
 
 from config import ConfigControl
+from common.errors import ApplicationError
 
 class SettingsDialog(QtGui.QDialog):
     """

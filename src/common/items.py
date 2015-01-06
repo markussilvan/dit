@@ -137,7 +137,7 @@ class DitzIssue(DitzItem):
     """
     def __init__(self, title, name=None, issue_type=None, component=None,
             status=None, disposition="", description=None, creator=None, created=None,
-            release=None, references=[], identifier=None, log=None):
+            release=None, references=None, identifier=None, log=None):
         """
         Initialize new DitzItem.
         At least type and title must be set for releases.
@@ -153,7 +153,10 @@ class DitzIssue(DitzItem):
         self.creator = creator
         self.created = created
         self.release = release
-        self.references = references
+        if references != None:
+            self.references = references
+        else:
+            self.references = []
         self.identifier = identifier
         self.log = log
 
@@ -206,6 +209,19 @@ class DitzIssue(DitzItem):
 
         return item_str
 
+    def _get_status_color(self):
+        """
+        Choose a color for status text to print.
+        """
+        if self.status == 'in progress':
+            status_color = '#92F72A'
+        elif self.status == 'paused':
+            status_color = '#FF0000'
+        else:
+            status_color = '#0095FF'
+        return status_color
+
+
     def toHtml(self):
         """
         Representation of the issue content as HTML.
@@ -220,13 +236,6 @@ class DitzIssue(DitzItem):
             created_ago = common.utils.time.human_time_diff(self.created.isoformat(' '))
         else:
             created_ago = "?"
-
-        if self.status == 'in progress':
-            status_color = '#92F72A'
-        elif self.status == 'paused':
-            status_color = '#FF0000'
-        else:
-            status_color = '#0095FF'
 
         references_html = '<ol>'
         if self.references:
@@ -270,7 +279,7 @@ class DitzIssue(DitzItem):
             line = line.replace('[ISSUE_TYPE]', self.issue_type, 1)
             line = line.replace('[CREATOR]', self.creator, 1)
             line = line.replace('[STATUS]', self.status, 1)
-            line = line.replace('[STATUS_COLOR]', status_color, 1)
+            line = line.replace('[STATUS_COLOR]', self._get_status_color(), 1)
             line = line.replace('[CREATOR]', self.creator, 1)
             line = line.replace('[CREATED]', created_ago, 1)
             line = line.replace('[RELEASE]', self.release, 1)

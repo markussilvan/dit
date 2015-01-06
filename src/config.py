@@ -255,7 +255,7 @@ class AppConfigYaml(yaml.YAMLObject):
     def __init__(self, window_size, default_issue_type):
         self.window_size = window_size
         self.default_issue_type = default_issue_type
-        super(DitzConfigYaml, self).__init__()
+        super(AppConfigYaml, self).__init__()
 
     def __repr__(self):
         return "%s (window_size=%r, remember_window_size=%r, default_issue_type=%r)" % (

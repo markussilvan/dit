@@ -9,6 +9,12 @@ class IssueUtils():
     """
     Class to hold general utils for issue handling
     """
+    def __init__(self):
+        """
+        This class doesn't need to be instantiated.
+        """
+        pass
+
     @staticmethod
     def sort_issues_by_status(issues):
         """

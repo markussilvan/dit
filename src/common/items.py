@@ -172,6 +172,9 @@ class DitzIssue(DitzItem):
         with open(issue_template_file, 'r') as stream:
             template_html = stream.readlines()
 
+        with open(issue_log_template_file, 'r') as stream:
+            log_template_html = stream.readlines()
+
         if self.created:
             created_ago = common.utils.time.human_time_diff(self.created.isoformat(' '))
         else:
@@ -205,12 +208,15 @@ class DitzIssue(DitzItem):
                     comment = entry[3]
                 else:
                     comment = ''
-                entry_html = "<tr><td colspan=2><hr>"
-                entry_html += "- <i>{}</i>, {}<br />\n".format(action, timestamp)
-                entry_html += "  {}\n".format(creator)
-                if comment != None and comment != "":
-                    entry_html += "  {}<br />\n".format(comment)
-                entry_html += "</td></tr>"
+
+                entry_html = ''
+                for line in log_template_html:
+                    line = line.replace('[ACTION]', action, 1)
+                    line = line.replace('[TIMESTAMP]', timestamp, 1)
+                    line = line.replace('[CREATOR]', creator, 1)
+                    line = line.replace('[COMMENT]', comment, 1)
+                    entry_html += line
+
                 log_html += entry_html
 
         html = ''

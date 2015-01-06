@@ -16,7 +16,7 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 1
 - - 2014-10-25 17:40:49.862246 Z
-  - "Markus Silvan <markus.silvan@iki.fi>"
+  - Markus Silvan <markus.silvan@iki.fi>
   - commented
   - |-
     It should be also noted, that ditz doesn't work,
@@ -36,6 +36,19 @@ log_events:
   - |-
     All this requires is ability to write the .ditzconfig
     file, the project.yaml file and the directory for issues.
+- - 2015-01-06 08:37:13.150551 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Software is already capable of writing the .ditzconfig
+    file. Now it just needs to know what to do in a situation
+    that the config file is not found.
+- - 2015-01-06 08:38:29.719215 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    ...and the software is already capable of writing the
+    project.xml.
 references:
 - ditz init command
 release: v0.3

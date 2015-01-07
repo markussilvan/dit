@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-01-06 20:59:31.802543 Z
+desc: |-
+  Separate printing of log entries to a common function
+  which can be shared between DitzIssue and DitzRelease.
+  This function to create HTML for a log entry could be
+  added to the parent class.
+disposition: ''
+id: 119d1d7fe908c28e4bd576eeb60644c012497c34
+log_events:
+- - 2015-01-06 20:59:31.803674 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Refactor toHtml() functions
+type: :task

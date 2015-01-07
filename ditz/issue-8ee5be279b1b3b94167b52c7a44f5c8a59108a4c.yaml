@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-01-10 12:35:41.433495 Z
+desc: |-
+  Just like issues, also releases have the default log entry
+  for creation of the release. This should be added.
+  Keep in mind the possibility for adding other comments
+  to releases. Ditz doesn't support that, but ditz-gui should.
+disposition: ''
+id: 8ee5be279b1b3b94167b52c7a44f5c8a59108a4c
+log_events:
+- - 2015-01-10 12:35:41.434884 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Default "Created" log entry for created releases
+type: :bugfix

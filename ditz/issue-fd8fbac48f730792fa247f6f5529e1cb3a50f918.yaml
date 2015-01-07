@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Functionality to cancel a release
+desc: |-
+  Currently releases can be unreleased/released.
+  Add support for cancelling releases.
+  This differs from removing a release a bit
+  as the release information is still stored
+  in the system.
+type: :feature
+component: ditz-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-09 11:46:43.221500 Z
+references: []
+
+id: fd8fbac48f730792fa247f6f5529e1cb3a50f918
+log_events: 
+- - 2015-01-09 11:46:44.789550 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

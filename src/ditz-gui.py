@@ -29,6 +29,7 @@ from issue_dialog import IssueDialog
 from close_dialog import CloseDialog
 from settings_dialog import SettingsDialog
 from assign_dialog import AssignDialog
+from release_dialog import ReleaseDialog
 
 class DitzGui(QtGui.QMainWindow):
     """
@@ -368,7 +369,7 @@ class DitzGui(QtGui.QMainWindow):
         else:
             release_name = self._get_selected_release_name()
             if release_name:
-                release = self.ditz.item_cache.get_release_by_name(release_name)
+                release = self.ditz.get_release_from_cache(release_name)
                 if release:
                     self.textEditDitzItem.setHtml(release.toHtml())
                 else:
@@ -496,12 +497,19 @@ class DitzGui(QtGui.QMainWindow):
             self.reload_data(issue.identifier)
 
     def new_release(self):
-        #TODO: implementation of adding a release
-        pass
+        dialog = ReleaseDialog(self.ditz)
+        release = dialog.add_release()
+        if release:
+            self.reload_data()
 
     def edit_release(self):
-        #TODO: implementation of editing a release
-        pass
+        release_name = self._get_selected_release_name()
+        if release_name == None:
+            return
+        dialog = ReleaseDialog(self.ditz)
+        release = dialog.edit_release(release_name)
+        if release:
+            self.reload_data()
 
     def make_release(self):
         release_name = self._get_selected_release_name()
@@ -563,7 +571,7 @@ class DitzGui(QtGui.QMainWindow):
         if not text or text == '':
             return None
         release_name = text.split()[1]
-        if release_name not in self.ditz.config.get_releases(':unreleased', True):
+        if release_name not in self.ditz.config.get_releases('unreleased', True):
             return None
         return release_name
 

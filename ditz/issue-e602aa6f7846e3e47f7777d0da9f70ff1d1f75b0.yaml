@@ -28,8 +28,12 @@ log_events:
     Width of each field can be optimally calculated from
     the content of those fields. Turns out that is
     very easy in Python.
+- - 2015-01-10 12:29:26.038996 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.1 from v0.2
+  - This is lower priority than functionality for handling releases.
 references: []
-release: v0.2
+release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Make font and list view alignment configurable

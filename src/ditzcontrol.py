@@ -50,7 +50,7 @@ class DitzControl(object):
             self.item_cache.add_issue(ditz_item)
         self.item_cache.sort_issues(rename = True)
 
-        releases = self.config.get_releases(':unreleased')
+        releases = self.config.get_releases('unreleased')
         for release in releases:
             self.item_cache.add_release(release)
         self.item_cache.sort_releases()
@@ -105,6 +105,19 @@ class DitzControl(object):
         - None if requested item is not found
         """
         return self.item_cache.get_issue(ditz_id)
+
+    def get_release_from_cache(self, release):
+        """
+        Get DitzRelease from cache by release name.
+
+        Parameters:
+        - release: name of the release
+
+        Returns:
+        - DitzRelease object
+        - None if requested release is not found
+        """
+        return self.item_cache.get_release(release)
 
     def get_issue_identifier(self, issue_name):
         """

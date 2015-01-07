@@ -4,7 +4,7 @@ creation_time: 2014-10-07 18:09:46.411764 Z
 desc: |-
   A view that shows a list of releases is needed for assigning issues
   to a release, viewing releases and removing releases.
-disposition: ''
+disposition: won't fix
 id: cd68c54f4f3a215ec7eee0828c19d32719a86616
 log_events:
 - - 2014-10-07 18:09:47.643318 Z
@@ -26,9 +26,16 @@ log_events:
     All these things can be also done from the
     main QListWidget as it already lists
     all releases.
+- - 2015-01-10 12:33:07.097816 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition won't fix
+  - |-
+    This is not needed. Releases can be handled the same
+    way as issues. A separate dialog for editing a release is
+    needed, but that is different than this.
 references: []
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :closed
 title: Releases dialog
 type: :task

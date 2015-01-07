@@ -105,6 +105,15 @@ class ConfigControl(object):
         """
         return self.appconfig.get_valid_issue_dispositions()
 
+    def get_valid_release_states(self):
+        """
+        Get a list of valid states for a release
+
+        Returns:
+        - list of states
+        """
+        return self.appconfig.get_valid_release_states()
+
 
 class DitzConfigModel(object):
     """
@@ -247,6 +256,15 @@ class AppConfigModel(object):
         """
         return ["fixed", "won't fix", "reorganized"]
 
+    def get_valid_release_states(self):
+        """
+        Get a list of valid states for a release
+
+        Returns:
+        - list of states
+        """
+        return ["unreleased", "released"]
+
 
 class AppConfigYaml(yaml.YAMLObject):
 
@@ -291,7 +309,7 @@ class DitzProjectModel(object):
         if self.project_file == None or self.project_data == None:
             return None
         writer = DitzProjectWriter(self.project_file)
-        return writer.write_config_file()
+        return writer.write_config_file(self.project_data)
 
     def get_project_name(self):
         """
@@ -324,6 +342,7 @@ class DitzProjectModel(object):
             return None
         if self.project_data == None:
             self.read_config_file()
+        status = self._string_to_release_status(status)
         if names_only == True:
             if status != None:
                 releases = [release["name"] for release in self.project_data["releases"]
@@ -338,11 +357,64 @@ class DitzProjectModel(object):
                 releases_data = [release for release in self.project_data["releases"]]
             releases = []
             for rel in releases_data:
-                release = DitzRelease(rel['name'], 'Release', rel['status'],
-                        rel['release_time'], rel['log_events'])
+                status = self._release_status_to_string(rel['status'])
+                release = DitzRelease(rel['name'], 'Release', status,
+                    rel['release_time'], rel['log_events'])
                 releases.append(release)
 
         return releases
+
+    def set_release(self, release):
+        """
+        Add or update information of a release to project.
+
+        Parameters:
+        - release: a DitzRelease to update
+        """
+        if release.title in self.project_data["releases"]:
+            release_data = [rel for rel in self.project_data["releases"]
+                    if rel["name"] == release.title]
+            release_data['name'] = release.title
+            release_data['status'] = self._string_to_release_status(release.status)
+            release_data['release_time'] = release.release_time
+            release_data['log_events'] = release.log
+        else:
+            release_data = {}
+            release_data['name'] = release.title
+            release_data['status'] = self._string_to_release_status(release.status)
+            release_data['release_time'] = release.release_time
+            release_data['log_events'] = release.log
+            self.project_data["releases"].append(release_data)
+
+    def _release_status_to_string(self, status):
+        """
+        Convert yaml release status to a readable string.
+
+        Parameters:
+        - status: yaml release status
+
+        Returns:
+        - release status as readable string
+        """
+        if status:
+            return status[1:]
+        else:
+            return None
+
+    def _string_to_release_status(self, status):
+        """
+        Convert a readable string to a YAML release status.
+
+        Parameters:
+        - status: readable release status string
+
+        Returns:
+        - YAML release status
+        """
+        if status:
+            return ':' + status
+        else:
+            return None
 
 
 class DitzProjectWriter():
@@ -373,12 +445,24 @@ class DitzProjectWriter():
         if self.project_file == None:
             raise ApplicationError("Project file location not known")
 
-        stream = open(self.project_file, 'r')
-        return yaml.load(stream)
+        with open(self.project_file, 'r') as stream:
+            return yaml.load(stream)
+        raise ApplicationError("Error reading project settings file")
 
-    def write_config_file(self):
+    def write_config_file(self, settings):
         """
         Read all project information to project.yaml file
+
+        Parameters:
+        - settings: project settings to write to the file
         """
-        pass
+        if self.project_file == None:
+            raise ApplicationError("Project file location not known")
+
+        try:
+            with open(self.project_file, 'w') as stream:
+                yaml_data = yaml.dump(settings, default_flow_style=False)
+                stream.write(yaml_data)
+        except Exception:
+            raise ApplicationError("Error writing project configuration file")
 

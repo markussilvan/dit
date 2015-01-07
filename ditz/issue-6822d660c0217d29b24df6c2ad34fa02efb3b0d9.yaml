@@ -1,17 +1,24 @@
---- !ditz.rubyforge.org,2008-03-06/issue
-component: ditz-gui
-creation_time: 2014-10-07 18:04:59.139525 Z
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Creating a release
 desc: |-
   Creating new releases where issues can be assigned to.
   This shoud be a simple dialog. Releases just have a name and a comment
   field.
-disposition: ''
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+disposition: ""
+creation_time: 2014-10-07 18:04:59.139525 Z
+references: []
+
 id: 6822d660c0217d29b24df6c2ad34fa02efb3b0d9
-log_events:
+log_events: 
 - - 2014-10-07 18:05:00.299384 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ''
+  - ""
 - - 2014-12-21 08:10:44.186648 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - status changed from unstarted to in progress
@@ -26,9 +33,43 @@ log_events:
   - |-
     This can wait until reading releases works.
     Showing release information in main view is in the works.
-references: []
-release: v0.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :paused
-title: Creating a release
-type: :task
+- - 2015-01-07 08:41:03.582663 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from paused to in_progress
+  - |-
+    Time to continue with this now as
+    reading release information works
+    all information is cached in ItemCache.
+- - 2015-01-07 12:05:43.647124 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    First thing to do is to create ReleaseDialog
+    for adding and editing information of one release.
+- - 2015-01-08 12:49:33.774664 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    A skeleton of ReleaseDialog has been created.
+    Now take the dialog to use and/or write code
+    to add and edit releases info in project.xml.
+- - 2015-01-10 07:46:13.723642 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Sketch implementations for reading and writing a release
+    now exist. Next the ReleaseDialog should be taken to use
+    (so these can be tested). Implement actions to add/edit
+    a release.
+- - 2015-01-12 13:31:32.702135 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    ReleaseDialog is now in use. Reading releases works.
+    Saving releases should work, but has not been tested.
+    Adding a new release and changing an existing release
+    need to be tested separately.
+    If these are ok, then only adding (automatic) comments
+    is missing from the process. Same code could be used
+    as is used with issues, but that might require some
+    refactoring.

@@ -159,7 +159,7 @@ class ItemCache():
         self.releases.append(release)
         return True
 
-    def get_release_by_name(self, release_title):
+    def get_release(self, release_title):
         """
         Find a release from cache by name. First match is returned.
 

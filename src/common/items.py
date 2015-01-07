@@ -113,7 +113,7 @@ class DitzRelease(DitzItem):
             line = line.replace('[NAME]', self.name, 1)
             line = line.replace('[TITLE]', self.title, 1)
             if self.status:
-                status = self.status[1:]
+                status = self.status
             else:
                 status = 'unknown'
             line = line.replace('[STATUS]', status, 1)

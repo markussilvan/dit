@@ -57,7 +57,12 @@ class DitzGui(QtGui.QMainWindow):
         self.actionCloseIssue = None
         self.actionDropIssue = None
         self.actionAssignIssue = None
+
+        self.actionNewRelease = None
+        self.actionEditRelease = None
         self.actionMakeRelease = None
+        self.actionRemoveRelease = None
+
         self.actionOpenSettings = None
 
         self.create_actions()
@@ -95,12 +100,16 @@ class DitzGui(QtGui.QMainWindow):
         self.actionAddReference = QtGui.QAction(QtGui.QIcon('../graphics/issue/add_reference.png'),
                 'Add reference', self)
 
-        #self.actionAddRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/add_release.png'),
-        #       'Add release', self)
+        self.actionNewRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/new_release.png'),
+               'Add release', self)
+        self.actionEditRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/edit_release.png'),
+               'Edit release', self)
         self.actionMakeRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/make_release.png'),
                 'Make release', self)
+        self.actionRemoveRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/remove_release.png'),
+                'Remove release', self)
 
-        self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/release/settings.png'), 'Settings', self)
+        self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/misc/settings.png'), 'Settings', self)
 
         # icons visible in custom context menu of items list view
         self.actionNewIssue.iconVisibleInMenu = True
@@ -112,8 +121,11 @@ class DitzGui(QtGui.QMainWindow):
         self.actionDropIssue.iconVisibleInMenu = True
         self.actionAssignIssue.iconVisibleInMenu = True
         self.actionAddReference.iconVisibleInMenu = True
-        #self.actionAddRelease.iconVisibleInMenu = True
+
+        self.actionNewRelease.iconVisibleInMenu = True
+        self.actionEditRelease.iconVisibleInMenu = True
         self.actionMakeRelease.iconVisibleInMenu = True
+        self.actionRemoveRelease.iconVisibleInMenu = True
         self.actionOpenSettings.iconVisibleInMenu = True
 
     def connect_actions(self):
@@ -132,8 +144,10 @@ class DitzGui(QtGui.QMainWindow):
         self.actionAddReference.triggered.connect(self.add_reference)
 
         # release related actions
-        ##self.actionAddRelease.triggered.connect(self.add_release)
+        self.actionNewRelease.triggered.connect(self.new_release)
+        self.actionEditRelease.triggered.connect(self.edit_release)
         self.actionMakeRelease.triggered.connect(self.make_release)
+        self.actionRemoveRelease.triggered.connect(self.remove_release)
 
         # common actions
         self.actionOpenSettings.triggered.connect(self.open_settings)
@@ -206,8 +220,9 @@ class DitzGui(QtGui.QMainWindow):
         self.actionAddReference.setEnabled(state)
 
     def _set_release_actions(self, state):
-        #self.actionAddRelease.setEnabled(state)
+        self.actionEditRelease.setEnabled(state)
         self.actionMakeRelease.setEnabled(state)
+        self.actionRemoveRelease.setEnabled(state)
 
     def center(self):
         """
@@ -263,13 +278,14 @@ class DitzGui(QtGui.QMainWindow):
             menu.addAction(self.actionCloseIssue)
             menu.addAction(self.actionDropIssue)
             menu.addAction(self.actionAssignIssue)
+            menu.addAction(self.actionNewRelease)
         elif release:
             menu.addAction(self.actionNewIssue)
+            menu.addAction(self.actionNewRelease)
+            menu.addAction(self.actionEditRelease)
             menu.addAction(self.actionMakeRelease)
+            menu.addAction(self.actionRemoveRelease)
             #TODO: add issue directly to this release?
-            #TODO: make release?
-            #TODO: drop release?
-            # or just option to open releases dialog
         else:
             # empty lines
             menu.addAction(self.actionNewIssue)
@@ -277,6 +293,7 @@ class DitzGui(QtGui.QMainWindow):
         menu.exec_(QtGui.QCursor.pos())
 
     def build_toolbar_menu(self):
+        # issue actions
         self.toolBar.addAction(self.actionNewIssue)
         self.toolBar.addAction(self.actionEditIssue)
         self.toolBar.addAction(self.actionCommentIssue)
@@ -284,6 +301,26 @@ class DitzGui(QtGui.QMainWindow):
         self.toolBar.addAction(self.actionStopWork)
         self.toolBar.addAction(self.actionCloseIssue)
         self.toolBar.addAction(self.actionDropIssue)
+
+        # spacer
+        spacer = QtGui.QWidget()
+        size = self.toolBar.iconSize()
+        spacer.setFixedSize(size.width(), size.height())
+        self.toolBar.addWidget(spacer)
+
+        # release actions
+        self.toolBar.addAction(self.actionNewRelease)
+        self.toolBar.addAction(self.actionEditRelease)
+        self.toolBar.addAction(self.actionMakeRelease)
+        self.toolBar.addAction(self.actionRemoveRelease)
+
+        # spacer
+        wide_spacer = QtGui.QWidget()
+        wide_spacer.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)
+        self.toolBar.addWidget(wide_spacer)
+
+        # other common actions
+        self.toolBar.addAction(self.actionOpenSettings)
 
     def reload_data(self, ditz_id=None):
         data = self.ditz.get_items()
@@ -458,6 +495,14 @@ class DitzGui(QtGui.QMainWindow):
                 return
             self.reload_data(issue.identifier)
 
+    def new_release(self):
+        #TODO: implementation of adding a release
+        pass
+
+    def edit_release(self):
+        #TODO: implementation of editing a release
+        pass
+
     def make_release(self):
         release_name = self._get_selected_release_name()
         if release_name == None:
@@ -468,6 +513,10 @@ class DitzGui(QtGui.QMainWindow):
         if comment != None:
             self.ditz.make_release(release_name, comment)
             self.reload_data()
+
+    def remove_release(self):
+        #TODO: implementation of removing a release
+        pass
 
     def open_settings(self):
         try:

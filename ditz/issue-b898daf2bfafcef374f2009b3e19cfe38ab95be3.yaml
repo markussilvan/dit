@@ -1,24 +1,17 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Reordering releases
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-14 13:43:33.630234 Z
 desc: |-
   Changing order of releases is not supported by Ditz.
   It can be implemented by modifying the content of
   project.yaml and changing the order of releases there.
-  
+
   In the GUI this should be done on the Releases-dialog
   where you can select a release, then use up/down -arrows
   to move it.
-type: :task
-component: ditz-gui
-release: v0.4
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-14 13:43:33.630234 Z
-references: []
-
+disposition: ''
 id: b898daf2bfafcef374f2009b3e19cfe38ab95be3
-log_events: 
+log_events:
 - - 2014-10-14 13:44:31.600328 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
@@ -35,3 +28,20 @@ log_events:
     Hopefully an extra index field in the file can be used.
     If not, then ordering by name or creation date might
     be an option.
+- - 2015-01-12 16:14:03.837516 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.1 from v0.4
+  - |-
+    This feature is has higher priority as it affect what the
+    main list view looks like.
+- - 2015-01-12 16:15:02.166388 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference
+  - These tasks could be related.
+references:
+- 41d5dbb1678d7a97dde0f1f26788da1689dbac42
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Reordering releases
+type: :task

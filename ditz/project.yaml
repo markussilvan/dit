@@ -1,15 +1,8 @@
---- !ditz.rubyforge.org,2008-03-06/project 
+components:
+- ''
 name: ditz-gui
-version: "0.5"
-components: 
-- !ditz.rubyforge.org,2008-03-06/component 
-  name: ditz-gui
-releases: 
-- !ditz.rubyforge.org,2008-03-06/release 
-  name: v0.0.1
-  status: :released
-  release_time: 2014-10-11 16:25:53.253218 Z
-  log_events: 
+releases:
+- log_events:
   - - 2014-10-07 20:10:21.855007 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
@@ -22,11 +15,10 @@ releases:
     - |-
       First functional version has been completed.
       This release exceeds all expectations.
-- !ditz.rubyforge.org,2008-03-06/release 
-  name: v0.1
+  name: v0.0.1
+  release_time: 2014-10-11 16:25:53.253218 Z
   status: :released
-  release_time: 2014-10-18 21:42:18.331858 Z
-  log_events: 
+- log_events:
   - - 2014-10-07 17:33:02.908635 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
@@ -38,14 +30,13 @@ releases:
       This release is a functional version.
       The software can be used to handle the
       issues of this project.
-      
+
       Only the features that are still missing
       need to be done from the command line.
-- !ditz.rubyforge.org,2008-03-06/release 
-  name: v0.1.1
+  name: v0.1
+  release_time: 2014-10-18 21:42:18.331858 Z
   status: :released
-  release_time: 2014-12-08 16:55:38.530939 Z
-  log_events: 
+- log_events:
   - - 2014-10-18 21:00:27.614329 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
@@ -56,11 +47,10 @@ releases:
     - |-
       First enhancement and bug fix release for v0.1.
       Software coming along nicely.
-- !ditz.rubyforge.org,2008-03-06/release 
-  name: v0.1.2
+  name: v0.1.1
+  release_time: 2014-12-08 16:55:38.530939 Z
   status: :released
-  release_time: 2014-12-16 21:55:43.352062 Z
-  log_events: 
+- log_events:
   - - 2014-10-18 21:07:19.438204 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
@@ -72,39 +62,55 @@ releases:
       Finally. This was hard as there were many tasks, but
       not much visible results. The program is coming
       along nicely.
-- !ditz.rubyforge.org,2008-03-06/release 
-  name: v0.2
-  status: :unreleased
-  release_time: 
-  log_events: 
+  name: v0.1.2
+  release_time: 2014-12-16 21:55:43.352062 Z
+  status: :released
+- log_events:
   - - 2014-10-07 17:33:40.341226 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - 2nd version with more features added.
-- !ditz.rubyforge.org,2008-03-06/release 
-  name: v0.3
+  name: v0.2
+  release_time: null
   status: :unreleased
-  release_time: 
-  log_events: 
+- log_events:
   - - 2014-10-07 17:34:55.708186 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - A feature complete release.
-- !ditz.rubyforge.org,2008-03-06/release 
-  name: v0.4
+  name: v0.3
+  release_time: null
   status: :unreleased
-  release_time: 
-  log_events: 
+- log_events:
   - - 2014-10-10 09:10:13.146682 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - Better usability beyond original Ditz.
-- !ditz.rubyforge.org,2008-03-06/release 
-  name: v0.5
+  name: v0.4
+  release_time: null
   status: :unreleased
-  release_time: 
-  log_events: 
+- log_events:
   - - 2014-10-15 12:17:53.703125 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - Extended functionality release.
+  name: v0.5
+  release_time: null
+  status: :unreleased
+- log_events:
+  - - 2015-01-12 15:45:41.437053 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - created
+    - First bugfix release for 0.2 branch.
+  - - 2015-01-12 16:06:53.973565 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - edited
+    - Just testing if editing releases now works cleanly.
+  - - 2015-01-12 16:07:10.477706 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - edited
+    - Ok. Seems to work.
+  name: v0.2.1
+  release_time: '-'
+  status: :unreleased
+version: '0.5'

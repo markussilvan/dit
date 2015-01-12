@@ -364,16 +364,23 @@ class DitzProjectModel(object):
 
         return releases
 
-    def set_release(self, release):
+    def set_release(self, release, old_name=None):
         """
         Add or update information of a release to project.
 
         Parameters:
         - release: a DitzRelease to update
+        - old_name: (optional) old name of the release being updated
         """
-        if release.title in self.project_data["releases"]:
-            release_data = [rel for rel in self.project_data["releases"]
-                    if rel["name"] == release.title]
+        if old_name:
+            title = old_name
+        else:
+            title = release.title
+        for rel in self.project_data["releases"]:
+            if rel["name"] == title:
+                release_data = rel
+                break
+        if release_data:
             release_data['name'] = release.title
             release_data['status'] = self._string_to_release_status(release.status)
             release_data['release_time'] = release.release_time

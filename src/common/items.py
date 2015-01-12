@@ -33,6 +33,7 @@ class DitzItem(object):
         - title: item title
         """
         self.title = title
+        self.log = None
 
     @abstractmethod
     def __str__(self):
@@ -47,6 +48,69 @@ class DitzItem(object):
         Representation of the item's content as HTML.
         """
         pass
+
+    def add_log_entry(self, timestamp=None, action='comment', creator='', comment=''):
+        """
+        Add a new log entry to an item
+
+        Parameters:
+        - timestamp: (optional) creation timestamp of the log entry, now by default
+        - action: (optional) title describing what was done, just a comment by default
+        - creator: who made the change
+        - comment: (optional) a comment to the log, empty by default
+        """
+        log_entry = [] # format: [ timestamp, creator, action, comment ]
+        if timestamp == None:
+            timestamp = datetime.datetime.utcnow()
+        if comment == None:
+            comment = ''
+        log_entry.append(timestamp)
+        log_entry.append(creator)
+        log_entry.append(action)
+        log_entry.append(comment)
+        if not self.log:
+            self.log = []
+        self.log.append(log_entry)
+
+    def _format_log_html(self, template_file):
+        """
+        Format item's event log to HTML according to a given template file
+
+        Parameters:
+        - template: a HTML template file to use
+
+        Returns:
+        - log as HTML
+        """
+        if self.log:
+            with open(template_file, 'r') as stream:
+                log_template_html = stream.readlines()
+
+            log_html = ''
+            for entry in self.log:
+                # timestamp, creator, action, comment
+                timestamp = common.utils.time.human_time_diff(entry[0].isoformat(' '))
+                creator = entry[1]
+                action = entry[2]
+                if len(entry) > 3:
+                    comment = entry[3]
+                else:
+                    comment = ''
+
+                entry_html = ''
+                for line in log_template_html:
+                    line = line.replace('[ACTION]', action, 1)
+                    line = line.replace('[TIMESTAMP]', timestamp, 1)
+                    line = line.replace('[CREATOR]', creator, 1)
+                    line = line.replace('[COMMENT]', comment, 1)
+                    entry_html += line
+
+                log_html += entry_html
+        else:
+            log_html = ''
+
+        return log_html
+
 
 class DitzRelease(DitzItem):
     """
@@ -79,33 +143,7 @@ class DitzRelease(DitzItem):
         with open(release_template_file, 'r') as stream:
             template_html = stream.readlines()
 
-        # event log entries
-        if self.log:
-            with open(release_log_template_file, 'r') as stream:
-                log_template_html = stream.readlines()
-
-            log_html = ''
-            for entry in self.log:
-                # timestamp, creator, action, comment
-                timestamp = common.utils.time.human_time_diff(entry[0].isoformat(' '))
-                creator = entry[1]
-                action = entry[2]
-                if len(entry) > 3:
-                    comment = entry[3]
-                else:
-                    comment = ''
-
-                entry_html = ''
-                for line in log_template_html:
-                    line = line.replace('[ACTION]', action, 1)
-                    line = line.replace('[TIMESTAMP]', timestamp, 1)
-                    line = line.replace('[CREATOR]', creator, 1)
-                    line = line.replace('[COMMENT]', comment, 1)
-                    entry_html += line
-
-                log_html += entry_html
-        else:
-            log_html = ''
+        log_html = self._format_log_html(release_log_template_file)
 
         # release html output
         html = ''
@@ -243,33 +281,7 @@ class DitzIssue(DitzItem):
                 references_html += "<li>{}</li>\n".format(reference)
         references_html += '</ol>'
 
-        # event log entries
-        if self.log:
-            with open(issue_log_template_file, 'r') as stream:
-                log_template_html = stream.readlines()
-
-            log_html = ''
-            for entry in self.log:
-                # timestamp, creator, action, comment
-                timestamp = common.utils.time.human_time_diff(entry[0].isoformat(' '))
-                creator = entry[1]
-                action = entry[2]
-                if len(entry) > 3:
-                    comment = entry[3]
-                else:
-                    comment = ''
-
-                entry_html = ''
-                for line in log_template_html:
-                    line = line.replace('[ACTION]', action, 1)
-                    line = line.replace('[TIMESTAMP]', timestamp, 1)
-                    line = line.replace('[CREATOR]', creator, 1)
-                    line = line.replace('[COMMENT]', comment, 1)
-                    entry_html += line
-
-                log_html += entry_html
-        else:
-            log_html = ''
+        log_html = self._format_log_html(issue_log_template_file)
 
         html = ''
         for line in template_html:
@@ -290,29 +302,4 @@ class DitzIssue(DitzItem):
             html += line
 
         return html
-
-    def add_log_entry(self, timestamp=None, action='comment', creator='Unknown', comment=None):
-        """
-        Add a new log entry to an issue
-
-        Parameters:
-        - timestamp: (optional) creation timestamp of the log entry, now by default
-        - action: (optional) title describing what was done, just a comment by default
-        - creator: who made the change
-        - comment: (optional) a comment to the log, empty by default
-        """
-        log_entry = [] # format: [ timestamp, creator, action, comment ]
-        if timestamp == None:
-            timestamp = datetime.datetime.utcnow()
-        if creator == None:
-            creator = '{} <{}>'.format(self.config.settings.name, self.config.settings.email)
-        if comment == None:
-            comment = ''
-        log_entry.append(timestamp)
-        log_entry.append(creator)
-        log_entry.append(action)
-        log_entry.append(comment)
-        if not self.log:
-            self.log = []
-        self.log.append(log_entry)
 

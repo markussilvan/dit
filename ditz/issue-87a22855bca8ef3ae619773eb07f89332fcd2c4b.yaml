@@ -19,6 +19,13 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference
   - ''
+- - 2015-01-12 16:10:36.040863 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Icons for releases have been added.
+    Some nicer common icons (Settings-icon) and
+    those frames  / twirls could still be added.
 references:
 - a4bd75141aa0ea3fef72290a4c8344f9e3fb014f
 release: v0.2

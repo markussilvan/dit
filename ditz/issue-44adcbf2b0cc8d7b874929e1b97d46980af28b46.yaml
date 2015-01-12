@@ -12,6 +12,12 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ''
+- - 2015-01-12 16:11:36.645514 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Commenting works when releases are added or edited.
+    A command for just commenting a release is still needed.
 references: []
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>

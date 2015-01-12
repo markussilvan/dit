@@ -1,0 +1,25 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Use of default issue type setting
+desc: |-
+  This setting is already read and written to settings file.
+  It should be also used on the settings dialog.
+  At least IssueDialog is not showing the configured value
+  by default when adding a new issue, so something is still
+  missing.
+type: :task
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-13 12:23:51.982909 Z
+references: []
+
+id: 27133c568a8eabee743d805d6b33265aef297161
+log_events: 
+- - 2015-01-13 12:24:27.311935 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    This should be quick and easy, so there is no reason
+    not to do this out of the way.

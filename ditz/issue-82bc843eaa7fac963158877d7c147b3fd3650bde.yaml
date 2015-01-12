@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-01-13 17:34:28.250521 Z
+desc: |-
+  If release is renamed, then issues should be assigned
+  to that release, or set as unassigned. Ask the user what
+  should be done.
+  If issues are assigned to an unknown release, they are not
+  shown on the UI.
+disposition: ''
+id: 82bc843eaa7fac963158877d7c147b3fd3650bde
+log_events:
+- - 2015-01-13 17:34:28.251924 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Assigning issues when release is renamed
+type: :feature

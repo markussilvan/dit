@@ -155,15 +155,15 @@ class IssueYamlObject(yaml.YAMLObject):
         """
         self.title = title
         self.desc = desc
-        self.type = issue_type                  #TODO: eri nimi?
+        self.type = issue_type                  #TODO: different variable name possible?
         self.component = component
         self.release = release
         self.reporter = reporter
         self.status = status
         self.disposition = disposition
         self.creation_time = creation_time
-        self.references = references            #TODO: osaako tää tehdä listan ihan näin?
-        self.id = identifier                    #TODO: eri nimi?
+        self.references = references
+        self.id = identifier                    #TODO: different variable name possible?
         self.log_events = log_events
         super(IssueYamlObject, self).__init__()
 

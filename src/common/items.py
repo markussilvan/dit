@@ -207,6 +207,11 @@ class DitzIssue(DitzItem):
         else:
             created_ago = "?"
 
+        if self.release != None:
+            release = self.release
+        else:
+            release = 'Unassigned'
+
         item_str = "Issue {}\n{}\n".format(self.name, len(self.name) * '-') + \
             "Title: {}\n".format(self.title) + \
             "Description:\n{}\n".format(self.description) + \
@@ -214,7 +219,7 @@ class DitzIssue(DitzItem):
             "Status: {}\n".format(self.status) + \
             "Creator: {}\n".format(self.creator) + \
             "Created: {}\n".format(created_ago) + \
-            "Release: {}\n".format(self.release)
+            "Release: {}\n".format(release)
 
         if self.component != None and self.component != "":
             item_str += "Component: {}\n".format(self.component)
@@ -275,6 +280,11 @@ class DitzIssue(DitzItem):
         else:
             created_ago = "?"
 
+        if self.release != None:
+            release = self.release
+        else:
+            release = 'Unassigned'
+
         references_html = '<ol>'
         if self.references:
             for reference in self.references:
@@ -294,7 +304,7 @@ class DitzIssue(DitzItem):
             line = line.replace('[STATUS_COLOR]', self._get_status_color(), 1)
             line = line.replace('[CREATOR]', self.creator, 1)
             line = line.replace('[CREATED]', created_ago, 1)
-            line = line.replace('[RELEASE]', self.release, 1)
+            line = line.replace('[RELEASE]', release, 1)
             line = line.replace('[COMPONENT]', self.component, 1)
             line = line.replace('[REFERENCES]', references_html, 1)
             line = line.replace('[IDENTIFIER]', self.identifier, 1)

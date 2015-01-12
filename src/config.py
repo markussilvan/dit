@@ -153,10 +153,12 @@ class DitzConfigModel(object):
         - a DitzConfigYaml object containing settings
         """
         config_file = "{}/{}".format(self.project_root, self.ditz_config_file)
-        with open(config_file, 'r') as stream:
-            self.settings = yaml.load(stream)
-            return self.settings
-        raise ApplicationError("Error reading ditz settings file")
+        try:
+            with open(config_file, 'r') as stream:
+                self.settings = yaml.load(stream)
+                return self.settings
+        except Exception:
+            raise ApplicationError("Error reading ditz settings file")
 
     def write_config_file(self):
         """
@@ -185,11 +187,6 @@ class DitzConfigYaml(yaml.YAMLObject):
         return "%s (name=%r, email=%r, issue_dir=%r)" % (self.__class__.__name__,
                 self.name, self.email, self.issue_dir)
 
-    #def __getitem__(self,):
-    #    return sel
-    #def __setitem__(self, key, item):
-    #    self.data[key] = item
-
 
 class AppConfigModel(object):
     """
@@ -209,7 +206,7 @@ class AppConfigModel(object):
         Cache the settings in self.settings.
 
         Returns:
-        - a YamlAppConfig object containing settings
+        - a AppConfigYaml object containing settings
         """
         config_file = "{}/{}".format(self.project_root, self.app_config_file)
         with open(config_file, 'r') as stream:
@@ -298,18 +295,30 @@ class DitzProjectModel(object):
         """
         if self.project_file == None:
             return None
-        writer = DitzProjectWriter(self.project_file)
-        self.project_data = writer.read_config_file()
+        try:
+            with open(self.project_file, 'r') as stream:
+                self.project_data = yaml.load(stream)
+        except Exception:
+            raise ApplicationError("Error reading project settings file")
         return self.project_data
 
     def write_config_file(self):
         """
-        Read all project information to project.yaml file
+        Write all project information to project.yaml file
+
+        Returns:
+        - True on success
+        - False on failure or invalid parameters
         """
         if self.project_file == None or self.project_data == None:
-            return None
-        writer = DitzProjectWriter(self.project_file)
-        return writer.write_config_file(self.project_data)
+            return False
+        try:
+            with open(self.project_file, 'w') as stream:
+                yaml_data = yaml.dump(self.project_data, default_flow_style=False)
+                stream.write(yaml_data)
+        except Exception:
+            raise ApplicationError("Error writing project configuration file")
+        return True
 
     def get_project_name(self):
         """
@@ -322,7 +331,7 @@ class DitzProjectModel(object):
             return None
         if self.project_data == None:
             self.read_config_file()
-        return self.project_data["name"]
+        return self.project_data.name
 
     def get_releases(self, status=None, names_only=False):
         """
@@ -345,16 +354,16 @@ class DitzProjectModel(object):
         status = self._string_to_release_status(status)
         if names_only == True:
             if status != None:
-                releases = [release["name"] for release in self.project_data["releases"]
+                releases = [release["name"] for release in self.project_data.releases
                         if release["status"] == status]
             else:
-                releases = [release["name"] for release in self.project_data["releases"]]
+                releases = [release["name"] for release in self.project_data.releases]
         else:
             if status != None:
-                releases_data = [release for release in self.project_data["releases"]
+                releases_data = [release for release in self.project_data.releases
                         if release["status"] == status]
             else:
-                releases_data = [release for release in self.project_data["releases"]]
+                releases_data = [release for release in self.project_data.releases]
             releases = []
             for rel in releases_data:
                 status = self._release_status_to_string(rel['status'])
@@ -376,7 +385,8 @@ class DitzProjectModel(object):
             title = old_name
         else:
             title = release.title
-        for rel in self.project_data["releases"]:
+        release_data = None
+        for rel in self.project_data.releases:
             if rel["name"] == title:
                 release_data = rel
                 break
@@ -386,12 +396,10 @@ class DitzProjectModel(object):
             release_data['release_time'] = release.release_time
             release_data['log_events'] = release.log
         else:
-            release_data = {}
-            release_data['name'] = release.title
-            release_data['status'] = self._string_to_release_status(release.status)
-            release_data['release_time'] = release.release_time
-            release_data['log_events'] = release.log
-            self.project_data["releases"].append(release_data)
+            status = self._string_to_release_status(release.status)
+            release_yaml = DitzReleaseYaml(release.title, status,
+                    release.release_time, release.log)
+            self.project_data.releases.append(release_yaml)
 
     def _release_status_to_string(self, status):
         """
@@ -424,52 +432,59 @@ class DitzProjectModel(object):
             return None
 
 
-class DitzProjectWriter():
-    """
-    A class to read and write Ditz project.yaml file
-    """
-    def __init__(self, project_file):
-        self.project_file = project_file
+class DitzProjectYaml(yaml.YAMLObject):
 
-        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/project", self.ditz_project)
-        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/component", self.ditz_component)
-        yaml.add_constructor(u"!ditz.rubyforge.org,2008-03-06/release", self.ditz_project)
+    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/project'
 
-    def ditz_project(self, loader, node):
-        #--- !ditz.rubyforge.org,2008-03-06/project
-        return loader.construct_yaml_map(node)
+    def __init__(self, name, releases, components, version):
+        self.name = name
+        self.releases = releases
+        self.components = components
+        self.version = version
+        super(DitzProjectYaml, self).__init__()
 
-    def ditz_component(self, loader, node):
-        #--- !ditz.rubyforge.org,2008-03-06/component
-        unused(loader)
-        unused(node)
-        return ""
+    def __repr__(self):
+        return "%s (name=%r, releases=%r, components=%r, version=%r)" % (
+                self.__class__.__name__, self.name, self.releases,
+                self.components, self.version)
 
-    def read_config_file(self):
-        """
-        Read all project information from project.yaml file
-        """
-        if self.project_file == None:
-            raise ApplicationError("Project file location not known")
+    #def __getitem__(self, key):
+    #    return eval("self.{}".format(key))
 
-        with open(self.project_file, 'r') as stream:
-            return yaml.load(stream)
-        raise ApplicationError("Error reading project settings file")
+    #def __setitem__(self, key, item):
+    #    eval("self.{} = item".format(key))
 
-    def write_config_file(self, settings):
-        """
-        Read all project information to project.yaml file
+class DitzComponentYaml(yaml.YAMLObject):
 
-        Parameters:
-        - settings: project settings to write to the file
-        """
-        if self.project_file == None:
-            raise ApplicationError("Project file location not known")
+    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/component'
 
-        try:
-            with open(self.project_file, 'w') as stream:
-                yaml_data = yaml.dump(settings, default_flow_style=False)
-                stream.write(yaml_data)
-        except Exception:
-            raise ApplicationError("Error writing project configuration file")
+    def __init__(self, name):
+        self.name = name
+        super(DitzComponentYaml, self).__init__()
+
+    def __repr__(self):
+        return "%s (name=%r)" % (
+                self.__class__.__name__, self.name)
+
+
+class DitzReleaseYaml(yaml.YAMLObject):
+
+    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/release'
+
+    def __init__(self, name, status, release_time, log):
+        self.name = name
+        self.status = status
+        self.release_time = release_time
+        self.log_events = log
+        super(DitzReleaseYaml, self).__init__()
+
+    def __repr__(self):
+        return "%s (name=%r, status=%r, release_time=%r)" % (
+                self.__class__.__name__, self.name, self.status, self.release_time)
+
+    def __getitem__(self, key):
+        return self.__dict__[key]
+
+    def __setitem__(self, key, value):
+        self.__dict__[key] = value
 

@@ -570,10 +570,12 @@ class DitzGui(QtGui.QMainWindow):
         text = self._get_selected_item_text()
         if not text or text == '':
             return None
-        release_name = text.split()[1]
-        if release_name not in self.ditz.config.get_releases('unreleased', True):
+        columns = text.split()
+        if len(columns) < 2:
             return None
-        return release_name
+        if columns[1] not in self.ditz.config.get_releases('unreleased', True):
+            return None
+        return columns[1]
 
     def _get_selected_item_text(self):
         item = self.listWidgetDitzItems.currentItem()

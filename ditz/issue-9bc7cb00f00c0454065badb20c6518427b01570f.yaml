@@ -1,0 +1,28 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Refactor release event log handling
+desc: |-
+  Automatic comments to release event log
+  should be added from within config.
+  This removes the dependency from UI and
+  and makes it work the same way even if
+  a release is created using other means
+  (like scripts, console ui).
+  The comment requested from user should
+  come as parameter to these commands.
+  This way dependency to UI in config
+  is avoided.
+type: :task
+component: ditz-gui
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-14 09:03:41.844364 Z
+references: []
+
+id: 9bc7cb00f00c0454065badb20c6518427b01570f
+log_events: 
+- - 2015-01-14 09:03:42.820187 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

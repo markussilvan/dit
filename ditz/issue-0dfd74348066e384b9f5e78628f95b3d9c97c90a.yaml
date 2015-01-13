@@ -1,0 +1,29 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Rename YamlControl to IssueModel
+desc: |-
+  A common naming scheme should be used
+  everywhere in the codebase.
+  Thus all components touching .yaml files
+  (or other datastores?) should be named
+  Models.
+  Rename yamlcontrol.py as issuemodel.py or
+  issue[something].py and rename all classes
+  within to use the common naming scheme.
+type: :task
+component: ditz-gui
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-14 09:09:10.592533 Z
+references: []
+
+id: 0dfd74348066e384b9f5e78628f95b3d9c97c90a
+log_events: 
+- - 2015-01-14 09:10:03.872522 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    This should be quite a small task on a small
+    piece of code that doesn't affect functionality
+    of the software at all.

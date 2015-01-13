@@ -8,6 +8,7 @@ A GUI frontend for Ditz issue tracker
 """
 
 import yaml
+import datetime
 
 from common.items import DitzRelease
 from common.errors import ApplicationError
@@ -400,6 +401,29 @@ class DitzProjectModel(object):
             release_yaml = DitzReleaseYaml(release.title, status,
                     release.release_time, release.log)
             self.project_data.releases.append(release_yaml)
+
+    def make_release(self, release):
+        """
+        Release a release
+
+        Parameters:
+        - release: release to release
+        """
+        if release == None:
+            return
+
+        release_data = None
+        for rel in self.project_data.releases:
+            if rel["name"] == release.title:
+                release_data = rel
+                break
+
+        if release_data:
+            release_data['status'] = self._string_to_release_status('released')
+            timestamp = datetime.datetime.utcnow()
+            release.release_time = timestamp.isoformat(' ') + ' Z'
+            release_data['release_time'] = release.release_time
+            release_data['log_events'] = release.log
 
     def remove_release(self, release_name):
         """

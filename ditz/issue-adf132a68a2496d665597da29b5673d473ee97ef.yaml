@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Don't allow making a release with open issues
+desc: |-
+  Don't allow making a release if it contains open
+  issues. Alternatively a dialog could ask what
+  should be done with the renaming issues.
+  Those could be set as 'Unassigned' or assigned
+  to a given release.
+type: :bugfix
+component: ditz-gui
+release: v0.2.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-14 09:20:58.795074 Z
+references: []
+
+id: adf132a68a2496d665597da29b5673d473ee97ef
+log_events: 
+- - 2015-01-14 09:21:00.586798 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

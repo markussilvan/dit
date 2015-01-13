@@ -519,7 +519,11 @@ class DitzGui(QtGui.QMainWindow):
         dialog = CommentDialog(self.ditz, None, title=title)
         comment = dialog.ask_comment()
         if comment != None:
-            self.ditz.make_release(release_name, comment)
+            settings = self.config.get_app_configs()
+            creator = '{} <{}>'.format(settings.name, settings.email)
+            release._add_log_entry(None, 'released', creator, comment)
+            self.config.projectconfig.make_release(release)
+            self.config.projectconfig.write_config_file()
             self.reload_data()
 
     def remove_release(self):

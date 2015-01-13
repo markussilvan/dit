@@ -356,22 +356,6 @@ class DitzControl(object):
         """
         self._change_issue_status(ditz_id, 'paused', comment)
 
-    def make_release(self, release_name, comment):
-        """
-        Release a release
-
-        Parameters:
-        - release_name: Name of a release in Ditz
-        - comment: (optional) comment text, no formatting, to add to the release
-        """
-        if release_name == None or release_name == "":
-            return
-        #try:
-        #    self._run_interactive_command("release " + release_name, comment, "/stop")
-        #except DitzError, e:
-        #    e.error_message = "Making release on Ditz failed"
-        #    raise
-
     def _change_issue_status(self, ditz_id, status, comment=''):
         """
         Change Ditz issue status.

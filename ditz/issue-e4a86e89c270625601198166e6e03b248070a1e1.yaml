@@ -1,0 +1,30 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Fix data formatting in project file writing
+desc: |-
+  Project file data fields should be
+  written the same way as issue data fields.
+  Currently format of timestamps and multiline
+  strings (at least) is different from format
+  produced by Ditz.
+  Implementation to fix this already exists in
+  issue writing. Copy it or make a more general
+  implementation.
+type: :bugfix
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+disposition: 
+creation_time: 2015-01-14 08:53:32.861483 Z
+references: []
+
+id: e4a86e89c270625601198166e6e03b248070a1e1
+log_events: 
+- - 2015-01-14 08:53:34.206144 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2015-01-14 08:54:11.406642 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - This should be quick.

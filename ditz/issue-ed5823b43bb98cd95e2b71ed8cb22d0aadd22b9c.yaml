@@ -35,8 +35,12 @@ log_events:
     I still don't have a clear idea how the files should
     be  divided. Currect setup is fine so far.
     Lets look at this later.
+- - 2015-01-13 17:04:49.045203 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.1 from v0.2
+  - ''
 references: []
-release: v0.2
+release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Reorganizing directory structure

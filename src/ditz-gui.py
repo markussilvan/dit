@@ -523,8 +523,15 @@ class DitzGui(QtGui.QMainWindow):
             self.reload_data()
 
     def remove_release(self):
-        #TODO: implementation of removing a release
-        pass
+        release_name = self._get_selected_release_name()
+        if release_name == None:
+            return
+        if self.config.projectconfig.remove_release(release_name) == False:
+            error = "Error removing release '{}' from project".format(release_name)
+            QtGui.QMessageBox.warning(self, "Ditz error", error)
+        else:
+            self.config.projectconfig.write_config_file()
+            self.reload_data()
 
     def open_settings(self):
         try:

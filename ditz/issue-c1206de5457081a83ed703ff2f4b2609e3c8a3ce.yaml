@@ -7,7 +7,7 @@ desc: |-
   Find out how ditz reacts to this.
   A list of releases needs to implemented anyway.
   In that view a release is selected and delete is chosen from UI.
-disposition: ''
+disposition: fixed
 id: c1206de5457081a83ed703ff2f4b2609e3c8a3ce
 log_events:
 - - 2014-10-07 18:07:21.403625 Z
@@ -21,9 +21,19 @@ log_events:
     When adding and editing are working reliably, this
     is trivial to implement.
     Should this be called "dropping a release"?
+- - 2015-01-13 14:52:16.153369 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Implementation done. All release data is really removed
+    from the project file.
+- - 2015-01-13 17:42:05.432262 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Ok. This can be closed.
 references: []
 release: v0.2
 reporter: ditz
-status: :unstarted
+status: :closed
 title: Removing a release
 type: :task

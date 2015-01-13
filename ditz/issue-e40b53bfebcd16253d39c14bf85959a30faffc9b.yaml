@@ -36,10 +36,14 @@ log_events:
   - |
     Maybe this can be nicely implemented with the
     help of the DitzIssues' toHtml() and html template files.
+- - 2015-01-13 17:05:57.349157 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.2 from v0.2
+  - ''
 references:
 - 38b74f96a97c67bb5ade1e86fdee57e1c7b5d322
 - Release v0.2
-release: v0.2
+release: v0.2.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Show a "Closed"-stamp

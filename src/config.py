@@ -401,6 +401,26 @@ class DitzProjectModel(object):
                     release.release_time, release.log)
             self.project_data.releases.append(release_yaml)
 
+    def remove_release(self, release_name):
+        """
+        Remove a release from the project.
+
+        Even if release contains issues, it' still removed.
+        Issues are left as they were.
+
+        Parameters:
+        - release_name: name of the release to remove
+
+        Returns:
+        - True if release was removed
+        - False if release was not found
+        """
+        for rel in self.project_data.releases:
+            if rel["name"] == release_name:
+                self.project_data.releases.remove(rel)
+                return True
+        return False
+
     def _release_status_to_string(self, status):
         """
         Convert yaml release status to a readable string.

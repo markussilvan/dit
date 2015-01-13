@@ -26,9 +26,13 @@ log_events:
     Icons for releases have been added.
     Some nicer common icons (Settings-icon) and
     those frames  / twirls could still be added.
+- - 2015-01-13 17:05:50.096088 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.2 from v0.2
+  - ''
 references:
 - a4bd75141aa0ea3fef72290a4c8344f9e3fb014f
-release: v0.2
+release: v0.2.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Add more icons and actions

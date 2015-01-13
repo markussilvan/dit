@@ -119,6 +119,13 @@ class IssueDialog(QtGui.QDialog):
         except ApplicationError:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
             return
+
+        settings = self.ditz.config.get_app_configs()
+        default_issue_type = settings.default_issue_type
+        index = self.widgetForm.comboBoxIssueType.findText(default_issue_type)
+        if index >= 0:
+            self.widgetForm.comboBoxIssueType.setCurrentIndex(index)
+
         self.exec_()
 
     def ask_edit_issue(self, ditz_id):

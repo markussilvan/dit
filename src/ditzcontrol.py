@@ -13,7 +13,7 @@ from itemcache import ItemCache
 from common.items import DitzRelease
 from common.errors import ApplicationError, DitzError
 from common.utils.issue import IssueUtils
-from yamlcontrol import IssueYamlControl, IssueYamlObject
+from issuemodel import IssueModel, IssueYamlObject
 from config import ConfigControl
 
 
@@ -30,7 +30,7 @@ class DitzControl(object):
         - config: ConfigControl object containing valid configuration values
         """
         self.ditz_cmd = "ditz"
-        self.issuecontrol = IssueYamlControl()
+        self.issuemodel = IssueModel()
         self.item_cache = ItemCache()
         if not isinstance(config, ConfigControl):
             raise ApplicationError('Construction failed due to invalid config parameter')
@@ -44,7 +44,7 @@ class DitzControl(object):
         """
         # (re)create the cache
         self.item_cache.clear()
-        identifiers = self.issuecontrol.list_issue_identifiers()
+        identifiers = self.issuemodel.list_issue_identifiers()
         for issue_id in identifiers:
             ditz_item = self.get_issue_content(issue_id, False)
             self.item_cache.add_issue(ditz_item)
@@ -156,7 +156,7 @@ class DitzControl(object):
                 identifier = issue.identifier
             if identifier and len(identifier) != 40:
                 return None
-        yaml_issue = self.issuecontrol.read_issue_yaml(identifier)
+        yaml_issue = self.issuemodel.read_issue_yaml(identifier)
         ditz_item = yaml_issue.toDitzIssue()
         if update_cache:
             self.item_cache.add_issue(ditz_item)
@@ -197,11 +197,11 @@ class DitzControl(object):
         if issue.component == None:
             issue.component = self.config.get_project_name()
 
-        issue.identifier = self.issuecontrol.generate_new_identifier()
+        issue.identifier = self.issuemodel.generate_new_identifier()
         self._add_issue_log_entry(issue, 'created', comment)
 
         yaml_issue = IssueYamlObject.fromDitzIssue(issue)
-        self.issuecontrol.write_issue_yaml(yaml_issue)
+        self.issuemodel.write_issue_yaml(yaml_issue)
 
     def edit_issue(self, issue, comment=''):
         """
@@ -219,7 +219,7 @@ class DitzControl(object):
         self._add_issue_log_entry(issue, 'edited', comment)
 
         yaml_issue = IssueYamlObject.fromDitzIssue(issue)
-        self.issuecontrol.write_issue_yaml(yaml_issue)
+        self.issuemodel.write_issue_yaml(yaml_issue)
 
     def add_comment(self, ditz_id, comment):
         """
@@ -238,7 +238,7 @@ class DitzControl(object):
         self._add_issue_log_entry(ditz_issue, 'commented', comment)
 
         yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
-        self.issuecontrol.write_issue_yaml(yaml_issue)
+        self.issuemodel.write_issue_yaml(yaml_issue)
 
     def add_reference(self, ditz_id, reference, comment=""):
         """
@@ -259,7 +259,7 @@ class DitzControl(object):
         self._add_issue_log_entry(ditz_issue, 'added reference', comment)
 
         yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
-        self.issuecontrol.write_issue_yaml(yaml_issue)
+        self.issuemodel.write_issue_yaml(yaml_issue)
 
     def _disposition_to_str(self, disposition):
         """
@@ -295,7 +295,7 @@ class DitzControl(object):
         self._add_issue_log_entry(ditz_issue, action, comment)
 
         yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
-        self.issuecontrol.write_issue_yaml(yaml_issue)
+        self.issuemodel.write_issue_yaml(yaml_issue)
 
     def drop_issue(self, identifier):
         """
@@ -319,7 +319,7 @@ class DitzControl(object):
             if identifier and len(identifier) != 40:
                 return None
         try:
-            self.issuecontrol.remove_issue_yaml(identifier)
+            self.issuemodel.remove_issue_yaml(identifier)
             self.item_cache.remove_issue(identifier)
         except DitzError, e:
             e.error_message = "Dropping issue failed"
@@ -347,7 +347,7 @@ class DitzControl(object):
         self._add_issue_log_entry(ditz_issue, action, comment)
 
         yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
-        self.issuecontrol.write_issue_yaml(yaml_issue)
+        self.issuemodel.write_issue_yaml(yaml_issue)
 
     def start_work(self, ditz_id, comment=''):
         """
@@ -397,7 +397,7 @@ class DitzControl(object):
         self._add_issue_log_entry(ditz_issue, action, comment)
 
         yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
-        self.issuecontrol.write_issue_yaml(yaml_issue)
+        self.issuemodel.write_issue_yaml(yaml_issue)
 
     def _get_issue_by_id(self, ditz_id):
         """

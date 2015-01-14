@@ -11,10 +11,10 @@ desc: |-
   within to use the common naming scheme.
 type: :task
 component: ditz-gui
-release: v0.2.1
+release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2015-01-14 09:09:10.592533 Z
 references: []
 
@@ -27,3 +27,11 @@ log_events:
     This should be quite a small task on a small
     piece of code that doesn't affect functionality
     of the software at all.
+- - 2015-01-14 12:01:35.441721 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2 from v0.2.1
+  - I'll do this now as it's quick and easy.
+- - 2015-01-14 12:04:40.617589 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Done.

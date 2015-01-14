@@ -37,13 +37,13 @@ def datetime_representer(dumper, data):
 yaml.add_representer(datetime.datetime, datetime_representer)
 
 
-class IssueYamlControl():
+class IssueModel():
     """
     Class to read and write issue YAML files
     """
     def __init__(self):
         """
-        Initialize new IssueYamlControl
+        Initialize new IssueModel
         """
         self.issue_dir = "../ditz"          #TODO: hardcoded paths and names (do like ConfigControl does)
         self.issue_prefix = "issue-"        # check where else these are hardcoded and fix with a common solution
@@ -126,6 +126,7 @@ class IssueYamlControl():
                 return identifier
 
         raise ApplicationError("Unable to generate unique issue identifier")
+
 
 class IssueYamlObject(yaml.YAMLObject):
     """

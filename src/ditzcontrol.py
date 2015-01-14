@@ -163,6 +163,22 @@ class DitzControl(object):
             #self.item_cache.sort_issues(rename = True)
         return ditz_item
 
+    def can_be_released(self, release_name):
+        """
+        Check if release is in a state to be released.
+
+        Parameters:
+        - release_name: name of the release to check
+
+        Returns:
+        - True if release is ready to be released
+        - False if not
+        """
+        issues = self.item_cache.get_issues_by_release(release_name)
+        if len(issues) > 0:
+            return False
+        return True
+
     def add_issue(self, issue, comment=''):
         """
         Add new issue to Ditz

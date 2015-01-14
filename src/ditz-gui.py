@@ -515,13 +515,18 @@ class DitzGui(QtGui.QMainWindow):
         release_name = self._get_selected_release_name()
         if release_name == None:
             return
+        if not self.ditz.can_be_released(release_name):
+            error = "Release '{}' can't be released.\nRelease has open tasks.".format(release_name)
+            QtGui.QMessageBox.warning(self, "Ditz error", error)
+            return
         title = 'Release {}'.format(release_name)
         dialog = CommentDialog(self.ditz, None, title=title)
         comment = dialog.ask_comment()
         if comment != None:
-            settings = self.config.get_app_configs()
+            settings = self.config.get_ditz_configs()
             creator = '{} <{}>'.format(settings.name, settings.email)
-            release._add_log_entry(None, 'released', creator, comment)
+            release = self.ditz.get_release_from_cache(release_name)
+            release.add_log_entry(None, 'released', creator, comment)
             self.config.projectconfig.make_release(release)
             self.config.projectconfig.write_config_file()
             self.reload_data()

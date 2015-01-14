@@ -125,4 +125,13 @@ releases:
   name: v0.2.2
   release_time: ''
   status: :unreleased
+- !ditz.rubyforge.org,2008-03-06/release
+  log_events:
+  - - 2015-01-14 16:31:23.475052 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - created
+    - First bugfix and/or feature completion release for 0.3 branch.
+  name: v0.3.1
+  release_time: ''
+  status: :unreleased
 version: '0.5'

@@ -13,8 +13,8 @@ type: :bugfix
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2015-01-14 08:53:32.861483 Z
 references: []
 
@@ -28,3 +28,17 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - changed status from unstarted to in_progress
   - This should be quick.
+- - 2015-01-14 12:07:58.184972 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Don't duplicate the same code. Instead try to
+    figure out a common place for the initialization
+    code which sets those constructors and representers
+    for datetime and unicode string classes.
+    Now it's done in IssueModel, but it should be
+    moved to somewhere "reachable" by all Model classes.
+- - 2015-01-14 13:09:47.050769 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Implementation done.

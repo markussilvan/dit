@@ -10,32 +10,6 @@ import hashlib
 from common.items import DitzIssue
 from common.errors import ApplicationError
 
-def str_representer(self, data):
-    tag = None
-    if '\n' in data:
-        style = '|'
-    else: style = None
-    try:
-        data = unicode(data, 'ascii')
-        tag = u'tag:yaml.org,2002:str'
-    except UnicodeDecodeError:
-        try:
-            data = unicode(data, 'utf-8')
-            tag = u'tag:yaml.org,2002:str'
-        except UnicodeDecodeError:
-            data = data.encode('base64')
-            tag = u'tag:yaml.org,2002:binary'
-            style = '|'
-    return self.represent_scalar(tag, data, style=style)
-
-yaml.add_representer(str, str_representer)
-
-def datetime_representer(dumper, data):
-    value = unicode(data.isoformat(' ') + ' Z')
-    return dumper.represent_scalar(u'tag:yaml.org,2002:timestamp', value)
-
-yaml.add_representer(datetime.datetime, datetime_representer)
-
 
 class IssueModel():
     """

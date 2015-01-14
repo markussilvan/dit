@@ -10,6 +10,7 @@ A GUI frontend for Ditz issue tracker
 import yaml
 import datetime
 
+from yamlconfig import YamlConfig
 from common.items import DitzRelease
 from common.errors import ApplicationError
 from common.utils import fileutils
@@ -26,6 +27,8 @@ class ConfigControl(object):
         self.ditzconfig = DitzConfigModel()
         self.appconfig = AppConfigModel()
         self.projectconfig = DitzProjectModel()
+
+        YamlConfig.add_representers()
 
     def load_configs(self):
         """

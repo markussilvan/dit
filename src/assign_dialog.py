@@ -73,6 +73,8 @@ class AssignDialog(QtGui.QDialog):
         if not issue:
             raise ApplicationError('Issue not found from cache')
         current_release = issue.release
+        if current_release == None:
+            current_release = "Unassigned"
         index = self.comboBoxRelease.findText(current_release)
         if index >= 0:
             self.comboBoxRelease.setCurrentIndex(index)

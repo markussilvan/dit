@@ -1,26 +1,19 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Read Ditz mailing list and Ditz 0.6 status
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-13 07:20:26.542455 Z
 desc: |-
   Ditz mailing list was mentioned in some news article.
   Find it and read it. Is it still active?
   Is someone still maintaining the project?
   Are there forks? What is the Ditz 0.6 which is
   not from the original developer?
-type: :task
-component: ditz-gui
-release: 
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-13 07:20:26.542455 Z
-references: []
-
+disposition: ''
 id: 9dea18d277462b54929dc7c0dd2d10783784ea09
-log_events: 
+log_events:
 - - 2014-10-13 07:20:28.478456 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
 - - 2014-10-14 13:57:13.468134 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -29,7 +22,19 @@ log_events:
     archives can be found at
     http://rss.gmane.org/topics/complete/gmane.comp.bug-tracking.ditz.general
     Ditz Ubuntu bugs: https://bugs.launchpad.net/ubuntu/+source/ditz
-    
+
     Seems 0.6 version has been under works, but hasn't been released.
     Last activity is from summer 2013. Let's see if there will be more
     activity if a submit some patches or show them Ditz GUI.
+- - 2015-01-16 19:02:36.495738 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    I happened to find PyDitz. It looked interesting.
+    Try and  see.
+references: []
+release: null
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Read Ditz mailing list and Ditz 0.6 status
+type: :task

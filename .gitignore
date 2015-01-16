@@ -1,3 +1,4 @@
 .ditz-config
+.ditz-gui-config
 *.pyc
 reports

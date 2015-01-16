@@ -40,3 +40,15 @@ By default menu icons are disabled on Ubuntu.
 To enable, run:
 gconftool-2 --type Boolean --set /desktop/gnome/interface/menus_have_icons True
 
+Configuration File
+
+Application uses a .ditz-gui-config file as it's configuration file.
+The file should be located at the same path as .ditz-config.
+Here is an example configuration file.
+
+!ditz.rubyforge.org,2008-03-06/guiconfig
+default_issue_type: task
+remember_window_size: false
+window_size:
+- 1222
+- 841

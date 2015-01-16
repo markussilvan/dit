@@ -197,5 +197,16 @@ class ItemCache():
                 prefix = 'issue-'
             issue.name = '{}{}'.format(prefix, i+1)
 
+    def get_issue_name_max_len(self):
+        """
+        Get length of the longest issue name found in cache
 
+        Returns:
+        - length of longest issue name as integer
+        """
+        max_len = 0
+        for issue in self.issues:
+            if issue.name and len(issue.name) > max_len:
+                max_len = len(issue.name)
+        return max_len
 

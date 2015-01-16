@@ -15,7 +15,7 @@ desc: |-
   important things are already finished.
 type: :task
 component: ditz-gui
-release: v0.2
+release: v0.2.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
@@ -38,3 +38,7 @@ log_events:
   - |-
     More generally this is the first "filter" used with
     the list of Ditz items.
+- - 2015-01-16 14:49:00.962643 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.2 from v0.2
+  - ""

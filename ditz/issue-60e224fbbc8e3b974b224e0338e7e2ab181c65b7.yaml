@@ -10,8 +10,8 @@ type: :task
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :wontfix
 creation_time: 2015-01-05 08:49:09.086511 Z
 references: []
 
@@ -21,3 +21,25 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2015-01-14 16:28:10.476919 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    I expect this to be an easy task.
+    Has to be done anyway, so why not now.
+- - 2015-01-16 11:52:01.395542 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Currently that QListWidget is not iterated anywhere
+    in the code. The generator is useless unless some
+    new functionality requires it.
+    One such feature might be implementation of alignments
+    based on actual column widths instead of hardcoded
+    values.
+- - 2015-01-16 13:33:08.903827 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition wontfix
+  - |-
+    Lazy generator wasn't used anywhere anymore. Good.
+    So I removed it completely.

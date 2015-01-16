@@ -1,25 +1,31 @@
---- !ditz.rubyforge.org,2008-03-06/issue
-component: ditz-gui
-creation_time: 2014-10-12 14:18:03.811050 Z
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Make font configurable
 desc: |-
   Settings view should have a tab for setting
-  list view properties. Most important settings are
-  the font (so everyone can select a nice monospaced font),
-  and the alingment of fields in the list.
-  The perfect alignment depends on the font and
-  the project being worked on.
-
+  list view settings, font settings or something
+  similar. Changing the font and font size are
+  the most important settings (so everyone can
+  select a nice monospaced font).
+  
   Hopefully some of these settings can be made even
-  project dependent using save config files
-  as Ditz. Then there could be global alignment
-  and project specified alignment, if necessary.
-disposition: ''
+  project dependent using ditz-gui config file.
+  Then there could be global config separately,
+  if necessary.
+type: :task
+component: ditz-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: ""
+creation_time: 2014-10-12 14:18:03.811050 Z
+references: []
+
 id: e602aa6f7846e3e47f7777d0da9f70ff1d1f75b0
-log_events:
+log_events: 
 - - 2014-10-12 14:18:05.250825 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ''
+  - ""
 - - 2014-12-12 20:25:01.035133 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -32,9 +38,15 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.2.1 from v0.2
   - This is lower priority than functionality for handling releases.
-references: []
-release: v0.2.1
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-title: Make font and list view alignment configurable
-type: :task
+- - 2015-01-16 13:39:10.821736 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited title, description
+  - |-
+    List view alignment was made to align automatically
+    based on issue name widths.
+    Thus this item was now heavy edited to focus on
+    font configuration only.
+- - 2015-01-16 14:45:28.219262 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.3 from v0.2.1
+  - ""

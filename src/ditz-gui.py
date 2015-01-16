@@ -326,6 +326,9 @@ class DitzGui(QtGui.QMainWindow):
     def reload_data(self, ditz_id=None):
         data = self.ditz.get_items()
         self.listWidgetDitzItems.clear()
+
+        max_name_width = self.ditz.get_issue_name_max_len()
+
         for item in data:
             if isinstance(item, DitzRelease) and self.listWidgetDitzItems.count() > 0:
                 # add one empty line as a spacer (except on the first line)
@@ -333,7 +336,7 @@ class DitzGui(QtGui.QMainWindow):
             if item.name == None:
                 title = item.title
             else:
-                title = "{:<13}{}".format(item.name, item.title)  #TODO: hardcoded column width
+                title = "{0:<{1}}{2}".format(item.name, max_name_width + 1, item.title)
             self.listWidgetDitzItems.addItem(title)
 
             # set icon to the added item
@@ -350,13 +353,6 @@ class DitzGui(QtGui.QMainWindow):
 
         if ditz_id:
             self.show_item(ditz_id)
-
-    def iterate_all_items(self):
-        """
-        A lazy generator for iterating all items in the list
-        """
-        for i in range(self.listWidgetDitzItems.count()):
-            yield self.listWidgetDitzItems.item(i)
 
     def show_item(self, ditz_id=None):
         if not ditz_id or isinstance(ditz_id, QModelIndex):

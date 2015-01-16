@@ -11,11 +11,17 @@ reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
 creation_time: 2014-12-15 09:24:08.031302 Z
-references: []
-
+references: 
+- b898daf2bfafcef374f2009b3e19cfe38ab95be3
 id: 41d5dbb1678d7a97dde0f1f26788da1689dbac42
 log_events: 
 - - 2014-12-15 09:24:09.007948 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2015-01-16 14:47:52.447783 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - |-
+    These two tasks are related. Implementing sorting
+    for releases and reordering releases.

@@ -6,7 +6,7 @@ desc: |-
   should be done.
   If issues are assigned to an unknown release, they are not
   shown on the UI.
-type: :feature
+type: :bugfix
 component: ditz-gui
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>

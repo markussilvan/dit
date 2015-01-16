@@ -163,6 +163,15 @@ class DitzControl(object):
             #self.item_cache.sort_issues(rename = True)
         return ditz_item
 
+    def get_issue_name_max_len(self):
+        """
+        Get length of the longest issue name found in cache
+
+        Returns:
+        - length of longest issue name as integer
+        """
+        return self.item_cache.get_issue_name_max_len()
+
     def can_be_released(self, release_name):
         """
         Check if release is in a state to be released.

@@ -1,27 +1,32 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: YAML output always in same order
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-12-18 12:26:37.373580 Z
 desc: |-
   Printing fields in .yaml files in the same
   order will recude the amount of changes from
   git's point of view. This will make cleaner
   patches that are easier to merge.
-  
+
   This must be implemented at some point.
   Luckily the functionality is encapsulated
   in one place and doesn't affect rest of the
   software.
-type: :task
-component: ditz-gui
-release: v0.3
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-12-18 12:26:37.373580 Z
-references: []
-
+disposition: ''
 id: 93a65cdb3e73f1a4cc6710fdff002aeb8169c4af
-log_events: 
+log_events:
 - - 2014-12-18 12:26:38.285817 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
+- - 2015-01-17 08:59:30.674852 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    YAML output is always in same order. It's just not the
+    same order Ditz commandline uses.
+references: []
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: YAML output always in same order
+type: :task

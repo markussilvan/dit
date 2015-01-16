@@ -31,7 +31,11 @@ class SettingsDialog(QtGui.QDialog):
             raise ApplicationError('Invalid config parameter')
 
         self.config = config
-        self.config.load_configs() # reload, just in case
+        try:
+            self.config.load_configs() # reload, just in case
+        except ApplicationError:
+            pass
+
         self.ditz_settings_changed = False
         self.app_settings_changed = False
 

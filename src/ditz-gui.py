@@ -19,7 +19,7 @@ from PyQt4 import QtGui, uic
 from PyQt4.QtCore import SIGNAL, QModelIndex
 
 from common.items import DitzRelease, DitzIssue
-from common.errors import DitzError
+from common.errors import DitzError, ApplicationError
 from common.unused import unused
 from config import ConfigControl
 from ditzcontrol import DitzControl
@@ -31,6 +31,7 @@ from settings_dialog import SettingsDialog
 from assign_dialog import AssignDialog
 from release_dialog import ReleaseDialog
 
+
 class DitzGui(QtGui.QMainWindow):
     """
     The main window
@@ -41,8 +42,29 @@ class DitzGui(QtGui.QMainWindow):
         """
         super(DitzGui, self).__init__()
 
-        self.config = ConfigControl()
-        self.config.load_configs()
+        try:
+            self.config = ConfigControl()
+        except ApplicationError, e:
+            message = "{}.\n{}\n{}".format(e.error_message,
+                    "Run 'ditz init' first to initialize or",
+                    "start Ditz GUI in any subdirectory of\nan initialized Ditz project.")
+            QtGui.QMessageBox.warning(self, "Ditz not initialized", message)
+            sys.exit(1)
+
+        try:
+            self.config.load_configs()
+        except ApplicationError, e:
+            if e.error_message == "Ditz config not found":
+                message = "{}\n{}".format(e.error_message,
+                        "Go to settings to configure before using")
+                QtGui.QMessageBox.warning(self, "Configuration error", e.error_message)
+            elif e.error_message == "Project file not found":
+                QtGui.QMessageBox.warning(self, "Fatal configuration error", e.error_message)
+                sys.exit(1)
+            else:
+                print e.error_message
+                sys.exit(1)
+
         self.ditz = DitzControl(self.config)
 
         uic.loadUi('../ui/main_window.ui', self)

@@ -22,7 +22,7 @@ class ConfigControl(object):
     """
     def __init__(self):
         """
-        Initialize
+        Initialize.
         """
         self.ditzconfig = DitzConfigModel()
         self.appconfig = AppConfigModel()
@@ -32,19 +32,23 @@ class ConfigControl(object):
 
     def load_configs(self):
         """
-        Cache all configuration variables to memory
+        Cache all configuration variables to memory.
+
+        Raises ApplicationError on failure.
         """
-        self.ditzconfig.read_config_file()
+        if self.ditzconfig.read_config_file() == False:
+            raise ApplicationError("Ditz config not found")
         self.appconfig.project_root = self.ditzconfig.project_root
         self.appconfig.read_config_file()
         project_file = '{}/{}/{}'.format(self.ditzconfig.project_root,
                 self.ditzconfig.settings.issue_dir, 'project.yaml')
         self.projectconfig.project_file = project_file
-        self.projectconfig.read_config_file()
+        if self.projectconfig.read_config_file() == False:
+            raise ApplicationError("Project file not found")
 
     def get_ditz_configs(self):
         """
-        Return a list of all .ditz-config settings
+        Return a list of all .ditz-config settings.
 
         Returns:
         - DitzConfigYaml object containing all settings
@@ -53,7 +57,7 @@ class ConfigControl(object):
 
     def get_app_configs(self):
         """
-        Return a list of all .ditz-gui-config settings
+        Return a list of all .ditz-gui-config settings.
 
         Returns:
         - AppConfigYaml object containing all settings
@@ -62,7 +66,7 @@ class ConfigControl(object):
 
     def get_project_name(self):
         """
-        Get project name
+        Get project name.
 
         Returns:
         - project name string
@@ -71,7 +75,7 @@ class ConfigControl(object):
 
     def get_releases(self, status=None, names_only=False):
         """
-        Get a list of releases
+        Get a list of releases.
 
         Parameters:
         - status: (optional) release status of releases to list, by default all releases are listed
@@ -84,7 +88,7 @@ class ConfigControl(object):
 
     def get_valid_issue_states(self):
         """
-        Get a list of valid states for an issue
+        Get a list of valid states for an issue.
 
         Returns:
         - list of states
@@ -93,7 +97,7 @@ class ConfigControl(object):
 
     def get_valid_issue_types(self):
         """
-        Get a list of valid issue types for an issue
+        Get a list of valid issue types for an issue.
 
         Returns:
         - list of issue types
@@ -102,7 +106,7 @@ class ConfigControl(object):
 
     def get_valid_issue_dispositions(self):
         """
-        Get a list of valid issue dispositions for an issue
+        Get a list of valid issue dispositions for an issue.
 
         Returns:
         - list of issue dispositions
@@ -111,7 +115,7 @@ class ConfigControl(object):
 
     def get_valid_release_states(self):
         """
-        Get a list of valid states for a release
+        Get a list of valid states for a release.
 
         Returns:
         - list of states
@@ -121,7 +125,7 @@ class ConfigControl(object):
 
 class DitzConfigModel(object):
     """
-    Ditz configuration file settings provider
+    Ditz configuration file settings provider.
     """
     def __init__(self):
         self.ditz_config_file = ".ditz-config"
@@ -150,19 +154,21 @@ class DitzConfigModel(object):
 
     def read_config_file(self):
         """
-        Read settings from ditz config file
-        Cache the settings in self.settings.
+        Read settings from ditz config file.
+        Cache the settings in self.settings (a DitzConfigYaml object).
 
         Returns:
-        - a DitzConfigYaml object containing settings
+        - True if config file was read successfully
+        - False on error, default values set for settings
         """
         config_file = "{}/{}".format(self.project_root, self.ditz_config_file)
         try:
             with open(config_file, 'r') as stream:
                 self.settings = yaml.load(stream)
-                return self.settings
         except Exception:
-            raise ApplicationError("Error reading ditz settings file")
+            self.settings = DitzConfigYaml("", "", "")
+            return False
+        return True
 
     def write_config_file(self):
         """
@@ -194,7 +200,7 @@ class DitzConfigYaml(yaml.YAMLObject):
 
 class AppConfigModel(object):
     """
-    Common configuration settings
+    Common configuration settings.
     """
     def __init__(self):
         """
@@ -206,17 +212,19 @@ class AppConfigModel(object):
 
     def read_config_file(self):
         """
-        Read settings from application config file
+        Read settings from application config file.
         Cache the settings in self.settings.
 
         Returns:
         - a AppConfigYaml object containing settings
         """
         config_file = "{}/{}".format(self.project_root, self.app_config_file)
-        with open(config_file, 'r') as stream:
-            self.settings = yaml.load(stream)
-            return self.settings
-        raise ApplicationError("Error reading application settings file")
+        try:
+            with open(config_file, 'r') as stream:
+                self.settings = yaml.load(stream)
+                return self.settings
+        except Exception:
+            self.settings = AppConfigYaml([800, 600], True, "task")
 
     def write_config_file(self):
         """
@@ -232,7 +240,7 @@ class AppConfigModel(object):
 
     def get_valid_issue_states(self):
         """
-        Get a list of valid states for an issue
+        Get a list of valid states for an issue.
 
         Returns:
         - list of states
@@ -241,7 +249,7 @@ class AppConfigModel(object):
 
     def get_valid_issue_types(self):
         """
-        Get a list of valid issue types for an issue
+        Get a list of valid issue types for an issue.
 
         Returns:
         - list of issue types
@@ -250,7 +258,7 @@ class AppConfigModel(object):
 
     def get_valid_issue_dispositions(self):
         """
-        Get a list of valid issue dispositions for an issue
+        Get a list of valid issue dispositions for an issue.
 
         Returns:
         - list of issue dispositions
@@ -259,7 +267,7 @@ class AppConfigModel(object):
 
     def get_valid_release_states(self):
         """
-        Get a list of valid states for a release
+        Get a list of valid states for a release.
 
         Returns:
         - list of states
@@ -271,8 +279,9 @@ class AppConfigYaml(yaml.YAMLObject):
 
     yaml_tag = u'!ditz.rubyforge.org,2008-03-06/guiconfig'
 
-    def __init__(self, window_size, default_issue_type):
+    def __init__(self, window_size, remember_window_size, default_issue_type):
         self.window_size = window_size
+        self.remember_window_size = remember_window_size
         self.default_issue_type = default_issue_type
         super(AppConfigYaml, self).__init__()
 
@@ -284,7 +293,7 @@ class AppConfigYaml(yaml.YAMLObject):
 
 class DitzProjectModel(object):
     """
-    Ditz project file content provider
+    Ditz project file content provider.
     """
     def __init__(self, project_file=None):
         """
@@ -295,7 +304,11 @@ class DitzProjectModel(object):
 
     def read_config_file(self):
         """
-        Read all project information from project.yaml file
+        Read all project information from project.yaml file.
+
+        Returns:
+        - True on success
+        - False on failure
         """
         if self.project_file == None:
             return None
@@ -303,12 +316,12 @@ class DitzProjectModel(object):
             with open(self.project_file, 'r') as stream:
                 self.project_data = yaml.load(stream)
         except Exception:
-            raise ApplicationError("Error reading project settings file")
-        return self.project_data
+            return False
+        return True
 
     def write_config_file(self):
         """
-        Write all project information to project.yaml file
+        Write all project information to project.yaml file.
 
         Returns:
         - True on success
@@ -326,7 +339,7 @@ class DitzProjectModel(object):
 
     def get_project_name(self):
         """
-        Read project name from config file
+        Read project name from config file.
 
         Returns:
         - project name
@@ -407,7 +420,7 @@ class DitzProjectModel(object):
 
     def make_release(self, release):
         """
-        Release a release
+        Release a release.
 
         Parameters:
         - release: release to release

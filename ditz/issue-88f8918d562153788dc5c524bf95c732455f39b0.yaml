@@ -1,23 +1,26 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Test ditz and ditz-gui on Windows
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-17 07:01:56.621805 Z
 desc: |-
-  Implementation of either software should not
+  Implementation of ditz-gui should not
   have anything operating system specific.
   Thus it should work on Windows as is.
   Try if it works, and make assesment for
   needed fixes if it doesn't.
-type: :task
-component: ditz-gui
-release: v0.3
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-17 07:01:56.621805 Z
-references: []
-
+disposition: ''
 id: 88f8918d562153788dc5c524bf95c732455f39b0
-log_events: 
+log_events:
 - - 2014-10-17 07:01:57.741687 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
+- - 2015-01-17 08:58:03.498989 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - There are no dependencies to Ditz commandline anymore.
+references: []
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Test ditz-gui on Windows
+type: :task

@@ -1,24 +1,17 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Reordering releases
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-14 13:43:33.630234 Z
 desc: |-
   Changing order of releases is not supported by Ditz.
   It can be implemented by modifying the content of
   project.yaml and changing the order of releases there.
-  
+
   In the GUI this should be done on the Releases-dialog
   where you can select a release, then use up/down -arrows
   to move it.
-type: :task
-component: ditz-gui
-release: v0.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: ""
-creation_time: 2014-10-14 13:43:33.630234 Z
-references: 
-- 41d5dbb1678d7a97dde0f1f26788da1689dbac42
+disposition: ''
 id: b898daf2bfafcef374f2009b3e19cfe38ab95be3
-log_events: 
+log_events:
 - - 2014-10-14 13:44:31.600328 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
@@ -53,11 +46,29 @@ log_events:
     is all it takes. The UI part is more tricky.
     Maybe 'move up' and 'move down' -buttons would
     be enough?
-    
+
     Also when adding a release, there could be an
     option to select another release that precedes
     this new release. Thus setting the order.
 - - 2015-01-16 14:49:31.460856 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.2 from v0.2.1
-  - ""
+  - ''
+- - 2015-01-16 15:40:52.563058 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Implement the functionality with a test script.
+    If that seems good, draw Up/Down -icons.
+    Then put the two together in GUI.
+- - 2015-01-16 15:41:24.416356 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - ''
+references:
+- 41d5dbb1678d7a97dde0f1f26788da1689dbac42
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+title: Reordering releases
+type: :task

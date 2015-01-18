@@ -49,9 +49,19 @@ log_events:
   - |-
     ...and the software is already capable of writing the
     project.xml.
+- - 2015-01-17 11:35:37.206866 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    A simple Yes/No -dialog would suffice for now.
+    "Ditz project not found. Would you like to initialize a new project here?"
+- - 2015-01-17 11:36:49.515108 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.1 from v0.3
+  - This could be useful.
 references:
 - ditz init command
-release: v0.3
+release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Support "ditz init"

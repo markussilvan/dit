@@ -18,9 +18,13 @@ log_events:
   - |-
     Commenting works when releases are added or edited.
     A command for just commenting a release is still needed.
+- - 2015-01-19 17:05:55.820592 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - This should be done next.
 references: []
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 title: Commenting a release
 type: :feature

@@ -21,7 +21,7 @@ from PyQt4.QtCore import SIGNAL, QModelIndex
 from common.items import DitzRelease, DitzIssue
 from common.errors import DitzError, ApplicationError
 from common.unused import unused
-from config import ConfigControl
+from config import ConfigControl, MOVE_UP, MOVE_DOWN
 from ditzcontrol import DitzControl
 from comment_dialog import CommentDialog
 from reference_dialog import ReferenceDialog
@@ -131,6 +131,10 @@ class DitzGui(QtGui.QMainWindow):
                 'Make release', self)
         self.actionRemoveRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/remove_release.png'),
                 'Remove release', self)
+        self.actionMoveUpRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/move_up_release.png'),
+                'Move release up', self)
+        self.actionMoveDownRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/move_down_release.png'),
+                'Move release down', self)
 
         self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/misc/settings.png'), 'Settings', self)
 
@@ -149,6 +153,9 @@ class DitzGui(QtGui.QMainWindow):
         self.actionEditRelease.iconVisibleInMenu = True
         self.actionMakeRelease.iconVisibleInMenu = True
         self.actionRemoveRelease.iconVisibleInMenu = True
+        self.actionMoveUpRelease.iconVisibleInMenu = True
+        self.actionMoveDownRelease.iconVisibleInMenu = True
+
         self.actionOpenSettings.iconVisibleInMenu = True
 
     def connect_actions(self):
@@ -171,6 +178,8 @@ class DitzGui(QtGui.QMainWindow):
         self.actionEditRelease.triggered.connect(self.edit_release)
         self.actionMakeRelease.triggered.connect(self.make_release)
         self.actionRemoveRelease.triggered.connect(self.remove_release)
+        self.actionMoveUpRelease.triggered.connect(self.move_release)
+        self.actionMoveDownRelease.triggered.connect(lambda: self.move_release(MOVE_DOWN))
 
         # common actions
         self.actionOpenSettings.triggered.connect(self.open_settings)
@@ -246,6 +255,8 @@ class DitzGui(QtGui.QMainWindow):
         self.actionEditRelease.setEnabled(state)
         self.actionMakeRelease.setEnabled(state)
         self.actionRemoveRelease.setEnabled(state)
+        self.actionMoveUpRelease.setEnabled(state)
+        self.actionMoveDownRelease.setEnabled(state)
 
     def center(self):
         """
@@ -308,7 +319,10 @@ class DitzGui(QtGui.QMainWindow):
             menu.addAction(self.actionEditRelease)
             menu.addAction(self.actionMakeRelease)
             menu.addAction(self.actionRemoveRelease)
-            #TODO: add issue directly to this release?
+            menu.addAction(self.actionMoveUpRelease)
+            menu.addAction(self.actionMoveDownRelease)
+            #TODO: new action to add issue directly to this release?
+            #      (or just have release selected by default)
         else:
             # empty lines
             menu.addAction(self.actionNewIssue)
@@ -336,6 +350,8 @@ class DitzGui(QtGui.QMainWindow):
         self.toolBar.addAction(self.actionEditRelease)
         self.toolBar.addAction(self.actionMakeRelease)
         self.toolBar.addAction(self.actionRemoveRelease)
+        self.toolBar.addAction(self.actionMoveUpRelease)
+        self.toolBar.addAction(self.actionMoveDownRelease)
 
         # spacer
         wide_spacer = QtGui.QWidget()
@@ -559,6 +575,15 @@ class DitzGui(QtGui.QMainWindow):
         else:
             self.config.projectconfig.write_config_file()
             self.reload_data()
+
+    def move_release(self, direction=MOVE_UP):
+        release_name = self._get_selected_release_name()
+        if release_name == None:
+            return
+        if self.config.projectconfig.move_release(release_name, direction) == False:
+            return
+        self.config.projectconfig.write_config_file()
+        self.reload_data()
 
     def open_settings(self):
         try:

@@ -16,6 +16,9 @@ from common.errors import ApplicationError
 from common.utils import fileutils
 from common.unused import unused
 
+MOVE_UP = 0
+MOVE_DOWN = 1
+
 class ConfigControl(object):
     """
     Ditz and ditz-gui configuration settings provider
@@ -459,6 +462,38 @@ class DitzProjectModel(object):
             if rel["name"] == release_name:
                 self.project_data.releases.remove(rel)
                 return True
+        return False
+
+    def move_release(self, release_name, direction):
+        """
+        Move release up or down changing its place in the queue.
+
+        Releases position can be considered its priority.
+
+        Parameters:
+        - release_name: name of the release to remove
+        - direction: MOVE_UP (higher priority) or MOVE_DOWN (lower priority)
+
+        Returns:
+        - True if release was moved
+        - False if release was not found
+        """
+        for rel in self.project_data.releases:
+            if rel["name"] == release_name:
+                rels = self.project_data.releases
+                current = rels.index(rel)
+                if direction == MOVE_UP:
+                    if current > 0:
+                        rels[current-1], rels[current] = rels[current], rels[current-1]
+                        return True
+                    else:
+                        return False
+                elif direction == MOVE_DOWN:
+                    if current < len(rels) - 1:
+                        rels[current+1], rels[current] = rels[current], rels[current+1]
+                        return True
+                    else:
+                        return False
         return False
 
     def _release_status_to_string(self, status):

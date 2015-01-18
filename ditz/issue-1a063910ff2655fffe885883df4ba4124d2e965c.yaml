@@ -17,8 +17,12 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.2.1 from v0.2
   - This is lower priority than functionality for handling releases.
+- - 2015-01-17 11:37:59.958487 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.4 from v0.2.1
+  - More work than it's worth. More important features to do first.
 references: []
-release: v0.2.1
+release: v0.4
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Showing a global status line

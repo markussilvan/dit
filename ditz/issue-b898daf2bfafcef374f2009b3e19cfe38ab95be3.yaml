@@ -6,10 +6,11 @@ desc: |-
   It can be implemented by modifying the content of
   project.yaml and changing the order of releases there.
 
-  In the GUI this should be done on the Releases-dialog
-  where you can select a release, then use up/down -arrows
-  to move it.
-disposition: ''
+  In the GUI this should be done on the main window
+  where you can select a release, then use up/down -actions
+  to move it. Actions should be available in the context menu
+  and maybe on the toolbar.
+disposition: fixed
 id: b898daf2bfafcef374f2009b3e19cfe38ab95be3
 log_events:
 - - 2014-10-14 13:44:31.600328 Z
@@ -65,10 +66,31 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - status changed from unstarted to in progress
   - ''
+- - 2015-01-18 20:48:08.019586 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Up/Down icons added.
+    Now create actions for up/down (and commenting releases while at it). Then use a test script to implement the actual
+    functionality. And then put the two together.
+- - 2015-01-18 20:50:07.675932 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2015-01-19 15:16:40.662525 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Implementation for moving releases done.
+    Test script added to testing branch.
+- - 2015-01-19 17:05:31.876170 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Done.
 references:
 - 41d5dbb1678d7a97dde0f1f26788da1689dbac42
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
+status: :closed
 title: Reordering releases
 type: :task

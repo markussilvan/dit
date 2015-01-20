@@ -1,0 +1,27 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Action to add issue directly to a selected release
+desc: |-
+  If a release is selected from the main list view,
+  there could be an option to add a new issue directly
+  to that release. There also is an option to add a new
+  issue already. If that is done when a release it selected,
+  it could do this without any extra hassle.
+  Then the current release would be selected by default
+  on the IssueDialog when adding a new issue.
+type: :feature
+component: ditz-gui
+release: v0.3.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-20 08:32:16.167393 Z
+references: []
+
+id: f7d87c7509b9253451d281a9e8ec81c35ecc6afe
+log_events: 
+- - 2015-01-20 08:32:38.231931 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    I prefer the latter option. It's actually feasible.
+    The first option seems stupid.

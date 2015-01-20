@@ -14,7 +14,6 @@ from yamlconfig import YamlConfig
 from common.items import DitzRelease
 from common.errors import ApplicationError
 from common.utils import fileutils
-from common.unused import unused
 
 MOVE_UP = 0
 MOVE_DOWN = 1

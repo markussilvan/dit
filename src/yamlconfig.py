@@ -25,7 +25,7 @@ class YamlConfig(object):
         yaml.add_representer(datetime.datetime, YamlConfig.datetime_representer)
 
     @staticmethod
-    def str_representer(self, data):
+    def str_representer(dumper, data):
         tag = None
         if '\n' in data:
             style = '|'
@@ -41,7 +41,7 @@ class YamlConfig(object):
                 data = data.encode('base64')
                 tag = u'tag:yaml.org,2002:binary'
                 style = '|'
-        return self.represent_scalar(tag, data, style=style)
+        return dumper.represent_scalar(tag, data, style=style)
 
     @staticmethod
     def datetime_representer(dumper, data):

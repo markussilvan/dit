@@ -1,17 +1,24 @@
---- !ditz.rubyforge.org,2008-03-06/issue
-component: ditz-gui
-creation_time: 2015-01-06 20:32:49.009346 Z
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Commenting a release
 desc: |-
   Releases have the same comment system as issues.
   So why not add a mechanism to comment releases.
   This is a common feature in bigger systems.
-disposition: ''
+type: :feature
+component: ditz-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+disposition: ""
+creation_time: 2015-01-06 20:32:49.009346 Z
+references: []
+
 id: 44adcbf2b0cc8d7b874929e1b97d46980af28b46
-log_events:
+log_events: 
 - - 2015-01-06 20:32:49.010484 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ''
+  - ""
 - - 2015-01-12 16:11:36.645514 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -22,9 +29,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - status changed from unstarted to in progress
   - This should be done next.
-references: []
-release: v0.2
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-title: Commenting a release
-type: :feature
+- - 2015-01-19 21:39:08.069078 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    An ugly icon for commenting has been added already.
+    Create an action for it to see what it really looks like.
+    Implement commenting using a testing script first?

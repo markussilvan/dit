@@ -71,22 +71,7 @@ class DitzGui(QtGui.QMainWindow):
 
         self.reload_data()
 
-        self.actionCommentIssue = None
-        self.actionStartWork = None
-        self.actionStopWork = None
-        self.actionAddReference = None
-        self.actionEditIssue = None
-        self.actionNewIssue = None
-        self.actionCloseIssue = None
-        self.actionDropIssue = None
-        self.actionAssignIssue = None
-
-        self.actionNewRelease = None
-        self.actionEditRelease = None
-        self.actionMakeRelease = None
-        self.actionRemoveRelease = None
-
-        self.actionOpenSettings = None
+        self.actions = {}
 
         self.create_actions()
         self.connect_actions()
@@ -111,78 +96,86 @@ class DitzGui(QtGui.QMainWindow):
         """
         Create action objects
         """
-        self.actionNewIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/new.png'), 'New Issue', self)
-        self.actionEditIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/edit.png'), 'Edit Issue', self)
-        self.actionCommentIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/comment.png'), 'Comment Issue', self)
-        self.actionStartWork = QtGui.QAction(QtGui.QIcon('../graphics/issue/start.png'), 'Start working', self)
-        self.actionStopWork = QtGui.QAction(QtGui.QIcon('../graphics/issue/stop.png'), 'Stop working', self)
-        self.actionCloseIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/close.png'), 'Close issue', self)
-        self.actionDropIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/drop.png'), 'Drop issue', self)
-        self.actionAssignIssue = QtGui.QAction(QtGui.QIcon('../graphics/issue/assign.png'),
+        self.actions['new_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/new.png'),
+                'New Issue', self)
+        self.actions['edit_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/edit.png'),
+                'Edit Issue', self)
+        self.actions['comment_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/comment.png'),
+                'Comment Issue', self)
+        self.actions['start_work'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/start.png'),
+                'Start working', self)
+        self.actions['stop_work'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/stop.png'),
+                'Stop working', self)
+        self.actions['close_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/close.png'),
+                'Close issue', self)
+        self.actions['drop_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/drop.png'),
+                'Drop issue', self)
+        self.actions['assign_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/assign.png'),
                 'Assign Issue to a release', self)
-        self.actionAddReference = QtGui.QAction(QtGui.QIcon('../graphics/issue/add_reference.png'),
-                'Add reference', self)
+        self.actions['add_reference'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/issue/add_reference.png'), 'Add reference', self)
 
-        self.actionNewRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/new_release.png'),
-               'Add release', self)
-        self.actionEditRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/edit_release.png'),
-               'Edit release', self)
-        self.actionMakeRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/make_release.png'),
-                'Make release', self)
-        self.actionRemoveRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/remove_release.png'),
-                'Remove release', self)
-        self.actionMoveUpRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/move_up_release.png'),
-                'Move release up', self)
-        self.actionMoveDownRelease = QtGui.QAction(QtGui.QIcon('../graphics/release/move_down_release.png'),
-                'Move release down', self)
+        self.actions['new_release'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/release/new_release.png'), 'Add release', self)
+        self.actions['edit_release'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/release/edit_release.png'), 'Edit release', self)
+        self.actions['make_release'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/release/make_release.png'), 'Make release', self)
+        self.actions['remove_release'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/release/remove_release.png'), 'Remove release', self)
+        self.actions['move_up_release'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/release/move_up_release.png'), 'Move release up', self)
+        self.actions['move_down_release'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/release/move_down_release.png'), 'Move release down', self)
 
-        self.actionOpenSettings = QtGui.QAction(QtGui.QIcon('../graphics/misc/settings.png'), 'Settings', self)
+        self.actions['open_settings'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/misc/settings.png'), 'Settings', self)
 
         # icons visible in custom context menu of items list view
-        self.actionNewIssue.iconVisibleInMenu = True
-        self.actionEditIssue.iconVisibleInMenu = True
-        self.actionCommentIssue.iconVisibleInMenu = True
-        self.actionStartWork.iconVisibleInMenu = True
-        self.actionStopWork.iconVisibleInMenu = True
-        self.actionCloseIssue.iconVisibleInMenu = True
-        self.actionDropIssue.iconVisibleInMenu = True
-        self.actionAssignIssue.iconVisibleInMenu = True
-        self.actionAddReference.iconVisibleInMenu = True
+        self.actions['new_issue'].iconVisibleInMenu = True
+        self.actions['edit_issue'].iconVisibleInMenu = True
+        self.actions['comment_issue'].iconVisibleInMenu = True
+        self.actions['start_work'].iconVisibleInMenu = True
+        self.actions['stop_work'].iconVisibleInMenu = True
+        self.actions['close_issue'].iconVisibleInMenu = True
+        self.actions['drop_issue'].iconVisibleInMenu = True
+        self.actions['assign_issue'].iconVisibleInMenu = True
+        self.actions['add_reference'].iconVisibleInMenu = True
 
-        self.actionNewRelease.iconVisibleInMenu = True
-        self.actionEditRelease.iconVisibleInMenu = True
-        self.actionMakeRelease.iconVisibleInMenu = True
-        self.actionRemoveRelease.iconVisibleInMenu = True
-        self.actionMoveUpRelease.iconVisibleInMenu = True
-        self.actionMoveDownRelease.iconVisibleInMenu = True
+        self.actions['new_release'].iconVisibleInMenu = True
+        self.actions['edit_release'].iconVisibleInMenu = True
+        self.actions['make_release'].iconVisibleInMenu = True
+        self.actions['remove_release'].iconVisibleInMenu = True
+        self.actions['move_up_release'].iconVisibleInMenu = True
+        self.actions['move_down_release'].iconVisibleInMenu = True
 
-        self.actionOpenSettings.iconVisibleInMenu = True
+        self.actions['open_settings'].iconVisibleInMenu = True
 
     def connect_actions(self):
         """
         Connect actions to slots
         """
         # issue related actions
-        self.actionNewIssue.triggered.connect(self.new_issue)
-        self.actionEditIssue.triggered.connect(self.edit_issue)
-        self.actionCommentIssue.triggered.connect(self.comment_issue)
-        self.actionStartWork.triggered.connect(self.start_work)
-        self.actionStopWork.triggered.connect(self.stop_work)
-        self.actionCloseIssue.triggered.connect(self.close_issue)
-        self.actionDropIssue.triggered.connect(self.drop_issue)
-        self.actionAssignIssue.triggered.connect(self.assign_issue)
-        self.actionAddReference.triggered.connect(self.add_reference)
+        self.actions['new_issue'].triggered.connect(self.new_issue)
+        self.actions['edit_issue'].triggered.connect(self.edit_issue)
+        self.actions['comment_issue'].triggered.connect(self.comment_issue)
+        self.actions['start_work'].triggered.connect(self.start_work)
+        self.actions['stop_work'].triggered.connect(self.stop_work)
+        self.actions['close_issue'].triggered.connect(self.close_issue)
+        self.actions['drop_issue'].triggered.connect(self.drop_issue)
+        self.actions['assign_issue'].triggered.connect(self.assign_issue)
+        self.actions['add_reference'].triggered.connect(self.add_reference)
 
         # release related actions
-        self.actionNewRelease.triggered.connect(self.new_release)
-        self.actionEditRelease.triggered.connect(self.edit_release)
-        self.actionMakeRelease.triggered.connect(self.make_release)
-        self.actionRemoveRelease.triggered.connect(self.remove_release)
-        self.actionMoveUpRelease.triggered.connect(self.move_release)
-        self.actionMoveDownRelease.triggered.connect(lambda: self.move_release(MOVE_DOWN))
+        self.actions['new_release'].triggered.connect(self.new_release)
+        self.actions['edit_release'].triggered.connect(self.edit_release)
+        self.actions['make_release'].triggered.connect(self.make_release)
+        self.actions['remove_release'].triggered.connect(self.remove_release)
+        self.actions['move_up_release'].triggered.connect(self.move_release)
+        self.actions['move_down_release'].triggered.connect(lambda: self.move_release(MOVE_DOWN))
 
         # common actions
-        self.actionOpenSettings.triggered.connect(self.open_settings)
+        self.actions['open_settings'].triggered.connect(self.open_settings)
 
         # connect qt creator created actions
         self.actionReload.triggered.connect(self.reload_data)
@@ -203,15 +196,15 @@ class DitzGui(QtGui.QMainWindow):
         Simple shortcuts for common actions to make the software usable
         using only a keyboard.
         """
-        self.actionNewIssue.setShortcut('N')
-        self.actionEditIssue.setShortcut('E')
-        self.actionCommentIssue.setShortcut('C')
-        self.actionStartWork.setShortcut('S')
-        self.actionStopWork.setShortcut('S')
-        self.actionCloseIssue.setShortcut('L')
-        self.actionDropIssue.setShortcut('D')
-        self.actionAssignIssue.setShortcut('A')
-        self.actionAddReference.setShortcut('R')
+        self.actions['new_issue'].setShortcut('N')
+        self.actions['edit_issue'].setShortcut('E')
+        self.actions['comment_issue'].setShortcut('C')
+        self.actions['start_work'].setShortcut('S')
+        self.actions['stop_work'].setShortcut('S')
+        self.actions['close_issue'].setShortcut('L')
+        self.actions['drop_issue'].setShortcut('D')
+        self.actions['assign_issue'].setShortcut('A')
+        self.actions['add_reference'].setShortcut('R')
 
     def enable_valid_actions(self):
         """
@@ -238,25 +231,25 @@ class DitzGui(QtGui.QMainWindow):
         #self.actionOpenSettings.setEnabled(True)
 
     def _set_issue_actions(self, state, start_state=True):
-        self.actionEditIssue.setEnabled(state)
-        self.actionCommentIssue.setEnabled(state)
+        self.actions['edit_issue'].setEnabled(state)
+        self.actions['comment_issue'].setEnabled(state)
         if state == True:
-            self.actionStartWork.setEnabled(start_state)
-            self.actionStopWork.setEnabled(not start_state)
+            self.actions['start_work'].setEnabled(start_state)
+            self.actions['stop_work'].setEnabled(not start_state)
         else:
-            self.actionStartWork.setEnabled(state)
-            self.actionStopWork.setEnabled(state)
-        self.actionCloseIssue.setEnabled(state)
-        self.actionDropIssue.setEnabled(state)
-        self.actionAssignIssue.setEnabled(state)
-        self.actionAddReference.setEnabled(state)
+            self.actions['start_work'].setEnabled(state)
+            self.actions['stop_work'].setEnabled(state)
+        self.actions['close_issue'].setEnabled(state)
+        self.actions['drop_issue'].setEnabled(state)
+        self.actions['assign_issue'].setEnabled(state)
+        self.actions['add_reference'].setEnabled(state)
 
     def _set_release_actions(self, state):
-        self.actionEditRelease.setEnabled(state)
-        self.actionMakeRelease.setEnabled(state)
-        self.actionRemoveRelease.setEnabled(state)
-        self.actionMoveUpRelease.setEnabled(state)
-        self.actionMoveDownRelease.setEnabled(state)
+        self.actions['edit_release'].setEnabled(state)
+        self.actions['make_release'].setEnabled(state)
+        self.actions['remove_release'].setEnabled(state)
+        self.actions['move_up_release'].setEnabled(state)
+        self.actions['move_down_release'].setEnabled(state)
 
     def center(self):
         """
@@ -272,23 +265,36 @@ class DitzGui(QtGui.QMainWindow):
         release = self._get_selected_release_name()
 
         if issue:
-            self.actionEditIssue.setText('Edit ' + issue.name)
-            self.actionCommentIssue.setText('Comment ' + issue.name)
-            self.actionStartWork.setText('Start working on ' + issue.name)
-            self.actionStopWork.setText('Stop work on ' + issue.name)
-            self.actionCloseIssue.setText('Close ' + issue.name)
-            self.actionDropIssue.setText('Drop ' + issue.name)
-            self.actionAssignIssue.setText('Assign issue ' + issue.name + ' to a release')
-            self.actionAddReference.setText('Add reference to ' + issue.name)
+            self.actions['edit_issue'].setText('Edit ' + issue.name)
+            self.actions['comment_issue'].setText('Comment ' + issue.name)
+            self.actions['start_work'].setText('Start working on ' + issue.name)
+            self.actions['stop_work'].setText('Stop work on ' + issue.name)
+            self.actions['close_issue'].setText('Close ' + issue.name)
+            self.actions['drop_issue'].setText('Drop ' + issue.name)
+            self.actions['assign_issue'].setText('Assign issue ' + issue.name + ' to a release')
+            self.actions['add_reference'].setText('Add reference to ' + issue.name)
         else:
-            self.actionEditIssue.setText('Edit issue')
-            self.actionCommentIssue.setText('Comment issue')
-            self.actionStartWork.setText('Start working')
-            self.actionStopWork.setText('Stop working')
-            self.actionCloseIssue.setText('Close issue')
-            self.actionDropIssue.setText('Drop issue')
-            self.actionAssignIssue.setText('Assign issue to a release')
-            self.actionAddReference.setText('Add reference')
+            self.actions['edit_issue'].setText('Edit issue')
+            self.actions['comment_issue'].setText('Comment issue')
+            self.actions['start_work'].setText('Start working')
+            self.actions['stop_work'].setText('Stop working')
+            self.actions['close_issue'].setText('Close issue')
+            self.actions['drop_issue'].setText('Drop issue')
+            self.actions['assign_issue'].setText('Assign issue to a release')
+            self.actions['add_reference'].setText('Add reference')
+
+        if release and release != "":
+            self.actions['edit_release'].setText('Edit release ' + release)
+            self.actions['make_release'].setText('Release ' + release)
+            self.actions['remove_release'].setText('Remove release ' + release)
+            self.actions['move_up_release'].setText('Move up ' + release)
+            self.actions['move_down_release'].setText('Move down ' + release)
+        else:
+            self.actions['edit_release'].setText('Edit release')
+            self.actions['make_release'].setText('Make release')
+            self.actions['remove_release'].setText('Remove release')
+            self.actions['move_up_release'].setText('Move release up')
+            self.actions['move_down_release'].setText('Move release down')
 
     def context_menu(self):
         # pylint: disable=W0108
@@ -301,43 +307,41 @@ class DitzGui(QtGui.QMainWindow):
         if issue:
             self.update_action_texts()
 
-            menu.addAction(self.actionNewIssue)
-            menu.addAction(self.actionEditIssue)
-            menu.addAction(self.actionCommentIssue)
-            menu.addAction(self.actionAddReference)
+            menu.addAction(self.actions['new_issue'])
+            menu.addAction(self.actions['edit_issue'])
+            menu.addAction(self.actions['comment_issue'])
+            menu.addAction(self.actions['add_reference'])
             if issue.status != "in progress" and issue.status != "started":
-                menu.addAction(self.actionStartWork)
+                menu.addAction(self.actions['start_work'])
             else:
-                menu.addAction(self.actionStopWork)
-            menu.addAction(self.actionCloseIssue)
-            menu.addAction(self.actionDropIssue)
-            menu.addAction(self.actionAssignIssue)
-            menu.addAction(self.actionNewRelease)
+                menu.addAction(self.actions['stop_work'])
+            menu.addAction(self.actions['close_issue'])
+            menu.addAction(self.actions['drop_issue'])
+            menu.addAction(self.actions['assign_issue'])
+            menu.addAction(self.actions['new_release'])
         elif release:
-            menu.addAction(self.actionNewIssue)
-            menu.addAction(self.actionNewRelease)
-            menu.addAction(self.actionEditRelease)
-            menu.addAction(self.actionMakeRelease)
-            menu.addAction(self.actionRemoveRelease)
-            menu.addAction(self.actionMoveUpRelease)
-            menu.addAction(self.actionMoveDownRelease)
-            #TODO: new action to add issue directly to this release?
-            #      (or just have release selected by default)
+            menu.addAction(self.actions['new_issue'])
+            menu.addAction(self.actions['new_release'])
+            menu.addAction(self.actions['edit_release'])
+            menu.addAction(self.actions['make_release'])
+            menu.addAction(self.actions['remove_release'])
+            menu.addAction(self.actions['move_up_release'])
+            menu.addAction(self.actions['move_down_release'])
         else:
-            # empty lines
-            menu.addAction(self.actionNewIssue)
+            # empty line selected
+            menu.addAction(self.actions['new_issue'])
 
         menu.exec_(QtGui.QCursor.pos())
 
     def build_toolbar_menu(self):
         # issue actions
-        self.toolBar.addAction(self.actionNewIssue)
-        self.toolBar.addAction(self.actionEditIssue)
-        self.toolBar.addAction(self.actionCommentIssue)
-        self.toolBar.addAction(self.actionStartWork)
-        self.toolBar.addAction(self.actionStopWork)
-        self.toolBar.addAction(self.actionCloseIssue)
-        self.toolBar.addAction(self.actionDropIssue)
+        self.toolBar.addAction(self.actions['new_issue'])
+        self.toolBar.addAction(self.actions['edit_issue'])
+        self.toolBar.addAction(self.actions['comment_issue'])
+        self.toolBar.addAction(self.actions['start_work'])
+        self.toolBar.addAction(self.actions['stop_work'])
+        self.toolBar.addAction(self.actions['close_issue'])
+        self.toolBar.addAction(self.actions['drop_issue'])
 
         # spacer
         spacer = QtGui.QWidget()
@@ -346,12 +350,12 @@ class DitzGui(QtGui.QMainWindow):
         self.toolBar.addWidget(spacer)
 
         # release actions
-        self.toolBar.addAction(self.actionNewRelease)
-        self.toolBar.addAction(self.actionEditRelease)
-        self.toolBar.addAction(self.actionMakeRelease)
-        self.toolBar.addAction(self.actionRemoveRelease)
-        self.toolBar.addAction(self.actionMoveUpRelease)
-        self.toolBar.addAction(self.actionMoveDownRelease)
+        self.toolBar.addAction(self.actions['new_release'])
+        self.toolBar.addAction(self.actions['edit_release'])
+        self.toolBar.addAction(self.actions['make_release'])
+        self.toolBar.addAction(self.actions['remove_release'])
+        self.toolBar.addAction(self.actions['move_up_release'])
+        self.toolBar.addAction(self.actions['move_down_release'])
 
         # spacer
         wide_spacer = QtGui.QWidget()
@@ -359,7 +363,7 @@ class DitzGui(QtGui.QMainWindow):
         self.toolBar.addWidget(wide_spacer)
 
         # other common actions
-        self.toolBar.addAction(self.actionOpenSettings)
+        self.toolBar.addAction(self.actions['open_settings'])
 
     def reload_data(self, ditz_id=None):
         data = self.ditz.get_items()

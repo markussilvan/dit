@@ -77,15 +77,28 @@ releases:
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - 2nd version with more features added.
+  - - 2015-01-20 16:57:37.624600 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - released
+    - |-
+      Functionality for handling releases implemented.
+      Things are coming along nicely.
   name: v0.2
-  release_time: null
-  status: :unreleased
+  release_time: '2015-01-20 16:57:37.624634 Z'
+  status: :released
 - !ditz.rubyforge.org,2008-03-06/release
   log_events:
   - - 2015-01-13 16:55:13.898756 Z
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - First bugfix release for 0.2 branch.
+  - - 2015-01-20 16:59:42.032415 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - commented
+    - |-
+      There must be lots of bugs left in current implementation.
+      A lot of functionality has been implemented with minimal testing.
+      This release is just to fix bugs and improve usability.
   name: v0.2.1
   release_time: ''
   status: :unreleased

@@ -579,7 +579,8 @@ class DitzGui(QtGui.QMainWindow):
         release_name = self._get_selected_release_name()
         if release_name == None:
             return
-        if not self.ditz.can_be_released(release_name):
+        issues = self.ditz.get_issues_by_release(release_name)
+        if len(issues) > 0:
             error = "Release '{}' can't be released.\nRelease has open tasks.".format(release_name)
             QtGui.QMessageBox.warning(self, "Ditz error", error)
             return

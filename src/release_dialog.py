@@ -77,6 +77,9 @@ class ReleaseDialog(QtGui.QDialog):
         # save changes
         if old_title and old_title != self.release.title:
             self.ditz.config.projectconfig.set_release(self.release, old_name=old_title)
+            issues = self.ditz.get_issues_by_release(old_title)
+            for issue in issues:
+                self.ditz.assign_issue(issue.identifier, self.release.title, 'Release renamed.')
         else:
             self.ditz.config.projectconfig.set_release(self.release)
         self.ditz.config.projectconfig.write_config_file()

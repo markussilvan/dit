@@ -172,21 +172,17 @@ class DitzControl(object):
         """
         return self.item_cache.get_issue_name_max_len()
 
-    def can_be_released(self, release_name):
+    def get_issues_by_release(self, release_name):
         """
-        Check if release is in a state to be released.
+        Get all issues from cache assigned to a given release.
 
         Parameters:
-        - release_name: name of the release to check
+        - release_name: name of the release
 
         Returns:
-        - True if release is ready to be released
-        - False if not
+        - list of DitzIssues
         """
-        issues = self.item_cache.get_issues_by_release(release_name)
-        if len(issues) > 0:
-            return False
-        return True
+        return self.item_cache.get_issues_by_release(release_name)
 
     def add_issue(self, issue, comment=''):
         """
@@ -340,7 +336,7 @@ class DitzControl(object):
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue
-        - release: which release to assign the issue
+        - release: name of the release to which to assign the issue
         - comment: (optional) comment text, no formatting, to add to the issue
 
         Raises:

@@ -1,40 +1,48 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Archiving a release
-desc: |-
-  I don't even know what this is supposed to do.
-  Needs to be implemented anyway.
-  UPDATE: Archive is needed to get rid of old
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-07 18:23:55.954864 Z
+desc: |
+  Archive is needed to get rid of old
   ticket files for "closed" releases.
   Ditz gets slow really fast when amount of tickets
-  is growing.
-  
-  Functionality itself is simple. Select a release
+  is growing. (Ditz-gui doesn't have this problem.)
+
+  Ditz functionality itself is simple. Select a release
   and directory where to archive. But implementation
   is fragile. Path may not exist in advance, it can
   only create one directory, ending slash must be
   given(?), etc
-  
+
+  It seems to copy current project.yaml and move all issues
+  of the archived release to a given directory. Check that this
+  is what it really does.
+
   Write some sort of implementation for this
   that preferably recognizes errors.
   Also would be nice if the changed files
-  could be automatically added to git index.
-  (If so selected from settings.)
-type: :task
-component: ditz-gui
-release: v0.3
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-07 18:23:55.954864 Z
-references: []
-
+  could be automatically added to git index
+  (if such settings is enabled from settings),
+  but that is an another task.
+disposition: ''
 id: 7033f6a62f0f45079b161c97b93dbdc3e61770d4
-log_events: 
+log_events:
 - - 2014-10-07 18:23:56.787205 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
 - - 2014-10-16 21:03:14.011469 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - edited description
-  - ""
+  - ''
+- - 2015-01-20 17:22:21.977015 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - |-
+    This is also useful and should be implemented.
+    Maybe even before git functionality.
+references: []
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Archiving a release
+type: :task

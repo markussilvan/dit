@@ -117,6 +117,10 @@ releases:
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - A feature complete release.
+  - - 2015-01-20 17:12:15.404783 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - commented
+    - Main goal for this release is to add features for git interaction.
   name: v0.3
   release_time: null
   status: :unreleased

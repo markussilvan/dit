@@ -10,8 +10,8 @@ type: :bugfix
 component: ditz-gui
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: ""
+status: :closed
+disposition: :fixed
 creation_time: 2015-01-13 17:34:28.250521 Z
 references: []
 
@@ -28,3 +28,10 @@ log_events:
     Ditz commandline won't allow making a release
     if it contains open issues. This could be a reason
     why Ditz doesn't support renaming of releases.
+- - 2015-01-20 15:00:36.146186 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Issues are now assigned to the renamed release.
+    A comment is automatically added to each release.
+    Maybe a confirmation dialog should be added?

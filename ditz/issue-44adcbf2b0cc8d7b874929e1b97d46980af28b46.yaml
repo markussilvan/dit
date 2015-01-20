@@ -8,8 +8,8 @@ type: :feature
 component: ditz-gui
 release: v0.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
-disposition: ""
+status: :closed
+disposition: :fixed
 creation_time: 2015-01-06 20:32:49.009346 Z
 references: []
 
@@ -36,3 +36,10 @@ log_events:
     An ugly icon for commenting has been added already.
     Create an action for it to see what it really looks like.
     Implement commenting using a testing script first?
+- - 2015-01-20 12:49:57.745872 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    This was easy.
+    Can be refactored later to have the beef inside config
+    instead of doing any extra stuff in the UI code.

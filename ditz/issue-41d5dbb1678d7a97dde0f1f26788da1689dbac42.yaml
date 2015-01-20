@@ -6,7 +6,7 @@ desc: |-
   After that implementation is trivial.
 type: :task
 component: ditz-gui
-release: v0.2
+release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 disposition: 
@@ -25,3 +25,7 @@ log_events:
   - |-
     These two tasks are related. Implementing sorting
     for releases and reordering releases.
+- - 2015-01-20 12:56:07.200195 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.1 from v0.2
+  - ""

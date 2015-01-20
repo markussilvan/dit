@@ -119,6 +119,8 @@ class DitzGui(QtGui.QMainWindow):
                 QtGui.QIcon('../graphics/release/new_release.png'), 'Add release', self)
         self.actions['edit_release'] = QtGui.QAction(
                 QtGui.QIcon('../graphics/release/edit_release.png'), 'Edit release', self)
+        self.actions['comment_release'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/release/comment_release.png'), 'Comment release', self)
         self.actions['make_release'] = QtGui.QAction(
                 QtGui.QIcon('../graphics/release/make_release.png'), 'Make release', self)
         self.actions['remove_release'] = QtGui.QAction(
@@ -144,6 +146,7 @@ class DitzGui(QtGui.QMainWindow):
 
         self.actions['new_release'].iconVisibleInMenu = True
         self.actions['edit_release'].iconVisibleInMenu = True
+        self.actions['comment_release'].iconVisibleInMenu = True
         self.actions['make_release'].iconVisibleInMenu = True
         self.actions['remove_release'].iconVisibleInMenu = True
         self.actions['move_up_release'].iconVisibleInMenu = True
@@ -169,6 +172,7 @@ class DitzGui(QtGui.QMainWindow):
         # release related actions
         self.actions['new_release'].triggered.connect(self.new_release)
         self.actions['edit_release'].triggered.connect(self.edit_release)
+        self.actions['comment_release'].triggered.connect(self.comment_release)
         self.actions['make_release'].triggered.connect(self.make_release)
         self.actions['remove_release'].triggered.connect(self.remove_release)
         self.actions['move_up_release'].triggered.connect(self.move_release)
@@ -246,6 +250,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def _set_release_actions(self, state):
         self.actions['edit_release'].setEnabled(state)
+        self.actions['comment_release'].setEnabled(state)
         self.actions['make_release'].setEnabled(state)
         self.actions['remove_release'].setEnabled(state)
         self.actions['move_up_release'].setEnabled(state)
@@ -285,12 +290,14 @@ class DitzGui(QtGui.QMainWindow):
 
         if release and release != "":
             self.actions['edit_release'].setText('Edit release ' + release)
+            self.actions['comment_release'].setText('Comment release ' + release)
             self.actions['make_release'].setText('Release ' + release)
             self.actions['remove_release'].setText('Remove release ' + release)
             self.actions['move_up_release'].setText('Move up ' + release)
             self.actions['move_down_release'].setText('Move down ' + release)
         else:
             self.actions['edit_release'].setText('Edit release')
+            self.actions['comment_release'].setText('Comment release')
             self.actions['make_release'].setText('Make release')
             self.actions['remove_release'].setText('Remove release')
             self.actions['move_up_release'].setText('Move release up')
@@ -323,6 +330,7 @@ class DitzGui(QtGui.QMainWindow):
             menu.addAction(self.actions['new_issue'])
             menu.addAction(self.actions['new_release'])
             menu.addAction(self.actions['edit_release'])
+            menu.addAction(self.actions['comment_release'])
             menu.addAction(self.actions['make_release'])
             menu.addAction(self.actions['remove_release'])
             menu.addAction(self.actions['move_up_release'])
@@ -352,6 +360,7 @@ class DitzGui(QtGui.QMainWindow):
         # release actions
         self.toolBar.addAction(self.actions['new_release'])
         self.toolBar.addAction(self.actions['edit_release'])
+        self.toolBar.addAction(self.actions['comment_release'])
         self.toolBar.addAction(self.actions['make_release'])
         self.toolBar.addAction(self.actions['remove_release'])
         self.toolBar.addAction(self.actions['move_up_release'])
@@ -547,6 +556,21 @@ class DitzGui(QtGui.QMainWindow):
         dialog = ReleaseDialog(self.ditz)
         release = dialog.edit_release(release_name)
         if release:
+            self.reload_data()
+
+    def comment_release(self):
+        release_name = self._get_selected_release_name()
+        if release_name == None:
+            return
+        title = 'Comment release {}'.format(release_name)
+        dialog = CommentDialog(self.ditz, None, title=title)
+        comment = dialog.ask_comment()
+        if comment != None:
+            settings = self.config.get_ditz_configs()
+            creator = '{} <{}>'.format(settings.name, settings.email)
+            release = self.ditz.get_release_from_cache(release_name)
+            release.add_log_entry(None, 'commented', creator, comment)
+            self.config.projectconfig.write_config_file()
             self.reload_data()
 
     def make_release(self):

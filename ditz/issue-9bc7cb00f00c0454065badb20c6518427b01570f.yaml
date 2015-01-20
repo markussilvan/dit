@@ -26,3 +26,13 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2015-01-20 12:53:36.730563 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Currently making a release or commenting a release
+    (at least) ask a comment from the user and then
+    modify the release object.
+    These should instead give the comment as parameter
+    to config, where changes to releases should be
+    encapsulated.

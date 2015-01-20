@@ -124,6 +124,20 @@ class ConfigControl(object):
         """
         return self.appconfig.get_valid_release_states()
 
+    def get_default_creator(self):
+        """
+        Get a string to use as a default creator for issues and release.
+
+        Returns:
+        - default creator
+        """
+        try:
+            settings = self.get_ditz_configs()
+            creator = '{} <{}>'.format(settings.name, settings.email)
+        except KeyError:
+            return ''
+        return creator
+
 
 class DitzConfigModel(object):
     """
@@ -425,7 +439,7 @@ class DitzProjectModel(object):
         Release a release.
 
         Parameters:
-        - release: release to release
+        - release: release (a DitzRelease) to release
         """
         if release == None:
             return

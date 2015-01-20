@@ -442,8 +442,7 @@ class DitzControl(object):
         - action: title describing what was done
         - comment: (optional) a comment to the log, empty by default
         """
-        settings = self.config.get_ditz_configs()
-        creator = '{} <{}>'.format(settings.name, settings.email)
+        creator = self.config.get_default_creator()
         issue.add_log_entry(None, action, creator, comment)
 
 

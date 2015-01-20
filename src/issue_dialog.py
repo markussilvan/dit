@@ -58,13 +58,8 @@ class IssueDialog(QtGui.QDialog):
         for release in self.ditz.config.get_releases('unreleased', True):
             self.widgetForm.comboBoxRelease.addItem(release)
 
-        try:
-            default_creator = "{} <{}>".format(settings.name, settings.email)
-        except KeyError:
-            # leave creator field empty
-            pass
-        else:
-            self.widgetForm.lineEditCreator.setText(default_creator)
+        default_creator = self.ditz.config.get_default_creator()
+        self.widgetForm.lineEditCreator.setText(default_creator)
 
         self._connect_actions()
 

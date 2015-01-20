@@ -71,7 +71,7 @@ class ReleaseDialog(QtGui.QDialog):
             comment = ''
 
         settings = self.ditz.config.get_ditz_configs()
-        creator = '{} <{}>'.format(settings.name, settings.email)
+        creator = self.ditz.config.get_default_creator()
         self.release.add_log_entry(None, action, creator, comment)
 
         # save changes

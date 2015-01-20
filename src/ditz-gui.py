@@ -566,10 +566,12 @@ class DitzGui(QtGui.QMainWindow):
         dialog = CommentDialog(self.ditz, None, title=title)
         comment = dialog.ask_comment()
         if comment != None:
-            settings = self.config.get_ditz_configs()
-            creator = '{} <{}>'.format(settings.name, settings.email)
             release = self.ditz.get_release_from_cache(release_name)
+            if not release:
+                raise ApplicationError("Release not found")
+            creator = self.config.get_default_creator()
             release.add_log_entry(None, 'commented', creator, comment)
+            self.config.projectconfig.set_release(release)
             self.config.projectconfig.write_config_file()
             self.reload_data()
 
@@ -585,9 +587,10 @@ class DitzGui(QtGui.QMainWindow):
         dialog = CommentDialog(self.ditz, None, title=title)
         comment = dialog.ask_comment()
         if comment != None:
-            settings = self.config.get_ditz_configs()
-            creator = '{} <{}>'.format(settings.name, settings.email)
             release = self.ditz.get_release_from_cache(release_name)
+            if not release:
+                raise ApplicationError("Release not found")
+            creator = self.config.get_default_creator()
             release.add_log_entry(None, 'released', creator, comment)
             self.config.projectconfig.make_release(release)
             self.config.projectconfig.write_config_file()

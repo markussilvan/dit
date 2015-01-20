@@ -15,8 +15,8 @@ type: :task
 component: ditz-gui
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2015-01-14 09:03:41.844364 Z
 references: []
 
@@ -36,3 +36,13 @@ log_events:
     These should instead give the comment as parameter
     to config, where changes to releases should be
     encapsulated.
+- - 2015-01-20 13:42:08.325230 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Better get over this sooner than later.
+    Seems like a small task.
+- - 2015-01-20 14:21:35.467845 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Done, at least the parts that made any sense.

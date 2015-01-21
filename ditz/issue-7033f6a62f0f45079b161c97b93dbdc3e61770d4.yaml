@@ -40,8 +40,12 @@ log_events:
   - |-
     This is also useful and should be implemented.
     Maybe even before git functionality.
+- - 2015-01-21 16:35:14.141477 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.1 from v0.3
+  - ''
 references: []
-release: v0.3
+release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Archiving a release

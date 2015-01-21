@@ -326,7 +326,7 @@ class DitzControl(object):
         try:
             self.issuemodel.remove_issue_yaml(identifier)
             self.item_cache.remove_issue(identifier)
-        except DitzError, e:
+        except DitzError as e:
             e.error_message = "Dropping issue failed"
             raise
 

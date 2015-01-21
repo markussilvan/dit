@@ -86,7 +86,7 @@ class IssueDialog(QtGui.QDialog):
         try:
             dialog = CommentDialog(self.ditz, self.issue.identifier, save=False)
             comment = dialog.ask_comment()
-        except DitzError, e:
+        except DitzError as e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             comment = ''
 

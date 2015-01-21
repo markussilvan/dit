@@ -44,7 +44,7 @@ class DitzGui(QtGui.QMainWindow):
 
         try:
             self.config = ConfigControl()
-        except ApplicationError, e:
+        except ApplicationError as e:
             message = "{}.\n{}\n{}".format(e.error_message,
                     "Run 'ditz init' first to initialize or",
                     "start Ditz GUI in any subdirectory of\nan initialized Ditz project.")
@@ -53,7 +53,7 @@ class DitzGui(QtGui.QMainWindow):
 
         try:
             self.config.load_configs()
-        except ApplicationError, e:
+        except ApplicationError as e:
             if e.error_message == "Ditz config not found":
                 message = "{}\n{}".format(e.error_message,
                         "Go to settings to configure before using")
@@ -435,7 +435,7 @@ class DitzGui(QtGui.QMainWindow):
         try:
             dialog = CommentDialog(self.ditz, issue.identifier, save=True)
             dialog.ask_comment()
-        except DitzError, e:
+        except DitzError as e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.show_item() # to reload item data to include the added comment
@@ -448,7 +448,7 @@ class DitzGui(QtGui.QMainWindow):
         try:
             dialog = ReferenceDialog(self.ditz, issue.identifier)
             dialog.ask_reference()
-        except DitzError, e:
+        except DitzError as e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.show_item() # to reload item data to include the added comment
@@ -457,7 +457,7 @@ class DitzGui(QtGui.QMainWindow):
         try:
             dialog = IssueDialog(self.ditz)
             dialog.ask_new_issue()
-        except DitzError, e:
+        except DitzError as e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.reload_data()
@@ -470,7 +470,7 @@ class DitzGui(QtGui.QMainWindow):
         try:
             dialog = IssueDialog(self.ditz)
             dialog.ask_edit_issue(issue.identifier)
-        except DitzError, e:
+        except DitzError as e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.reload_data()
@@ -492,7 +492,7 @@ class DitzGui(QtGui.QMainWindow):
             return
         try:
             self.ditz.drop_issue(issue.identifier)
-        except DitzError, e:
+        except DitzError as e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.reload_data(issue.identifier)
@@ -505,7 +505,7 @@ class DitzGui(QtGui.QMainWindow):
         try:
             dialog = AssignDialog(self.ditz)
             dialog.ask_assign_issue(issue.identifier)
-        except DitzError, e:
+        except DitzError as e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.reload_data()
@@ -522,7 +522,7 @@ class DitzGui(QtGui.QMainWindow):
         if comment != None:
             try:
                 self.ditz.start_work(issue.identifier, comment)
-            except DitzError, e:
+            except DitzError as e:
                 QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
                 return
             self.reload_data(issue.identifier)
@@ -538,7 +538,7 @@ class DitzGui(QtGui.QMainWindow):
         if comment != None:
             try:
                 self.ditz.stop_work(issue.identifier, comment)
-            except DitzError, e:
+            except DitzError as e:
                 QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
                 return
             self.reload_data(issue.identifier)
@@ -621,7 +621,7 @@ class DitzGui(QtGui.QMainWindow):
         try:
             dialog = SettingsDialog(self.config)
             dialog.show_settings()
-        except DitzError, e:
+        except DitzError as e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             return
         self.reload_data()

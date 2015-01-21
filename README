@@ -40,6 +40,7 @@ By default menu icons are disabled on Ubuntu.
 To enable, run:
 gconftool-2 --type Boolean --set /desktop/gnome/interface/menus_have_icons True
 
+
 Configuration File
 
 Application uses a .ditz-gui-config file as it's configuration file.
@@ -52,3 +53,13 @@ remember_window_size: false
 window_size:
 - 1222
 - 841
+
+
+Installation on Windows
+
+Install python 2.7 (preferably 32-bit)
+Install PyQt 4.7 (preferably 32-bit)
+pip install python-dateutil
+pip install pyyaml
+
+

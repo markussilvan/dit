@@ -1,0 +1,24 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Adding images to issues
+desc: |-
+  Linking images or diagrams to issues should
+  be done in a way that maintains compatibility
+  with Ditz commandline tool.
+  If such link is found from the issue text
+  and such graphics file from issue_dir/issue-<hash>/ directory,
+  then it could be shown on the GUI.
+type: :feature
+component: ditz-gui
+release: v0.5
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-21 18:46:08.235135 Z
+references: []
+
+id: a61fd537497d3b5e7097970bda89b46717449a6a
+log_events: 
+- - 2015-01-21 18:46:09.298813 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

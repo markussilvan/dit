@@ -52,7 +52,7 @@ class ReferenceDialog(QtGui.QDialog):
                 dialog = CommentDialog(self.ditz, self.ditz_id, save=False,
                         title='Comment to add with the reference')
                 comment = dialog.ask_comment()
-            except DitzError, e:
+            except DitzError as e:
                 QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
                 comment = ''
             # add the reference

@@ -74,7 +74,7 @@ class ReleaseDialog(QtGui.QDialog):
             dialog = CommentDialog(self.ditz, None, save=False,
                     title='Comment for release')
             comment = dialog.ask_comment()
-        except DitzError, e:
+        except DitzError as e:
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             comment = ''
 

@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-01-21 16:40:22.800963 Z
+desc: |-
+  Currently all text is just concatenated.
+  Change it to "change chapter" when an empty line is
+  encountered between text.
+
+  Like this. A new block.
+disposition: ''
+id: cf1bfd02f76a0278dfb489739329833c83be89ac
+log_events:
+- - 2015-01-21 16:40:22.802419 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - Same applies to releases.
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Text formatting in issue description and comments
+type: :task

@@ -8,11 +8,16 @@ General Python file utilities
 import os
 import stat
 
+
 def find_file_along_path(filename, path="."):
     """
     Find a file from the given path.
     File is searched from every directory towards the root
     until it is found or a device boundary is reached.
+
+    os.stat doesn't work on Windows before Python 3.4.
+    Nevertheless, a root of a drive is reached at some point
+    and the loop will end.
 
     Parameters:
     - filename: file to search
@@ -29,7 +34,7 @@ def find_file_along_path(filename, path="."):
     s = os.stat(path)[stat.ST_DEV]
     ps = s
 
-    while path != '/':
+    while path != '/' and path[1:] != ":\\":
         parent = os.path.dirname(path)
         ps = os.stat(parent)[stat.ST_DEV]
 

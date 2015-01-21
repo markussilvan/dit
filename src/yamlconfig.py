@@ -48,5 +48,3 @@ class YamlConfig(object):
         value = unicode(data.isoformat(' ') + ' Z')
         return dumper.represent_scalar(u'tag:yaml.org,2002:timestamp', value)
 
-
-

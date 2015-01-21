@@ -452,8 +452,7 @@ class DitzProjectModel(object):
 
         if release_data:
             release_data['status'] = self._string_to_release_status('released')
-            timestamp = datetime.datetime.utcnow()
-            release.release_time = timestamp.isoformat(' ') + ' Z'
+            release.release_time = datetime.datetime.utcnow()
             release_data['release_time'] = release.release_time
             release_data['log_events'] = release.log
 

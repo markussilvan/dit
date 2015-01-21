@@ -84,7 +84,7 @@ releases:
       Functionality for handling releases implemented.
       Things are coming along nicely.
   name: v0.2
-  release_time: '2015-01-20 16:57:37.624634 Z'
+  release_time: 2015-01-20 16:57:37.624634 Z
   status: :released
 - !ditz.rubyforge.org,2008-03-06/release
   log_events:

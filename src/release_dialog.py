@@ -16,6 +16,7 @@ from common.items import DitzRelease
 from common.errors import DitzError, ApplicationError
 from comment_dialog import CommentDialog
 
+
 class ReleaseDialog(QtGui.QDialog):
     """
     A release dialog input fields and Cancel/Ok buttons.
@@ -58,8 +59,15 @@ class ReleaseDialog(QtGui.QDialog):
             self.release.name = "Release"
             action = 'edited'
 
+        old_status = self.release.status
         self.release.status = str(self.comboBoxStatus.currentText())
-        self.release.release_time = str(self.labelReleaseTimeValue.text())
+
+        # check if release status was changed to 'released' and cancel the process if required
+        if old_status != self.release.status and self.release.status == 'released':
+            message = "Use 'make release' to release a release.\nNot changing state to 'released'."
+            QtGui.QMessageBox.warning(self, "Ditz GUI warning", message)
+            self.release.status = old_status
+            return
 
         # ask for a comment
         try:
@@ -127,7 +135,13 @@ class ReleaseDialog(QtGui.QDialog):
         if self.release.status == 'released':
             self.labelReleaseTimeValue.setText(str(self.release.release_time))
         else:
-            self.labelReleaseTimeValue.setText("-")
+            self.labelReleaseTimeValue.setText("")
+
+            # don't allow making a release from this dialog
+            index = self.comboBoxStatus.findText('released')
+            self.comboBoxStatus.removeItem(index)
+            #model_index = self.comboBoxStatus.model().index(index, 0)
+            #self.comboBoxStatus.model().setData(model_index, QtCore.QVariant(0), QtCore.Qt.UserRole-1)
 
         self.exec_()
         return self.release

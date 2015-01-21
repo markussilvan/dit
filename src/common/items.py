@@ -116,7 +116,7 @@ class DitzRelease(DitzItem):
     """
     A Ditz item containing the information of a release.
     """
-    def __init__(self, title, name=None, status=None, release_time=None, log=None):
+    def __init__(self, title, name=None, status=None, release_time='', log=None):
         """
         Initialize new DitzRelease.
         """
@@ -125,6 +125,8 @@ class DitzRelease(DitzItem):
         self.status = status
         self.release_time = release_time
         self.log = log
+        if not self.log:
+            self.log = []
 
     def __str__(self):
         """
@@ -156,7 +158,7 @@ class DitzRelease(DitzItem):
                 status = 'unknown'
             line = line.replace('[STATUS]', status, 1)
             if self.release_time:
-                release_time = self.release_time
+                release_time = self.release_time.isoformat(' ') + ' Z'
             else:
                 release_time = 'N/A'
             line = line.replace('[RELEASE_TIME]', release_time, 1)

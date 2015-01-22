@@ -1,39 +1,47 @@
---- !ditz.rubyforge.org,2008-03-06/issue
-component: ditz-gui
-creation_time: 2014-10-07 18:23:55.954864 Z
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Archiving a release
 desc: |
   Archive is needed to get rid of old
   ticket files for "closed" releases.
   Ditz gets slow really fast when amount of tickets
   is growing. (Ditz-gui doesn't have this problem.)
-
+  
   Ditz functionality itself is simple. Select a release
   and directory where to archive. But implementation
   is fragile. Path may not exist in advance, it can
   only create one directory, ending slash must be
   given(?), etc
-
+  
   It seems to copy current project.yaml and move all issues
   of the archived release to a given directory. Check that this
   is what it really does.
-
+  
   Write some sort of implementation for this
   that preferably recognizes errors.
   Also would be nice if the changed files
   could be automatically added to git index
   (if such settings is enabled from settings),
   but that is an another task.
-disposition: ''
+
+type: :task
+component: ditz-gui
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+disposition: ""
+creation_time: 2014-10-07 18:23:55.954864 Z
+references: []
+
 id: 7033f6a62f0f45079b161c97b93dbdc3e61770d4
-log_events:
+log_events: 
 - - 2014-10-07 18:23:56.787205 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ''
+  - ""
 - - 2014-10-16 21:03:14.011469 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - edited description
-  - ''
+  - ""
 - - 2015-01-20 17:22:21.977015 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - edited
@@ -43,10 +51,19 @@ log_events:
 - - 2015-01-21 16:35:14.141477 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.2.1 from v0.3
-  - ''
-references: []
-release: v0.2.1
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-title: Archiving a release
-type: :task
+  - ""
+- - 2015-01-22 14:58:53.674119 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    "It seems to copy current project.yaml and move all issues
+    of the archived release to a given directory."
+    Yes, that is exactly and only what it does.
+- - 2015-01-22 15:00:52.383484 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Last release related functionality that is still left.
+    Better do it while all release stuff is still in recent
+    memory. Also file system stuff relates well with checking
+    Windows compatibility.

@@ -173,7 +173,7 @@ class DitzRelease(DitzItem):
             else:
                 status = 'unknown'
             line = line.replace('[STATUS]', status, 1)
-            if self.release_time:
+            if isinstance(self.release_time, datetime.datetime):
                 release_time = self.release_time.isoformat(' ') + ' Z'
             else:
                 release_time = 'N/A'
@@ -182,6 +182,19 @@ class DitzRelease(DitzItem):
             html += line
 
         return html
+
+    def can_be_archived(self):
+        """
+        Check if conditions allow this release to be moved to archive.
+
+        Returns:
+        - True if release can be archived
+        - False if release shouldn't be archived
+        """
+        if self.status == 'released':
+            return True
+        return False
+
 
 class DitzIssue(DitzItem):
     """

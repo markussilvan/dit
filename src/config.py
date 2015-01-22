@@ -66,6 +66,15 @@ class ConfigControl(object):
         """
         return self.appconfig.settings
 
+    def get_project_root(self):
+        """
+        Get location of project files.
+
+        Returns:
+        - absolute path to project files
+        """
+        return self.ditzconfig.project_root
+
     def get_project_name(self):
         """
         Get project name.

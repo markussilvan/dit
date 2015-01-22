@@ -7,6 +7,7 @@ General Python file utilities
 
 import os
 import stat
+import shutil
 
 
 def find_file_along_path(filename, path="."):
@@ -27,7 +28,7 @@ def find_file_along_path(filename, path="."):
     Returns:
     - path to the file not including the file name
 
-    Throws:
+    Raises:
     - Exception: root or device boundary reached before file is found
     """
     path = os.path.realpath(path)
@@ -54,4 +55,39 @@ def find_file_along_path(filename, path="."):
         return str(path)
 
     raise Exception("Can't find the file")
+
+def move_files(files, path):
+    """
+    Move a list of files to a given path.
+
+    If the destination path doesn't exist, it is
+    created automatically.
+    Works over file system boundaries.
+
+    Parameters:
+    - files: list of files to move
+    - path: destination path
+
+    Raises:
+    - TypeError, OSError, IOError
+    """
+    if files == [] or path == '':
+        raise TypeError("Invalid parameters")
+    if path in files:
+        raise IOError("Destination one of the source files")
+
+    # create destination directory if it doesn't exist
+    try:
+        if not os.path.exists(path):
+            os.makedirs(path)
+    except OSError:
+        raise
+
+    # move files
+    try:
+        for f in files:
+            shutil.move(f, path)
+    except (IOError, shutil.Error):
+        # undo stuff that was already done?
+        raise
 

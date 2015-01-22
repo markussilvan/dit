@@ -1,21 +1,33 @@
---- !ditz.rubyforge.org,2008-03-06/issue
-component: ditz-gui
-creation_time: 2015-01-20 17:15:31.100281 Z
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Better looking icons for commenting release and opening settings
 desc: |-
   Icon for opening settings is hideous. Try a blue wrench instead.
-
+  
   The icon of commenting a release is good, but contrast between "speech bubble" and release symbol is too big.
   Smooth it out.
-disposition: ''
+type: :task
+component: ditz-gui
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+disposition: ""
+creation_time: 2015-01-20 17:15:31.100281 Z
+references: []
+
 id: be25d92abc305cab353bf92f5569525f4f7fc03f
-log_events:
+log_events: 
 - - 2015-01-20 17:15:31.101753 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ''
-references: []
-release: v0.2.1
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-title: Better looking icons for commenting release and opening settings
-type: :task
+  - ""
+- - 2015-01-28 09:48:14.454782 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    These could be done at the same time as
+    adding new icon for archiving releases.
+    Doing all at once reduces overhead.
+- - 2015-01-28 09:48:41.415741 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""

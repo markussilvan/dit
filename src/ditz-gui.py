@@ -23,6 +23,7 @@ from common.errors import DitzError, ApplicationError
 from common.unused import unused
 from config import ConfigControl, MOVE_UP, MOVE_DOWN
 from ditzcontrol import DitzControl
+from archivecontrol import ArchiveControl
 from comment_dialog import CommentDialog
 from reference_dialog import ReferenceDialog
 from issue_dialog import IssueDialog
@@ -129,6 +130,8 @@ class DitzGui(QtGui.QMainWindow):
                 QtGui.QIcon('../graphics/release/move_up_release.png'), 'Move release up', self)
         self.actions['move_down_release'] = QtGui.QAction(
                 QtGui.QIcon('../graphics/release/move_down_release.png'), 'Move release down', self)
+        self.actions['archive_release'] = QtGui.QAction(
+                QtGui.QIcon('../graphics/release/archive_release.png'), 'Archive release', self)
 
         self.actions['open_settings'] = QtGui.QAction(
                 QtGui.QIcon('../graphics/misc/settings.png'), 'Settings', self)
@@ -151,6 +154,7 @@ class DitzGui(QtGui.QMainWindow):
         self.actions['remove_release'].iconVisibleInMenu = True
         self.actions['move_up_release'].iconVisibleInMenu = True
         self.actions['move_down_release'].iconVisibleInMenu = True
+        self.actions['archive_release'].iconVisibleInMenu = True
 
         self.actions['open_settings'].iconVisibleInMenu = True
 
@@ -177,6 +181,7 @@ class DitzGui(QtGui.QMainWindow):
         self.actions['remove_release'].triggered.connect(self.remove_release)
         self.actions['move_up_release'].triggered.connect(self.move_release)
         self.actions['move_down_release'].triggered.connect(lambda: self.move_release(MOVE_DOWN))
+        self.actions['archive_release'].triggered.connect(self.archive_release)
 
         # common actions
         self.actions['open_settings'].triggered.connect(self.open_settings)
@@ -217,7 +222,7 @@ class DitzGui(QtGui.QMainWindow):
         should be enabled. Others are disabled.
         """
         issue = self._get_selected_issue()
-        release = self._get_selected_release_name()
+        release_name = self._get_selected_release_name()
         if issue:
             if issue.status == 'in progress':
                 start_state = False
@@ -225,9 +230,10 @@ class DitzGui(QtGui.QMainWindow):
                 start_state = True
             self._set_issue_actions(True, start_state)
             self._set_release_actions(False)
-        elif release:
+        elif release_name:
+            release = self.ditz.get_release_from_cache(release_name)
             self._set_issue_actions(False)
-            self._set_release_actions(True)
+            self._set_release_actions(True, release)
         else:
             self._set_issue_actions(False)
             self._set_release_actions(False)
@@ -248,13 +254,15 @@ class DitzGui(QtGui.QMainWindow):
         self.actions['assign_issue'].setEnabled(state)
         self.actions['add_reference'].setEnabled(state)
 
-    def _set_release_actions(self, state):
+    def _set_release_actions(self, state, release=None):
         self.actions['edit_release'].setEnabled(state)
         self.actions['comment_release'].setEnabled(state)
         self.actions['make_release'].setEnabled(state)
         self.actions['remove_release'].setEnabled(state)
         self.actions['move_up_release'].setEnabled(state)
         self.actions['move_down_release'].setEnabled(state)
+        if release and release.can_be_archived():
+            self.actions['archive_release'].setEnabled(state)
 
     def center(self):
         """
@@ -295,6 +303,7 @@ class DitzGui(QtGui.QMainWindow):
             self.actions['remove_release'].setText('Remove release ' + release)
             self.actions['move_up_release'].setText('Move up ' + release)
             self.actions['move_down_release'].setText('Move down ' + release)
+            self.actions['archive_release'].setText('Archive ' + release)
         else:
             self.actions['edit_release'].setText('Edit release')
             self.actions['comment_release'].setText('Comment release')
@@ -302,6 +311,7 @@ class DitzGui(QtGui.QMainWindow):
             self.actions['remove_release'].setText('Remove release')
             self.actions['move_up_release'].setText('Move release up')
             self.actions['move_down_release'].setText('Move release down')
+            self.actions['archive_release'].setText('Archive release')
 
     def context_menu(self):
         # pylint: disable=W0108
@@ -335,6 +345,7 @@ class DitzGui(QtGui.QMainWindow):
             menu.addAction(self.actions['remove_release'])
             menu.addAction(self.actions['move_up_release'])
             menu.addAction(self.actions['move_down_release'])
+            menu.addAction(self.actions['archive_release'])
         else:
             # empty line selected
             menu.addAction(self.actions['new_issue'])
@@ -365,6 +376,7 @@ class DitzGui(QtGui.QMainWindow):
         self.toolBar.addAction(self.actions['remove_release'])
         self.toolBar.addAction(self.actions['move_up_release'])
         self.toolBar.addAction(self.actions['move_down_release'])
+        self.toolBar.addAction(self.actions['archive_release'])
 
         # spacer
         wide_spacer = QtGui.QWidget()
@@ -616,6 +628,24 @@ class DitzGui(QtGui.QMainWindow):
             return
         self.config.projectconfig.write_config_file()
         self.reload_data()
+
+    def archive_release(self):
+        release_name = self._get_selected_release_name()
+        if release_name == None:
+            return
+        archive = ArchiveControl(self.ditz)
+
+        archive_dir = str(QtGui.QFileDialog.getExistingDirectory(self,
+                "Select archive directory for release",
+                "../ditz/releases/",
+                QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks))
+        #archive_dir = "../ditz/releases/" + release_name
+
+        try:
+            archive.archive_release(release_name, archive_dir)
+        except ApplicationError:
+            error = "Archiving release '{}' failed.".format(release_name)
+            QtGui.QMessageBox.warning(self, "Ditz error", error)
 
     def open_settings(self):
         try:

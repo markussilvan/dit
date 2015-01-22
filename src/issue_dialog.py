@@ -46,8 +46,6 @@ class IssueDialog(QtGui.QDialog):
         uic.loadUi('../ui/issue_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
 
-        settings = self.ditz.config.get_ditz_configs()
-
         for state in self.ditz.config.get_valid_issue_states():
             self.widgetForm.comboBoxStatus.addItem(state)
 

@@ -108,6 +108,14 @@ releases:
     - Markus Silvan <markus.silvan@iki.fi>
     - created
     - Second  bugfix release for 0.2 branch.
+  - - 2015-01-29 21:07:52.301059 Z
+    - Markus Silvan <markus.silvan@iki.fi>
+    - commented
+    - |-
+      Second bugfix release for 0.2 codeline.
+      Should contain no major new features, but bugfixes,
+      improvements for usability issues and other cosmetic
+      changes only.
   name: v0.2.2
   release_time: ''
   status: :unreleased

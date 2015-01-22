@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Use flake8 to check the source
+desc: |-
+  Flake8 is a static code analysis tool
+  for Python. It checks that source
+  code formatting adheres to PEP8.
+  Add it to Jenkins.
+type: :task
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-25 07:58:02.690738 Z
+references: []
+
+id: 6ef8bf79661ddc287183654f03e07fb50393181e
+log_events: 
+- - 2015-01-25 07:58:03.682709 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

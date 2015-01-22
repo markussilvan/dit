@@ -9,12 +9,12 @@ A GUI frontend for Ditz issue tracker
 
 import datetime
 
+from config import ConfigControl
 from itemcache import ItemCache
 from common.items import DitzRelease
 from common.errors import ApplicationError, DitzError
 from common.utils.issue import IssueUtils
 from issuemodel import IssueModel, IssueYamlObject
-from config import ConfigControl
 
 
 class DitzControl(object):
@@ -172,17 +172,18 @@ class DitzControl(object):
         """
         return self.item_cache.get_issue_name_max_len()
 
-    def get_issues_by_release(self, release_name):
+    def get_issues_by_release(self, release_name, include_closed=False):
         """
         Get all issues from cache assigned to a given release.
 
         Parameters:
         - release_name: name of the release
+        - include_closed: list also closed tasks
 
         Returns:
         - list of DitzIssues
         """
-        return self.item_cache.get_issues_by_release(release_name)
+        return self.item_cache.get_issues_by_release(release_name, include_closed)
 
     def add_issue(self, issue, comment=''):
         """

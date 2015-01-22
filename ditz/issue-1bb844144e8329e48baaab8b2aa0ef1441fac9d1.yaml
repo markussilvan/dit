@@ -1,0 +1,39 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-01-24 18:51:35.979662 Z
+desc: |-
+  Use a generic file dialog to ask for a path where
+  to archive a release. If this is not possible for
+  some reason, then use a custom ArchiveDialog instead.
+  This would also allow asking for other data, if needed
+  in the future.
+disposition: ''
+id: 1bb844144e8329e48baaab8b2aa0ef1441fac9d1
+log_events:
+- - 2015-01-24 18:53:19.180851 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    For now using a stadard file dialog should be enough.
+    I see no reason to overcomplicate things at this point.
+- - 2015-01-29 11:42:11.818205 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - Some sketch for this has been added, but not tested.
+- - 2015-01-29 21:03:35.542487 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference
+  - ''
+- - 2015-01-30 23:24:58.269021 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Could this be limited to select a subdirectory of your ditz_dir?
+    That MIGHT make sense.
+references:
+- '"Archiving a release"'
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+title: Get file path using FileDialog or ArchiveDialog
+type: :feature

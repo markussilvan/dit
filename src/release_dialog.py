@@ -78,7 +78,6 @@ class ReleaseDialog(QtGui.QDialog):
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             comment = ''
 
-        settings = self.ditz.config.get_ditz_configs()
         creator = self.ditz.config.get_default_creator()
         self.release.add_log_entry(None, action, creator, comment)
 

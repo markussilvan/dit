@@ -39,6 +39,12 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.2.1 from v0.2
   - ''
+- - 2015-01-24 22:36:33.554713 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |
+    Separate directories for dialogs, controls and models?
+    This is the only sensible solution I can think of.
 references: []
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>

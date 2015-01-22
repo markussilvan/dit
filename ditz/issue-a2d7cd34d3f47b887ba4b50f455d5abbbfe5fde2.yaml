@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-01-24 22:32:48.179282 Z
+desc: |-
+  Try if a None representer would work with
+  release_time of DitzReleases. Then release_time could
+  clearly be a datatime object and None if not set.
+disposition: ''
+id: a2d7cd34d3f47b887ba4b50f455d5abbbfe5fde2
+log_events:
+- - 2015-01-24 22:32:48.180642 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - Currently having a mixture of emtry string or a datetime assigned to release_time
+    causes an ugly PyLint warning.
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: PyYaml None representer
+type: :bugfix

@@ -25,3 +25,9 @@ log_events:
   - |-
     I prefer the latter option. It's actually feasible.
     The first option seems stupid.
+- - 2015-01-22 15:17:57.332370 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This whole ticket is starting to feel stupid.
+    I suggest this won't be implemented.

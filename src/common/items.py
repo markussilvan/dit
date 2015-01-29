@@ -72,6 +72,22 @@ class DitzItem(object):
             self.log = []
         self.log.append(log_entry)
 
+    def _format_text_to_html(self, text):
+        """
+        Format long texts, like issue descriptions or comments to HTML
+        containing paragraphs.
+
+        Parameters:
+        - text: a piece of text to format with HTML tags
+
+        Returns:
+        - text with some HTML tags
+        """
+        text = '<p>' + text
+        text = text.replace('\n\n', '</p><p>')
+        text = '</p>' + text
+        return text
+
     def _format_log_html(self, template_file):
         """
         Format item's event log to HTML according to a given template file
@@ -93,7 +109,7 @@ class DitzItem(object):
                 creator = entry[1]
                 action = entry[2]
                 if len(entry) > 3:
-                    comment = entry[3]
+                    comment = self._format_text_to_html(entry[3])
                 else:
                     comment = ''
 
@@ -295,11 +311,13 @@ class DitzIssue(DitzItem):
 
         log_html = self._format_log_html(issue_log_template_file)
 
+        description = self._format_text_to_html(self.description)
+
         html = ''
         for line in template_html:
             line = line.replace('[NAME]', self.name, 1)
             line = line.replace('[TITLE]', self.title, 1)
-            line = line.replace('[DESCRIPTION]', self.description, 1)
+            line = line.replace('[DESCRIPTION]', description, 1)
             line = line.replace('[ISSUE_TYPE]', self.issue_type, 1)
             line = line.replace('[CREATOR]', self.creator, 1)
             line = line.replace('[STATUS]', self.status, 1)

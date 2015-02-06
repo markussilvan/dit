@@ -63,7 +63,7 @@ class DitzGui(QtGui.QMainWindow):
                 QtGui.QMessageBox.warning(self, "Fatal configuration error", e.error_message)
                 sys.exit(1)
             else:
-                print e.error_message
+                print(e.error_message)
                 sys.exit(1)
 
         self.ditz = DitzControl(self.config)
@@ -412,7 +412,7 @@ class DitzGui(QtGui.QMainWindow):
                 elif item.status == 'paused':
                     list_item.setIcon(QtGui.QIcon('../graphics/list/balls/paused.png'))
                 else:
-                    print "Unrecognized issue status ({})".format(item.status)
+                    print("Unrecognized issue status ({})".format(item.status))
 
         if ditz_id:
             self.show_item(ditz_id)

@@ -39,17 +39,17 @@ class testDitzControl(unittest.TestCase):
     def testGetReleases(self):
         releases = self.dc.get_releases(names_only=True)
         self.assertTrue(isinstance(releases, list))
-        #print "Releases: " + str(releases)
+        #print("Releases: " + str(releases))
 
     #def testGetItems(self):
     #    items = self.dc.get_items()
     #    self.assertTrue(isinstance(items, list))
-    #    print "Items: " + str(items)
+    #    print("Items: " + str(items))
 
     #def testGetItem(self):
     #    item = self.dc.get_item("ditz-gui-1")
     #    self.assertTrue(isinstance(item, list))
-    #    print "Item: " + str(item)
+    #    print("Item: " + str(item))
 
 def suite():
     testsuite = unittest.TestSuite()

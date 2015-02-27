@@ -1,0 +1,35 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-02-26 22:08:11.959236 Z
+desc: |-
+  DitzRelease release time is now used as string
+  and datetime.datetime object. Change all places
+  to use a datetime object and add helper methods
+  to convert to suitable string where necessary.
+
+  This task involves common/items.py and config.py.
+disposition: fixed
+id: 9917ac3ea840326810fd4e48d22c33f82ff9ef5a
+log_events:
+- - 2015-02-26 22:08:31.935155 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - Should be fairly easy and fast to fix.
+- - 2015-02-26 22:08:57.071098 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ''
+- - 2015-02-27 08:29:18.186964 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Some changes made. Needs to be thoroughly tested before commit.
+- - 2015-02-27 19:52:36.038004 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Seems to work, but more testing should be done.
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Release time as Datetime
+type: :task

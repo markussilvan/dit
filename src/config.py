@@ -435,12 +435,12 @@ class DitzProjectModel(object):
         if release_data:
             release_data['name'] = release.title
             release_data['status'] = self._string_to_release_status(release.status)
-            release_data['release_time'] = release.release_time
+            release_data['release_time'] = release.release_time_as_string()
             release_data['log_events'] = release.log
         else:
             status = self._string_to_release_status(release.status)
             release_yaml = DitzReleaseYaml(release.title, status,
-                    release.release_time, release.log)
+                    release.release_time_as_string(), release.log)
             self.project_data.releases.append(release_yaml)
 
     def make_release(self, release):
@@ -462,7 +462,7 @@ class DitzProjectModel(object):
         if release_data:
             release_data['status'] = self._string_to_release_status('released')
             release.release_time = datetime.datetime.utcnow()
-            release_data['release_time'] = release.release_time
+            release_data['release_time'] = release.release_time_as_string()
             release_data['log_events'] = release.log
 
     def remove_release(self, release_name):

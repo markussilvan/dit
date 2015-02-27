@@ -132,17 +132,25 @@ class DitzRelease(DitzItem):
     """
     A Ditz item containing the information of a release.
     """
-    def __init__(self, title, name=None, status=None, release_time='', log=None):
+    def __init__(self, title, name=None, status=None, release_time=None, log=None):
         """
         Initialize new DitzRelease.
         """
         super(DitzRelease, self).__init__(title)
         self.name = name
         self.status = status
-        self.release_time = release_time
         self.log = log
         if not self.log:
             self.log = []
+
+        if release_time == None or release_time == "":
+            self.release_time = None
+        else:
+            # expected format is 2014-10-11 16:25:53.253218 Z
+            try:
+                self.release_time = datetime.strptime(release_time, '%y-%m-%d %H:%M:%S.%f Z')
+            except Exception:
+                self.release_time = None
 
     def __str__(self):
         """
@@ -163,6 +171,8 @@ class DitzRelease(DitzItem):
 
         log_html = self._format_log_html(release_log_template_file)
 
+        release_time = self.release_time_as_string()
+
         # release html output
         html = ''
         for line in template_html:
@@ -173,10 +183,6 @@ class DitzRelease(DitzItem):
             else:
                 status = 'unknown'
             line = line.replace('[STATUS]', status, 1)
-            if isinstance(self.release_time, datetime.datetime):
-                release_time = self.release_time.isoformat(' ') + ' Z'
-            else:
-                release_time = 'N/A'
             line = line.replace('[RELEASE_TIME]', release_time, 1)
             line = line.replace('[EVENT_LOG]', log_html, 1)
             html += line
@@ -194,6 +200,19 @@ class DitzRelease(DitzItem):
         if self.status == 'released':
             return True
         return False
+
+    def release_time_as_string(self):
+        """
+        Return release time set for this release as string.
+
+        Returns:
+        - release time as string
+        - emptry string if release time is not set
+        """
+        if self.release_time:
+            return self.release_time.isoformat(' ') + ' Z'
+            #return datetime.strftime(self.release_time, '%y-%m-%d %H:%M:%S.%f Z')
+        return 'N/A'
 
 
 class DitzIssue(DitzItem):

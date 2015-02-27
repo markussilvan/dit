@@ -40,6 +40,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.2.2 from v0.2
   - ''
+- - 2015-02-27 19:54:21.257891 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - Changed type to enhancement.
 references:
 - 38b74f96a97c67bb5ade1e86fdee57e1c7b5d322
 - Release v0.2
@@ -47,4 +51,4 @@ release: v0.2.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Show a "Closed"-stamp
-type: :task
+type: :enhancement

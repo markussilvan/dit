@@ -1,0 +1,25 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-02-27 20:01:35.560740 Z
+desc: |-
+  Try if new issue dispositions work with original
+  Ditz command line tool. If it does, then try
+  adding some new disposition, for example,
+  "invalid".
+
+  These should be also made configurable from
+  the settings file, but that could be done in a
+  separate ticket.
+disposition: ''
+id: d24f6345417b9a0d5dde0553442ed849729f7d1f
+log_events:
+- - 2015-02-27 20:01:35.562167 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Add new issue dispositions
+type: :task

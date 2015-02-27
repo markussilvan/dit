@@ -279,7 +279,7 @@ class AppConfigModel(object):
         Returns:
         - list of issue types
         """
-        return ["bugfix", "feature", "task"]
+        return ["bugfix", "feature", "task", "enhancement"]
 
     def get_valid_issue_dispositions(self):
         """

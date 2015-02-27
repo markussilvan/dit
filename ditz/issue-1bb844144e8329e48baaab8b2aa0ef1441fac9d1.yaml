@@ -30,10 +30,17 @@ log_events:
   - |-
     Could this be limited to select a subdirectory of your ditz_dir?
     That MIGHT make sense.
+- - 2015-03-02 20:18:29.952131 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - |-
+    Blocked by other tasks. Old releases can't be archived
+    as they are not visible in the list. There is no setting
+    to set them visible (although system mostly supports it).
 references:
 - '"Archiving a release"'
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
+status: :paused
 title: Get file path using FileDialog or ArchiveDialog
 type: :feature

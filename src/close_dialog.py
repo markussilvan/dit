@@ -30,7 +30,8 @@ class CloseDialog(QtGui.QDialog):
 
         uic.loadUi('../ui/close_dialog.ui', self)
 
-        for disposition in self.ditz.config.get_valid_issue_dispositions():
+        settings = self.ditz.config.get_app_configs()
+        for disposition in settings.issue_dispositions:
             self.comboBox.addItem(disposition)
 
     def accept(self):

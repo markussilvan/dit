@@ -277,7 +277,7 @@ class DitzControl(object):
         Returns:
         - disposition as string
         """
-        dispositions = self.config.get_valid_issue_dispositions()
+        dispositions = self.config.get_app_configs().issue_dispositions
         if disposition < 0 or disposition > len(dispositions) - 1:
             raise ApplicationError("Invalid disposition value")
 

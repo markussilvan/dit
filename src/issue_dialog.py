@@ -46,10 +46,12 @@ class IssueDialog(QtGui.QDialog):
         uic.loadUi('../ui/issue_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
 
+        settings = self.ditz.config.get_app_configs()
+
         for state in self.ditz.config.get_valid_issue_states():
             self.widgetForm.comboBoxStatus.addItem(state)
 
-        for issue_type in self.ditz.config.get_valid_issue_types():
+        for issue_type in settings.issue_types:
             self.widgetForm.comboBoxIssueType.addItem(issue_type)
 
         self.widgetForm.comboBoxRelease.addItem("Unassigned")
@@ -108,7 +110,7 @@ class IssueDialog(QtGui.QDialog):
 
     def ask_new_issue(self):
         """
-        Show the dialog and get disposition and a comment from the user
+        Show the dialog and get issue information from user
         """
         try:
             self.issue = DitzIssue('', None)

@@ -23,7 +23,7 @@ desc: |
   could be automatically added to git index
   (if such settings is enabled from settings),
   but that is an another task.
-disposition: ''
+disposition: reorganized
 id: 7033f6a62f0f45079b161c97b93dbdc3e61770d4
 log_events:
 - - 2014-10-07 18:23:56.787205 Z
@@ -109,9 +109,15 @@ log_events:
     Functionality works. Icons are still missing and some
     fine tuning is needed. The directory selection is not
     very clear and usable yet.
+- - 2015-02-27 20:22:44.270676 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition reorganized
+  - |-
+    Skeleton implementation has been done.
+    Other parts of this task are handled in separate tickets.
 references: []
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
+status: :closed
 title: Archiving a release
 type: :task

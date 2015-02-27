@@ -106,24 +106,6 @@ class ConfigControl(object):
         """
         return self.appconfig.get_valid_issue_states()
 
-    def get_valid_issue_types(self):
-        """
-        Get a list of valid issue types for an issue.
-
-        Returns:
-        - list of issue types
-        """
-        return self.appconfig.get_valid_issue_types()
-
-    def get_valid_issue_dispositions(self):
-        """
-        Get a list of valid issue dispositions for an issue.
-
-        Returns:
-        - list of issue dispositions
-        """
-        return self.appconfig.get_valid_issue_dispositions()
-
     def get_valid_release_states(self):
         """
         Get a list of valid states for a release.
@@ -249,7 +231,10 @@ class AppConfigModel(object):
                 self.settings = yaml.load(stream)
                 return self.settings
         except Exception:
-            self.settings = AppConfigYaml([800, 600], True, "task")
+            issue_types = ['bugfix', 'feature', 'task', 'enhancement']
+            issue_dispositions = ['fixed', "won't fix", 'reorganized', 'invalid']
+            self.settings = AppConfigYaml([800, 600], True, "task",
+                    issue_types, issue_dispositions)
 
     def write_config_file(self):
         """
@@ -272,24 +257,6 @@ class AppConfigModel(object):
         """
         return ["unstarted", "in progress", "paused"]
 
-    def get_valid_issue_types(self):
-        """
-        Get a list of valid issue types for an issue.
-
-        Returns:
-        - list of issue types
-        """
-        return ["bugfix", "feature", "task", "enhancement"]
-
-    def get_valid_issue_dispositions(self):
-        """
-        Get a list of valid issue dispositions for an issue.
-
-        Returns:
-        - list of issue dispositions
-        """
-        return ["fixed", "won't fix", "reorganized", "invalid"]
-
     def get_valid_release_states(self):
         """
         Get a list of valid states for a release.
@@ -304,16 +271,20 @@ class AppConfigYaml(yaml.YAMLObject):
 
     yaml_tag = u'!ditz.rubyforge.org,2008-03-06/guiconfig'
 
-    def __init__(self, window_size, remember_window_size, default_issue_type):
+    def __init__(self, window_size, remember_window_size, default_issue_type,
+            issue_types, issue_dispositions):
         self.window_size = window_size
         self.remember_window_size = remember_window_size
         self.default_issue_type = default_issue_type
+        self.issue_types = issue_types
+        self.issue_dispositions = issue_dispositions
         super(AppConfigYaml, self).__init__()
 
     def __repr__(self):
-        return "%s (window_size=%r, remember_window_size=%r, default_issue_type=%r)" % (
+        return ("%s (window_size=%r, remember_window_size=%r, default_issue_type=%r,"
+                "issue_types=%r, issue_dispositions=%r)") % (
                 self.__class__.__name__, self.window_size, self.remember_window_size,
-                self.default_issue_type)
+                self.default_issue_type, self.issue_types, self.issue_dispositions)
 
 
 class DitzProjectModel(object):

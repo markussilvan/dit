@@ -272,13 +272,16 @@ class DitzControl(object):
         Convert disposition numerical (index) value to string
 
         Parameters:
-        - disposition: disposition (numeric)
+        - disposition: disposition (numeric index)
 
         Returns:
         - disposition as string
         """
         dispositions = self.config.get_valid_issue_dispositions()
-        return dispositions[disposition-1]
+        if disposition < 0 or disposition > len(dispositions) - 1:
+            raise ApplicationError("Invalid disposition value")
+
+        return dispositions[disposition]
 
     def close_issue(self, ditz_id, disposition, comment=""):
         """
@@ -286,13 +289,11 @@ class DitzControl(object):
 
         Parameters:
         - ditz_id: Ditz hash or name identifier of an issue to close
-        - disposition: 1) fixed, 2) won't fix, 3) reorganized
+        - disposition: index of disposition, for example 0) fixed, 1) won't fix, 2) reorganized
         - comment: (optional) comment text, no formatting, to add to the closed issue
         """
         if ditz_id == None or ditz_id == "":
             raise ApplicationError("Invalid ditz item identifier")
-        if disposition < 1 or disposition > 3:
-            raise ApplicationError("Invalid disposition value")
 
         ditz_issue = self._get_issue_by_id(ditz_id)
         ditz_issue.status = 'closed'

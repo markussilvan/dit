@@ -288,7 +288,7 @@ class AppConfigModel(object):
         Returns:
         - list of issue dispositions
         """
-        return ["fixed", "won't fix", "reorganized"]
+        return ["fixed", "won't fix", "reorganized", "invalid"]
 
     def get_valid_release_states(self):
         """

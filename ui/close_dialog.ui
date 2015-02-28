@@ -47,21 +47,6 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <item>
-         <property name="text">
-          <string>fixed</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>won't fix</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>reorganized</string>
-         </property>
-        </item>
        </widget>
       </item>
      </layout>

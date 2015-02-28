@@ -30,6 +30,9 @@ class CloseDialog(QtGui.QDialog):
 
         uic.loadUi('../ui/close_dialog.ui', self)
 
+        for disposition in self.ditz.config.get_valid_issue_dispositions():
+            self.comboBox.addItem(disposition)
+
     def accept(self):
         """
         Ok is pressed on the GUI
@@ -39,7 +42,7 @@ class CloseDialog(QtGui.QDialog):
             "won't fix" -> 2
             "reorganized" -> 3
         """
-        disposition = self.comboBox.currentIndex() + 1
+        disposition = self.comboBox.currentIndex()
         comment = str(self.plainTextEdit.toPlainText())
         self.ditz.close_issue(self.ditz_id, disposition, comment)
         super(CloseDialog, self).accept()

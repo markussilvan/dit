@@ -1,0 +1,26 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-02-28 21:25:50.408675 Z
+desc: |-
+  Reimplement _get_status_color() to use
+  color values read from settings.
+
+  Add new settings for colors. There should be
+  something that defines a color and connects
+  the color to a particular status. Note that
+  statuses might be configurable, too.
+disposition: ''
+id: aa539c2ef9b1c411562a6580190e04b0232a1094
+log_events:
+- - 2015-02-28 21:25:50.410164 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    Implement this after congiration of issue states is working.
+    If that is even possible.
+references: []
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Configuration for status colors
+type: :task

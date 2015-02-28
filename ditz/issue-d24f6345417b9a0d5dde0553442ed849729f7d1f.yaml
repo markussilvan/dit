@@ -10,16 +10,32 @@ desc: |-
   These should be also made configurable from
   the settings file, but that could be done in a
   separate ticket.
-disposition: ''
+disposition: fixed
 id: d24f6345417b9a0d5dde0553442ed849729f7d1f
 log_events:
 - - 2015-02-27 20:01:35.562167 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ''
+- - 2015-02-28 21:31:18.906672 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    List of dispositions is hardcoded in config.
+    Ditz commandline most likely doesn't care about
+    disposition as it doesn't even show closed issues.
+    Lets see if everything else works.
+- - 2015-02-28 21:56:13.851782 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition invalid
+  - Just testing how this works.
+- - 2015-02-28 21:58:37.521143 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Ok. Seems to work as expected.
 references: []
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :closed
 title: Add new issue dispositions
 type: :task

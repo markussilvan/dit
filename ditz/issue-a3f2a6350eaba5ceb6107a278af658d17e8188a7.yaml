@@ -1,0 +1,19 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-02-28 21:09:57.371117 Z
+desc: "There are some hardcoded strings in the code.\nOne of them is 'Unreleased'.\
+  \ That should be \nhidden behind a constant. Other strings should\nbe hidden behind\
+  \ constants or configuration settings.\n"
+disposition: ''
+id: a3f2a6350eaba5ceb6107a278af658d17e8188a7
+log_events:
+- - 2015-02-28 21:09:57.372774 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: null
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Add a constant for "Unreleased"
+type: :enhancement

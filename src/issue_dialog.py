@@ -73,7 +73,10 @@ class IssueDialog(QtGui.QDialog):
         self.issue.issue_type = str(self.widgetForm.comboBoxIssueType.currentText())
         self.issue.status = str(self.widgetForm.comboBoxStatus.currentText())
         self.issue.creator = str(self.widgetForm.lineEditCreator.text())
-        self.issue.release = str(self.widgetForm.comboBoxRelease.currentText())
+        release = str(self.widgetForm.comboBoxRelease.currentText())
+        if release == "Unassigned":
+            release = None
+        self.issue.release = release
 
         self.issue.references = []
         for i in range(self.widgetForm.listWidgetReferences.count()):

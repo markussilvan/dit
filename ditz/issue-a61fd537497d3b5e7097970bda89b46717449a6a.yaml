@@ -22,3 +22,13 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2015-03-14 10:35:45.689768 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Adding images could be done using Markdown syntax.
+    Actually whole Markdown syntex could be supported.
+    That would also allow refering to tickets and files,
+    writing titles, list and other text formatting.
+    Of course Ditz-gui could show all that as formatted
+    text. Libraries exist for Python to do that.

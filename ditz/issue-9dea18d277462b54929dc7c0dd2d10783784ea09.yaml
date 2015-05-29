@@ -15,6 +15,7 @@ disposition: ""
 creation_time: 2014-10-13 07:20:26.542455 Z
 references: 
 - https://bitbucket.org/zondo/pyditz
+- 5b7fa7840e0d6d48979e720db9dcee654814a21e
 id: 9dea18d277462b54929dc7c0dd2d10783784ea09
 log_events: 
 - - 2014-10-13 07:20:28.478456 Z
@@ -45,3 +46,16 @@ log_events:
   - |-
     Added link to PyDitz. (The newer one. Seems there has been
     two using the same name.)
+- - 2015-05-29 11:26:11.304466 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    There is also interesting development going on with pyditz.
+    It has already implemented most or all of
+    Ditz functionality and made some incompatible extensions to it.
+
+- - 2015-05-29 11:29:19.551190 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 2
+  - |-
+    A separate ticket exists for PyDitz.

@@ -1,0 +1,32 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Implement unit tests
+desc: |-
+  Not much tests exist.
+  Implement unit tests where those can be easily
+  added and code base can be expected to remain stable.
+  When implementing new features without access to
+  graphical console, test driven development is preferred.
+type: :task
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-05-29 14:07:20.405551 Z
+references: []
+
+id: 8531f2d17b01f220bbc831077048ddaa7cffcb32
+log_events: 
+- - 2015-05-29 14:07:23.621379 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2015-06-01 13:53:57.812122 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Modify run_tests.sh to dynamically run tests
+    for all test_*.py files (intead of a hardcoded list of files).
+    Even better if this could be done in Python and a
+    "master" test suite was created dynamically in the same way.
+    But that would be much harder to implement and a little fragile.

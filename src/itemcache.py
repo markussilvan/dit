@@ -7,6 +7,8 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
+from common.items import DitzIssue
+
 class ItemCache():
     """
     This class form a cache of read issues and releases
@@ -31,7 +33,7 @@ class ItemCache():
         - issue: a new issue to add to cache
         """
         # check if given issue contains required information
-        if not issue:
+        if not isinstance(issue, DitzIssue):
             return False
         if issue.title == None or issue.title == "":
             return False

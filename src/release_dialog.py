@@ -41,7 +41,6 @@ class ReleaseDialog(QtGui.QDialog):
 
         self.setWindowTitle(title)
 
-        settings = self.ditz.config.get_app_config()
         for state in self.ditz.config.get_valid_release_states():
             self.comboBoxStatus.addItem(state)
 

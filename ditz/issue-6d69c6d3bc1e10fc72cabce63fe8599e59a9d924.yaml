@@ -1,0 +1,25 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Renaming issues with no component name
+desc: |-
+  How should this work?
+  I expect these should use component name "issue" with
+  a running index ''starting from one''.
+  Instead it seems index is not reset and they just continue
+  onwards from the index left behind from previous component.
+  
+  Unittest for testRenamingIssues() shows this behaviour.
+type: :bugfix
+component: ditz-gui
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-06-02 10:27:40.378425 Z
+references: []
+
+id: 6d69c6d3bc1e10fc72cabce63fe8599e59a9d924
+log_events: 
+- - 2015-06-02 10:27:44.025999 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

@@ -7,7 +7,7 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
-from common.items import DitzIssue
+from common.items import DitzIssue, DitzRelease
 
 class ItemCache():
     """
@@ -146,20 +146,40 @@ class ItemCache():
         Parameters:
         - release: a new release to add to cache
         """
-        if not release:
+        if not isinstance(release, DitzRelease):
             return False
         if release.title == None or release.title == "":
             return False
 
         # check if the same release already exists in cache
-        for cached_release in self.releases:
-            if cached_release.title == release.title:
-                self.releases.remove(cached_release)
-                break
+        self.remove_release(release.title)
 
         # add the new release to cache
         self.releases.append(release)
         return True
+
+    def remove_release(self, title):
+        """
+        Remove a release from cache.
+
+        Note that any issues assigned to this release are not
+        affected by this operation.
+
+        Parameters:
+        - title: title of the release to remove
+
+        Returns:
+        - True: if release was removed from cache
+        - False: if invalid parameters, or release not found from cache
+        """
+        if title == None or title == "":
+            return False
+
+        for cached_release in self.releases:
+            if cached_release.title == title:
+                self.releases.remove(cached_release)
+                return True
+        return False
 
     def get_release(self, release_title):
         """
@@ -211,4 +231,22 @@ class ItemCache():
             if issue.name and len(issue.name) > max_len:
                 max_len = len(issue.name)
         return max_len
+
+    def issue_count(self):
+        """
+        Get number of cached issues.
+
+        Returns:
+        - amount of cached issues as integer
+        """
+        return len(self.issues)
+
+    def release_count(self):
+        """
+        Get number of cached releases.
+
+        Returns:
+        - amount of cached releases as integer
+        """
+        return len(self.releases)
 

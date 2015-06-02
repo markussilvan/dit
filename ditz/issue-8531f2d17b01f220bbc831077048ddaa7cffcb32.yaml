@@ -30,3 +30,7 @@ log_events:
     Even better if this could be done in Python and a
     "master" test suite was created dynamically in the same way.
     But that would be much harder to implement and a little fragile.
+- - 2015-06-02 13:15:19.894266 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Unit tests for all functionality in ItemCache has been implemented.

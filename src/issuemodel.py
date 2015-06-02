@@ -6,6 +6,7 @@ import datetime
 import glob
 import os
 import hashlib
+import random
 
 from common.items import DitzIssue
 from common.errors import ApplicationError
@@ -33,10 +34,12 @@ class IssueModel():
         - issue data as a IssueYamlObject
         """
         issue_file = "{}/{}{}.yaml".format(self.issue_dir, self.issue_prefix, identifier)
-        with open(issue_file, 'r') as stream:
-            issue_data = yaml.load(stream)
-            return issue_data
-        raise ApplicationError("Error reading issue yaml file")
+        try:
+            with open(issue_file, 'r') as stream:
+                issue_data = yaml.load(stream)
+                return issue_data
+        except Exception:
+            raise ApplicationError("Error reading issue yaml file")
 
     def write_issue_yaml(self, issue):
         """
@@ -61,7 +64,10 @@ class IssueModel():
         - identifier: issue hash identifier
         """
         issue_file = "{}/{}{}.yaml".format(self.issue_dir, self.issue_prefix, identifier)
-        os.remove(issue_file)
+        try:
+            os.remove(issue_file)
+        except Exception:
+            raise ApplicationError("Error removing issue yaml file")
 
     def list_issue_identifiers(self):
         """
@@ -94,7 +100,8 @@ class IssueModel():
         identifiers = self.list_issue_identifiers()
         sha = hashlib.sha1()
         for i in range(10):
-            sha.update(datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S-{}".format(i)))
+            sha.update(datetime.datetime.utcnow().strftime(
+                "%Y%m%d%H%M%S-{}-{}".format(i, random.randint(0, 10000))))
             identifier = sha.hexdigest()
             if identifier not in identifiers:
                 return identifier
@@ -143,7 +150,7 @@ class IssueYamlObject(yaml.YAMLObject):
         super(IssueYamlObject, self).__init__()
 
     @classmethod
-    def fromDitzIssue(cls, issue):
+    def from_ditz_issue(cls, issue):
         """
         Initialize a new IssueYamlObject from an existing DitzIssue object
 
@@ -168,7 +175,7 @@ class IssueYamlObject(yaml.YAMLObject):
                 issue.creator, status, disposition, issue.created, issue.references,
                 issue.identifier, issue.log)
 
-    def toDitzIssue(self):
+    def to_ditz_issue(self):
         """
         Create a new DitzIssue containing the information in this class
 
@@ -184,8 +191,12 @@ class IssueYamlObject(yaml.YAMLObject):
             status = status[1:]
         status = status.replace('_', ' ')
 
+        disposition = self.disposition
+        if disposition and disposition[0] == ':':
+            disposition = disposition[1:]
+
         # identifier used also as name (name is generated and can't be known yet)
-        return DitzIssue(self.title, self.id, issue_type, self.component, status, None,
+        return DitzIssue(self.title, self.id, issue_type, self.component, status, disposition,
                 self.desc, self.reporter, self.creation_time, self.release,
                 self.references, self.id, self.log_events)
 

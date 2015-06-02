@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Another issue for testing!!!
+desc: |-
+  This has some special characters in its name.
+  Like it matters? Well it doesn't.
+  At least it shouldn't. Right?
+type: :feature
+component: testing_project
+release: 
+reporter: different@creator.com
+status: :unstarted
+disposition: 
+creation_time: 2015-06-02 17:17:06.714935 Z
+references: []
+
+id: 2f87f94bd56e5a7fdb1338c63e8f5848de1418f6
+log_events: 
+- - 2015-06-02 17:17:28.555200 Z
+  - Beyonce Bugger <bb@lightningmail.com>
+  - created
+  - Here is also a really interesting comment.

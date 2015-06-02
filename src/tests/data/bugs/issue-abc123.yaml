@@ -1,0 +1,13 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: unittest
+creation_time: 2015-06-03 16:06:19.950025
+desc: This is a boring description of an issue used for testing.
+disposition: ''
+id: abc123
+log_events: null
+references: []
+release: v1.0
+reporter: A tester <mail@address.com>
+status: :unstarted
+title: A generated test issue
+type: :task

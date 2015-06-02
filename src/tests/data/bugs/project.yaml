@@ -1,0 +1,25 @@
+--- !ditz.rubyforge.org,2008-03-06/project 
+name: testing_project
+version: "0.5"
+components: 
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: testing_project
+releases: 
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: week 49
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2015-06-02 19:18:01.788431 Z
+    - Beyonce Bugger <bb@lightningmail.com>
+    - created
+    - A sprint release on week 49.
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: lolwut
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2015-06-02 19:18:27.100392 Z
+    - Beyonce Bugger <bb@lightningmail.com>
+    - created
+    - Just some release for testing.

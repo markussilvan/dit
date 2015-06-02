@@ -6,33 +6,17 @@ A unit test for itemcache.py
 """
 
 import unittest
-import xmlrunner
-import argparse
 import re
-
-# allow imports from parent directory
-import os, sys, inspect
-script_path = os.path.abspath(os.path.split(inspect.getfile(inspect.currentframe()))[0])
-parent_path = os.path.realpath(script_path + "/..")
-if parent_path not in sys.path:
-    sys.path.insert(0, parent_path)
-
 import string
 import random
 from datetime import datetime, timedelta
 
+import testlib
 import itemcache
 from common.items import DitzIssue, DitzRelease
 
-class NullWriter:
-    """A class to use as output, when no screen output is wanted."""
-    def __init__(self):
-        pass
-    def write(self, string):
-        pass
-
-class testItemCache(unittest.TestCase):
-    """Unit test for itemcache.
+class ItemCacheTests(unittest.TestCase):
+    """Unit test for ItemCache.
 
     ItemCache is used to cache read issues and releases
     to memory for faster and easier access.
@@ -40,46 +24,46 @@ class testItemCache(unittest.TestCase):
     A cache is required so issues can be enumerated and named.
     """
     def setUp(self):
-        self.out = NullWriter()
+        self.out = testlib.NullWriter()
         self.cache = itemcache.ItemCache()
 
     def create_random_issue(self, release=None):
         """Create a valid issue to use for testing."""
-        title = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(16)])
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(40)])
+        title = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(16)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(40)])
         name = identifier
-        issue_type = random.choice([':bugfix', ':feature', ':task'])
+        issue_type = random.choice(['bugfix', 'feature', 'task'])
         description = "lorem ipsum dolor sit ameth"
         if release == None:
             release = "v{}.{}".format(random.randint(0, 2), random.randint(0, 12))
-        return DitzIssue(title, name, issue_type, 'unittest', ':unstarted', None,
+        return DitzIssue(title, name, issue_type, 'unittest', 'unstarted', None,
                 description, "A tester <mail@address.com>", datetime.now(), release,
                 None, identifier, None)
 
     def create_random_release(self):
         """Create a valid release to use for testing."""
-        name = ''.join([random.choice(string.printable) for n in xrange(16)])
-        status = random.choice([':unreleased', ':released'])
+        name = ''.join([random.choice(string.printable) for _ in xrange(16)])
+        status = random.choice(['unreleased', 'released'])
         return DitzRelease(name, 'Release', status, datetime.now(), None)
 
     def fill_cache_with_some_data(self, new_issue_count, new_release_count):
-        for i in xrange(new_issue_count):
+        for _ in xrange(new_issue_count):
             issue = self.create_random_issue()
             self.assertTrue(self.cache.add_issue(issue))
             self.assertIsNotNone(self.cache.get_issue(issue.identifier))
-        for i in xrange(new_release_count):
+        for _ in xrange(new_release_count):
             release = self.create_random_release()
             self.assertTrue(self.cache.add_release(release))
             self.assertIsNotNone(self.cache.get_release(release.title))
 
-    def testAddingInvalidIssues(self):
+    def test_adding_invalid_issues(self):
         original_count = self.cache.issue_count()
         self.assertEqual(self.cache.add_issue(None), False)
         self.assertEqual(self.cache.add_issue("foo"), False)
         self.assertEqual(self.cache.add_issue(123), False)
 
         # adding issues with invalid creation time
-        invalid = DitzIssue('foo title', 'bar name', ':bugfix', 'fail', ':unstarted', None,
+        invalid = DitzIssue('foo title', 'bar name', 'bugfix', 'fail', 'unstarted', None,
                 'This issue is invalid. For testing purposes.', 'Teppo the Tester')
         invalid.identifier = "abcd123"
         self.assertEqual(self.cache.add_issue(invalid), False)
@@ -106,18 +90,18 @@ class testItemCache(unittest.TestCase):
 
         self.assertEqual(self.cache.issue_count(), original_count)
 
-    def testAddingAndGettingIssues(self):
+    def test_adding_and_getting_issues(self):
         """Adding issues and access them successfully"""
         new_issue_count = 20
         original_count = self.cache.issue_count()
-        for i in xrange(new_issue_count):
+        for _ in xrange(new_issue_count):
             issue = self.create_random_issue()
             self.assertTrue(self.cache.add_issue(issue))
             self.assertIsNotNone(self.cache.get_issue(issue.identifier))
         new_count = self.cache.issue_count()
         self.assertEqual(new_count, original_count + new_issue_count)
 
-    def testRemovingIssue(self):
+    def test_removing_issue(self):
         """Removing an issue that exists"""
         original_count = self.cache.issue_count()
 
@@ -132,14 +116,15 @@ class testItemCache(unittest.TestCase):
         self.assertIsNone(self.cache.get_issue(issue.identifier))
         self.assertEqual(self.cache.issue_count(), original_count)
 
-    def testRemovingInvalidIssue(self):
+    def test_removing_invalid_issue(self):
         """Removing an issue that doesn't exist"""
         original_count = self.cache.issue_count()
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(20)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(20)])
         self.assertIsNone(self.cache.get_issue(identifier))
         self.assertFalse(self.cache.remove_issue(identifier))
+        self.assertEquals(self.cache.issue_count(), original_count)
 
-    def testClearingCache(self):
+    def test_clearing_cache(self):
         """Clearing the cache with and without existing items)"""
         # test with one issue
         self.cache.clear()
@@ -163,19 +148,19 @@ class testItemCache(unittest.TestCase):
         self.assertEquals(self.cache.issue_count(), 0)
         self.assertEquals(self.cache.release_count(), 0)
 
-    def testRemovingFromEmptyCache(self):
+    def test_removing_from_empty_cache(self):
         """Try to remove nonexisting issue from an empty cache"""
         self.cache.clear()
         self.assertEquals(self.cache.issue_count(), 0)
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(35)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(35)])
         self.assertFalse(self.cache.remove_issue(identifier))
         self.assertEquals(self.cache.issue_count(), 0)
 
-    def testAddingAndGettingReleases(self):
+    def test_adding_and_getting_releases(self):
         """Add releases and access them successfully"""
         new_releases_count = 10
         original_count = self.cache.release_count()
-        for i in xrange(new_releases_count):
+        for _ in xrange(new_releases_count):
             release = self.create_random_release()
             self.assertTrue(self.cache.add_release(release))
             self.assertIsNotNone(self.cache.get_release(release.title))
@@ -185,7 +170,7 @@ class testItemCache(unittest.TestCase):
         self.assertTrue(self.cache.add_release(DitzRelease("foo v1.0")))
         self.assertEqual(self.cache.release_count(), new_count + 1)
 
-    def testAddingInvalidReleases(self):
+    def test_adding_invalid_releases(self):
         original_count = self.cache.release_count()
         self.assertFalse(self.cache.add_release(None))
         self.assertFalse(self.cache.add_release("foo"))
@@ -200,7 +185,7 @@ class testItemCache(unittest.TestCase):
         # check that no releases have been added to cache
         self.assertEqual(self.cache.release_count(), original_count)
 
-    def testRemovingRelease(self):
+    def test_removing_release(self):
         """Removing a release that exists"""
         original_issue_count = self.cache.issue_count()
         original_release_count = self.cache.release_count()
@@ -218,15 +203,17 @@ class testItemCache(unittest.TestCase):
         self.assertEqual(self.cache.issue_count(), original_issue_count)
         self.assertEqual(self.cache.release_count(), original_release_count)
 
-    def testRemovingInvalidRelease(self):
+    def test_removing_invalid_release(self):
         """Trying to remove a release that doesn't exist"""
         original_issue_count = self.cache.issue_count()
         original_release_count = self.cache.release_count()
-        random_title = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(12)])
+        random_title = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(12)])
         self.assertIsNone(self.cache.get_release(random_title))
         self.assertFalse(self.cache.remove_release(random_title))
+        self.assertEqual(self.cache.issue_count(), original_issue_count)
+        self.assertEqual(self.cache.release_count(), original_release_count)
 
-    def testGettingIssueNameMaxLength(self):
+    def test_getting_issue_name_max_length(self):
         """Get length of longest issue name used"""
         new_issue_count = 30
         new_release_count = 10
@@ -234,13 +221,13 @@ class testItemCache(unittest.TestCase):
 
         # add issue with longest name
         issue = self.create_random_issue()
-        issue.name = "thelongestnamethisissuehas".join([random.choice(string.printable) for n in xrange(100)])
+        issue.name = "thelongestnamethisissuehas".join([random.choice(string.printable) for _ in xrange(100)])
         self.assertTrue(self.cache.add_issue(issue))
 
         # verify it as the longest name
         self.assertEqual(self.cache.get_issue_name_max_len(), len(issue.name))
 
-    def testRenamingIssues(self):
+    def test_renaming_issues(self):
         """Rename issue to use "<component>-<index>" naming"""
         self.cache.clear()
         issue = self.create_random_issue()
@@ -275,7 +262,7 @@ class testItemCache(unittest.TestCase):
             self.assertIsNotNone(re.match(r'^(unittest-\d+)$', self.cache.issues[i].name))
         self.assertEqual('issue-22', self.cache.issues[21].name)   #TODO: is this a bug? should it be "issue-1" instead?
 
-    def testGettingIssueStatus(self):
+    def test_getting_issue_status(self):
         """Get issue status by id"""
         new_issue_count = 10
         new_release_count = 2
@@ -285,25 +272,25 @@ class testItemCache(unittest.TestCase):
         self.assertTrue(self.cache.get_issue(issue.identifier))
         status = self.cache.get_issue_status_by_id(issue.identifier)
         self.assertIsNotNone(status)
-        if not status in [':unstarted', ':in_progress', ':closed']:
+        if not status in ['unstarted', 'in progress', 'closed']:
             self.fail("Issue in invalid state")
 
-    def testGettingIssueStatusWithInvalidId(self):
+    def test_getting_issue_status_with_invalid_id(self):
         """Try to get issue status with invalid id"""
         new_issue_count = 10
         new_release_count = 2
         self.fill_cache_with_some_data(new_issue_count, new_release_count)
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(8)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(8)])
         self.assertFalse(self.cache.get_issue(identifier))
         self.assertIsNone(self.cache.get_issue_status_by_id(identifier))
 
-    def testGettingIssueStatusWithInvalidIdFromEmptyCache(self):
+    def test_getting_issue_status_with_invalid_id_from_empty_cache(self):
         """Try to get issue status with invalid id from empty cache of issues and releases"""
         self.cache.clear()
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(8)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(8)])
         self.assertIsNone(self.cache.get_issue_status_by_id(identifier))
 
-    def testGetIssuesByRelease(self):
+    def test_get_issues_by_release(self):
         """Get issues belonging to a given release"""
         rel_title = 'test_rel_1'
         new_issue_count = 30
@@ -317,7 +304,7 @@ class testItemCache(unittest.TestCase):
 
         # add issues that belong to that release
         issues_in_release_count = 10
-        for i in xrange(issues_in_release_count):
+        for _ in xrange(issues_in_release_count):
             self.cache.add_issue(self.create_random_issue(release=rel_title))
 
         # get issues in the release
@@ -326,7 +313,7 @@ class testItemCache(unittest.TestCase):
         self.assertEqual(len(issues), issues_in_release_count)
         self.assertEqual(self.cache.issue_count(), new_issue_count + issues_in_release_count)
 
-    def testTryGettingIssuesForInvalidRelease(self):
+    def test_try_getting_issues_for_invalid_release(self):
         """
         Try getting issues for a release which doesn't contain issues
         or for a release which doesn't exist in cache.
@@ -358,7 +345,7 @@ class testItemCache(unittest.TestCase):
         self.assertIsNotNone(issues)
         self.assertEqual(len(issues), 0)
 
-    def testSortingIssuesNoRename(self):
+    def test_sorting_issues_no_rename(self):
         """Sorting issues without renaming them."""
         new_issue_count = 30
         new_release_count = 4
@@ -387,7 +374,7 @@ class testItemCache(unittest.TestCase):
         self.assertEqual(self.cache.issues[-1], issue)
         self.assertEqual(original_issues, self.cache.issues[1:-1])
 
-    def testSortingIssues(self):
+    def test_sorting_issues(self):
         """Sorting issues and renaming them in the process."""
         new_issue_count = 30
         new_release_count = 4
@@ -415,31 +402,16 @@ class testItemCache(unittest.TestCase):
         self.assertIsNotNone(re.match(r'^(issue-\d+)$', self.cache.issues[-1].name))
         self.assertIsNotNone(re.match(r'^(lolz-\d+)$', self.cache.issues[-2].name))
 
-    #def testSortingReleases(self):
+    #def test_sorting_releases(self):
     #    self.cache.sort_releases()
     #    self.fail("Not implemented")
 
 
 def suite():
     testsuite = unittest.TestSuite()
-    testsuite.addTest(unittest.makeSuite(testItemCache))
+    testsuite.addTest(unittest.makeSuite(ItemCacheTests))
     return testsuite
 
-def runTests(use_xml_runner, report_dir):
-    if use_xml_runner == True:
-        # run tests and generate XML reports from test results
-        # default report directory is reports/
-        xmlrunner.XMLTestRunner(output=report_dir).run(suite())
-    else:
-        # run tests and print test output to console
-        unittest.TextTestRunner(verbosity=2).run(suite())
-
 if __name__ == '__main__':
-    # parse command line arguments and run tests accordingly
-    parser = argparse.ArgumentParser(description='Run unit tests.')
-    parser.add_argument('--xml', dest='xml', action='store_true', help='type of test run, Text or XML')
-    parser.add_argument('out', nargs='?', default="reports",
-            help='location for XML test reports')
-    args = parser.parse_args()
+    testlib.parse_arguments_and_run_tests(suite)
 
-    runTests(args.xml, args.out)

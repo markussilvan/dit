@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: A test issue
+desc: |-
+  This issue exist for unit tests to read.
+  Nothing special about this issue.
+type: :bugfix
+component: testing_project
+release: 
+reporter: Beyonce Bugger <bb@lightningmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2015-06-02 17:15:34.123211 Z
+references: []
+
+id: e50d0e38b19c1ff0e9b696ffe919435d26477975
+log_events: 
+- - 2015-06-02 17:15:42.355226 Z
+  - Beyonce Bugger <bb@lightningmail.com>
+  - created
+  - ""

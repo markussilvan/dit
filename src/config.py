@@ -129,6 +129,15 @@ class ConfigControl(object):
             return ''
         return creator
 
+    def set_project_root(self, project_root):
+        """
+        Set location of project files.
+
+        Parameters:
+        - absolute path to project files
+        """
+        self.ditzconfig.project_root = project_root
+
 
 class DitzConfigModel(object):
     """

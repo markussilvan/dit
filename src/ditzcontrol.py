@@ -157,7 +157,7 @@ class DitzControl(object):
             if identifier and len(identifier) != 40:
                 return None
         yaml_issue = self.issuemodel.read_issue_yaml(identifier)
-        ditz_item = yaml_issue.toDitzIssue()
+        ditz_item = yaml_issue.to_ditz_issue()
         if update_cache:
             self.item_cache.add_issue(ditz_item)
             #self.item_cache.sort_issues(rename = True)
@@ -206,7 +206,7 @@ class DitzControl(object):
         issue.identifier = self.issuemodel.generate_new_identifier()
         self._add_issue_log_entry(issue, 'created', comment)
 
-        yaml_issue = IssueYamlObject.fromDitzIssue(issue)
+        yaml_issue = IssueYamlObject.from_ditz_issue(issue)
         self.issuemodel.write_issue_yaml(yaml_issue)
 
     def edit_issue(self, issue, comment=''):
@@ -224,7 +224,7 @@ class DitzControl(object):
 
         self._add_issue_log_entry(issue, 'edited', comment)
 
-        yaml_issue = IssueYamlObject.fromDitzIssue(issue)
+        yaml_issue = IssueYamlObject.from_ditz_issue(issue)
         self.issuemodel.write_issue_yaml(yaml_issue)
 
     def add_comment(self, ditz_id, comment):
@@ -243,7 +243,7 @@ class DitzControl(object):
         ditz_issue = self._get_issue_by_id(ditz_id)
         self._add_issue_log_entry(ditz_issue, 'commented', comment)
 
-        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
+        yaml_issue = IssueYamlObject.from_ditz_issue(ditz_issue)
         self.issuemodel.write_issue_yaml(yaml_issue)
 
     def add_reference(self, ditz_id, reference, comment=""):
@@ -264,7 +264,7 @@ class DitzControl(object):
         ditz_issue.references.append(reference)
         self._add_issue_log_entry(ditz_issue, 'added reference', comment)
 
-        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
+        yaml_issue = IssueYamlObject.from_ditz_issue(ditz_issue)
         self.issuemodel.write_issue_yaml(yaml_issue)
 
     def _disposition_to_str(self, disposition):
@@ -301,7 +301,7 @@ class DitzControl(object):
         action = "closed with disposition {}".format(ditz_issue.disposition)
         self._add_issue_log_entry(ditz_issue, action, comment)
 
-        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
+        yaml_issue = IssueYamlObject.from_ditz_issue(ditz_issue)
         self.issuemodel.write_issue_yaml(yaml_issue)
 
     def drop_issue(self, identifier):
@@ -353,7 +353,7 @@ class DitzControl(object):
         action = "assigned to release {} from {}".format(release, old_release)
         self._add_issue_log_entry(ditz_issue, action, comment)
 
-        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
+        yaml_issue = IssueYamlObject.from_ditz_issue(ditz_issue)
         self.issuemodel.write_issue_yaml(yaml_issue)
 
     def start_work(self, ditz_id, comment=''):
@@ -403,7 +403,7 @@ class DitzControl(object):
         action = "status changed from {} to {}".format(old_status, status)
         self._add_issue_log_entry(ditz_issue, action, comment)
 
-        yaml_issue = IssueYamlObject.fromDitzIssue(ditz_issue)
+        yaml_issue = IssueYamlObject.from_ditz_issue(ditz_issue)
         self.issuemodel.write_issue_yaml(yaml_issue)
 
     def _get_issue_by_id(self, ditz_id):

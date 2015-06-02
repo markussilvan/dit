@@ -7,36 +7,27 @@
 # That would require more work than it's worth.
 
 import unittest
-import xmlrunner
-import argparse
 import re
+import os
 
-# allow imports from parent directory
-import os, sys, inspect
-script_path = os.path.abspath(os.path.split(inspect.getfile(inspect.currentframe()))[0])
-parent_path = os.path.realpath(script_path + "/..")
-if parent_path not in sys.path:
-    sys.path.insert(0, parent_path)
-
+import testlib
 import config
 
-class NullWriter:
-    """A class to use as output, when no screen output is wanted."""
-    def __init__(self):
-        pass
-    def write(self, string):
-        pass
+class ConfigRealTests(unittest.TestCase):
+    """
+    Unit test for config.
 
-#TODO: could this be done using separate config files only for testing?
-class testConfig(unittest.TestCase):
-    """Unit test for config."""
+    These tests access real data in ditz-gui repository
+    (as the project root is found automatically by the code).
+    No data should be modified by these tests.
+    """
     def setUp(self):
-        self.out = NullWriter()
+        self.out = testlib.NullWriter()
         self.config = config.ConfigControl()
 
         self.config.load_configs()
 
-    def testVerifyLoadingConfigs(self):
+    def test_verify_loading_configs(self):
         """Verify loading config files"""
         ditzconfig = self.config.get_ditz_configs()
         self.assertTrue(isinstance(ditzconfig, config.DitzConfigYaml))
@@ -44,34 +35,35 @@ class testConfig(unittest.TestCase):
         appconfig = self.config.get_app_configs()
         self.assertTrue(isinstance(appconfig, config.AppConfigYaml))
 
-    def testProjectRoot(self):
+    def test_project_root(self):
         """Try reading and verifying project root setting"""
         root = self.config.get_project_root()
         self.assertIsNotNone(root)
         self.assertTrue(isinstance(root, str))
-        #print "ROOT: " + root
+        known_root = os.path.abspath('..')
+        self.assertTrue(root, known_root)
 
-    def testProjectName(self):
+    def test_project_name(self):
         """Verify project name"""
         name = self.config.get_project_name()
         self.assertEqual(name, "ditz-gui")
 
-    def testListingReleases(self):
+    def test_listing_releases(self):
         """Check list of releases"""
         releases = self.config.get_releases()
         self.assertTrue(isinstance(releases, list))
 
-    def testIssueStates(self):
+    def test_issue_states(self):
         """Check a list of issue states"""
         states = self.config.get_valid_issue_states()
         self.assertIsInstance(states, list)
 
-    def testReleaseStates(self):
+    def test_release_states(self):
         """Check a list of release states"""
         states = self.config.get_valid_release_states()
         self.assertIsInstance(states, list)
 
-    def testDefaultCreator(self):
+    def test_default_creator(self):
         """Check default creator"""
         creator = self.config.get_default_creator()
         self.assertIsInstance(creator, str)
@@ -80,28 +72,75 @@ class testConfig(unittest.TestCase):
         self.assertEquals(match, creator)
 
 
+class ConfigMockDataTests(unittest.TestCase):
+    """
+    Unit test for config.
+
+    These tests use an altered project root.
+    This way data is known and can be modified.
+    """
+    def setUp(self):
+        self.out = testlib.NullWriter()
+        self.config = config.ConfigControl()
+        mock_project_root = os.path.abspath('data/')
+        self.config.set_project_root(mock_project_root)
+        self.config.load_configs()
+
+    def test_project_root(self):
+        """Try reading and verifying project root setting"""
+        root = self.config.get_project_root()
+        self.assertIsNotNone(root)
+        self.assertTrue(isinstance(root, str))
+        mock_project_root = os.path.abspath('data/')
+        self.assertTrue(root, mock_project_root)
+
+    def test_verify_loading_configs(self):
+        """Verify loading config files"""
+        ditzconfig = self.config.get_ditz_configs()
+        self.assertTrue(isinstance(ditzconfig, config.DitzConfigYaml))
+
+        appconfig = self.config.get_app_configs()
+        self.assertTrue(isinstance(appconfig, config.AppConfigYaml))
+
+    def test_project_name(self):
+        """Verify mock project name"""
+        name = self.config.get_project_name()
+        self.assertEqual(name, "testing_project")
+
+    def test_default_creator(self):
+        """Check default creator"""
+        creator = self.config.get_default_creator()
+        self.assertEquals(creator, 'Beyonce Bugger <bb@lightningmail.com>')
+
+    def test_valid_issue_states(self):
+        states = self.config.get_valid_issue_states()
+        self.assertEquals(states, ["unstarted", "in progress", "paused"])
+
+    def test_valid_release_states(self):
+        states = self.config.get_valid_release_states()
+        self.assertEquals(states, ["unreleased", "released"])
+
+    def test_get_releases(self):
+        releases = self.config.get_releases()
+        self.assertEquals(releases[0].name, "Release")
+        self.assertEquals(releases[0].title, "week 49")
+        self.assertEquals(releases[0].status, "unreleased")
+        self.assertEquals(releases[0].release_time, None)
+        self.assertEquals(releases[1].name, "Release")
+        self.assertEquals(releases[1].title, "lolwut")
+        self.assertEquals(releases[1].status, "unreleased")
+        self.assertEquals(releases[1].release_time, None)
+        self.assertEquals(releases[1].log[0][1], 'Beyonce Bugger <bb@lightningmail.com>')
+        self.assertEquals(releases[1].log[0][2], 'created')
+
+
 def suite():
     testsuite = unittest.TestSuite()
-    testsuite.addTest(unittest.makeSuite(testConfig))
+    testsuite.addTest(unittest.makeSuite(ConfigRealTests))
+    testsuite.addTest(unittest.makeSuite(ConfigMockDataTests))
     return testsuite
 
-def runTests(use_xml_runner, report_dir):
-    if use_xml_runner == True:
-        # run tests and generate XML reports from test results
-        # default report directory is reports/
-        xmlrunner.XMLTestRunner(output=report_dir).run(suite())
-    else:
-        # run tests and print test output to console
-        unittest.TextTestRunner(verbosity=2).run(suite())
-
 if __name__ == '__main__':
-    # parse command line arguments and run tests accordingly
-    parser = argparse.ArgumentParser(description='Run unit tests.')
-    parser.add_argument('--xml', dest='xml', action='store_true', help='type of test run, Text or XML')
-    parser.add_argument('out', nargs='?', default="reports",
-            help='location for XML test reports')
-    args = parser.parse_args()
-
-    runTests(args.xml, args.out)
+    testlib.parse_arguments_and_run_tests(suite)
 
 

@@ -89,9 +89,11 @@ class ReleaseDialog(QtGui.QDialog):
                 self.ditz.assign_issue(issue.identifier, self.release.title, 'Release renamed.')
         else:
             self.ditz.config.projectconfig.set_release(self.release)
-        self.ditz.config.projectconfig.write_config_file()
-
-        super(ReleaseDialog, self).accept()
+        if self.ditz.config.projectconfig.write_config_file() == False:
+            QtGui.QMessageBox.warning(self, "Error",
+                    "Saving project configuration file failed")
+        else:
+            super(ReleaseDialog, self).accept()
 
     def reject(self):
         """

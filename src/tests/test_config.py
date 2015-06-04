@@ -113,14 +113,17 @@ class ConfigMockDataTests(unittest.TestCase):
         self.assertEquals(creator, 'Beyonce Bugger <bb@lightningmail.com>')
 
     def test_valid_issue_states(self):
+        """List valid issue states"""
         states = self.config.get_valid_issue_states()
         self.assertEquals(states, ["unstarted", "in progress", "paused"])
 
     def test_valid_release_states(self):
+        """List valid release states"""
         states = self.config.get_valid_release_states()
         self.assertEquals(states, ["unreleased", "released"])
 
     def test_get_releases(self):
+        """Get release information"""
         releases = self.config.get_releases()
         self.assertEquals(releases[0].name, "Release")
         self.assertEquals(releases[0].title, "week 49")
@@ -132,6 +135,38 @@ class ConfigMockDataTests(unittest.TestCase):
         self.assertEquals(releases[1].release_time, None)
         self.assertEquals(releases[1].log[0][1], 'Beyonce Bugger <bb@lightningmail.com>')
         self.assertEquals(releases[1].log[0][2], 'created')
+
+    def test_writing_ditz_config(self):
+        """
+        Write .ditz-config file
+
+        Original data is read already. Change some data,
+        read new data to verify, then change it back and
+        read it to verify original data has been written back.
+        """
+        # save original state
+        ditzconfig = self.config.ditzconfig
+        self.assertIsInstance(ditzconfig, config.DitzConfigModel)
+        original_name = ditzconfig.settings.name
+        self.assertNotEqual(original_name, 'Boyle Bugger')
+
+        # change creator in ditz configuration
+        ditzconfig.settings.name = 'Boyle Bugger'
+        self.assertTrue(ditzconfig.write_config_file())
+        self.assertTrue(ditzconfig.read_config_file())
+
+        # verify changed creator
+        creator = self.config.get_default_creator()
+        self.assertEquals(creator, 'Boyle Bugger <bb@lightningmail.com>')
+
+        # change back original values
+        ditzconfig.settings.name = original_name
+        self.assertTrue(ditzconfig.write_config_file())
+        self.assertTrue(ditzconfig.read_config_file())
+
+        # verify original creator
+        creator = self.config.get_default_creator()
+        self.assertEquals(creator, original_name + ' <bb@lightningmail.com>')
 
 
 def suite():

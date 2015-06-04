@@ -100,14 +100,18 @@ class SettingsDialog(QtGui.QDialog):
             ditz_settings.name = str(self.lineEditName.text())
             ditz_settings.email = str(self.lineEditEmail.text())
             ditz_settings.issue_dir = str(self.lineEditIssueDir.text())
-            self.config.ditzconfig.write_config_file()
-            self.ditz_settings_changed = False
+            if self.config.ditzconfig.write_config_file() == True:
+                self.ditz_settings_changed = False
+            else:
+                raise ApplicationError("Error saving ditz configuration file")
 
         if self.app_settings_changed == True:
             app_settings.default_issue_type = str(self.comboBoxIssueType.currentText())
             app_settings.remember_window_size = bool(self.checkBoxRememberWindowSize.isChecked())
-            self.config.appconfig.write_config_file()
-            self.app_settings_changed = False
+            if self.config.appconfig.write_config_file() == True:
+                self.app_settings_changed = False
+            else:
+                raise ApplicationError("Error saving application configuration file")
 
         super(SettingsDialog, self).accept()
 

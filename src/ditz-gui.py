@@ -584,7 +584,9 @@ class DitzGui(QtGui.QMainWindow):
             creator = self.config.get_default_creator()
             release.add_log_entry(None, 'commented', creator, comment)
             self.config.projectconfig.set_release(release)
-            self.config.projectconfig.write_config_file()
+            if self.config.projectconfig.write_config_file() == False:
+                QtGui.QMessageBox.warning(self, "Error",
+                        "Saving project configuration file failed")
             self.reload_data()
 
     def make_release(self):
@@ -606,7 +608,9 @@ class DitzGui(QtGui.QMainWindow):
             creator = self.config.get_default_creator()
             release.add_log_entry(None, 'released', creator, comment)
             self.config.projectconfig.make_release(release)
-            self.config.projectconfig.write_config_file()
+            if self.config.projectconfig.write_config_file() == False:
+                QtGui.QMessageBox.warning(self, "Error",
+                        "Saving project configuration file failed")
             self.reload_data()
 
     def remove_release(self):
@@ -617,7 +621,9 @@ class DitzGui(QtGui.QMainWindow):
             error = "Error removing release '{}' from project".format(release_name)
             QtGui.QMessageBox.warning(self, "Ditz error", error)
         else:
-            self.config.projectconfig.write_config_file()
+            if self.config.projectconfig.write_config_file() == False:
+                QtGui.QMessageBox.warning(self, "Error",
+                        "Saving project configuration file failed")
             self.reload_data()
 
     def move_release(self, direction=MOVE_UP):
@@ -626,7 +632,9 @@ class DitzGui(QtGui.QMainWindow):
             return
         if self.config.projectconfig.move_release(release_name, direction) == False:
             return
-        self.config.projectconfig.write_config_file()
+        if self.config.projectconfig.write_config_file() == False:
+            QtGui.QMessageBox.warning(self, "Error",
+                    "Saving project configuration file failed")
         self.reload_data()
 
     def archive_release(self):
@@ -651,8 +659,8 @@ class DitzGui(QtGui.QMainWindow):
         try:
             dialog = SettingsDialog(self.config)
             dialog.show_settings()
-        except DitzError as e:
-            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+        except ApplicationError as e:
+            QtGui.QMessageBox.warning(self, "Error", e.error_message)
             return
         self.reload_data()
 
@@ -679,7 +687,9 @@ class DitzGui(QtGui.QMainWindow):
             width = self.geometry().width()
             height = self.geometry().height()
             settings.window_size = [width, height]
-            self.config.appconfig.write_config_file()
+            if self.config.appconfig.write_config_file() == False:
+                QtGui.QMessageBox.warning(self, "Error",
+                        "Writing application configuration file failed")
 
     def _get_selected_issue_status(self):
         text = self._get_selected_item_text()

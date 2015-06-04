@@ -39,14 +39,16 @@ class ConfigControl(object):
         Raises ApplicationError on failure.
         """
         if self.ditzconfig.read_config_file() == False:
-            raise ApplicationError("Ditz config not found")
+            raise ApplicationError("Reading ditz configuration file failed")
         self.appconfig.project_root = self.ditzconfig.project_root
-        self.appconfig.read_config_file()
+        if self.appconfig.read_config_file() == False:
+            # using default settings
+            pass
         project_file = '{}/{}/{}'.format(self.ditzconfig.project_root,
                 self.ditzconfig.settings.issue_dir, 'project.yaml')
         self.projectconfig.project_file = project_file
         if self.projectconfig.read_config_file() == False:
-            raise ApplicationError("Project file not found")
+            raise ApplicationError("Reading project configuration file failed")
 
     def get_ditz_configs(self):
         """
@@ -189,6 +191,10 @@ class DitzConfigModel(object):
     def write_config_file(self):
         """
         Write settings from memory to ditz config file.
+
+        Returns:
+        - True on success
+        - False on any failure
         """
         config_file = "{}/{}".format(self.project_root, self.ditz_config_file)
         try:
@@ -196,7 +202,8 @@ class DitzConfigModel(object):
                 yaml_data = yaml.dump(self.settings, default_flow_style=False)
                 stream.write(yaml_data)
         except Exception:
-            raise ApplicationError("Error writing ditz settings file")
+            return False
+        return True
 
 
 class DitzConfigYaml(yaml.YAMLObject):
@@ -232,22 +239,28 @@ class AppConfigModel(object):
         Cache the settings in self.settings.
 
         Returns:
-        - a AppConfigYaml object containing settings
+        - True on success
+        - False on any failure
         """
         config_file = "{}/{}".format(self.project_root, self.app_config_file)
         try:
             with open(config_file, 'r') as stream:
                 self.settings = yaml.load(stream)
-                return self.settings
         except Exception:
             issue_types = ['bugfix', 'feature', 'task', 'enhancement']
             issue_dispositions = ['fixed', "won't fix", 'reorganized', 'invalid']
             self.settings = AppConfigYaml([800, 600], True, "task",
                     issue_types, issue_dispositions)
+            return False
+        return True
 
     def write_config_file(self):
         """
         Write settings from memory to ditz config file.
+
+        Returns:
+        - True on success
+        - False on any failure
         """
         config_file = "{}/{}".format(self.project_root, self.app_config_file)
         try:
@@ -255,7 +268,8 @@ class AppConfigModel(object):
                 yaml_data = yaml.dump(self.settings, default_flow_style=False)
                 stream.write(yaml_data)
         except Exception:
-            raise ApplicationError("Error writing application configuration file")
+            return False
+        return True
 
     def get_valid_issue_states(self):
         """
@@ -339,7 +353,7 @@ class DitzProjectModel(object):
                 yaml_data = yaml.dump(self.project_data, default_flow_style=False)
                 stream.write(yaml_data)
         except Exception:
-            raise ApplicationError("Error writing project configuration file")
+            return False
         return True
 
     def get_project_name(self):

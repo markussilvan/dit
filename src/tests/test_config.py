@@ -9,9 +9,12 @@
 import unittest
 import re
 import os
+from datetime import datetime
 
 import testlib
-import config
+import config                                   # pylint: disable=F0401
+from common.errors import ApplicationError      # pylint: disable=F0401
+from common.items import DitzRelease            # pylint: disable=F0401
 
 class ConfigRealTests(unittest.TestCase):
     """
@@ -133,7 +136,8 @@ class ConfigMockDataTests(unittest.TestCase):
         self.assertEquals(releases[1].title, "lolwut")
         self.assertEquals(releases[1].status, "unreleased")
         self.assertEquals(releases[1].release_time, None)
-        self.assertEquals(releases[1].log[0][1], 'Beyonce Bugger <bb@lightningmail.com>')
+        self.assertEquals(releases[1].log[0][1],
+                'Beyonce Bugger <bb@lightningmail.com>')
         self.assertEquals(releases[1].log[0][2], 'created')
 
     def test_writing_ditz_config(self):
@@ -168,11 +172,315 @@ class ConfigMockDataTests(unittest.TestCase):
         creator = self.config.get_default_creator()
         self.assertEquals(creator, original_name + ' <bb@lightningmail.com>')
 
+    def test_reading_nonexistent_appconfig(self):
+        """
+        Set project root to an invalid location and try to read
+        application config file
+
+        See that error is returned and default settings are loaded.
+        """
+        appconfig = self.config.appconfig
+        self.assertIsInstance(appconfig, config.AppConfigModel)
+        appconfig.project_root = '/foobar/lolwut/no_one_is_home/'
+        self.assertFalse(appconfig.read_config_file())
+        self.assertEqual(appconfig.settings.issue_types,
+                ['bugfix', 'feature', 'task', 'enhancement'])
+        self.assertEqual(appconfig.settings.default_issue_type, 'task')
+
+    def test_writing_appconfig(self):
+        """Write application configuration file"""
+        appconfig = self.config.appconfig
+        self.assertIsInstance(appconfig, config.AppConfigModel)
+        self.assertTrue(appconfig.write_config_file())
+
+    def test_reading_nonexistent_configs(self):
+        """Set project root to invalid location and try to read config files"""
+        fake_project_root = os.path.abspath(
+                'this/is_not/the_folder/you_are/looking_for')
+        self.config.set_project_root(fake_project_root)
+        self.assertRaises(ApplicationError, self.config.load_configs)
+
+    def test_get_valid_issue_states(self):
+        """Get valid issue states from AppConfigModel"""
+        states = self.config.appconfig.get_valid_issue_states()
+        self.assertEqual(states, ["unstarted", "in progress", "paused"])
+
+    def test_get_valid_release_states(self):
+        """Get valid release states from AppConfigModel"""
+        states = self.config.appconfig.get_valid_release_states()
+        self.assertEqual(states, ["unreleased", "released"])
+
+
+class MockProjectConfigTests(unittest.TestCase):
+    """ProjectConfigModel tests using mock data"""
+
+    def setUp(self):
+        self.out = testlib.NullWriter()
+        known_root = os.path.abspath('data/bugs/project.yaml')
+        self.pconfig = config.DitzProjectModel(known_root)
+
+    def testReadingProjectFile(self):
+        """Read known project file"""
+        self.assertTrue(self.pconfig.read_config_file())
+        self.assertEqual(self.pconfig.project_data.name, "testing_project")
+        self.assertEqual(self.pconfig.project_data.version, "0.5")
+        self.assertEqual(self.pconfig.project_data.components[0].name, "testing_project")
+        self.assertEqual(self.pconfig.project_data.releases[0].name, "week 49")
+
+    def testWritingProjectFile(self):
+        """
+        Write changes to the project file
+
+        First write changes to the project file, then verify those changes,
+        and change the original data back. Verify it - just in case.
+        """
+        self.assertTrue(self.pconfig.read_config_file())
+        original_project_name = self.pconfig.project_data.name
+        new_project_name = "foobar project (+1)"
+        self.assertNotEqual(original_project_name, new_project_name)
+        self.pconfig.project_data.name = new_project_name
+        self.assertTrue(self.pconfig.write_config_file())
+        self.assertTrue(self.pconfig.read_config_file())
+        self.assertEqual(self.pconfig.project_data.name, new_project_name)
+        self.pconfig.project_data.name = original_project_name
+        self.assertTrue(self.pconfig.write_config_file())
+        self.assertTrue(self.pconfig.read_config_file())
+        self.assertEqual(self.pconfig.project_data.name, original_project_name)
+
+    def testReadingInvalidProjectFile(self):
+        """Try reading project file from an invalid path"""
+        self.pconfig.project_file = None
+        self.assertFalse(self.pconfig.read_config_file())
+
+    def testWritingInvalidProjectFile(self):
+        """Try writing project file to an invalid path"""
+        self.pconfig.project_file = None
+        self.assertFalse(self.pconfig.write_config_file())
+
+    def test_get_releases(self):
+        """Get release information from project file"""
+        self.assertTrue(self.pconfig.read_config_file())
+        releases = self.pconfig.get_releases()
+        self.assertEquals(releases[0].name, "Release")
+        self.assertEquals(releases[0].title, "week 49")
+        self.assertEquals(releases[0].status, "unreleased")
+        self.assertEquals(releases[0].release_time, None)
+        self.assertEquals(releases[1].name, "Release")
+        self.assertEquals(releases[1].title, "lolwut")
+        self.assertEquals(releases[1].status, "unreleased")
+        self.assertEquals(releases[1].release_time, None)
+        self.assertEquals(releases[1].log[0][1],
+                'Beyonce Bugger <bb@lightningmail.com>')
+        self.assertEquals(releases[1].log[0][2], 'created')
+
+    def test_get_releases_names_only(self):
+        """Get release names from project file"""
+        self.assertTrue(self.pconfig.read_config_file())
+        releases = self.pconfig.get_releases(names_only=True)
+        self.assertIsInstance(releases, list)
+        self.assertEquals(releases[0], "week 49")
+        self.assertEquals(releases[1], "lolwut")
+
+    def test_get_releases_by_state(self):
+        """Get release names from project file"""
+        self.assertTrue(self.pconfig.read_config_file())
+        releases = self.pconfig.get_releases(status='unreleased', names_only=True)
+        self.assertIsInstance(releases, list)
+        self.assertEquals(releases[0], "week 49")
+        self.assertEquals(releases[1], "lolwut")
+
+    def test_get_releases_by_unknown_state(self):
+        """Get release names from project file"""
+        self.assertTrue(self.pconfig.read_config_file())
+        releases = self.pconfig.get_releases(status='foobar', names_only=True)
+        self.assertIsInstance(releases, list)
+        self.assertEqual(len(releases), 0)
+
+    def test_get_releases_by_invalid_state(self):
+        """
+        Try to get release names from project file with an
+        invalid state parameter"""
+        self.assertTrue(self.pconfig.read_config_file())
+        self.assertRaises(Exception, self.pconfig.get_releases, 123, True)
+
+    def test_get_releases_if_no_data(self):
+        """
+        Try getting release names if no data has been loaded yet
+
+        Asking releases with cause project file to be read.
+        """
+        releases = self.pconfig.get_releases(names_only=True)
+        self.assertIsInstance(releases, list)
+        self.assertEqual(len(releases), 2)
+
+    def testAddRemoveReleases(self):
+        """
+        Add new release and remove it from project file
+
+        First add a new release to a project file and verify it's written correctly.
+        Then remove the release and verify it's removed correctly.
+        """
+        self.assertTrue(self.pconfig.read_config_file())
+
+        # add release and save config
+        title = 'TestApp v0.1-beta_prerel'
+        release = DitzRelease(title, 'LOL', 'released', datetime.now(), None)
+        self.pconfig.set_release(release)
+        self.assertTrue(self.pconfig.write_config_file())
+
+        # re-read data and verify
+        self.assertTrue(self.pconfig.read_config_file())
+        releases = self.pconfig.get_releases(status='released', names_only=True)
+        self.assertIsInstance(releases, list)
+        self.assertEquals(len(releases), 1)
+        self.assertEquals(releases[0], title)
+
+        # remove release
+        self.assertTrue(self.pconfig.remove_release(title))
+        self.assertTrue(self.pconfig.write_config_file())
+
+        # verify everything is back to normal
+        self.assertTrue(self.pconfig.read_config_file())
+        releases = self.pconfig.get_releases(status='released', names_only=True)
+        self.assertIsInstance(releases, list)
+        self.assertEquals(len(releases), 0)
+
+        releases = self.pconfig.get_releases(names_only=True)
+        self.assertIsInstance(releases, list)
+        self.assertEquals(len(releases), 2)
+        self.assertEquals(releases[0], "week 49")
+        self.assertEquals(releases[1], "lolwut")
+
+    def testRemovingUnexistentOrInvalidRelease(self):
+        """Try to remove a release which doesn't exist or use invalid parameters"""
+        self.assertTrue(self.pconfig.read_config_file())
+
+        # try removing some nonexistent releases or use invalid parameters
+        self.assertFalse(self.pconfig.remove_release('winter is coming'))
+        self.assertFalse(self.pconfig.remove_release('123'))
+        self.assertFalse(self.pconfig.remove_release(123))
+        self.assertFalse(self.pconfig.remove_release(self))
+        self.assertFalse(self.pconfig.remove_release(None))
+
+        # check every remains normal
+        releases = self.pconfig.get_releases(names_only=True)
+        self.assertIsInstance(releases, list)
+        self.assertEquals(len(releases), 2)
+        self.assertEquals(releases[0], "week 49")
+        self.assertEquals(releases[1], "lolwut")
+
+    def testRenameRelease(self):
+        """
+        Rename an existing release in the project file
+
+        First load releases, change information of a relase, save it to project file.
+        Verify changes have been saved correctly and change the information back.
+        Verify again.
+        """
+        self.assertTrue(self.pconfig.read_config_file())
+
+        # rename release and verify it changed
+        new_title = 'SuperSoftware_Q1'
+        release = self.pconfig.get_releases()[0]
+        original_title = release.title
+        release.title = new_title
+        self.pconfig.set_release(release, old_name=original_title)
+        self.assertTrue(self.pconfig.write_config_file())
+        self.assertTrue(self.pconfig.read_config_file())
+        release = self.pconfig.get_releases()[0]
+        self.assertEqual(release.title, new_title)
+
+        # change it back
+        release.title = original_title
+        self.pconfig.set_release(release, old_name=new_title)
+        self.assertTrue(self.pconfig.write_config_file())
+        self.assertTrue(self.pconfig.read_config_file())
+
+        # check every remains normal
+        releases = self.pconfig.get_releases(names_only=True)
+        self.assertIsInstance(releases, list)
+        self.assertEquals(len(releases), 2)
+        self.assertEquals(releases[0], "week 49")
+        self.assertEquals(releases[1], "lolwut")
+
+    def testSetReleaseWithInvalidParameters(self):
+        """
+        Try to rename or add a release in the project file with invalid combination
+        of parameters or unsupported values.
+
+        Verify that no data is changed.
+        """
+        self.assertTrue(self.pconfig.read_config_file())
+        release = self.pconfig.get_releases()[0]
+        release.title = None
+        self.assertFalse(self.pconfig.set_release(release))
+        release.title = "tuut tuut"
+        self.assertFalse(self.pconfig.set_release(None))
+        self.assertFalse(self.pconfig.set_release(123))
+        self.assertFalse(self.pconfig.set_release("123"))
+        self.assertFalse(self.pconfig.set_release(release, old_name=123))
+        self.assertFalse(self.pconfig.set_release(release, old_name=release))
+        self.assertFalse(self.pconfig.set_release(release, old_name='h000t'))
+        releases = self.pconfig.get_releases()
+        self.assertEquals(len(releases), 2)
+        self.assertEquals(releases[0].title, "week 49")
+        self.assertEquals(releases[1].title, "lolwut")
+
+    def testMoveRelease(self):
+        """Move a release (up in priority)"""
+        self.assertTrue(self.pconfig.read_config_file())
+        releases = self.pconfig.get_releases(names_only=True)
+        release_name = releases[0]
+        self.assertTrue(self.pconfig.move_release(release_name, config.MOVE_DOWN))
+        releases = self.pconfig.get_releases(names_only=True)
+        self.assertEqual(releases[1], release_name)
+
+        # move it back and verify
+        self.assertTrue(self.pconfig.move_release(release_name, config.MOVE_UP))
+        releases = self.pconfig.get_releases()
+        self.assertEquals(len(releases), 2)
+        self.assertEquals(releases[0].title, "week 49")
+        self.assertEquals(releases[1].title, "lolwut")
+
+    def testMoveNonexistentOrInvalidRelease(self):
+        """Try to move a release which doesn't exist"""
+        self.assertTrue(self.pconfig.read_config_file())
+        self.assertFalse(self.pconfig.move_release('h000t h00t', config.MOVE_UP))
+        self.assertFalse(self.pconfig.move_release(None, config.MOVE_DOWN))
+        self.assertFalse(self.pconfig.move_release(123, config.MOVE_DOWN))
+        self.assertFalse(self.pconfig.move_release(0, config.MOVE_UP))
+
+    def testMoveReleaseNoData(self):
+        """Try to move a release if no project data is loaded"""
+        self.assertFalse(self.pconfig.move_release('h000t h00t', config.MOVE_DOWN))
+
+    def testReleasing(self):
+        """Make a release"""
+        self.assertTrue(self.pconfig.read_config_file())
+        release = self.pconfig.get_releases()[0]
+        self.assertEqual(release.status, 'unreleased')
+        self.assertIsNone(release.release_time)
+
+        # make release and verify
+        self.pconfig.make_release(release)
+        release = self.pconfig.get_releases()[0]
+        self.assertEqual(release.status, 'released')
+        self.assertIsNotNone(release.release_time)
+        self.assertIsInstance(release.release_time, datetime)
+
+    def testReleasingInvalidOrNoData(self):
+        """Try to make a release when no data is loaded or given"""
+        self.pconfig.make_release(None)
+        self.assertTrue(self.pconfig.read_config_file())
+        self.pconfig.make_release(None)
+
 
 def suite():
+    """Test suite including all tests in this file"""
     testsuite = unittest.TestSuite()
     testsuite.addTest(unittest.makeSuite(ConfigRealTests))
     testsuite.addTest(unittest.makeSuite(ConfigMockDataTests))
+    testsuite.addTest(unittest.makeSuite(MockProjectConfigTests))
     return testsuite
 
 if __name__ == '__main__':

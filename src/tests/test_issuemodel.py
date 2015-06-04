@@ -11,9 +11,9 @@ from datetime import datetime
 import os
 
 import testlib
-import issuemodel
-from common.errors import ApplicationError
-from common.items import DitzIssue
+import issuemodel                               # pylint: disable=F0401
+from common.errors import ApplicationError      # pylint: disable=F0401
+from common.items import DitzIssue              # pylint: disable=F0401
 
 
 class IssueYamlObjectTests(unittest.TestCase):

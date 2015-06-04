@@ -330,7 +330,7 @@ class DitzProjectModel(object):
         - False on failure
         """
         if self.project_file == None:
-            return None
+            return False
         try:
             with open(self.project_file, 'r') as stream:
                 self.project_data = yaml.load(stream)
@@ -417,7 +417,15 @@ class DitzProjectModel(object):
         - release: a DitzRelease to update
         - old_name: (optional) old name of the release being updated
         """
+        if not isinstance(release, DitzRelease):
+            return False
+        if not isinstance(release.title, str):
+            return False
+
+        # search for this release in current project data
         if old_name:
+            if not isinstance(old_name, str):
+                return False
             title = old_name
         else:
             title = release.title
@@ -426,6 +434,11 @@ class DitzProjectModel(object):
             if rel["name"] == title:
                 release_data = rel
                 break
+
+        if old_name and not release_data:
+            # given parameters indicate rename, but such release is not found
+            return False
+
         if release_data:
             release_data['name'] = release.title
             release_data['status'] = self._string_to_release_status(release.status)
@@ -436,6 +449,7 @@ class DitzProjectModel(object):
             release_yaml = DitzReleaseYaml(release.title, status,
                     release.release_time_as_string(), release.log)
             self.project_data.releases.append(release_yaml)
+        return True
 
     def make_release(self, release):
         """
@@ -445,7 +459,9 @@ class DitzProjectModel(object):
         - release: release (a DitzRelease) to release
         """
         if release == None:
-            return
+            return False
+        if self.project_data == None:
+            return False
 
         release_data = None
         for rel in self.project_data.releases:
@@ -458,12 +474,15 @@ class DitzProjectModel(object):
             release.release_time = datetime.datetime.utcnow()
             release_data['release_time'] = release.release_time_as_string()
             release_data['log_events'] = release.log
+            return True
+        else:
+            return False
 
     def remove_release(self, release_name):
         """
         Remove a release from the project.
 
-        Even if release contains issues, it' still removed.
+        Even if release contains issues, it's still removed.
         Issues are left as they were.
 
         Parameters:
@@ -493,6 +512,8 @@ class DitzProjectModel(object):
         - True if release was moved
         - False if release was not found
         """
+        if self.project_data == None:
+            return False
         for rel in self.project_data.releases:
             if rel["name"] == release_name:
                 rels = self.project_data.releases

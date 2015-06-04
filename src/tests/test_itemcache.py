@@ -7,13 +7,13 @@ A unit test for itemcache.py
 
 import unittest
 import re
-import string
+import string                                       # pylint: disable=W0402
 import random
 from datetime import datetime, timedelta
 
 import testlib
-import itemcache
-from common.items import DitzIssue, DitzRelease
+import itemcache                                    # pylint: disable=F0401
+from common.items import DitzIssue, DitzRelease     # pylint: disable=F0401
 
 class ItemCacheTests(unittest.TestCase):
     """Unit test for ItemCache.

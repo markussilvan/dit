@@ -5,8 +5,8 @@
 import unittest
 
 import testlib
-import ditzcontrol
-from common.errors import ApplicationError, DitzError
+import ditzcontrol                              # pylint: disable=F0401
+from common.errors import ApplicationError      # pylint: disable=F0401
 
 class NullWriter:
     """A class to use as output, when no screen output is wanted."""

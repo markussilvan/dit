@@ -148,7 +148,7 @@ class DitzRelease(DitzItem):
         else:
             # expected format is 2014-10-11 16:25:53.253218 Z
             try:
-                self.release_time = datetime.strptime(release_time, '%y-%m-%d %H:%M:%S.%f Z')
+                self.release_time = datetime.datetime.strptime(release_time, '%Y-%m-%d %H:%M:%S.%f Z')
             except Exception:
                 self.release_time = None
 
@@ -172,6 +172,8 @@ class DitzRelease(DitzItem):
         log_html = self._format_log_html(release_log_template_file)
 
         release_time = self.release_time_as_string()
+        if release_time == None:
+            release_time = 'N/A'
 
         # release html output
         html = ''
@@ -207,12 +209,12 @@ class DitzRelease(DitzItem):
 
         Returns:
         - release time as string
-        - emptry string if release time is not set
+        - None if release time is not set
         """
         if self.release_time:
             return self.release_time.isoformat(' ') + ' Z'
             #return datetime.strftime(self.release_time, '%y-%m-%d %H:%M:%S.%f Z')
-        return 'N/A'
+        return None
 
 
 class DitzIssue(DitzItem):

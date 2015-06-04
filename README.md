@@ -63,3 +63,17 @@ Here is an example configuration file.
   - Run `pip install pyyaml`
 
 
+## Unit Tests
+
+Test code is located in `src/tests/`. Each test set can be run
+separately or one script can be used to run all tests. This
+script can be found in `scripts/` directory.
+
+Unit tests use PyUnit framework and a mostly simple cases to
+try is some feature runs without crashing. If possible, end
+result is verified from files or data structures available.
+
+A known, constant set of files is used to provide data to the
+components being tested. Verifying known data values is then
+hardcoded in the testing scripts.
+

@@ -9,6 +9,7 @@ A GUI frontend for Ditz issue tracker
 
 import shutil
 
+from ditzcontrol import DitzControl
 from common.errors import ApplicationError
 from common.utils import fileutils
 
@@ -24,6 +25,8 @@ class ArchiveControl(object):
         Parameters:
         - ditz: an initialized DitzControl object
         """
+        if not isinstance(ditz, DitzControl):
+            raise ApplicationError("Invalid ditzcontrol object specified.")
         self.ditz = ditz
 
     def archive_release(self, release_name, archive_dir):

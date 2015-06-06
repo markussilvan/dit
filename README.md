@@ -28,6 +28,7 @@ itself can be used as the issue tracker.
  - python-unittest (aka PyUnit)
  - python-yaml
  - python-dateutil
+ - python-mock
  - PyLint
  - Jenkins
  - git
@@ -61,6 +62,7 @@ Here is an example configuration file.
   - Install PyQt 4.7 (preferably 32-bit)
   - Run `pip install python-dateutil`
   - Run `pip install pyyaml`
+  - Run `pip install mock`
 
 
 ## Unit Tests

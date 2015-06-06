@@ -4,6 +4,8 @@
 
 report_dir="$PWD/../reports/"
 test_files="\
+    test_archivecontrol.py \
+    test_issuemodel.py \
     test_itemcache.py \
     test_ditzcontrol.py \
     test_config.py"

@@ -8,6 +8,7 @@ test_files="\
     test_issuemodel.py \
     test_itemcache.py \
     test_ditzcontrol.py \
+    test_common_errors.py \
     test_config.py"
 
 [ ! -e "$report_dir" ] && mkdir -p $report_dir

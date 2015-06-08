@@ -80,7 +80,6 @@ class IssueYamlObjectTests(unittest.TestCase):
     def test_converting_invalid_yaml_object_to_ditz_issue(self):
         """Try to convert an invalid IssueYamlObject into a DitzIssue"""
         self.skipTest("There is no error checking in DitzItem, should there be?")
-        #TODO: should there be more error checking in DitzItem, so invalid items wont be created?
         #title = "An another test issue"
         description = "A broken issue for testing."
         identifier = "97823489asd7f98asdf6asdf987asdf987asd"
@@ -88,7 +87,13 @@ class IssueYamlObjectTests(unittest.TestCase):
                 'INVALID_TYPE', 'lolwut', '2',
                 'some@one.com', ':closed', ':fixed',
                 datetime.now(), None, identifier, None)
-        self.assertIsInstance(yaml_issue, issuemodel.IssueYamlObject)
+        #TODO: should there be more error checking in DitzItem, so invalid items wont be created?
+        #
+        # At the moment this test would pass as is. There is no real verification.
+        # Invalid DitzIssue will be created successfully.
+        self.assertIsInstance(yaml_issue.to_ditz_item(), DitzIssue)
+
+        # Instead, this could be verified with either of the following solutions.
         #self.assertRaises(Exception, yaml_issue.to_ditz_issue())
         # or
         #issue = yaml_issue.to_ditz_issue()
@@ -153,13 +158,20 @@ class IssueModelTests(unittest.TestCase):
                 description, "A tester <mail@address.com>", created, 'v1.0',
                 None, identifier, None)
         data = issuemodel.IssueYamlObject.from_ditz_issue(issue)
+        issue_file_name = '{}/issue-{}.yaml'.format(self.model.issue_dir, issue.identifier)
         self.assertIsInstance(data, issuemodel.IssueYamlObject)
+        self.assertFalse(os.path.isfile(issue_file_name))
         try:
             self.model.write_issue_yaml(data)
         except ApplicationError:
             self.fail("Writing issue yaml file failed")
         except Exception:
             self.fail("Unknown exception raised")
+        self.assertTrue(os.path.isfile(issue_file_name))
+        try:
+            os.remove(issue_file_name)
+        except Exception:
+            self.fail("Removing issue file failed")
 
     def test_removing_issue_yaml(self):
         """Try to remove a issue .yaml file"""

@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Fix pylint errors from code
+desc: |-
+  PyLint update created a bunch of new warnings.
+  Fix those. It shoudn't be a big task, just minor
+  style issues.
+type: :bugfix
+component: ditz-gui
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-06-11 12:22:38.150711 Z
+references: []
+
+id: 9767fd73fe6ca1d160847f0dab994a7d509b05c1
+log_events: 
+- - 2015-06-11 12:22:40.918677 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

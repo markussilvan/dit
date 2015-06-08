@@ -8,8 +8,8 @@ import os
 import hashlib
 import random
 
-from common.items import DitzIssue
-from common.errors import ApplicationError
+from common.items import DitzIssue              # pylint: disable=F0401
+from common.errors import ApplicationError      # pylint: disable=F0401
 
 
 class IssueModel():

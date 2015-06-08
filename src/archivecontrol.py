@@ -7,6 +7,7 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
+import os
 import shutil
 
 from ditzcontrol import DitzControl
@@ -46,10 +47,17 @@ class ArchiveControl(object):
         issue_dir = settings.issue_dir
         project_root = self.ditz.config.get_project_root()
         #archive_dir = '{}/{}/{}/'.format(project_root, issue_dir, archive_dir)
+        archive_dir = os.path.abspath(archive_dir)
         issue_files = []
         for issue in issues:
             issue_file = '{}/{}/issue-{}.yaml'.format(project_root, issue_dir, issue.identifier)
             issue_files.append(issue_file)
+
+        try:
+            if os.path.exists(archive_dir) == False:
+                os.mkdir(archive_dir)
+        except Exception:
+            raise ApplicationError("Creating archive directory failed.")
 
         try:
             fileutils.move_files(issue_files, archive_dir)
@@ -57,10 +65,14 @@ class ArchiveControl(object):
             raise ApplicationError("Archiving release failed. Error moving issue files.")
 
         project_file = '{}/{}/project.yaml'.format(project_root, issue_dir)
+        archive_project_file = '{}/project.yaml'.format(archive_dir)
+        #print("DEBUG: copying '{}' to '{}'".format(project_file, archive_project_file))
         try:
-            shutil.copy2(project_file, '{}/project.yaml'.format(archive_dir))
+            shutil.copy2(project_file, archive_project_file)
         except Exception:
-            raise ApplicationError("Archiving release failed. Error copying project file.")
+            raise ApplicationError(
+                    "Archiving release failed. Error copying project file"
+                    "from '{}' to '{}'".format(project_file, archive_project_file))
 
 
 

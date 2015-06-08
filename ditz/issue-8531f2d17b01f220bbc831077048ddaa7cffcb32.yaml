@@ -1,19 +1,26 @@
---- !ditz.rubyforge.org,2008-03-06/issue
-component: ditz-gui
-creation_time: 2015-05-29 14:07:20.405551 Z
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Implement unit tests
 desc: |-
   Not much tests exist.
   Implement unit tests where those can be easily
   added and code base can be expected to remain stable.
   When implementing new features without access to
   graphical console, test driven development is preferred.
-disposition: ''
+type: :task
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: ""
+creation_time: 2015-05-29 14:07:20.405551 Z
+references: []
+
 id: 8531f2d17b01f220bbc831077048ddaa7cffcb32
-log_events:
+log_events: 
 - - 2015-05-29 14:07:23.621379 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ''
+  - ""
 - - 2015-06-01 13:53:57.812122 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -30,10 +37,12 @@ log_events:
 - - 2015-06-05 17:10:00.886465 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
-  - "Unit tests for all configuration related classes. Including ditz configuration\
-    \ file, ditz-gui configuration file and project file\nhave been implemented. Several\
-    \ bugs have been found while\nimplementing tests.\n \nAlso tests for IssueModel\
-    \ (and related classes) have been implemented."
+  - |-
+    Unit tests for all configuration related classes. Including ditz configuration\ file, ditz-gui configuration file and project file
+    have been implemented. Several\ bugs have been found while
+    implementing tests.
+     
+    Also tests for IssueModel\ (and related classes) have been implemented.
 - - 2015-06-06 19:55:24.418818 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -42,14 +51,15 @@ log_events:
     not strictly unit tests as these tests
     tend to use many external components,
     access file system, etc.
-
+    
     Some tests with mocked external interfaces
     have been implemented. These methods
     should be used more in the future is more
     tests are made.
-references: []
-release: null
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-title: Implement unit tests
-type: :task
+- - 2015-06-12 11:23:04.922455 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    run_tests.sh has been updated. It was trivial.
+    ArchiveControl tests have been improved.
+    Finally. All of the existing tests are working.

@@ -28,3 +28,11 @@ log_events:
     It should be only available for released releases.
     And for that to be usable, there must be way to set
     released releases visible.
+- - 2015-06-11 14:33:56.701163 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Double check GUI code implementation for archiving now
+    as implementation and functionality of archiving has
+    slightly changed. For example, destination directories are
+    created by the archiving component itself.

@@ -16,7 +16,7 @@ parent_path = os.path.realpath(script_path + "/..")
 if parent_path not in sys.path:
     sys.path.insert(0, parent_path)
 
-class NullWriter:
+class NullWriter(object):
     """A class to use as output, when no screen output is wanted."""
     def __init__(self):
         pass

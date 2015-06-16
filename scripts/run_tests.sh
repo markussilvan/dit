@@ -9,7 +9,7 @@ report_dir="$PWD/../reports/"
 cd ../src/tests/ || exit 1
 
 # remove old test reports
-rm "TEST-*.xml"
+rm TEST-*.xml
 
 # run tests
 for testsuite in test_*.py; do

@@ -8,6 +8,10 @@ report_dir="$PWD/../reports/"
 
 cd ../src/tests/ || exit 1
 
+# remove old test reports
+rm "TEST-*.xml"
+
+# run tests
 for testsuite in test_*.py; do
     ./$testsuite --xml $report_dir
     if [ $? -ne 0 ]; then

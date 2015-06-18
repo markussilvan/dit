@@ -21,6 +21,7 @@ from PyQt4.QtCore import SIGNAL, QModelIndex
 from common.items import DitzRelease, DitzIssue
 from common.errors import DitzError, ApplicationError
 from common.unused import unused
+from common import constants
 from config import ConfigControl, MOVE_UP, MOVE_DOWN
 from ditzcontrol import DitzControl
 from archivecontrol import ArchiveControl
@@ -704,7 +705,7 @@ class DitzGui(QtGui.QMainWindow):
         columns = text.split()
         if len(columns) < 2:
             return None
-        if columns[1] not in self.ditz.config.get_releases('unreleased', True):
+        if columns[1] not in self.ditz.config.get_releases(constants.release_states.UNRELEASED, True):
             return None
         return columns[1]
 

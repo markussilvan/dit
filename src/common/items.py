@@ -10,6 +10,7 @@ A GUI frontend for Ditz issue tracker
 from abc import ABCMeta, abstractmethod
 import datetime
 
+from common import constants
 import common.utils.time
 
 class DitzItem(object):
@@ -262,7 +263,7 @@ class DitzIssue(DitzItem):
         if self.release != None:
             release = self.release
         else:
-            release = 'Unassigned'
+            release = constants.releases.UNASSIGNED
 
         item_str = "Issue {}\n{}\n".format(self.name, len(self.name) * '-') + \
             "Title: {}\n".format(self.title) + \
@@ -335,7 +336,7 @@ class DitzIssue(DitzItem):
         if self.release != None:
             release = self.release
         else:
-            release = 'Unassigned'
+            release = constants.releases.UNASSIGNED
 
         references_html = '<ol>'
         if self.references:

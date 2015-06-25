@@ -25,7 +25,7 @@ class CommonConstantsTests(unittest.TestCase):
         """
         self.assertEqual(constants.release_states.UNRELEASED, 'unreleased')
         self.assertEqual(constants.release_states.RELEASED, 'released')
-        self.assertEqual(constants.releases.UNRELEASED, 'Unreleased')
+        self.assertEqual(constants.releases.UNASSIGNED, 'Unassigned')
 
     def test_02_trying_to_alter_data(self):
         """
@@ -67,7 +67,7 @@ class CommonConstantsTests(unittest.TestCase):
         constants.new_things = constants.Constants(foo=1, bar='baz')
         self.assertEqual(constants.new_things.foo, 1)
         self.assertEqual(constants.new_things.bar, 'baz')
-        self.assertEqual(constants.releases.UNRELEASED, 'Unreleased')
+        self.assertEqual(constants.releases.UNASSIGNED, 'Unassigned')
 
         self.add_some_constants()
         self.assertEqual(constants.lol.a, 1)
@@ -81,7 +81,7 @@ class CommonConstantsTests(unittest.TestCase):
         This is not allowed (or implemented).
         """
         try:
-            _ = constants.releases['UNRELEASED']
+            _ = constants.releases['UNASSIGNED']
         except TypeError:
             pass
         else:

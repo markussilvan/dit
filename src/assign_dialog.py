@@ -13,6 +13,7 @@ from PyQt4 import QtGui, uic
 
 from ditzcontrol import DitzControl
 from common.errors import ApplicationError
+from common import constants
 
 class AssignDialog(QtGui.QDialog):
     """
@@ -36,8 +37,8 @@ class AssignDialog(QtGui.QDialog):
 
         uic.loadUi('../ui/assign_dialog.ui', self)
 
-        self.comboBoxRelease.addItem("Unassigned")
-        for release in self.ditz.config.get_releases('unreleased', True):
+        self.comboBoxRelease.addItem(constants.releases.UNASSIGNED)
+        for release in self.ditz.config.get_releases(constants.release_states.UNRELEASED, True):
             self.comboBoxRelease.addItem(release)
 
     def accept(self):
@@ -47,7 +48,7 @@ class AssignDialog(QtGui.QDialog):
         Given issue is now assigned to the selected release.
         """
         release = str(self.comboBoxRelease.currentText())
-        if release == "Unassigned":
+        if release == constants.releases.UNASSIGNED:
             release = None
         comment = str(self.plainTextEdit.toPlainText())
         self.ditz.assign_issue(self.ditz_id, release, comment)
@@ -74,7 +75,7 @@ class AssignDialog(QtGui.QDialog):
             raise ApplicationError('Issue not found from cache')
         current_release = issue.release
         if current_release == None:
-            current_release = "Unassigned"
+            current_release = constants.releases.UNASSIGNED
         index = self.comboBoxRelease.findText(current_release)
         if index >= 0:
             self.comboBoxRelease.setCurrentIndex(index)

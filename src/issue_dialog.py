@@ -16,6 +16,7 @@ from reference_dialog import ReferenceDialog
 from comment_dialog import CommentDialog
 from common.items import DitzIssue
 from common.errors import ApplicationError, DitzError
+from common import constants
 from ditzcontrol import DitzControl
 import common.utils.time
 
@@ -54,8 +55,8 @@ class IssueDialog(QtGui.QDialog):
         for issue_type in settings.issue_types:
             self.widgetForm.comboBoxIssueType.addItem(issue_type)
 
-        self.widgetForm.comboBoxRelease.addItem("Unassigned")
-        for release in self.ditz.config.get_releases('unreleased', True):
+        self.widgetForm.comboBoxRelease.addItem(constants.releases.UNASSIGNED)
+        for release in self.ditz.config.get_releases(constants.release_states.UNRELEASED, True):
             self.widgetForm.comboBoxRelease.addItem(release)
 
         default_creator = self.ditz.config.get_default_creator()
@@ -76,7 +77,7 @@ class IssueDialog(QtGui.QDialog):
         self.issue.status = str(self.widgetForm.comboBoxStatus.currentText())
         self.issue.creator = str(self.widgetForm.lineEditCreator.text())
         release = str(self.widgetForm.comboBoxRelease.currentText())
-        if release == "Unassigned":
+        if release == constants.releases.UNASSIGNED:
             release = None
         self.issue.release = release
 

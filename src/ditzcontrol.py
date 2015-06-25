@@ -14,6 +14,7 @@ from itemcache import ItemCache
 from common.items import DitzRelease
 from common.errors import ApplicationError, DitzError
 from common.utils.issue import IssueUtils
+from common import constants
 from issuemodel import IssueModel, IssueYamlObject
 
 
@@ -50,7 +51,7 @@ class DitzControl(object):
             self.item_cache.add_issue(ditz_item)
         self.item_cache.sort_issues(rename = True)
 
-        releases = self.config.get_releases('unreleased')
+        releases = self.config.get_releases(constants.release_states.UNRELEASED)
         for release in releases:
             self.item_cache.add_release(release)
         self.item_cache.sort_releases()
@@ -73,7 +74,7 @@ class DitzControl(object):
             items.extend(issues)
 
         # add unassigned items
-        items.append(DitzRelease('Unassigned'))
+        items.append(DitzRelease(constants.releases.UNASSIGNED))
         issues = self.item_cache.get_issues_by_release(None)
         issues = IssueUtils.sort_issues_by_status(issues)
         items.extend(issues)
@@ -348,7 +349,7 @@ class DitzControl(object):
         old_release = ditz_issue.release
         ditz_issue.release = release
         if old_release == None or old_release == '':
-            old_release = 'Unassigned'
+            old_release = constants.releases.UNASSIGNED
 
         action = "assigned to release {} from {}".format(release, old_release)
         self._add_issue_log_entry(ditz_issue, action, comment)

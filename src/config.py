@@ -14,6 +14,7 @@ from yamlconfig import YamlConfig
 from common.items import DitzRelease
 from common.errors import ApplicationError
 from common.utils import fileutils
+from common import constants
 
 MOVE_UP = 0
 MOVE_DOWN = 1
@@ -287,7 +288,8 @@ class AppConfigModel(object):
         Returns:
         - list of states
         """
-        return ["unreleased", "released"]
+        states = [constants.release_states.UNRELEASED, constants.release_states.RELEASED]
+        return states
 
 
 class AppConfigYaml(yaml.YAMLObject):
@@ -470,7 +472,7 @@ class DitzProjectModel(object):
                 break
 
         if release_data:
-            release_data['status'] = self._string_to_release_status('released')
+            release_data['status'] = self._string_to_release_status(constants.release_status.RELEASED)
             release.release_time = datetime.datetime.utcnow()
             release_data['release_time'] = release.release_time_as_string()
             release_data['log_events'] = release.log
@@ -550,6 +552,10 @@ class DitzProjectModel(object):
     def _string_to_release_status(self, status):
         """
         Convert a readable string to a YAML release status.
+
+        Readable format is used in internal objects.
+        YAML objects use different format with underscores
+        and a ':' prefix.
 
         Parameters:
         - status: readable release status string

@@ -43,7 +43,7 @@ class Constants(object):
             raise ValueError("__setattr called for a constant", self)
 
 
-releases = Constants(UNRELEASED='Unreleased')
+releases = Constants(UNASSIGNED='Unassigned')
 release_states = Constants(
         UNRELEASED='unreleased',
         RELEASED='released',

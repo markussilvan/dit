@@ -15,6 +15,7 @@ from ditzcontrol import DitzControl
 from common.items import DitzRelease
 from common.errors import DitzError, ApplicationError
 from comment_dialog import CommentDialog
+from common import constants
 
 
 class ReleaseDialog(QtGui.QDialog):
@@ -63,7 +64,7 @@ class ReleaseDialog(QtGui.QDialog):
         self.release.status = str(self.comboBoxStatus.currentText())
 
         # check if release status was changed to 'released' and cancel the process if required
-        if old_status != self.release.status and self.release.status == 'released':
+        if old_status != self.release.status and self.release.status == constants.release_status.RELEASED:
             message = "Use 'make release' to release a release.\nNot changing state to 'released'."
             QtGui.QMessageBox.warning(self, "Ditz GUI warning", message)
             self.release.status = old_status
@@ -133,13 +134,13 @@ class ReleaseDialog(QtGui.QDialog):
         index = self.comboBoxStatus.findText(self.release.status)
         self.comboBoxStatus.setCurrentIndex(index)
 
-        if self.release.status == 'released':
+        if self.release.status == constants.release_status.RELEASED:
             self.labelReleaseTimeValue.setText(str(self.release.release_time))
         else:
             self.labelReleaseTimeValue.setText("")
 
             # don't allow making a release from this dialog
-            index = self.comboBoxStatus.findText('released')
+            index = self.comboBoxStatus.findText(constants.release_status.RELEASED)
             self.comboBoxStatus.removeItem(index)
             #model_index = self.comboBoxStatus.model().index(index, 0)
             #self.comboBoxStatus.model().setData(model_index, QtCore.QVariant(0), QtCore.Qt.UserRole-1)

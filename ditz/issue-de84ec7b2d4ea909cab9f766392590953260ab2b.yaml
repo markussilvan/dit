@@ -1,0 +1,27 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Implement CLI interface
+desc: |-
+  To drop Ditz dependency completely, implement
+  custom command line interface. It should be
+  similar to what ditz has.
+  Implementation should be fairly easy, and
+  stuff from playground can be used to get
+  started.
+type: :feature
+component: ditz-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-10-22 15:08:10.323727 Z
+references: []
+
+id: de84ec7b2d4ea909cab9f766392590953260ab2b
+log_events: 
+- - 2015-10-22 15:09:12.337717 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    Then the system can be renamed to tIssue, if
+    there is no Ditz dependence or compatibility
+    anymore.

@@ -19,6 +19,13 @@ class CommonConstantsTests(unittest.TestCase):
     def setUp(self):
         self.out = testlib.NullWriter()
 
+    def testhelper_add_some_constants(self):
+        """
+        Helper function for the test below
+        """
+        constants.lol = constants.Constants(a=1, b=2)
+        constants.just_a_test = constants.Constants(it='works')
+
     def test_01_accessing_constants(self):
         """
         Access some predefined constants
@@ -53,13 +60,6 @@ class CommonConstantsTests(unittest.TestCase):
         else:
             self.fail('no expected ValueError raised')
 
-    def add_some_constants(self):
-        """
-        Helper function for the test below
-        """
-        constants.lol = constants.Constants(a=1, b=2)
-        constants.just_a_test = constants.Constants(it='works')
-
     def test_04_new_constant_objects(self):
         """
         Adding new Constant object, which can contain new constants.
@@ -69,7 +69,7 @@ class CommonConstantsTests(unittest.TestCase):
         self.assertEqual(constants.new_things.bar, 'baz')
         self.assertEqual(constants.releases.UNASSIGNED, 'Unassigned')
 
-        self.add_some_constants()
+        self.testhelper_add_some_constants()
         self.assertEqual(constants.lol.a, 1)
         self.assertEqual(constants.lol.b, 2)
         self.assertEqual(constants.just_a_test.it, 'works')

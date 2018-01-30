@@ -1,25 +1,18 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Searching issues
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2014-10-07 18:17:53.771544 Z
 desc: |-
   In a long list of issues, or issues with bad topics, there rises
   the need to be able to seach the issues based on topic, description or
   comments. Grep is supported by the command line tool, so this should
   be implemented in the UI too.
-type: :task
-component: ditz-gui
-release: v0.4
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2014-10-07 18:17:53.771544 Z
-references: 
-- ditz-gui-34
+disposition: ''
 id: f79a2f804e09743b92483e54cfeacedac3e5e4db
-log_events: 
+log_events:
 - - 2014-10-07 18:17:54.643045 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
-  - ""
+  - ''
 - - 2014-10-10 09:08:18.469572 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -30,11 +23,11 @@ log_events:
 - - 2014-10-10 09:08:50.198333 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - added reference 1
-  - ""
+  - ''
 - - 2014-10-10 09:10:40.538598 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.4 from v0.3
-  - ""
+  - ''
 - - 2014-10-14 09:52:20.447912 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
@@ -51,3 +44,14 @@ log_events:
     Searches are easier to implement now
     with ItemCache than with Ditz or .yaml
     files directly.
+- - 2016-09-14 15:13:28.578044 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Even a simple search to for words from topics would be useful.
+references:
+- ditz-gui-34
+release: v0.4
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Searching issues
+type: :task

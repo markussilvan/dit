@@ -8,13 +8,6 @@ import testlib
 import ditzcontrol                              # pylint: disable=F0401
 from common.errors import ApplicationError      # pylint: disable=F0401
 
-class NullWriter:
-    """A class to use as output, when no screen output is wanted."""
-    def __init__(self):
-        pass
-    def write(self, string):
-        pass
-
 class DitzControlTests(unittest.TestCase):
     """Unit test for DitzControl."""
     def setUp(self):

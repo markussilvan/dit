@@ -90,4 +90,3 @@ def move_files(files, path):
     except (IOError, shutil.Error):
         # undo stuff that was already done?
         raise
-

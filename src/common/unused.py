@@ -7,4 +7,3 @@ def unused(variable):
     so it doesn't cause a pylint warning
     """
     return variable
-

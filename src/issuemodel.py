@@ -1,12 +1,12 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import yaml
 import datetime
 import glob
 import os
 import hashlib
 import random
+import yaml
 
 from common.items import DitzIssue              # pylint: disable=F0401
 from common.errors import ApplicationError      # pylint: disable=F0401
@@ -166,7 +166,7 @@ class IssueYamlObject(yaml.YAMLObject):
         if status and status[0] != ':':
             status = ':' + status
 
-        if issue.disposition == None:
+        if issue.disposition is None:
             disposition = ''
         else:
             disposition = issue.disposition
@@ -216,5 +216,3 @@ class IssueYamlObject(yaml.YAMLObject):
                 self.references,
                 self.id,
                 self.log_events)
-
-

@@ -60,4 +60,3 @@ class CloseDialog(QtGui.QDialog):
         to get disposition and a comment from the user
         """
         self.exec_()
-

@@ -6,11 +6,14 @@ A common utilities library for all unit tests.
 """
 
 import unittest
-import xmlrunner
 import argparse
+import os
+import sys
+import inspect
+
+import xmlrunner
 
 # allow imports from parent directory
-import os, sys, inspect
 script_path = os.path.abspath(os.path.split(inspect.getfile(inspect.currentframe()))[0])
 parent_path = os.path.realpath(script_path + "/..")
 if parent_path not in sys.path:
@@ -24,7 +27,7 @@ class NullWriter(object):
         pass
 
 def run_tests(use_xml_runner, report_dir, suite):
-    if use_xml_runner == True:
+    if use_xml_runner is True:
         # run tests and generate XML reports from test results
         # default report directory is reports/
         xmlrunner.XMLTestRunner(output=report_dir).run(suite())

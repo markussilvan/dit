@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import yaml
 import datetime
+import yaml
 
 
 class YamlConfig(object):
@@ -13,7 +13,7 @@ class YamlConfig(object):
         """
         Initialize YamlConfig instance
         """
-        if type(self) == YamlConfig:
+        if isinstance(self, YamlConfig):
             raise Exception("YamlConfig should not be instantiated")
 
     @staticmethod
@@ -47,4 +47,3 @@ class YamlConfig(object):
     def datetime_representer(dumper, data):
         value = unicode(data.isoformat(' ') + ' Z')
         return dumper.represent_scalar(u'tag:yaml.org,2002:timestamp', value)
-

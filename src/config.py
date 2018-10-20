@@ -7,8 +7,9 @@ Ditz-gui
 A GUI frontend for Ditz issue tracker
 """
 
-import yaml
 import datetime
+
+import yaml
 
 from yamlconfig import YamlConfig
 from common.items import DitzRelease
@@ -39,16 +40,16 @@ class ConfigControl(object):
 
         Raises ApplicationError on failure.
         """
-        if self.ditzconfig.read_config_file() == False:
+        if self.ditzconfig.read_config_file() is False:
             raise ApplicationError("Reading ditz configuration file failed")
         self.appconfig.project_root = self.ditzconfig.project_root
-        if self.appconfig.read_config_file() == False:
+        if self.appconfig.read_config_file() is False:
             # using default settings
             pass
         project_file = '{}/{}/{}'.format(self.ditzconfig.project_root,
                 self.ditzconfig.settings.issue_dir, 'project.yaml')
         self.projectconfig.project_file = project_file
-        if self.projectconfig.read_config_file() == False:
+        if self.projectconfig.read_config_file() is False:
             raise ApplicationError("Reading project configuration file failed")
 
     def get_ditz_configs(self):
@@ -331,7 +332,7 @@ class DitzProjectModel(object):
         - True on success
         - False on failure
         """
-        if self.project_file == None:
+        if self.project_file is None:
             return False
         try:
             with open(self.project_file, 'r') as stream:
@@ -348,7 +349,7 @@ class DitzProjectModel(object):
         - True on success
         - False on failure or invalid parameters
         """
-        if self.project_file == None or self.project_data == None:
+        if self.project_file is None or self.project_data is None:
             return False
         try:
             with open(self.project_file, 'w') as stream:
@@ -365,9 +366,9 @@ class DitzProjectModel(object):
         Returns:
         - project name
         """
-        if self.project_file == None:
+        if self.project_file is None:
             return None
-        if self.project_data == None:
+        if self.project_data is None:
             self.read_config_file()
         return self.project_data.name
 
@@ -385,19 +386,19 @@ class DitzProjectModel(object):
         Returns:
         - list of DitzRelease objects or release names
         """
-        if self.project_file == None:
+        if self.project_file is None:
             return None
-        if self.project_data == None:
+        if self.project_data is None:
             self.read_config_file()
         status = self._string_to_release_status(status)
-        if names_only == True:
-            if status != None:
+        if names_only is True:
+            if status is not None:
                 releases = [release["name"] for release in self.project_data.releases
                         if release["status"] == status]
             else:
                 releases = [release["name"] for release in self.project_data.releases]
         else:
-            if status != None:
+            if status is not None:
                 releases_data = [release for release in self.project_data.releases
                         if release["status"] == status]
             else:
@@ -460,9 +461,9 @@ class DitzProjectModel(object):
         Parameters:
         - release: release (a DitzRelease) to release
         """
-        if release == None:
+        if release is None:
             return False
-        if self.project_data == None:
+        if self.project_data is None:
             return False
 
         release_data = None
@@ -514,7 +515,7 @@ class DitzProjectModel(object):
         - True if release was moved
         - False if release was not found
         """
-        if self.project_data == None:
+        if self.project_data is None:
             return False
         for rel in self.project_data.releases:
             if rel["name"] == release_name:
@@ -624,4 +625,3 @@ class DitzReleaseYaml(yaml.YAMLObject):
 
     def __setitem__(self, key, value):
         self.__dict__[key] = value
-

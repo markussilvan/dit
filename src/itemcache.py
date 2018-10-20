@@ -35,11 +35,11 @@ class ItemCache():
         # check if given issue contains required information
         if not isinstance(issue, DitzIssue):
             return False
-        if issue.title == None or issue.title == "":
+        if issue.title in (None, ""):
             return False
-        if issue.identifier == None or issue.identifier == "":
+        if issue.identifier in (None, ""):
             return False
-        if issue.created == None or issue.created == "":
+        if issue.created in (None, ""):
             return False
 
         # check if the same issue already exists in cache
@@ -116,7 +116,7 @@ class ItemCache():
         release_issues = []
         for issue in self.issues:
             if issue.release == release_title:
-                if include_closed != False or issue.status != "closed":
+                if include_closed is not False or issue.status != "closed":
                     release_issues.append(issue)
 
         return release_issues
@@ -148,7 +148,7 @@ class ItemCache():
         """
         if not isinstance(release, DitzRelease):
             return False
-        if release.title == None or release.title == "":
+        if release.title in (None, ""):
             return False
 
         # check if the same release already exists in cache
@@ -172,7 +172,7 @@ class ItemCache():
         - True: if release was removed from cache
         - False: if invalid parameters, or release not found from cache
         """
-        if title == None or title == "":
+        if title in (None, ""):
             return False
 
         for cached_release in self.releases:
@@ -191,6 +191,7 @@ class ItemCache():
         for release in self.releases:
             if release.title == release_title:
                 return release
+        return None
 
     def sort_releases(self):
         """
@@ -213,7 +214,7 @@ class ItemCache():
         Naming convention is <component>-<index>.
         """
         for i, issue in enumerate(self.issues):
-            if issue.component != None and issue.component != "":
+            if issue.component not in (None, ""):
                 prefix = '{}-'.format(issue.component)
             else:
                 prefix = 'issue-'
@@ -249,4 +250,3 @@ class ItemCache():
         - amount of cached releases as integer
         """
         return len(self.releases)
-

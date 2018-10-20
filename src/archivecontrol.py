@@ -54,7 +54,7 @@ class ArchiveControl(object):
             issue_files.append(issue_file)
 
         try:
-            if os.path.exists(archive_dir) == False:
+            if os.path.exists(archive_dir) is False:
                 os.mkdir(archive_dir)
         except Exception:
             raise ApplicationError("Creating archive directory failed.")
@@ -73,6 +73,3 @@ class ArchiveControl(object):
             raise ApplicationError(
                     "Archiving release failed. Error copying project file"
                     "from '{}' to '{}'".format(project_file, archive_project_file))
-
-
-

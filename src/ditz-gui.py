@@ -244,7 +244,7 @@ class DitzGui(QtGui.QMainWindow):
     def _set_issue_actions(self, state, start_state=True):
         self.actions['edit_issue'].setEnabled(state)
         self.actions['comment_issue'].setEnabled(state)
-        if state == True:
+        if state is True:
             self.actions['start_work'].setEnabled(start_state)
             self.actions['stop_work'].setEnabled(not start_state)
         else:
@@ -397,7 +397,7 @@ class DitzGui(QtGui.QMainWindow):
             if isinstance(item, DitzRelease) and self.listWidgetDitzItems.count() > 0:
                 # add one empty line as a spacer (except on the first line)
                 self.listWidgetDitzItems.addItem("")
-            if item.name == None:
+            if item.name is None:
                 title = item.title
             else:
                 title = "{0:<{1}}{2}".format(item.name, max_name_width + 1, item.title)
@@ -442,7 +442,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def comment_issue(self):
         issue = self._get_selected_issue()
-        if issue == None:
+        if issue is None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
@@ -455,7 +455,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def add_reference(self):
         issue = self._get_selected_issue()
-        if issue == None:
+        if issue is None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
@@ -477,7 +477,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def edit_issue(self):
         issue = self._get_selected_issue()
-        if issue == None:
+        if issue is None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
@@ -490,7 +490,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def close_issue(self):
         issue = self._get_selected_issue()
-        if issue != None:
+        if issue is not None:
             dialog = CloseDialog(self.ditz, issue.identifier)
             dialog.ask_issue_close()
             self.reload_data()
@@ -500,7 +500,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def drop_issue(self):
         issue = self._get_selected_issue()
-        if issue == None:
+        if issue is None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
@@ -512,7 +512,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def assign_issue(self):
         issue = self._get_selected_issue()
-        if issue == None:
+        if issue is None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         try:
@@ -525,14 +525,14 @@ class DitzGui(QtGui.QMainWindow):
 
     def start_work(self):
         issue = self._get_selected_issue()
-        if issue == None:
+        if issue is None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
 
         title = 'Start work on {}'.format(issue.name)
         dialog = CommentDialog(self.ditz, issue.identifier, title=title)
         comment = dialog.ask_comment()
-        if comment != None:
+        if comment is not None:
             try:
                 self.ditz.start_work(issue.identifier, comment)
             except DitzError as e:
@@ -542,13 +542,13 @@ class DitzGui(QtGui.QMainWindow):
 
     def stop_work(self):
         issue = self._get_selected_issue()
-        if issue == None:
+        if issue is None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
         title = 'Stop work on {}'.format(issue.name)
         dialog = CommentDialog(self.ditz, issue.identifier, title=title)
         comment = dialog.ask_comment()
-        if comment != None:
+        if comment is not None:
             try:
                 self.ditz.stop_work(issue.identifier, comment)
             except DitzError as e:
@@ -564,7 +564,7 @@ class DitzGui(QtGui.QMainWindow):
 
     def edit_release(self):
         release_name = self._get_selected_release_name()
-        if release_name == None:
+        if release_name is None:
             return
         dialog = ReleaseDialog(self.ditz)
         release = dialog.edit_release(release_name)
@@ -573,26 +573,26 @@ class DitzGui(QtGui.QMainWindow):
 
     def comment_release(self):
         release_name = self._get_selected_release_name()
-        if release_name == None:
+        if release_name is None:
             return
         title = 'Comment release {}'.format(release_name)
         dialog = CommentDialog(self.ditz, None, title=title)
         comment = dialog.ask_comment()
-        if comment != None:
+        if comment is not None:
             release = self.ditz.get_release_from_cache(release_name)
             if not release:
                 raise ApplicationError("Release not found")
             creator = self.config.get_default_creator()
             release.add_log_entry(None, 'commented', creator, comment)
             self.config.projectconfig.set_release(release)
-            if self.config.projectconfig.write_config_file() == False:
+            if self.config.projectconfig.write_config_file() is False:
                 QtGui.QMessageBox.warning(self, "Error",
                         "Saving project configuration file failed")
             self.reload_data()
 
     def make_release(self):
         release_name = self._get_selected_release_name()
-        if release_name == None:
+        if release_name is None:
             return
         issues = self.ditz.get_issues_by_release(release_name)
         if len(issues) > 0:
@@ -602,45 +602,45 @@ class DitzGui(QtGui.QMainWindow):
         title = 'Release {}'.format(release_name)
         dialog = CommentDialog(self.ditz, None, title=title)
         comment = dialog.ask_comment()
-        if comment != None:
+        if comment is not None:
             release = self.ditz.get_release_from_cache(release_name)
             if not release:
                 raise ApplicationError("Release not found")
             creator = self.config.get_default_creator()
             release.add_log_entry(None, 'released', creator, comment)
             self.config.projectconfig.make_release(release)
-            if self.config.projectconfig.write_config_file() == False:
+            if self.config.projectconfig.write_config_file() is False:
                 QtGui.QMessageBox.warning(self, "Error",
                         "Saving project configuration file failed")
             self.reload_data()
 
     def remove_release(self):
         release_name = self._get_selected_release_name()
-        if release_name == None:
+        if release_name is None:
             return
-        if self.config.projectconfig.remove_release(release_name) == False:
+        if self.config.projectconfig.remove_release(release_name) is False:
             error = "Error removing release '{}' from project".format(release_name)
             QtGui.QMessageBox.warning(self, "Ditz error", error)
         else:
-            if self.config.projectconfig.write_config_file() == False:
+            if self.config.projectconfig.write_config_file() is False:
                 QtGui.QMessageBox.warning(self, "Error",
                         "Saving project configuration file failed")
             self.reload_data()
 
     def move_release(self, direction=MOVE_UP):
         release_name = self._get_selected_release_name()
-        if release_name == None:
+        if release_name is None:
             return
-        if self.config.projectconfig.move_release(release_name, direction) == False:
+        if self.config.projectconfig.move_release(release_name, direction) is False:
             return
-        if self.config.projectconfig.write_config_file() == False:
+        if self.config.projectconfig.write_config_file() is False:
             QtGui.QMessageBox.warning(self, "Error",
                     "Saving project configuration file failed")
         self.reload_data()
 
     def archive_release(self):
         release_name = self._get_selected_release_name()
-        if release_name == None:
+        if release_name is None:
             return
         archive = ArchiveControl(self.ditz)
 
@@ -684,11 +684,11 @@ class DitzGui(QtGui.QMainWindow):
         Application is about to be closed. Save window size, if the setting is enabled.
         """
         settings = self.config.get_app_configs()
-        if settings.remember_window_size == True:
+        if settings.remember_window_size is True:
             width = self.geometry().width()
             height = self.geometry().height()
             settings.window_size = [width, height]
-            if self.config.appconfig.write_config_file() == False:
+            if self.config.appconfig.write_config_file() is False:
                 QtGui.QMessageBox.warning(self, "Error",
                         "Writing application configuration file failed")
 

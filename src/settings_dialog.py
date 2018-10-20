@@ -96,19 +96,19 @@ class SettingsDialog(QtGui.QDialog):
         """
         ditz_settings = self.config.get_ditz_configs()
         app_settings = self.config.get_app_configs()
-        if self.ditz_settings_changed == True:
+        if self.ditz_settings_changed is True:
             ditz_settings.name = str(self.lineEditName.text())
             ditz_settings.email = str(self.lineEditEmail.text())
             ditz_settings.issue_dir = str(self.lineEditIssueDir.text())
-            if self.config.ditzconfig.write_config_file() == True:
+            if self.config.ditzconfig.write_config_file() is True:
                 self.ditz_settings_changed = False
             else:
                 raise ApplicationError("Error saving ditz configuration file")
 
-        if self.app_settings_changed == True:
+        if self.app_settings_changed is True:
             app_settings.default_issue_type = str(self.comboBoxIssueType.currentText())
             app_settings.remember_window_size = bool(self.checkBoxRememberWindowSize.isChecked())
-            if self.config.appconfig.write_config_file() == True:
+            if self.config.appconfig.write_config_file() is True:
                 self.app_settings_changed = False
             else:
                 raise ApplicationError("Error saving application configuration file")
@@ -127,5 +127,3 @@ class SettingsDialog(QtGui.QDialog):
         If Ditz id and settings are given, save the comment to Ditz
         """
         self.exec_()
-
-

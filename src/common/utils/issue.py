@@ -42,4 +42,3 @@ class IssueUtils():
             return 2
         else:
             return 3 # closed
-

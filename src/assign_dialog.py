@@ -68,16 +68,15 @@ class AssignDialog(QtGui.QDialog):
         Parameters:
         - ditz_id: Ditz item to assign
         """
-        if ditz_id != None:
+        if ditz_id is not None:
             self.ditz_id = ditz_id
         issue = self.ditz.get_issue_from_cache(ditz_id)
         if not issue:
             raise ApplicationError('Issue not found from cache')
         current_release = issue.release
-        if current_release == None:
+        if current_release is None:
             current_release = constants.releases.UNASSIGNED
         index = self.comboBoxRelease.findText(current_release)
         if index >= 0:
             self.comboBoxRelease.setCurrentIndex(index)
         self.exec_()
-

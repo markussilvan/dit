@@ -46,7 +46,7 @@ class ReferenceDialog(QtGui.QDialog):
         Ok is pressed on the GUI
         """
         self.reference = str(self.lineEdit.text())
-        if self.reference != "" and self.save == True and self.ditz_id != None:
+        if self.reference != "" and self.save is True and self.ditz_id is not None:
             # ask for a comment
             try:
                 dialog = CommentDialog(self.ditz, self.ditz_id, save=False,
@@ -77,4 +77,3 @@ class ReferenceDialog(QtGui.QDialog):
             self.lineEdit.setText(self.reference)
         self.exec_()
         return self.reference
-

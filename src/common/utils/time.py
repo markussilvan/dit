@@ -37,4 +37,3 @@ def human_time_diff(date_string, max_elements=2):
                 break
             explanation += ' '
     return explanation.rstrip()
-

@@ -34,7 +34,7 @@ class ItemCacheTests(unittest.TestCase):
         name = identifier
         issue_type = random.choice(['bugfix', 'feature', 'task'])
         description = "lorem ipsum dolor sit ameth"
-        if release == None:
+        if release is None:
             release = "v{}.{}".format(random.randint(0, 2), random.randint(0, 12))
         return DitzIssue(title, name, issue_type, 'unittest', 'unstarted', None,
                 description, "A tester <mail@address.com>", datetime.now(), release,
@@ -414,4 +414,3 @@ def suite():
 
 if __name__ == '__main__':
     testlib.parse_arguments_and_run_tests(suite)
-

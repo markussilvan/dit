@@ -49,7 +49,7 @@ class DitzControl(object):
         for issue_id in identifiers:
             ditz_item = self.get_issue_content(issue_id, False)
             self.item_cache.add_issue(ditz_item)
-        self.item_cache.sort_issues(rename = True)
+        self.item_cache.sort_issues(rename=True)
 
         releases = self.config.get_releases(constants.release_states.UNRELEASED)
         for release in releases:
@@ -148,7 +148,7 @@ class DitzControl(object):
         - A Ditz item object filled with information of that issue
         - None if ditz_id is invalid
         """
-        if identifier == None or identifier == "":
+        if identifier in (None, ""):
             return None
         if len(identifier) != 40:
             # issue name given instead?
@@ -196,12 +196,12 @@ class DitzControl(object):
         - issue: a DitzIssue filled with data to save
         - comment: (optional) comment to add to the issue's event log
         """
-        if issue.identifier != None and issue.identifier != "":
+        if issue.identifier not in (None, ""):
             raise DitzError("Issue has an identifier, not a new issue?")
 
-        if issue.created == None:
+        if issue.created is None:
             issue.created = datetime.datetime.utcnow()
-        if issue.component == None:
+        if issue.component is None:
             issue.component = self.config.get_project_name()
 
         issue.identifier = self.issuemodel.generate_new_identifier()
@@ -220,7 +220,7 @@ class DitzControl(object):
         - issue: a DitzIssue filled with data to save
         - comment: (optional) comment to add to the issue's event log
         """
-        if issue.identifier == None or issue.identifier == "":
+        if issue.identifier in (None, ""):
             raise DitzError("Issue has no identifier")
 
         self._add_issue_log_entry(issue, 'edited', comment)
@@ -236,9 +236,9 @@ class DitzControl(object):
         - ditz_id: Ditz hash or name identifier of an issue to close
         - comment: (optional) comment text, no formatting, to add to the closed issue
         """
-        if ditz_id == None or ditz_id == "":
+        if ditz_id in (None, ""):
             raise DitzError("Invalid ditz issue identifier")
-        if comment == None or comment == "":
+        if comment in (None, ""):
             raise DitzError("Missing comment")
 
         ditz_issue = self._get_issue_by_id(ditz_id)
@@ -256,9 +256,9 @@ class DitzControl(object):
         - reference: reference to add to the issue
         - comment: comment text, if any comment should be added
         """
-        if ditz_id == None or ditz_id == "":
+        if ditz_id in (None, ""):
             raise DitzError("Invalid ditz issue identifier")
-        if reference == None or reference == "":
+        if reference in (None, ""):
             raise DitzError("Invalid reference")
 
         ditz_issue = self._get_issue_by_id(ditz_id)
@@ -293,7 +293,7 @@ class DitzControl(object):
         - disposition: index of disposition, for example 0) fixed, 1) won't fix, 2) reorganized
         - comment: (optional) comment text, no formatting, to add to the closed issue
         """
-        if ditz_id == None or ditz_id == "":
+        if ditz_id in (None, ""):
             raise ApplicationError("Invalid ditz item identifier")
 
         ditz_issue = self._get_issue_by_id(ditz_id)
@@ -317,7 +317,7 @@ class DitzControl(object):
         Raises:
         - DitzError if running Ditz command fails
         """
-        if identifier == None or identifier == "":
+        if identifier in (None, ""):
             return
         if len(identifier) != 40:
             # issue name given instead?
@@ -325,7 +325,7 @@ class DitzControl(object):
             if issue:
                 identifier = issue.identifier
             if identifier and len(identifier) != 40:
-                return None
+                return
         try:
             self.issuemodel.remove_issue_yaml(identifier)
             self.item_cache.remove_issue(identifier)
@@ -348,7 +348,7 @@ class DitzControl(object):
         ditz_issue = self._get_issue_by_id(ditz_id)
         old_release = ditz_issue.release
         ditz_issue.release = release
-        if old_release == None or old_release == '':
+        if old_release in (None, ""):
             old_release = constants.releases.UNASSIGNED
 
         action = "assigned to release {} from {}".format(release, old_release)
@@ -392,9 +392,9 @@ class DitzControl(object):
         Raises:
         - DitzError if running Ditz command fails
         """
-        if ditz_id == None or ditz_id == "":
+        if ditz_id in (None, ""):
             return
-        if status == None or status == "":
+        if status in (None, ""):
             return
 
         ditz_issue = self._get_issue_by_id(ditz_id)
@@ -414,7 +414,7 @@ class DitzControl(object):
         Parameters:
         - ditz_id: issue hash identifier or name
         """
-        if ditz_id == None or ditz_id == "":
+        if ditz_id in (None, ""):
             raise ApplicationError("Invalid ditz item identifier")
 
         ditz_issue = self.get_issue_from_cache(ditz_id)
@@ -443,5 +443,3 @@ class DitzControl(object):
         """
         creator = self.config.get_default_creator()
         issue.add_log_entry(None, action, creator, comment)
-
-

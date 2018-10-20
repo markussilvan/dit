@@ -61,9 +61,9 @@ class DitzItem(object):
         - comment: (optional) a comment to the log, empty by default
         """
         log_entry = [] # format: [ timestamp, creator, action, comment ]
-        if timestamp == None:
+        if timestamp is None:
             timestamp = datetime.datetime.utcnow()
-        if comment == None:
+        if comment is None:
             comment = ''
         log_entry.append(timestamp)
         log_entry.append(creator)
@@ -144,7 +144,7 @@ class DitzRelease(DitzItem):
         if not self.log:
             self.log = []
 
-        if release_time == None or release_time == "":
+        if release_time is None or release_time == "":
             self.release_time = None
         else:
             # expected format is 2014-10-11 16:25:53.253218 Z
@@ -173,7 +173,7 @@ class DitzRelease(DitzItem):
         log_html = self._format_log_html(release_log_template_file)
 
         release_time = self.release_time_as_string()
-        if release_time == None:
+        if release_time is None:
             release_time = 'N/A'
 
         # release html output
@@ -244,7 +244,7 @@ class DitzIssue(DitzItem):
         self.creator = creator
         self.created = created
         self.release = release
-        if references != None:
+        if references is not None:
             self.references = references
         else:
             self.references = []
@@ -260,7 +260,7 @@ class DitzIssue(DitzItem):
         else:
             created_ago = "?"
 
-        if self.release != None:
+        if self.release is not None:
             release = self.release
         else:
             release = constants.releases.UNASSIGNED
@@ -274,7 +274,7 @@ class DitzIssue(DitzItem):
             "Created: {}\n".format(created_ago) + \
             "Release: {}\n".format(release)
 
-        if self.component != None and self.component != "":
+        if self.component not in (None, ""):
             item_str += "Component: {}\n".format(self.component)
 
         item_str += "References:\n"
@@ -299,7 +299,7 @@ class DitzIssue(DitzItem):
                 entry_str = "---------------------------------\n"
                 entry_str += "- {}, {}\n".format(action, timestamp)
                 entry_str += "  {}\n".format(creator)
-                if comment != None and comment != "":
+                if comment not in (None, ""):
                     entry_str += "  {}\n".format(comment)
                 item_str += entry_str
 
@@ -333,7 +333,7 @@ class DitzIssue(DitzItem):
         else:
             created_ago = "?"
 
-        if self.release != None:
+        if self.release is not None:
             release = self.release
         else:
             release = constants.releases.UNASSIGNED
@@ -367,4 +367,3 @@ class DitzIssue(DitzItem):
             html += line
 
         return html
-

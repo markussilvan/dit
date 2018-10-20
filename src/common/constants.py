@@ -48,5 +48,3 @@ release_states = Constants(
         UNRELEASED='unreleased',
         RELEASED='released',
         )
-
-

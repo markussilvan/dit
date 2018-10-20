@@ -234,4 +234,3 @@ class IssueDialog(QtGui.QDialog):
         if len(text) == 0:
             return None
         return text
-

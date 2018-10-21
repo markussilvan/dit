@@ -3,7 +3,7 @@
 #
 
 report_dir="$PWD/../reports/"
-test_dir="$PWD/../src/tests/"
+test_dir="$PWD/../dgui/tests/"
 
 [ ! -e "$report_dir" ] && mkdir -p $report_dir
 

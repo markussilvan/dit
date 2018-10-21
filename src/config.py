@@ -143,7 +143,7 @@ class ConfigControl(object):
         self.ditzconfig.project_root = project_root
 
 
-class DitzConfigModel(object):
+class DitzConfigModel:
     """
     Ditz configuration file settings provider.
     """
@@ -223,7 +223,7 @@ class DitzConfigYaml(yaml.YAMLObject):
                 self.name, self.email, self.issue_dir)
 
 
-class AppConfigModel(object):
+class AppConfigModel:
     """
     Common configuration settings.
     """
@@ -313,7 +313,7 @@ class AppConfigYaml(yaml.YAMLObject):
                 self.default_issue_type, self.issue_types, self.issue_dispositions)
 
 
-class DitzProjectModel(object):
+class DitzProjectModel:
     """
     Ditz project file content provider.
     """
@@ -478,8 +478,7 @@ class DitzProjectModel(object):
             release_data['release_time'] = release.release_time_as_string()
             release_data['log_events'] = release.log
             return True
-        else:
-            return False
+        return False
 
     def remove_release(self, release_name):
         """
@@ -547,8 +546,7 @@ class DitzProjectModel(object):
         """
         if status:
             return status[1:]
-        else:
-            return None
+        return None
 
     def _string_to_release_status(self, status):
         """
@@ -566,8 +564,7 @@ class DitzProjectModel(object):
         """
         if status:
             return ':' + status
-        else:
-            return None
+        return None
 
 
 class DitzProjectYaml(yaml.YAMLObject):

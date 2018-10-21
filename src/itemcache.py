@@ -9,7 +9,7 @@ A GUI frontend for Ditz issue tracker
 
 from common.items import DitzIssue, DitzRelease
 
-class ItemCache():
+class ItemCache(object):
     """
     This class form a cache of read issues and releases
     to memory for faster and easier access.

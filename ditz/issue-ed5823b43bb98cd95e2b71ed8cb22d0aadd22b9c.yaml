@@ -45,6 +45,14 @@ log_events:
   - |
     Separate directories for dialogs, controls and models?
     This is the only sensible solution I can think of.
+- - 2018-10-21 20:12:27.947581 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Also it's not recommended to have "src" directory under the project root. Instead that should be named after the application
+    or library.
+
+    Also, maybe test code should be moved out of "src" and moved to the same level with "src".
 references: []
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>

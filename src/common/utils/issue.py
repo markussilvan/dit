@@ -5,7 +5,7 @@
 General utilities for issue handling
 """
 
-class IssueUtils():
+class IssueUtils(object):
     """
     Class to hold general utils for issue handling
     """
@@ -34,11 +34,10 @@ class IssueUtils():
         """
         Define sorting order for issue states
         """
-        if issue.status == "in progress":
-            return 0
-        elif issue.status == "paused":
-            return 1
-        elif issue.status == "unstarted":
-            return 2
-        else:
-            return 3 # closed
+        state_order = {
+            "in progress": 0,
+            "paused": 1,
+            "unstarted": 2,
+            "closed": 3
+        }
+        return state_order.get(issue.status, 3)

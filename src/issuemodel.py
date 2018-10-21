@@ -12,7 +12,7 @@ from common.items import DitzIssue              # pylint: disable=F0401
 from common.errors import ApplicationError      # pylint: disable=F0401
 
 
-class IssueModel():
+class IssueModel(object):
     """
     Class to read and write issue YAML files
     """

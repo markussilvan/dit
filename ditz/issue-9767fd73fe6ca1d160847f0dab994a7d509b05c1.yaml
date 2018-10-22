@@ -19,3 +19,11 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2018-10-22 14:30:04.571983 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    A new update again created some new errors.
+    Fix or ignore them.
+    Hopefully this can be done at the same time while
+    updating the sources and environment to Python 3.

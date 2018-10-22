@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Port ditz-gui to PyQt5
+desc: |-
+  Install all required libraries.
+  Try to port ditz-gui to PyQt5.
+  Update and test all dialog windows.
+type: :task
+component: ditz-gui
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2018-10-23 07:04:53.914083 Z
+references: []
+
+id: a7b6f4b0e9c7321519d2089981bfaa8dd85d0ae5
+log_events: 
+- - 2018-10-23 07:04:57.050131 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

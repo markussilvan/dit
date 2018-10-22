@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -595,7 +595,7 @@ class DitzGui(QtGui.QMainWindow):
         if release_name is None:
             return
         issues = self.ditz.get_issues_by_release(release_name)
-        if len(issues) > 0:
+        if not issues.empty():
             error = "Release '{}' can't be released.\nRelease has open tasks.".format(release_name)
             QtGui.QMessageBox.warning(self, "Ditz error", error)
             return
@@ -714,7 +714,7 @@ class DitzGui(QtGui.QMainWindow):
         if not item:
             return None
         text = str(item.text())
-        if len(text) == 0:
+        if text == "":
             return None
         return text
 

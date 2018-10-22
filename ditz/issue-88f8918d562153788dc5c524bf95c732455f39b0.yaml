@@ -72,9 +72,13 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
   - Also keyboard shortcuts didn't work on Windows.
+- - 2018-10-22 17:09:15.703236 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from in progress to paused
+  - ''
 references: []
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
+status: :paused
 title: Test ditz-gui on Windows
 type: :task

@@ -21,21 +21,22 @@ class YamlConfig(object):
         """
         Add new representers for PyYaml library
         """
-        yaml.add_representer(str, YamlConfig.str_representer)
-        yaml.add_representer(datetime.datetime, YamlConfig.datetime_representer)
+        yaml.add_representer(str, YamlConfig.represent_str)
+        yaml.add_representer(datetime.datetime, YamlConfig.represent_datetime)
 
     @staticmethod
-    def str_representer(dumper, data):
+    def represent_str(dumper, data):
         tag = None
         if '\n' in data:
             style = '|'
         else: style = None
+        data = bytes(data, 'utf-8')
         try:
-            data = unicode(data, 'ascii')
+            data = str(data, 'ascii')
             tag = u'tag:yaml.org,2002:str'
         except UnicodeDecodeError:
             try:
-                data = unicode(data, 'utf-8')
+                data = str(data, 'utf-8')
                 tag = u'tag:yaml.org,2002:str'
             except UnicodeDecodeError:
                 data = data.encode('base64')
@@ -44,6 +45,6 @@ class YamlConfig(object):
         return dumper.represent_scalar(tag, data, style=style)
 
     @staticmethod
-    def datetime_representer(dumper, data):
-        value = unicode(data.isoformat(' ') + ' Z')
+    def represent_datetime(dumper, data):
+        value = str(data.isoformat(' ') + ' Z')
         return dumper.represent_scalar(u'tag:yaml.org,2002:timestamp', value)

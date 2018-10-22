@@ -368,7 +368,7 @@ class ItemCacheTests(unittest.TestCase):
 
         # add another "new" issue
         issue = self.create_random_issue()
-        issue.created = datetime.now() + timedelta(minutes = 10)
+        issue.created = datetime.now() + timedelta(minutes=10)
         self.assertTrue(self.cache.add_issue(issue))
         self.cache.sort_issues()
         self.assertEqual(self.cache.issues[-1], issue)

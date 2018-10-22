@@ -17,8 +17,8 @@ from comment_dialog import CommentDialog
 from common.items import DitzIssue
 from common.errors import ApplicationError, DitzError
 from common import constants
-from ditzcontrol import DitzControl
 import common.utils.time
+from ditzcontrol import DitzControl
 
 class IssueDialog(QtGui.QDialog):
     """
@@ -94,7 +94,7 @@ class IssueDialog(QtGui.QDialog):
             QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
             comment = ''
 
-        if self._edit_mode == True:
+        if self._edit_mode is True:
             self.ditz.edit_issue(self.issue, comment)
         else:
             self.ditz.add_issue(self.issue, comment)
@@ -132,7 +132,7 @@ class IssueDialog(QtGui.QDialog):
         Show the dialog filled with data of a given Ditz issue
         """
         self.issue = self.ditz.get_issue_from_cache(ditz_id)
-        if self.issue == None:
+        if self.issue is None:
             QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
 
@@ -184,7 +184,7 @@ class IssueDialog(QtGui.QDialog):
         Depending on selection on the references list,
         different buttons need to be enabled.
         """
-        if self._get_selected_reference_text() != None:
+        if self._get_selected_reference_text() is not None:
             # a reference is selected
             self.widgetForm.pushButtonEdit.setEnabled(True)
             self.widgetForm.pushButtonRemove.setEnabled(True)
@@ -200,7 +200,7 @@ class IssueDialog(QtGui.QDialog):
         dialog = ReferenceDialog(self.ditz, save=False)
         reference = dialog.ask_reference()
 
-        if reference != None and reference != '':
+        if reference not in [None, ""]:
             self.widgetForm.listWidgetReferences.addItem(reference)
 
     def _edit_reference(self):
@@ -208,7 +208,7 @@ class IssueDialog(QtGui.QDialog):
         Change the selected reference text.
         """
         reference = self._get_selected_reference_text()
-        if reference != None:
+        if reference is not None:
             for selected in self.widgetForm.listWidgetReferences.selectedItems():
                 old_text = str(selected.text())
                 dialog = ReferenceDialog(self.ditz, save=False, reference_text=old_text)
@@ -221,7 +221,7 @@ class IssueDialog(QtGui.QDialog):
         Remove the selected reference from the issues being added or edited.
         """
         reference = self._get_selected_reference_text()
-        if reference != None:
+        if reference is not None:
             for selected in self.widgetForm.listWidgetReferences.selectedItems():
                 selected_row = self.widgetForm.listWidgetReferences.row(selected)
                 self.widgetForm.listWidgetReferences.takeItem(selected_row)
@@ -231,6 +231,6 @@ class IssueDialog(QtGui.QDialog):
         if not item:
             return None
         text = str(item.text())
-        if len(text) == 0:
+        if text == "":
             return None
         return text

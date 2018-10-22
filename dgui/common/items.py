@@ -144,7 +144,7 @@ class DitzRelease(DitzItem):
         if not self.log:
             self.log = []
 
-        if release_time is None or release_time == "":
+        if release_time in [None, ""]:
             self.release_time = None
         else:
             # expected format is 2014-10-11 16:25:53.253218 Z

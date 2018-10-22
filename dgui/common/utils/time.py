@@ -1,4 +1,5 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
+
 import datetime
 import dateutil.relativedelta
 import dateutil.parser
@@ -27,10 +28,12 @@ def human_time_diff(date_string, max_elements=2):
     explanation = ""
     for unit in ['years', 'months', 'days', 'hours', 'minutes', 'seconds']:
         # pylint: disable=E0602
-        exec('diff = timediff.' + unit) # pylint: disable=W0122
-        if diff > 0:
-            explanation = "{}{} {}".format(explanation, str(diff), unit)
-            if diff == 1:
+        execdict = {}
+        execdict['timediff'] = timediff
+        exec('diff = timediff.' + unit, execdict) # pylint: disable=W0122
+        if execdict['diff'] > 0:
+            explanation = "{}{} {}".format(explanation, str(execdict['diff']), unit)
+            if execdict['diff'] == 1:
                 explanation = explanation[:-1]
             elements = elements + 1
             if elements == max_elements:

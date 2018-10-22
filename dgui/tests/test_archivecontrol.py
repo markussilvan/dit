@@ -130,7 +130,7 @@ class ArchiveControlDataAccessTests(unittest.TestCase):
         ditz.config.get_ditz_configs.return_value = DitzSettingsMock()
         ditz.config.get_project_root.return_value = os.path.abspath('data')
 
-        if mock_issues == None:
+        if mock_issues is None:
             title = 'just a testing issue'
             description = 'foo bar baz bug foo foo poo poo.'
             created = datetime.now()
@@ -230,5 +230,3 @@ def suite():
 
 if __name__ == '__main__':
     testlib.parse_arguments_and_run_tests(suite)
-
-

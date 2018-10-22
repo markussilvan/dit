@@ -1,8 +1,9 @@
 # Ditz-gui
 
-Ditz frontend developed using Python and PyQt. Provides fast and
-easy access to ditz issues without need to hassle with the
-command line tool.
+Graphical *ditz* client developed using Python and PyQt. Provides
+fast and easy access to ditz issues without need to hassle with the
+command line tool. Implements all features as the original command
+line ditz.
 
 Ditz is a simple, light-weight distributed issue tracker designed
 to work with distributed version control systems like git, darcs,
@@ -17,13 +18,13 @@ directory can be kept under version control, alongside project code.
 Jenkins is used as a continuous integration platform to build
 release packages, run PyUnit unit tests and Pylint static code analysis.
 And of course, git is used as version control system and tickets, bugs
-are tracked using Ditz. As the development progresses the program
-itself can be used as the issue tracker.
+and new features are tracked using Ditz. Now the development has progressed
+enough, so that the program itself can be used as the issue tracker.
 
 
 ### List of Tools
 
- - Python 2.7
+ - Python 3.3
  - PyQt 4.7
  - python-unittest (aka PyUnit)
  - python-yaml
@@ -67,7 +68,7 @@ Here is an example configuration file.
 
 ## Unit Tests
 
-Test code is located in `src/tests/`. Each test set can be run
+Test code is located in `dgui/tests/`. Each test set can be run
 separately or one script can be used to run all tests. This
 script can be found in `scripts/` directory.
 

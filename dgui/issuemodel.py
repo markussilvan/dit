@@ -101,7 +101,7 @@ class IssueModel(object):
         sha = hashlib.sha1()
         for i in range(10):
             sha.update(datetime.datetime.utcnow().strftime(
-                "%Y%m%d%H%M%S-{}-{}".format(i, random.randint(0, 10000))))
+                "%Y%m%d%H%M%S-{}-{}".format(i, random.randint(0, 10000))).encode('utf-8'))
             identifier = sha.hexdigest()
             if identifier not in identifiers:
                 return identifier

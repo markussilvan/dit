@@ -8,8 +8,8 @@ type: :bugfix
 component: ditz-gui
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2015-06-11 12:22:38.150711 Z
 references: []
 
@@ -27,3 +27,10 @@ log_events:
     Fix or ignore them.
     Hopefully this can be done at the same time while
     updating the sources and environment to Python 3.
+- - 2018-11-01 10:31:33.936631 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Only TODO comments exist in the code.
+    All other Pylint warnings have been fixed or ignored.
+    There is a separate task for fixing the TODO.

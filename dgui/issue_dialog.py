@@ -9,8 +9,7 @@ A GUI frontend for Ditz issue tracker
 A dialog for adding and editing Ditz issues
 """
 
-from PyQt4 import QtGui, uic
-from PyQt4.QtCore import SIGNAL
+from PyQt5 import QtWidgets, uic
 
 from reference_dialog import ReferenceDialog
 from comment_dialog import CommentDialog
@@ -20,7 +19,7 @@ from common import constants
 import common.utils.time
 from ditzcontrol import DitzControl
 
-class IssueDialog(QtGui.QDialog):
+class IssueDialog(QtWidgets.QDialog):
     """
     A dialog with form input (separate widget) and Cancel/Ok buttons.
     Same form can be used to add new issues or to edit existing ones.
@@ -91,7 +90,7 @@ class IssueDialog(QtGui.QDialog):
             dialog = CommentDialog(self.ditz, self.issue.identifier, save=False)
             comment = dialog.ask_comment()
         except DitzError as e:
-            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+            QtWidgets.QMessageBox.warning(self, "Ditz error", e.error_message)
             comment = ''
 
         if self._edit_mode is True:
@@ -116,7 +115,7 @@ class IssueDialog(QtGui.QDialog):
         try:
             self.issue = DitzIssue('', None)
         except ApplicationError:
-            QtGui.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
+            QtWidgets.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
             return
 
         settings = self.ditz.config.get_app_configs()
@@ -133,7 +132,7 @@ class IssueDialog(QtGui.QDialog):
         """
         self.issue = self.ditz.get_issue_from_cache(ditz_id)
         if self.issue is None:
-            QtGui.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
+            QtWidgets.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
             return
 
         self._edit_mode = True
@@ -173,9 +172,7 @@ class IssueDialog(QtGui.QDialog):
         self.widgetForm.pushButtonEdit.clicked.connect(self._edit_reference)
         self.widgetForm.pushButtonRemove.clicked.connect(self._remove_reference)
         self.widgetForm.listWidgetReferences.clicked.connect(self._set_button_states)
-        self.connect(self.widgetForm.listWidgetReferences,
-                SIGNAL("itemSelectionChanged()"),
-                self._set_button_states)
+        self.widgetForm.listWidgetReferences.itemSelectionChanged.connect(self._set_button_states)
 
     def _set_button_states(self):
         """

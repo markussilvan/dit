@@ -9,7 +9,7 @@ A GUI frontend for Ditz issue tracker
 A dialog for adding and editing a release
 """
 
-from PyQt4 import QtGui, uic
+from PyQt5 import QtWidgets, uic
 
 from ditzcontrol import DitzControl
 from common.items import DitzRelease
@@ -18,7 +18,7 @@ from comment_dialog import CommentDialog
 from common import constants
 
 
-class ReleaseDialog(QtGui.QDialog):
+class ReleaseDialog(QtWidgets.QDialog):
     """
     A release dialog input fields and Cancel/Ok buttons.
     """
@@ -66,7 +66,7 @@ class ReleaseDialog(QtGui.QDialog):
         # check if release status was changed to 'released' and cancel the process if required
         if old_status != self.release.status and self.release.status == constants.release_states.RELEASED:
             message = "Use 'make release' to release a release.\nNot changing state to 'released'."
-            QtGui.QMessageBox.warning(self, "Ditz GUI warning", message)
+            QtWidgets.QMessageBox.warning(self, "Ditz GUI warning", message)
             self.release.status = old_status
             return
 
@@ -76,7 +76,7 @@ class ReleaseDialog(QtGui.QDialog):
                     title='Comment for release')
             comment = dialog.ask_comment()
         except DitzError as e:
-            QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+            QtWidgets.QMessageBox.warning(self, "Ditz error", e.error_message)
             comment = ''
 
         creator = self.ditz.config.get_default_creator()
@@ -91,7 +91,7 @@ class ReleaseDialog(QtGui.QDialog):
         else:
             self.ditz.config.projectconfig.set_release(self.release)
         if self.ditz.config.projectconfig.write_config_file() is False:
-            QtGui.QMessageBox.warning(self, "Error",
+            QtWidgets.QMessageBox.warning(self, "Error",
                     "Saving project configuration file failed")
         else:
             super(ReleaseDialog, self).accept()

@@ -9,13 +9,13 @@ A GUI frontend for Ditz issue tracker
 A common issue reference dialog box
 """
 
-from PyQt4 import QtGui, uic
+from PyQt5 import QtWidgets, uic
 
 from comment_dialog import CommentDialog
 from common.errors import ApplicationError, DitzError
 from ditzcontrol import DitzControl
 
-class ReferenceDialog(QtGui.QDialog):
+class ReferenceDialog(QtWidgets.QDialog):
     """
     A reference dialog with text input and Cancel/Ok buttons.
     """
@@ -53,7 +53,7 @@ class ReferenceDialog(QtGui.QDialog):
                         title='Comment to add with the reference')
                 comment = dialog.ask_comment()
             except DitzError as e:
-                QtGui.QMessageBox.warning(self, "Ditz error", e.error_message)
+                QtWidgets.QMessageBox.warning(self, "Ditz error", e.error_message)
                 comment = ''
             # add the reference
             self.ditz.add_reference(self.ditz_id, self.reference, comment)

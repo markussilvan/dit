@@ -9,13 +9,13 @@ A GUI frontend for Ditz issue tracker
 A dialog for assigning an issue to a release
 """
 
-from PyQt4 import QtGui, uic
+from PyQt5 import QtWidgets, uic
 
 from ditzcontrol import DitzControl
 from common.errors import ApplicationError
 from common import constants
 
-class AssignDialog(QtGui.QDialog):
+class AssignDialog(QtWidgets.QDialog):
     """
     A dialog with couple of inputs and Cancel/Ok buttons.
     """

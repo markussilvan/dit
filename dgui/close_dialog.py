@@ -9,9 +9,9 @@ A GUI frontend for Ditz issue tracker
 A dialog for close resolution and comment for closing a Ditz issue
 """
 
-from PyQt4 import QtGui, uic
+from PyQt5 import QtWidgets, uic
 
-class CloseDialog(QtGui.QDialog):
+class CloseDialog(QtWidgets.QDialog):
     """
     A dialog with couple of inputs and Cancel/Ok buttons.
     """

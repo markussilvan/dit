@@ -15,8 +15,8 @@ directory can be kept under version control, alongside project code.
 """
 
 import sys
-from PyQt4 import QtGui, uic
-from PyQt4.QtCore import SIGNAL, QModelIndex
+from PyQt5 import QtWidgets, QtGui, uic
+from PyQt5.QtCore import QModelIndex
 
 from common.items import DitzRelease, DitzIssue
 from common.errors import DitzError, ApplicationError
@@ -34,7 +34,7 @@ from assign_dialog import AssignDialog
 from release_dialog import ReleaseDialog
 
 
-class DitzGui(QtGui.QMainWindow):
+class DitzGui(QtWidgets.QMainWindow):
     """
     The main window
     """
@@ -50,7 +50,7 @@ class DitzGui(QtGui.QMainWindow):
             message = "{}.\n{}\n{}".format(e.error_message,
                     "Run 'ditz init' first to initialize or",
                     "start Ditz GUI in any subdirectory of\nan initialized Ditz project.")
-            QtGui.QMessageBox.warning(self, "Ditz not initialized", message)
+            QtWidgets.QMessageBox.warning(self, "Ditz not initialized", message)
             sys.exit(1)
 
         try:
@@ -59,9 +59,9 @@ class DitzGui(QtGui.QMainWindow):
             if e.error_message == "Ditz config not found":
                 message = "{}\n{}".format(e.error_message,
                         "Go to settings to configure before using")
-                QtGui.QMessageBox.warning(self, "Configuration error", e.error_message)
+                QtWidgets.QMessageBox.warning(self, "Configuration error", e.error_message)
             elif e.error_message == "Project file not found":
-                QtGui.QMessageBox.warning(self, "Fatal configuration error", e.error_message)
+                QtWidgets.QMessageBox.warning(self, "Fatal configuration error", e.error_message)
                 sys.exit(1)
             else:
                 print(e.error_message)
@@ -98,43 +98,43 @@ class DitzGui(QtGui.QMainWindow):
         """
         Create action objects
         """
-        self.actions['new_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/new.png'),
+        self.actions['new_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/new.png'),
                 'New Issue', self)
-        self.actions['edit_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/edit.png'),
+        self.actions['edit_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/edit.png'),
                 'Edit Issue', self)
-        self.actions['comment_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/comment.png'),
+        self.actions['comment_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/comment.png'),
                 'Comment Issue', self)
-        self.actions['start_work'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/start.png'),
+        self.actions['start_work'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/start.png'),
                 'Start working', self)
-        self.actions['stop_work'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/stop.png'),
+        self.actions['stop_work'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/stop.png'),
                 'Stop working', self)
-        self.actions['close_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/close.png'),
+        self.actions['close_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/close.png'),
                 'Close issue', self)
-        self.actions['drop_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/drop.png'),
+        self.actions['drop_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/drop.png'),
                 'Drop issue', self)
-        self.actions['assign_issue'] = QtGui.QAction(QtGui.QIcon('../graphics/issue/assign.png'),
+        self.actions['assign_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/assign.png'),
                 'Assign Issue to a release', self)
-        self.actions['add_reference'] = QtGui.QAction(
+        self.actions['add_reference'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/issue/add_reference.png'), 'Add reference', self)
 
-        self.actions['new_release'] = QtGui.QAction(
+        self.actions['new_release'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/release/new_release.png'), 'Add release', self)
-        self.actions['edit_release'] = QtGui.QAction(
+        self.actions['edit_release'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/release/edit_release.png'), 'Edit release', self)
-        self.actions['comment_release'] = QtGui.QAction(
+        self.actions['comment_release'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/release/comment_release.png'), 'Comment release', self)
-        self.actions['make_release'] = QtGui.QAction(
+        self.actions['make_release'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/release/make_release.png'), 'Make release', self)
-        self.actions['remove_release'] = QtGui.QAction(
+        self.actions['remove_release'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/release/remove_release.png'), 'Remove release', self)
-        self.actions['move_up_release'] = QtGui.QAction(
+        self.actions['move_up_release'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/release/move_up_release.png'), 'Move release up', self)
-        self.actions['move_down_release'] = QtGui.QAction(
+        self.actions['move_down_release'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/release/move_down_release.png'), 'Move release down', self)
-        self.actions['archive_release'] = QtGui.QAction(
+        self.actions['archive_release'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/release/archive_release.png'), 'Archive release', self)
 
-        self.actions['open_settings'] = QtGui.QAction(
+        self.actions['open_settings'] = QtWidgets.QAction(
                 QtGui.QIcon('../graphics/misc/settings.png'), 'Settings', self)
 
         # icons visible in custom context menu of items list view
@@ -194,12 +194,8 @@ class DitzGui(QtGui.QMainWindow):
 
         # main listwidget actions
         self.listWidgetDitzItems.clicked.connect(self.show_item)
-        self.connect(self.listWidgetDitzItems,
-                SIGNAL('customContextMenuRequested(const QPoint &)'),
-                self.context_menu)
-        self.connect(self.listWidgetDitzItems,
-                SIGNAL("itemSelectionChanged()"),
-                self.show_item)
+        self.listWidgetDitzItems.itemSelectionChanged.connect(self.show_item)
+        self.listWidgetDitzItems.customContextMenuRequested.connect(self.context_menu)
 
     def add_action_shortcuts(self):
         """
@@ -270,7 +266,7 @@ class DitzGui(QtGui.QMainWindow):
         Center the window to screen
         """
         rect = self.frameGeometry()
-        desktop_center = QtGui.QDesktopWidget().availableGeometry().center()
+        desktop_center = QtWidgets.QDesktopWidget().availableGeometry().center()
         rect.moveCenter(desktop_center)
         self.move(rect.topLeft())
 
@@ -320,7 +316,7 @@ class DitzGui(QtGui.QMainWindow):
 
         issue = self._get_selected_issue()
         release = self._get_selected_release_name()
-        menu = QtGui.QMenu(self)
+        menu = QtWidgets.QMenu(self)
 
         if issue:
             self.update_action_texts()
@@ -364,7 +360,7 @@ class DitzGui(QtGui.QMainWindow):
         self.toolBar.addAction(self.actions['drop_issue'])
 
         # spacer
-        spacer = QtGui.QWidget()
+        spacer = QtWidgets.QWidget()
         size = self.toolBar.iconSize()
         spacer.setFixedSize(size.width(), size.height())
         self.toolBar.addWidget(spacer)
@@ -380,8 +376,8 @@ class DitzGui(QtGui.QMainWindow):
         self.toolBar.addAction(self.actions['archive_release'])
 
         # spacer
-        wide_spacer = QtGui.QWidget()
-        wide_spacer.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)
+        wide_spacer = QtWidgets.QWidget()
+        wide_spacer.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         self.toolBar.addWidget(wide_spacer)
 
         # other common actions
@@ -689,7 +685,8 @@ class DitzGui(QtGui.QMainWindow):
             height = self.geometry().height()
             settings.window_size = [width, height]
             if self.config.appconfig.write_config_file() is False:
-                QtGui.QMessageBox.warning(self, "Error",
+                QtGui.QMessageBox.warning(self,
+                        "Error",
                         "Writing application configuration file failed")
 
     def _get_selected_issue_status(self):
@@ -735,7 +732,7 @@ class DitzGui(QtGui.QMainWindow):
 
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     _ = DitzGui()
 
     sys.exit(app.exec_())

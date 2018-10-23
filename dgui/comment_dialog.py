@@ -9,9 +9,9 @@ A GUI frontend for Ditz issue tracker
 A common comment dialog box
 """
 
-from PyQt4 import QtGui, uic
+from PyQt5 import QtWidgets, uic
 
-class CommentDialog(QtGui.QDialog):
+class CommentDialog(QtWidgets.QDialog):
     """
     A comment dialog with text input and Cancel/Ok buttons.
     """

@@ -9,12 +9,12 @@ A GUI frontend for Ditz issue tracker
 A settings dialog box
 """
 
-from PyQt4 import QtGui, uic
+from PyQt5 import QtWidgets, uic
 
 from config import ConfigControl
 from common.errors import ApplicationError
 
-class SettingsDialog(QtGui.QDialog):
+class SettingsDialog(QtWidgets.QDialog):
     """
     A settings dialog with multiple inputs and Cancel/Ok buttons.
     """

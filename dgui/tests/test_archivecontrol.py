@@ -9,11 +9,12 @@
 #
 
 import unittest
-import mock
 import os
 from shutil import rmtree
 from shutil import copy2                        # pylint: disable=W0611
 from datetime import datetime                   # pylint: disable=W0611
+
+import mock
 
 import testlib
 import archivecontrol                           # pylint: disable=F0401

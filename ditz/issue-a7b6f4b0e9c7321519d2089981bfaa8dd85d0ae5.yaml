@@ -8,8 +8,8 @@ type: :task
 component: ditz-gui
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2018-10-23 07:04:53.914083 Z
 references: []
 
@@ -19,3 +19,17 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ""
+- - 2018-10-23 20:24:55.675579 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    Work is ongoing. Some changes are needed.
+    There is plenty of documentation online to help with needed changes.
+- - 2018-11-01 10:34:30.201154 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Porting to PyQt5 seems to be done.
+    Testing all dialogs is still missing, so issues might show up.
+    Those potential problems can be fixed if/when they show up.
+    This ticket can be closed.

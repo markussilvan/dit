@@ -37,10 +37,14 @@ log_events:
     Blocked by other tasks. Old releases can't be archived
     as they are not visible in the list. There is no setting
     to set them visible (although system mostly supports it).
+- - 2018-11-01 19:35:12.675023 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
 references:
 - '"Archiving a release"'
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :paused
 title: Get file path using FileDialog or ArchiveDialog
-type: :feature
+type: :enhancement

@@ -59,10 +59,16 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - assigned to release v0.2.1 from v0.3
   - This could be useful.
+- - 2018-11-01 19:25:33.346422 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    This is a high priority task for ditz-gui.
+    Should be done soon to enable adoption of ditz-gui to other projects.
 references:
 - ditz init command
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 title: Support "ditz init"
 type: :feature

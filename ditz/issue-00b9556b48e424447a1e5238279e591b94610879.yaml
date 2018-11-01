@@ -14,8 +14,12 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ''
+- - 2018-11-01 19:28:01.270666 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.2 from v0.2.1
+  - ''
 references: []
-release: v0.2.1
+release: v0.2.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Port unit tests to Python 3

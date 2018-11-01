@@ -53,8 +53,12 @@ log_events:
     or library.
 
     Also, maybe test code should be moved out of "src" and moved to the same level with "src".
+- - 2018-11-01 19:28:46.709413 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.2 from v0.2.1
+  - ''
 references: []
-release: v0.2.1
+release: v0.2.2
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: Reorganizing directory structure

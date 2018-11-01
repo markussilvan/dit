@@ -13,8 +13,16 @@ log_events:
   - created
   - Currently having a mixture of emtry string or a datetime assigned to release_time
     causes an ugly PyLint warning.
+- - 2018-11-01 19:28:23.134582 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.2 from v0.2.1
+  - ''
+- - 2018-11-01 19:39:40.883078 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release 0.2.3 from v0.2.2
+  - ''
 references: []
-release: v0.2.1
+release: 0.2.3
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted
 title: PyYaml None representer

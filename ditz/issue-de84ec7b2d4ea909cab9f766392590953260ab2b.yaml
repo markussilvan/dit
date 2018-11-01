@@ -1,5 +1,6 @@
---- !ditz.rubyforge.org,2008-03-06/issue 
-title: Implement CLI interface
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2015-10-22 15:08:10.323727 Z
 desc: |-
   To drop Ditz dependency completely, implement
   custom command line interface. It should be
@@ -7,17 +8,9 @@ desc: |-
   Implementation should be fairly easy, and
   stuff from playground can be used to get
   started.
-type: :feature
-component: ditz-gui
-release: 
-reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
-disposition: 
-creation_time: 2015-10-22 15:08:10.323727 Z
-references: []
-
+disposition: ''
 id: de84ec7b2d4ea909cab9f766392590953260ab2b
-log_events: 
+log_events:
 - - 2015-10-22 15:09:12.337717 Z
   - Markus Silvan <markus.silvan@iki.fi>
   - created
@@ -25,3 +18,23 @@ log_events:
     Then the system can be renamed to tIssue, if
     there is no Ditz dependence or compatibility
     anymore.
+- - 2018-11-01 19:36:02.289214 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.1 from Unassigned
+  - ''
+- - 2018-11-01 19:44:14.043590 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This would greatly improve tool's usability.
+    Now that the tool is not completely (backwards) compatible with original Ditz anymore, this has become more important.
+- - 2018-11-01 19:45:27.123469 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Text UI would also work as a tool for testing new features being developed.
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Implement CLI interface
+type: :feature

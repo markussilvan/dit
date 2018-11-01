@@ -7,7 +7,7 @@ desc: |-
   Thus it should work on Windows as is.
   Try if it works, and make assesment for
   needed fixes if it doesn't.
-disposition: ''
+disposition: fixed
 id: 88f8918d562153788dc5c524bf95c732455f39b0
 log_events:
 - - 2014-10-17 07:01:57.741687 Z
@@ -76,9 +76,15 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - status changed from in progress to paused
   - ''
+- - 2018-11-01 19:31:15.330362 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Initial testing is considered completed.
+    New issues for more testing to be created when needed.
 references: []
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :paused
+status: :closed
 title: Test ditz-gui on Windows
 type: :task

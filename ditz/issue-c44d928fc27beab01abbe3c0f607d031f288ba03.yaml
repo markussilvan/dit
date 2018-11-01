@@ -20,6 +20,10 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - I just found this bug on Linux.
+- - 2018-11-01 19:39:29.432317 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - This bug is still valid.
 references: []
 release: v0.2.2
 reporter: Markus Silvan <markus.silvan@iki.fi>

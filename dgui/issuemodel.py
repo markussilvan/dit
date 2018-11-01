@@ -195,9 +195,13 @@ class IssueYamlObject(yaml.YAMLObject):
         if disposition and disposition[0] == ':':
             disposition = disposition[1:]
 
+        release = self.release
+        if release == '':
+            release = None
+
         # identifier used also as name (name is generated and can't be known yet)
         return DitzIssue(self.title, self.id, issue_type, self.component, status, disposition,
-                self.desc, self.reporter, self.creation_time, self.release,
+                self.desc, self.reporter, self.creation_time, release,
                 self.references, self.id, self.log_events)
 
     def __repr__(self):

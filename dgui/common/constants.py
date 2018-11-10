@@ -48,3 +48,15 @@ release_states = Constants(
         UNRELEASED='unreleased',
         RELEASED='released',
         )
+
+issue_states = Constants(
+        UNSTARTED='unstarted',
+        IN_PROGRESS='in progress',
+        PAUSED='paused'
+        )
+
+issue_types = Constants(
+        FEATURE='feature',
+        TASK='task',
+        BUGFIX='bugfix'
+        )

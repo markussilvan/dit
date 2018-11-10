@@ -10,8 +10,13 @@ Ditz commandline client
 import sys
 import getopt
 import textwrap
+import datetime
 
+from pick import pick
+
+from common import constants
 from common.items import DitzRelease, DitzIssue
+from common.errors import ApplicationError
 from ditzcontrol import DitzControl
 from config import ConfigControl
 
@@ -63,21 +68,56 @@ class DitzCli:
         value = input(prompt)
         return value
 
+    def get_user_list_input(self, prompt, options):
+        option, _ = pick(options, prompt)
+        print(prompt + option)
+        return option
+
     def add_issue(self):
         """Add new issue to database.
            Read issue input from user, and add new ticket to database."""
+        # issue name will be generated, now need to ask for it
         title = self.get_user_input("Title: ")
-        description = self.get_user_input("Description: ")
-        #TODO: adding (copy from ditz-gui)
-        #       - create an issue based on user input
-        #       - give issue to ditzcontrol to insert to "database"
-        #issue = Issue(title, description, datetime.utcnow(), None)
-        #collection = self.db.issues
-        #return collection.insert(issue.data)
+        issue = DitzIssue(title)
+
+        issue_types = self.config.get_valid_issue_types()
+        issue_states = self.config.get_valid_issue_states() #TODO: voiko/pitäiskö tohon listaan lisätä closed?
+        components = self.config.get_valid_components()
+        default_creator = self.config.get_default_creator()
+        release_names = []
+        for release in self.config.get_releases(constants.release_states.UNRELEASED):
+            release_names.append(release.title)
+        release_names.append("Unassigned")
+
+        issue.description = self.get_user_input("Description: ")
+        issue.issue_type = self.get_user_list_input("Type: ", issue_types)
+        #TODO: get list of components from ditzcontrol or config?
+        #TODO: adding a new component?
+        issue.component = self.get_user_list_input("Component: ", components)
+        issue.status = self.get_user_list_input("Status: ", issue_states)
+        issue.disposition = ""
+        issue.creator = self.get_user_input("Creator ({}): ".format(default_creator))
+        issue.created = datetime.datetime.utcnow()
+        issue.release = self.get_user_list_input("Release: ", release_names)
+        issue.identifier = None
+        issue.references = []
+
+        #TODO: add possibility to add references? (or just separate functionality to add references?)
+        comment = "" #TODO: implement "comment dialog" to get a comment
+
+        if issue.component in [None, '']:
+            issue.component = self.config.get_project_name()
+
+        if issue.creator in [None, '']:
+            issue.creator = default_creator
+
+        if issue.release == "Unassigned":
+            issue.release = None
+
+        self.ditz.add_issue(issue, comment)
 
     def list_items(self):
         """List titles of all releases and issues."""
-        print("All issues:")
         items = self.ditz.get_items()
         max_name_width = self.ditz.get_issue_name_max_len()
 
@@ -126,7 +166,7 @@ class DitzCli:
         dedented_description = textwrap.dedent(issue.description).strip()
         filled_description = textwrap.fill(dedented_description,
                                            initial_indent='',
-                                           subsequent_indent=fmt.format("",""),
+                                           subsequent_indent=fmt.format("", ""),
                                            width=70)
         print(fmt.format("Description:", filled_description))
         print(fmt.format("Type:", issue.issue_type))
@@ -137,18 +177,26 @@ class DitzCli:
         print(fmt.format("Created:", str(issue.created)))
         print(fmt.format("Release:", issue.release))
         print(fmt.format("Identifier:", issue.identifier))
-        #TODO: add other fields, and use format specifiers instead of hardcoded spaces to align
-        ###if references is not None:
-        ###    self.references = references
-        ###else:
-        ###    self.references = []
-        ###self.log = log
+
+        references = ""
+        if issue.references is not None:
+            for ref in issue.references:
+                references += str(ref) + ' '
+            references = textwrap.dedent(references).strip()
+            references = textwrap.fill(references,
+                                       initial_indent='',
+                                       subsequent_indent=fmt.format("", ""),
+                                       width=70)
+        print(fmt.format("References:", references))
+        #TODO: print log in some format
+        #TODO: add support for --no-log or --short to print issue info without log
 
     def remove_issue(self):
         """Remove issue from database based on issue identifier."""
-        issues = self.list_items()
-        index = int(self.get_user_input("Issue to remove: "))
-        #TODO self.db.issues.remove({'_id': issues[index]})
+        #issues = self.list_items()
+        #index = int(self.get_user_input("Issue to remove: "))
+        print("NOT IMPLEMENTED")
+        #TODO: this needs commandline autofill to be usable
 
     def usage(self):
         """Print help for accepted command line arguments."""
@@ -167,7 +215,7 @@ class DitzCli:
         try:
             opts, args = getopt.getopt(argv, shortOpts, longOpts)
         except getopt.error as msg:
-            print >> self.output, msg #TODO: is this ok in python3?
+            print(msg)
             self.usage()
             return Status.GETOPT_ERROR
 

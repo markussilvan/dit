@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2018-11-16 11:37:36.375273 Z
+desc: Release states already exist in constants.py. Add issue related (and other)
+  constants.
+disposition: ''
+id: 3d854fbc91fb8befcb24e4779f16a21f9056e683
+log_events:
+- - 2018-11-16 11:37:47.009241 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: ''
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Add issue types and states to constants.py
+type: :task

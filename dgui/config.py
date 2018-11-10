@@ -101,6 +101,15 @@ class ConfigControl(object):
         """
         return self.projectconfig.get_releases(status, names_only)
 
+    def get_valid_issue_types(self):
+        """
+        Get a list of valid types of issues.
+
+        Returns:
+        - list of issue types
+        """
+        return self.appconfig.get_valid_issue_types()
+
     def get_valid_issue_states(self):
         """
         Get a list of valid states for an issue.
@@ -109,6 +118,15 @@ class ConfigControl(object):
         - list of states
         """
         return self.appconfig.get_valid_issue_states()
+
+    def get_valid_components(self):
+        """
+        Get a list of valid component names.
+
+        Return:
+        - list of component names
+        """
+        return ['ditz-gui', 'ditz-cli']
 
     def get_valid_release_states(self):
         """
@@ -273,6 +291,17 @@ class AppConfigModel:
             return False
         return True
 
+    def get_valid_issue_types(self):
+        """
+        Get a list of valid types of issues.
+
+        Returns:
+        - list of issue types
+        """
+        return [constants.issue_types.FEATURE,
+                constants.issue_types.TASK,
+                constants.issue_types.BUGFIX]
+
     def get_valid_issue_states(self):
         """
         Get a list of valid states for an issue.
@@ -280,7 +309,9 @@ class AppConfigModel:
         Returns:
         - list of states
         """
-        return ["unstarted", "in progress", "paused"]
+        return [constants.issue_states.UNSTARTED,
+                constants.issue_states.IN_PROGRESS,
+                constants.issue_states.PAUSED]
 
     def get_valid_release_states(self):
         """

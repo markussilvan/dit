@@ -53,7 +53,7 @@ log_events:
     This should be investigated further. If using Markdown doesn't
     create any issues with YAML files, this should implemented
     soon.
-references: []
+references: ['https://daringfireball.net/projects/markdown/', 'https://en.wikipedia.org/wiki/Markdown']
 release: null
 reporter: Markus Silvan <markus.silvan@iki.fi>
 status: :unstarted

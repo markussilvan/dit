@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-cli
+creation_time: 2018-11-16 12:05:44.608284 Z
+desc: Component selection should be configurable. Store list of components somewhere,
+  and offer those options when adding or editing issues.
+disposition: ''
+id: 20b335d93191e640795d0d06729b8b3055930d44
+log_events:
+- - 2018-11-16 12:05:48.018940 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Get component names from ditzcontrol or ditzconfig
+type: :feature

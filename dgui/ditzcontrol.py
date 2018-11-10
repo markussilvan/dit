@@ -52,9 +52,10 @@ class DitzControl(object):
         self.item_cache.sort_issues(rename=True)
 
         releases = self.config.get_releases(constants.release_states.UNRELEASED)
-        for release in releases:
-            self.item_cache.add_release(release)
-        self.item_cache.sort_releases()
+        if releases:
+            for release in releases:
+                self.item_cache.add_release(release)
+            self.item_cache.sort_releases()
 
     def get_items(self):
         """

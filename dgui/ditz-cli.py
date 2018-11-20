@@ -16,9 +16,10 @@ from pick import pick
 
 from common import constants
 from common.items import DitzRelease, DitzIssue
-from common.errors import ApplicationError
+from common.errors import DitzError, ApplicationError
 from ditzcontrol import DitzControl
 from config import ConfigControl
+from cli.completer import Completer
 
 class Status:
     """A simple class to encapsulate error codes."""
@@ -34,7 +35,7 @@ class DitzCli:
 
     def __init__(self):
         self.command = None
-        self.issue_id = None
+        self.issue_name = None
 
         try:
             self.config = ConfigControl()
@@ -63,15 +64,27 @@ class DitzCli:
                 sys.exit(1)
 
         self.ditz = DitzControl(self.config)
+        self.ditz.reload_cache() #TODO: needed?
 
     def get_user_input(self, prompt):
         value = input(prompt)
         return value
 
+    def get_user_input_complete(self, prompt, options):
+        completer = Completer(options)
+        completer.enable()
+        return input(prompt)
+        #TODO: disable completer?
+
     def get_user_list_input(self, prompt, options):
         option, _ = pick(options, prompt)
         print(prompt + option)
         return option
+
+    def get_user_list_input_index(self, prompt, options):
+        option, index = pick(options, prompt)
+        print(prompt + option)
+        return index
 
     def add_issue(self):
         """Add new issue to database.
@@ -81,7 +94,7 @@ class DitzCli:
         issue = DitzIssue(title)
 
         issue_types = self.config.get_valid_issue_types()
-        issue_states = self.config.get_valid_issue_states() #TODO: voiko/pitäiskö tohon listaan lisätä closed?
+        issue_states = self.config.get_valid_issue_states() #TODO: should this list include 'closed'
         components = self.config.get_valid_components()
         default_creator = self.config.get_default_creator()
         release_names = []
@@ -91,8 +104,6 @@ class DitzCli:
 
         issue.description = self.get_user_input("Description: ")
         issue.issue_type = self.get_user_list_input("Type: ", issue_types)
-        #TODO: get list of components from ditzcontrol or config?
-        #TODO: adding a new component?
         issue.component = self.get_user_list_input("Component: ", components)
         issue.status = self.get_user_list_input("Status: ", issue_states)
         issue.disposition = ""
@@ -149,17 +160,20 @@ class DitzCli:
             if isinstance(item, DitzIssue):
                 print(item.identifier)
 
-    def show_issue(self, issue_id):
+    def show_issue(self, issue_name):
         """Show content of an issue by identifier."""
         try:
-            issue = self.ditz.get_issue_content(issue_id)
+            issue = self.ditz.get_issue_content(issue_name)
         except NameError:
-            found_id = self.ditz.get_issue_identifier(issue_id)
+            found_id = self.ditz.get_issue_identifier(issue_name)
             try:
                 issue = self.ditz.get_issue_content(found_id)
             except NameError:
-                print("Invalid issue id specified")
-                return
+                issue = None
+        if issue is None:
+            print("Invalid issue id specified")
+            return
+
         fmt = "{:<15} {}"
         print(fmt.format("Name:", issue.name))
         print(fmt.format("Title:", issue.title))
@@ -168,6 +182,7 @@ class DitzCli:
                                            initial_indent='',
                                            subsequent_indent=fmt.format("", ""),
                                            width=70)
+        #TODO: for description, use multiline imput using readline() instead
         print(fmt.format("Description:", filled_description))
         print(fmt.format("Type:", issue.issue_type))
         print(fmt.format("Component:", issue.component))
@@ -191,12 +206,40 @@ class DitzCli:
         #TODO: print log in some format
         #TODO: add support for --no-log or --short to print issue info without log
 
-    def remove_issue(self):
+    def close_issue(self, issue_name):
+        """
+        Close an issue based on issue identifier or name.
+
+        Even an issue that is already closed, can be closed again.
+        Old disposition is overwritten and a new comment is added.
+        """
+        if issue_name is None:
+            return
+
+        print("Closing issue: {}".format(issue_name))
+        try:
+            issue_id = self.ditz.get_issue_identifier(issue_name)
+            if issue_id is None:
+                raise DitzError("Unknown issue identifier")
+            dispositions = self.config.get_app_configs().issue_dispositions
+            disposition = self.get_user_list_input_index("Disposition: ", dispositions)
+            self.ditz.close_issue(issue_id, disposition, comment="")
+        except (DitzError, ApplicationError) as e:
+            print("Error closing issue: {}".format(e.error_message))
+
+    def remove_issue(self, issue_name):
         """Remove issue from database based on issue identifier."""
-        #issues = self.list_items()
-        #index = int(self.get_user_input("Issue to remove: "))
-        print("NOT IMPLEMENTED")
-        #TODO: this needs commandline autofill to be usable
+        if issue_name is None:
+            return
+
+        print("Removing issue: {}".format(issue_name))
+        try:
+            issue_id = self.ditz.get_issue_identifier(issue_name)
+            if issue_id is None:
+                raise DitzError("Unknown issue identifier")
+            self.ditz.drop_issue(issue_id)
+        except (DitzError, ApplicationError) as e:
+            print("Error removing issue: {}".format(e.error_message))
 
     def usage(self):
         """Print help for accepted command line arguments."""
@@ -231,15 +274,22 @@ class DitzCli:
             return Status.INVALID_ARGUMENTS
 
         # validate command
-        if args[0] in ['add', 'list', 'list_ids', 'show', 'remove']:
+        if args[0] in ['add', 'list', 'list_ids', 'show', 'close', 'remove']:
             self.command = args[0]
-            if self.command == 'show':
-                if len(args) != 2:
-                    print("No issue to show specified.")
+            if self.command in ['show', 'close', 'remove']:
+                if len(args) == 1:
+                    issue_names = []
+                    for item in self.ditz.get_items():
+                        if isinstance(item, DitzIssue):
+                            issue_names.append(item.name)
+                    self.issue_name = self.get_user_input_complete("Issue name: ", issue_names);
+                elif len(args) == 2:
+                    self.issue_name = args[1]
+                elif len(args) > 2:
+                    print("Too many arguments given.")
                     return Status.INVALID_ARGUMENTS
-                self.issue_id = args[1]
             else:
-                self.issue_id = None
+                self.issue_name = None
         else:
             print("Invalid command issued.")
             return Status.INVALID_ARGUMENTS
@@ -261,9 +311,11 @@ def main(argv):
     elif ditz_cli.command == 'list_ids':
         ditz_cli.list_issue_ids()
     elif ditz_cli.command == 'show':
-        ditz_cli.show_issue(ditz_cli.issue_id)
+        ditz_cli.show_issue(ditz_cli.issue_name)
+    elif ditz_cli.command == 'close':
+        ditz_cli.close_issue(ditz_cli.issue_name)
     elif ditz_cli.command == 'remove':
-        ditz_cli.remove_issue()
+        ditz_cli.remove_issue(ditz_cli.issue_name)
     return Status.OK
 
 if __name__ == '__main__':

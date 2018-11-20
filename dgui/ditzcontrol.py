@@ -297,14 +297,15 @@ class DitzControl(object):
         if ditz_id in (None, ""):
             raise ApplicationError("Invalid ditz item identifier")
 
-        ditz_issue = self._get_issue_by_id(ditz_id)
-        ditz_issue.status = 'closed'
-        ditz_issue.disposition = self._disposition_to_str(disposition)
-        action = "closed with disposition {}".format(ditz_issue.disposition)
-        self._add_issue_log_entry(ditz_issue, action, comment)
+        issue = self._get_issue_by_id(ditz_id)
+        if issue:
+            issue.status = 'closed'
+            issue.disposition = self._disposition_to_str(disposition)
+            action = "closed with disposition {}".format(issue.disposition)
+            self._add_issue_log_entry(issue, action, comment)
 
-        yaml_issue = IssueYamlObject.from_ditz_issue(ditz_issue)
-        self.issuemodel.write_issue_yaml(yaml_issue)
+            yaml_issue = IssueYamlObject.from_ditz_issue(issue)
+            self.issuemodel.write_issue_yaml(yaml_issue)
 
     def drop_issue(self, identifier):
         """

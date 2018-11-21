@@ -127,6 +127,29 @@ class DitzCli:
 
         self.ditz.add_issue(issue, comment)
 
+    def assign_issue(self, issue_name):
+        """Assign an existing ticket to a given user"""
+        if issue_name is None:
+            print("No issue id")
+            return
+
+        release_names = []
+        for release in self.config.get_releases(constants.release_states.UNRELEASED):
+            release_names.append(release.title)
+
+        try:
+            issue_id = self.ditz.get_issue_identifier(issue_name)
+            if issue_id is None:
+                raise DitzError("Unknown issue identifier")
+            print("Failed to assign issue: {}".format(issue_name))
+
+            release = self.get_user_list_input("Release: ", release_names)
+            comment = '' #TODO: ask for a comment with multiline user input
+            self.ditz.assign_issue(issue_id, release, comment)
+        except (DitzError, ApplicationError) as e:
+            print("Error assigning issue: {}".format(e.error_message))
+        pass
+
     def list_items(self):
         """List titles of all releases and issues."""
         items = self.ditz.get_items()
@@ -310,9 +333,10 @@ class DitzCli:
             return Status.INVALID_ARGUMENTS
 
         # validate command
-        if args[0] in ['add', 'close', 'list', 'list_ids', 'remove', 'show', 'start', 'stop']:
+        if args[0] in ['add', 'assign', 'close', 'list', 'list_ids',
+                       'remove', 'show', 'start', 'stop']:
             self.command = args[0]
-            if self.command in ['close', 'remove', 'show', 'start', 'stop']:
+            if self.command in ['assign', 'close', 'remove', 'show', 'start', 'stop']:
                 if len(args) == 1:
                     issue_names = []
                     for item in self.ditz.get_items():
@@ -342,6 +366,8 @@ def main(argv):
         return err
     if ditz_cli.command == 'add':
         ditz_cli.add_issue()
+    if ditz_cli.command == 'assign':
+        ditz_cli.assign_issue(ditz_cli.issue_name)
     elif ditz_cli.command == 'close':
         ditz_cli.close_issue(ditz_cli.issue_name)
     elif ditz_cli.command == 'list':

@@ -70,6 +70,28 @@ class DitzCli:
         value = input(prompt)
         return value
 
+    def get_user_input_multiline(self, prompt):
+        """
+        Get multiple lines of text input from user.
+
+        Parameters:
+        - prompt:   text prompt to show to the user when asking for input
+
+        Returns:
+        - a multiline string
+        """
+        lines = []
+        print(prompt)
+
+        while True:
+            line = input()
+            if line.startswith('/stop'):
+                break
+            else:
+                lines.append(line)
+
+        return '\n'.join(lines)
+
     def get_user_input_complete(self, prompt, options):
         completer = Completer(options)
         completer.enable()
@@ -94,7 +116,7 @@ class DitzCli:
         issue = DitzIssue(title)
 
         issue_types = self.config.get_valid_issue_types()
-        issue_states = self.config.get_valid_issue_states() #TODO: should this list include 'closed'
+        issue_states = self.config.get_valid_issue_states()
         components = self.config.get_valid_components()
         default_creator = self.config.get_default_creator()
         release_names = []
@@ -102,7 +124,7 @@ class DitzCli:
             release_names.append(release.title)
         release_names.append("Unassigned")
 
-        issue.description = self.get_user_input("Description: ")
+        issue.description = self.get_user_input_multiline("Description: ")
         issue.issue_type = self.get_user_list_input("Type: ", issue_types)
         issue.component = self.get_user_list_input("Component: ", components)
         issue.status = self.get_user_list_input("Status: ", issue_states)
@@ -113,8 +135,9 @@ class DitzCli:
         issue.identifier = None
         issue.references = []
 
-        #TODO: add possibility to add references? (or just separate functionality to add references?)
-        comment = "" #TODO: implement "comment dialog" to get a comment
+        #TODO: add possibility to add references?
+        #      (or just separate functionality to add references?)
+        comment = self.get_user_input_multiline("Comment: ")
 
         if issue.component in [None, '']:
             issue.component = self.config.get_project_name()
@@ -144,7 +167,7 @@ class DitzCli:
             print("Failed to assign issue: {}".format(issue_name))
 
             release = self.get_user_list_input("Release: ", release_names)
-            comment = '' #TODO: ask for a comment with multiline user input
+            comment = self.get_user_input_multiline("Comment: ")
             self.ditz.assign_issue(issue_id, release, comment)
         except (DitzError, ApplicationError) as e:
             print("Error assigning issue: {}".format(e.error_message))
@@ -240,7 +263,7 @@ class DitzCli:
             if issue_id is None:
                 raise DitzError("Unknown issue identifier")
             print("Starting work on issue: {}".format(issue_name))
-            comment = '' #TODO: ask for a comment with multiline user input
+            comment = self.get_user_input_multiline("Comment: ")
             self.ditz.start_work(issue_id, comment)
         except (DitzError, ApplicationError) as e:
             print("Error starting work: {}".format(e.error_message))
@@ -256,7 +279,7 @@ class DitzCli:
             if issue_id is None:
                 raise DitzError("Unknown issue identifier")
             print("Stopping work on issue: {}".format(issue_name))
-            comment = '' #TODO: ask for a comment with multiline user input
+            comment = self.get_user_input_multiline("Comment: ")
             self.ditz.stop_work(issue_id, comment)
         except (DitzError, ApplicationError) as e:
             print("Error stopping work: {}".format(e.error_message))
@@ -279,9 +302,31 @@ class DitzCli:
                 raise DitzError("Unknown issue identifier")
             dispositions = self.config.get_app_configs().issue_dispositions
             disposition = self.get_user_list_input_index("Disposition: ", dispositions)
-            self.ditz.close_issue(issue_id, disposition, comment="")
+            comment = self.get_user_input_multiline("Comment: ")
+            self.ditz.close_issue(issue_id, disposition, comment)
         except (DitzError, ApplicationError) as e:
             print("Error closing issue: {}".format(e.error_message))
+
+    def comment_issue(self, issue_name):
+        """
+        Comment an issue based on issue identifier or name.
+
+        Parameters:
+        - issue_name:   issue to comment
+        """
+        if issue_name is None:
+            print("No issue id")
+            return
+
+        print("Commenting issue: {}".format(issue_name))
+        try:
+            issue_id = self.ditz.get_issue_identifier(issue_name)
+            if issue_id is None:
+                raise DitzError("Unknown issue identifier")
+            comment = self.get_user_input_multiline("Comment: ")
+            self.ditz.add_comment(issue_id, comment)
+        except (DitzError, ApplicationError) as e:
+            print("Error commenting issue: {}".format(e.error_message))
 
     def remove_issue(self, issue_name):
         """Remove issue from database based on issue identifier."""
@@ -301,13 +346,15 @@ class DitzCli:
     def usage(self):
         """Print help for accepted command line arguments."""
         print("Commands:")
-        print(" 'add'      : add new issue")
-        print(" 'close'    : close an issue")
-        print(" 'list'     : list state and titles of all issues in database")
-        print(" 'list_ids' : list identifiers of all issues in database")
-        print(" 'remove'   : remove an issue from database")
-        print(" 'show'     : show content of one issue")
-        print(" 'start'    : start work on an issue")
+        print(" add       : add new issue")
+        print(" close     : close an issue")
+        print(" comment   : add a comment to an issue")
+        print(" list      : list state and titles of all issues in database")
+        print(" list_ids  : list identifiers of all issues in database")
+        print(" remove    : remove an issue from database")
+        print(" show      : show content of one issue")
+        print(" start     : start work on an issue")
+        print(" stop      : stop work on an issue")
 
     def parse_options(self, argv):
         """Parse command line options."""
@@ -333,10 +380,10 @@ class DitzCli:
             return Status.INVALID_ARGUMENTS
 
         # validate command
-        if args[0] in ['add', 'assign', 'close', 'list', 'list_ids',
+        if args[0] in ['add', 'assign', 'close', 'comment', 'list', 'list_ids',
                        'remove', 'show', 'start', 'stop']:
             self.command = args[0]
-            if self.command in ['assign', 'close', 'remove', 'show', 'start', 'stop']:
+            if self.command in ['assign', 'close', 'comment', 'remove', 'show', 'start', 'stop']:
                 if len(args) == 1:
                     issue_names = []
                     for item in self.ditz.get_items():
@@ -370,6 +417,8 @@ def main(argv):
         ditz_cli.assign_issue(ditz_cli.issue_name)
     elif ditz_cli.command == 'close':
         ditz_cli.close_issue(ditz_cli.issue_name)
+    elif ditz_cli.command == 'comment':
+        ditz_cli.comment_issue(ditz_cli.issue_name)
     elif ditz_cli.command == 'list':
         ditz_cli.list_items()
     elif ditz_cli.command == 'list_ids':

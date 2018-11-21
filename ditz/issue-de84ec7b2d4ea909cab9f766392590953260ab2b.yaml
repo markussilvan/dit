@@ -32,9 +32,28 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - commented
   - Text UI would also work as a tool for testing new features being developed.
+- - 2018-11-21 20:30:02.815023 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    Many basic features have been implemented.
+    Adding new ones is fairly easy.
+    Calling same core library as ditz-gui does is simple without many complications.
+- - 2018-11-22 11:26:11.734826 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Now also commenting an issue has been implemented.
+    Asking for a comment has been also added as part of many other commands.
+
+    Soon, this issue could be closed, and separate tickets created for features
+    still missing from the CLI interface.
+    Currently the plan is not to add some release handling related functionality
+    to the CLI at all. And first just finish and even polish all issue related
+    features.
 references: []
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 title: Implement CLI interface
 type: :feature

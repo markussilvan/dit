@@ -65,10 +65,19 @@ log_events:
   - |-
     This is a high priority task for ditz-gui.
     Should be done soon to enable adoption of ditz-gui to other projects.
+- - 2018-11-21 20:36:16.411047 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from in progress to paused
+  - |-
+    This is on hold while implementing basic features
+    to the command line client.
+
+    To be continued afterwards, and easier to implement and
+    test using the command line.
 references:
 - ditz init command
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
+status: :paused
 title: Support "ditz init"
 type: :feature

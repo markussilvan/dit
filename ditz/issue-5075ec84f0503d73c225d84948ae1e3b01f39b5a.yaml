@@ -1,0 +1,19 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2018-11-22 14:57:00.243506 Z
+desc: Rename ditz to dit. Change names of the app and all variables in the code.
+disposition: ''
+id: 5075ec84f0503d73c225d84948ae1e3b01f39b5a
+log_events:
+- - 2018-11-22 14:57:52.395243 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    This is no longer compatible with original Ditz.
+    Hence, rename the whole application. Change datatypes, etc.
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Rename ditz-gui and ditz-cli
+type: :task

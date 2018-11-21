@@ -206,6 +206,38 @@ class DitzCli:
         #TODO: print log in some format
         #TODO: add support for --no-log or --short to print issue info without log
 
+    def start_work(self, issue_name):
+        """Start work on an issue."""
+        if issue_name is None:
+            print("No issue id")
+            return
+
+        try:
+            issue_id = self.ditz.get_issue_identifier(issue_name)
+            if issue_id is None:
+                raise DitzError("Unknown issue identifier")
+            print("Starting work on issue: {}".format(issue_name))
+            comment = '' #TODO: ask for a comment with multiline user input
+            self.ditz.start_work(issue_id, comment)
+        except (DitzError, ApplicationError) as e:
+            print("Error starting work: {}".format(e.error_message))
+
+    def stop_work(self, issue_name):
+        """Stop work on an issue."""
+        if issue_name is None:
+            print("No issue id")
+            return
+
+        try:
+            issue_id = self.ditz.get_issue_identifier(issue_name)
+            if issue_id is None:
+                raise DitzError("Unknown issue identifier")
+            print("Stopping work on issue: {}".format(issue_name))
+            comment = '' #TODO: ask for a comment with multiline user input
+            self.ditz.stop_work(issue_id, comment)
+        except (DitzError, ApplicationError) as e:
+            print("Error stopping work: {}".format(e.error_message))
+
     def close_issue(self, issue_name):
         """
         Close an issue based on issue identifier or name.
@@ -214,6 +246,7 @@ class DitzCli:
         Old disposition is overwritten and a new comment is added.
         """
         if issue_name is None:
+            print("No issue id")
             return
 
         print("Closing issue: {}".format(issue_name))
@@ -230,6 +263,7 @@ class DitzCli:
     def remove_issue(self, issue_name):
         """Remove issue from database based on issue identifier."""
         if issue_name is None:
+            print("No issue id")
             return
 
         print("Removing issue: {}".format(issue_name))
@@ -245,10 +279,12 @@ class DitzCli:
         """Print help for accepted command line arguments."""
         print("Commands:")
         print(" 'add'      : add new issue")
-        print(" 'list'     : list titles of all issues in database")
+        print(" 'close'    : close an issue")
+        print(" 'list'     : list state and titles of all issues in database")
         print(" 'list_ids' : list identifiers of all issues in database")
-        print(" 'show'     : show content of one selected issue")
         print(" 'remove'   : remove an issue from database")
+        print(" 'show'     : show content of one issue")
+        print(" 'start'    : start work on an issue")
 
     def parse_options(self, argv):
         """Parse command line options."""
@@ -274,9 +310,9 @@ class DitzCli:
             return Status.INVALID_ARGUMENTS
 
         # validate command
-        if args[0] in ['add', 'list', 'list_ids', 'show', 'close', 'remove']:
+        if args[0] in ['add', 'close', 'list', 'list_ids', 'remove', 'show', 'start', 'stop']:
             self.command = args[0]
-            if self.command in ['show', 'close', 'remove']:
+            if self.command in ['close', 'remove', 'show', 'start', 'stop']:
                 if len(args) == 1:
                     issue_names = []
                     for item in self.ditz.get_items():
@@ -306,16 +342,20 @@ def main(argv):
         return err
     if ditz_cli.command == 'add':
         ditz_cli.add_issue()
+    elif ditz_cli.command == 'close':
+        ditz_cli.close_issue(ditz_cli.issue_name)
     elif ditz_cli.command == 'list':
         ditz_cli.list_items()
     elif ditz_cli.command == 'list_ids':
         ditz_cli.list_issue_ids()
-    elif ditz_cli.command == 'show':
-        ditz_cli.show_issue(ditz_cli.issue_name)
-    elif ditz_cli.command == 'close':
-        ditz_cli.close_issue(ditz_cli.issue_name)
     elif ditz_cli.command == 'remove':
         ditz_cli.remove_issue(ditz_cli.issue_name)
+    elif ditz_cli.command == 'show':
+        ditz_cli.show_issue(ditz_cli.issue_name)
+    elif ditz_cli.command == 'start':
+        ditz_cli.start_work(ditz_cli.issue_name)
+    elif ditz_cli.command == 'stop':
+        ditz_cli.stop_work(ditz_cli.issue_name)
     return Status.OK
 
 if __name__ == '__main__':

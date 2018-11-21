@@ -1,0 +1,19 @@
+--- !ditz.rubyforge.org,2008-03-06/issue
+component: ditz-gui
+creation_time: 2018-11-21 15:21:40.600641 Z
+desc: Currently constants have been added, used in CLI interface and partially in config.py
+      Take the constants in to use in core software libraries, which currently use
+      hardcoded string comparisons, etc.
+disposition: ''
+id: 1aa746ca1ae6cd391adb67a1b467b313858c95ee
+log_events:
+- - 2018-11-21 15:21:43.010705 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: null
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Take constants for issue states to use in core software
+type: :task

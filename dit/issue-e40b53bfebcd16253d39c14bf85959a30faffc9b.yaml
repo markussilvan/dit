@@ -1,0 +1,58 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-10-11 12:18:31.463615 Z
+desc: |-
+  Show a "Closed"-stamp on the issue text view when the issue has been closed,
+  but the text is still on the view. This gives a nice impression, and
+  also turns a current unwanted feature of showing the text into a wanted
+  feature.
+disposition: ''
+id: e40b53bfebcd16253d39c14bf85959a30faffc9b
+log_events:
+- - 2014-10-11 12:18:35.695493 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-10-11 13:37:20.828119 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - When implementing this think also about the possibility of showin a dropped stamp
+    for dropped items. Or a nice green stamp for completed tasks.
+- - 2014-12-13 21:34:55.000717 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-13 21:43:20.808365 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-13 21:49:41.000507 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-20 17:14:33.232359 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |
+    Maybe this can be nicely implemented with the
+    help of the DitzIssues' toHtml() and html template files.
+- - 2015-01-13 17:05:57.349157 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.2 from v0.2
+  - ''
+- - 2015-02-27 19:54:21.257891 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - Changed type to enhancement.
+- - 2018-11-01 19:37:39.254488 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release 0.2.3 from v0.2.2
+  - ''
+references:
+- 38b74f96a97c67bb5ade1e86fdee57e1c7b5d322
+- Release v0.2
+release: 0.2.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Show a "Closed"-stamp
+type: :enhancement

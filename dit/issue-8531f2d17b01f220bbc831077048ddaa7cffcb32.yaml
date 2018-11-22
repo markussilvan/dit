@@ -1,0 +1,69 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2015-05-29 14:07:20.405551 Z
+desc: |-
+  Not much tests exist.
+  Implement unit tests where those can be easily
+  added and code base can be expected to remain stable.
+  When implementing new features without access to
+  graphical console, test driven development is preferred.
+disposition: ''
+id: 8531f2d17b01f220bbc831077048ddaa7cffcb32
+log_events:
+- - 2015-05-29 14:07:23.621379 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2015-06-01 13:53:57.812122 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Modify run_tests.sh to dynamically run tests
+    for all test_*.py files (intead of a hardcoded list of files).
+    Even better if this could be done in Python and a
+    "master" test suite was created dynamically in the same way.
+    But that would be much harder to implement and a little fragile.
+- - 2015-06-02 13:15:19.894266 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Unit tests for all functionality in ItemCache has been implemented.
+- - 2015-06-05 17:10:00.886465 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Unit tests for all configuration related classes. Including dit configuration file,
+    dit-gui configuration file and project file
+    have been implemented. Several bugs have been found while
+    implementing tests.
+
+    Also tests for IssueModel (and related classes) have been implemented.
+- - 2015-06-06 19:55:24.418818 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Many of these implemented tests are
+    not strictly unit tests as these tests
+    tend to use many external components,
+    access file system, etc.
+
+    Some tests with mocked external interfaces
+    have been implemented. These methods
+    should be used more in the future is more
+    tests are made.
+- - 2015-06-12 11:23:04.922455 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    run_tests.sh has been updated. It was trivial.
+    ArchiveControl tests have been improved.
+    Finally. All of the existing tests are working.
+- - 2018-11-01 20:57:08.164414 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+references: []
+release: ''
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Implement more unit tests
+type: :task

@@ -1,0 +1,48 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Communication with commandline dit
+desc: |-
+  Write classes to communicate with commandline dit and get
+  data.
+  Alternatively write parser for Ditz yaml files.
+type: :task
+component: dit-gui
+release: v0.0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-07 20:13:23.887279 Z
+references: []
+
+id: bb80aa9b5a1de23a8116d7b07ea5042cb5a01ce1
+log_events: 
+- - 2014-10-07 20:13:24.999089 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-08 07:53:23.923012 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This needs to be encapsulated nicely and it needs to be able to
+    access (global) settings. Then later features can be added to use
+    a separate branch for dit issues (like git-dit), to simply add
+    issues to current changeset or something else.
+- - 2014-10-09 12:14:45.144892 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This seems to be quite easy, and I have done similar things before.
+    Parsing the output is the hard part.
+    First make version that can simply show the data as one blob. Later
+    add the code to parse it into a a beautiful structure, which can,
+    at first, be just serialized into one string in the UI.
+    Baby steps.
+- - 2014-10-09 20:32:06.831717 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Several commands are now used.
+    Commands with complicated output still need some parsing that needs
+    planning ahead, but the communication is working and can be easily
+    extended if needed. For example, having a configurable location
+    for Ditz binary pops into my mind.

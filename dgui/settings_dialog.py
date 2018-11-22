@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 
 A settings dialog box
 """
@@ -36,22 +36,22 @@ class SettingsDialog(QtWidgets.QDialog):
         except ApplicationError:
             pass
 
-        self.ditz_settings_changed = False
+        self.dit_settings_changed = False
         self.app_settings_changed = False
 
         uic.loadUi('../ui/settings_dialog.ui', self)
 
-        self._init_ditz_settings_tab()
+        self._init_dit_settings_tab()
         self._init_ui_settings_tab()
 
-    def _init_ditz_settings_tab(self):
+    def _init_dit_settings_tab(self):
         """
-        Initialize Ditz settings tab with current values
+        Initialize Dit settings tab with current values
         """
-        settings = self.config.get_ditz_configs()
-        self.lineEditName.editingFinished.connect(self.ditz_settings_edited)
-        self.lineEditEmail.editingFinished.connect(self.ditz_settings_edited)
-        self.lineEditIssueDir.editingFinished.connect(self.ditz_settings_edited)
+        settings = self.config.get_dit_configs()
+        self.lineEditName.editingFinished.connect(self.dit_settings_edited)
+        self.lineEditEmail.editingFinished.connect(self.dit_settings_edited)
+        self.lineEditIssueDir.editingFinished.connect(self.dit_settings_edited)
 
         self.lineEditName.setText(settings.name)
         self.lineEditEmail.setText(settings.email)
@@ -75,12 +75,12 @@ class SettingsDialog(QtWidgets.QDialog):
         if index >= 0:
             self.comboBoxIssueType.setCurrentIndex(index)
 
-    def ditz_settings_edited(self):
+    def dit_settings_edited(self):
         """
-        Set ditz_settings_changed flag, so we know settings should be written
+        Set dit_settings_changed flag, so we know settings should be written
         to the file if dialog is accepted
         """
-        self.ditz_settings_changed = True
+        self.dit_settings_changed = True
 
     def app_settings_edited(self):
         """
@@ -94,16 +94,16 @@ class SettingsDialog(QtWidgets.QDialog):
         Ok is pressed on the GUI
         Save settings
         """
-        ditz_settings = self.config.get_ditz_configs()
+        dit_settings = self.config.get_dit_configs()
         app_settings = self.config.get_app_configs()
-        if self.ditz_settings_changed is True:
-            ditz_settings.name = str(self.lineEditName.text())
-            ditz_settings.email = str(self.lineEditEmail.text())
-            ditz_settings.issue_dir = str(self.lineEditIssueDir.text())
-            if self.config.ditzconfig.write_config_file() is True:
-                self.ditz_settings_changed = False
+        if self.dit_settings_changed is True:
+            dit_settings.name = str(self.lineEditName.text())
+            dit_settings.email = str(self.lineEditEmail.text())
+            dit_settings.issue_dir = str(self.lineEditIssueDir.text())
+            if self.config.ditconfig.write_config_file() is True:
+                self.dit_settings_changed = False
             else:
-                raise ApplicationError("Error saving ditz configuration file")
+                raise ApplicationError("Error saving dit configuration file")
 
         if self.app_settings_changed is True:
             app_settings.default_issue_type = str(self.comboBoxIssueType.currentText())
@@ -124,6 +124,6 @@ class SettingsDialog(QtWidgets.QDialog):
     def show_settings(self):
         """
         Show the dialog and get a settings from the user
-        If Ditz id and settings are given, save the comment to Ditz
+        If Dit id and settings are given, save the comment to Dit
         """
         self.exec_()

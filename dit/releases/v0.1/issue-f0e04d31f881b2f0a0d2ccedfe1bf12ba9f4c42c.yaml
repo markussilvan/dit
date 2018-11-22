@@ -1,0 +1,29 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Parsing name or id of a new item from output
+desc: |-
+  When a new item is added its name or identifier is not
+  available. It is only available after reload.
+  But then it's impossible to find the item anymore as
+  only identifying data is the identifier.
+  
+  Parse the name or id from "dit add" command's output.
+  Then it can be used instantly, if needed.
+type: :feature
+component: dit-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-18 14:07:02.919413 Z
+references: []
+
+id: f0e04d31f881b2f0a0d2ccedfe1bf12ba9f4c42c
+log_events: 
+- - 2014-10-18 14:07:04.199164 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-18 14:28:40.874813 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - This is now done by DitzControl in add_issue().

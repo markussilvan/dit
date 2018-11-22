@@ -1,0 +1,68 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-10-13 07:20:26.542455 Z
+desc: |-
+  Ditz mailing list was mentioned in some news article.
+  Find it and read it. Is it still active?
+  Is someone still maintaining the project?
+  Are there forks? What is the Ditz 0.6 which is
+  not from the original developer?
+disposition: fixed
+id: 9dea18d277462b54929dc7c0dd2d10783784ea09
+log_events:
+- - 2014-10-13 07:20:28.478456 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-10-14 13:57:13.468134 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    The place to be is https://gitorious.org/dit and old mailing list
+    archives can be found at
+    http://rss.gmane.org/topics/complete/gmane.comp.bug-tracking.dit.general
+    Ditz Ubuntu bugs: https://bugs.launchpad.net/ubuntu/+source/dit
+
+    Seems 0.6 version has been under works, but hasn't been released.
+    Last activity is from summer 2013. Let's see if there will be more
+    activity if a submit some patches or show them Ditz GUI.
+- - 2015-01-16 19:02:36.495738 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    I happened to find PyDitz. It looked interesting.
+    Try and  see.
+- - 2015-01-16 21:47:11.865772 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - |-
+    Added link to PyDitz. (The newer one. Seems there has been
+    two using the same name.)
+- - 2015-05-29 11:26:11.304466 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    There is also interesting development going on with pydit.
+    It has already implemented most or all of
+    Ditz functionality and made some incompatible extensions to it.
+- - 2015-05-29 11:29:19.551190 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 2
+  - A separate ticket exists for PyDitz.
+- - 2018-11-01 19:56:58.190928 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    The original Ditz is dead.
+    PyDitz has had some activity up until 2016.
+    It is backwards compatible with Ditz and has added some of its own features on top.
+
+    As said above, a separate ticket exists to follow developments on PyDitz.
+references:
+- https://bitbucket.org/zondo/pydit
+- 5b7fa7840e0d6d48979e720db9dcee654814a21e
+release: null
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Read Ditz mailing list and Ditz 0.6 status
+type: :task

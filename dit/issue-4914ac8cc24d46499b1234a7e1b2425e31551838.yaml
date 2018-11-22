@@ -1,0 +1,31 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-10-15 20:13:26.639323 Z
+desc: |-
+  Make gitorious account and talk with
+  other developers. Try to figure out how
+  much interest there is to Ditz.
+disposition: fixed
+id: 4914ac8cc24d46499b1234a7e1b2425e31551838
+log_events:
+- - 2014-10-15 20:13:27.139835 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-10-20 18:49:56.997570 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Account created. Clone dit? Clone pitz?
+    Upload dit-gui to gitorious? Github?
+    Create also github account.
+- - 2015-01-16 19:01:37.036471 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - dit-gui added to Gitorious.
+references: []
+release: null
+reporter: Mape
+status: :closed
+title: Create gitorious account
+type: :task

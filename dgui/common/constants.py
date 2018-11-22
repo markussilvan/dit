@@ -4,7 +4,7 @@
 #
 
 
-class Constants(object):
+class Constants():
     """
     Create objects with constant (read-only) attributes.
     """

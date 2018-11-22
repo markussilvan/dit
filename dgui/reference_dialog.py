@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 
 A common issue reference dialog box
 """
@@ -12,30 +12,30 @@ A common issue reference dialog box
 from PyQt5 import QtWidgets, uic
 
 from comment_dialog import CommentDialog
-from common.errors import ApplicationError, DitzError
-from ditzcontrol import DitzControl
+from common.errors import ApplicationError, DitError
+from ditcontrol import DitControl
 
 class ReferenceDialog(QtWidgets.QDialog):
     """
     A reference dialog with text input and Cancel/Ok buttons.
     """
-    def __init__(self, ditz, ditz_id=None, save=True, reference_text=None):
+    def __init__(self, dit, dit_id=None, save=True, reference_text=None):
         """
         Initialize user interface for the dialog
 
         Parameters:
-        - ditz: DitzControl to use to access data
-        - ditz_id: Ditz item to reference
-        - save: Save the reference to Ditz
+        - dit: DitControl to use to access data
+        - dit_id: Dit item to reference
+        - save: Save the reference to Dit
         - reference_text: Preset text for the reference to add, used when editing a reference
         """
         super(ReferenceDialog, self).__init__()
 
-        if not isinstance(ditz, DitzControl):
-            raise ApplicationError("Construction failed due to invalid ditz (DitzControl) parameter")
+        if not isinstance(dit, DitControl):
+            raise ApplicationError("Construction failed due to invalid dit (DitControl) parameter")
 
-        self.ditz = ditz
-        self.ditz_id = ditz_id
+        self.dit = dit
+        self.dit_id = dit_id
         self.save = save
         self.reference = reference_text
 
@@ -46,17 +46,17 @@ class ReferenceDialog(QtWidgets.QDialog):
         Ok is pressed on the GUI
         """
         self.reference = str(self.lineEdit.text())
-        if self.reference != "" and self.save is True and self.ditz_id is not None:
+        if self.reference != "" and self.save is True and self.dit_id is not None:
             # ask for a comment
             try:
-                dialog = CommentDialog(self.ditz, self.ditz_id, save=False,
+                dialog = CommentDialog(self.dit, self.dit_id, save=False,
                         title='Comment to add with the reference')
                 comment = dialog.ask_comment()
-            except DitzError as e:
-                QtWidgets.QMessageBox.warning(self, "Ditz error", e.error_message)
+            except DitError as e:
+                QtWidgets.QMessageBox.warning(self, "Dit error", e.error_message)
                 comment = ''
             # add the reference
-            self.ditz.add_reference(self.ditz_id, self.reference, comment)
+            self.dit.add_reference(self.dit_id, self.reference, comment)
         super(ReferenceDialog, self).accept()
 
     def reject(self):
@@ -68,7 +68,7 @@ class ReferenceDialog(QtWidgets.QDialog):
     def ask_reference(self):
         """
         Show the dialog and get a reference from the user
-        If Ditz id and reference are given, save the comment to Ditz
+        If Dit id and reference are given, save the comment to Dit
 
         Returns:
         - Reference written by the user

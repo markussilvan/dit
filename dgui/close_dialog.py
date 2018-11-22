@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 
-A dialog for close resolution and comment for closing a Ditz issue
+A dialog for close resolution and comment for closing a Dit issue
 """
 
 from PyQt5 import QtWidgets, uic
@@ -15,22 +15,22 @@ class CloseDialog(QtWidgets.QDialog):
     """
     A dialog with couple of inputs and Cancel/Ok buttons.
     """
-    def __init__(self, ditz, ditz_id):
+    def __init__(self, dit, dit_id):
         """
         Initialize user interface for the dialog
 
         Parameters:
-        - ditz: DitzControl to access data
-        - ditz_id: Ditz item to close
+        - dit: DitControl to access data
+        - dit_id: Dit item to close
         """
         super(CloseDialog, self).__init__()
 
-        self.ditz = ditz
-        self.ditz_id = ditz_id
+        self.dit = dit
+        self.dit_id = dit_id
 
         uic.loadUi('../ui/close_dialog.ui', self)
 
-        settings = self.ditz.config.get_app_configs()
+        settings = self.dit.config.get_app_configs()
         for disposition in settings.issue_dispositions:
             self.comboBox.addItem(disposition)
 
@@ -45,7 +45,7 @@ class CloseDialog(QtWidgets.QDialog):
         """
         disposition = self.comboBox.currentIndex()
         comment = str(self.plainTextEdit.toPlainText())
-        self.ditz.close_issue(self.ditz_id, disposition, comment)
+        self.dit.close_issue(self.dit_id, disposition, comment)
         super(CloseDialog, self).accept()
 
     def reject(self):

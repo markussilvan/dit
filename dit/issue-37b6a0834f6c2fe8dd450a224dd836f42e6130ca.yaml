@@ -1,0 +1,30 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Enabling and disabling actions doesn't always work
+desc: |-
+  The functionality is currently associated only to
+  triggering the list (mouse right clicking). The action
+  states should be also updated when left click or
+  keyboard is used.
+type: :bugfix
+component: dit-gui
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-12-08 22:01:00.089291 Z
+references: []
+
+id: 37b6a0834f6c2fe8dd450a224dd836f42e6130ca
+log_events: 
+- - 2014-12-08 22:01:00.590754 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-12-08 22:06:07.055291 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2014-12-09 15:53:08.255737 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - ""

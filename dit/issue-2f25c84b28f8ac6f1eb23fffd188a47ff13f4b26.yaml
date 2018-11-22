@@ -1,0 +1,35 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2015-02-28 19:06:11.653139 Z
+desc: |-
+  If an issue is not assigned to a release, it's not shown
+  in the list of issues. This happens because the issue is file
+  has 'release' set to 'Unassigned'. Really that field
+  should be left empty if the issue is not assigned to
+  a release.
+
+  An easy fix, but has to be tested with Ditz commandline
+  and dit-gui.
+disposition: fixed
+id: 2f25c84b28f8ac6f1eb23fffd188a47ff13f4b26
+log_events:
+- - 2015-02-28 19:06:11.655383 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - This can lead to data corruption. Fix this right away.
+- - 2015-02-28 21:07:36.539246 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    All references to "Unassigned" should be hidden
+    behind some constant.
+- - 2015-02-28 21:08:02.469974 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Easy fix.
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: '"Unassigned" issues not working correctly'
+type: :task

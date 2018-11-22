@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 """
 
 class ApplicationError(Exception):
@@ -22,9 +22,9 @@ class ApplicationError(Exception):
         self.error_message = error_message
 
 
-class DitzError(ApplicationError):
+class DitError(ApplicationError):
     """
-    A specific error type for errors originating from Ditz command line tool
+    A specific error type for errors originating from Dit command line tool
     """
     def __init__(self, error_message):
         """
@@ -33,7 +33,7 @@ class DitzError(ApplicationError):
         Parameters:
         - error_message: a description of the error
         """
-        super(DitzError, self).__init__(error_message)
+        super(DitError, self).__init__(error_message)
 
     def __str__(self):
         """
@@ -42,4 +42,4 @@ class DitzError(ApplicationError):
         Returns:
         - exception information string
         """
-        return "DitzError: {}".format(self.error_message)
+        return "DitError: {}".format(self.error_message)

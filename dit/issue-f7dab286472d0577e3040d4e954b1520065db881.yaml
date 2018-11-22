@@ -1,0 +1,34 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Make Ditz windows remember their size
+desc: |-
+  Users have different preferences and different sizes of displays and fonts.
+  Ditz-gui windows should also adapt to that. As they do.
+  But the windows should also remember their size, so user doesn't always
+  need to adjust it when starting dit-gui.
+type: :task
+component: dit-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: ""
+creation_time: 2014-10-12 18:43:43.033124 Z
+references: []
+
+id: f7dab286472d0577e3040d4e954b1520065db881
+log_events: 
+- - 2014-10-12 18:43:43.984955 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2015-01-06 08:39:19.089852 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - The main window does remember its size.
+- - 2015-05-29 11:41:05.130292 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Which other windows need to be able to remember their size?
+    It may not be feasible to do this for all windows and
+    layout of some dialogs might look silly if this is done
+    for all dialog windows.

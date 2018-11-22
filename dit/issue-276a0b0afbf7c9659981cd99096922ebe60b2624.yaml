@@ -1,0 +1,89 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Editing issues
+desc: |-
+  Editing should happen in the main window or in a separate dialog. It's complicated as it starts a separate editor.
+  
+  EDIT: Can't be done using 'the editor'. Instead yaml files are written directly.
+type: feature
+component: dit-gui
+release: v0.1.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-07 17:45:07.828058 Z
+references: []
+
+id: 276a0b0afbf7c9659981cd99096922ebe60b2624
+log_events: 
+- - 2014-10-07 17:45:09.420290 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-12 18:41:24.182054 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This comes cheaply along with the implementation to add
+    new issues. After adding new issues works perfectly, do
+    the editing part.
+- - 2014-10-18 11:30:32.820029 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Doesn't come as cheaply as a originally hoped.
+    Adding became a lot more complex feature
+    than the other dit commands.
+- - 2014-10-18 21:10:51.757512 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1.2 from v0.1
+  - ""
+- - 2014-10-18 21:32:50.395798 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1.1 from v0.1.2
+  - ""
+- - 2014-10-21 14:14:13.519649 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Actually it seems fairly easy to do
+    with the same dialogs as adding.
+    Let do this.
+- - 2014-10-21 19:59:55.579904 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Preliminary support for this has been
+    implemented in issue form and dit-gui.
+    Now all is needed is DitzControl to
+    actually do the edit.
+- - 2014-10-22 10:39:36.226225 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited description
+  - ""
+- - 2014-10-22 10:42:08.296107 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Ok, not as simple as expected.
+    Editing starts an external editor to edit the yaml
+    directly. Thus I must implement a class to read/write
+    issue yaml-files to make this work.
+    Giving commands to the external editor is not an option.
+- - 2014-10-23 07:49:39.437287 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    First version of reading and writing .yaml is now working.
+    Ditz is also able to read those files.
+- - 2014-12-07 17:09:49.995850 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Editing issues (and thus writing issue .yaml files) is now
+    enabled in dit-gui.
+    Adding a comment when editing is missing.
+    Create a separate issue for that.
+- - 2014-12-07 17:10:30.558452 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - ""

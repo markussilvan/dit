@@ -1,0 +1,40 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Main window
+desc: |-
+  The main window should show a list of dit issue read from issue files
+  or directly from the dit command line tool output.
+  The list items need to be selectable, so they can be viewed, edited, etc.
+  
+  Maybe the main view should also show the content of the selected issue.
+  This is to be decided later, but now it seems like a good idea.
+type: :feature
+component: dit-gui
+release: v0.0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-07 17:41:53.476407 Z
+references: []
+
+id: eee9f4288a2606ffd447390b74f653fc78934040
+log_events: 
+- - 2014-10-07 17:41:54.548494 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-07 20:07:28.822972 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    I don't even know which Qt component to use for the main view
+    yet. Needs some experimenting.
+    Check what was used in Portfolio Manager. Maybe I should use the
+    same component (or some newer component that didn't exist back then).
+- - 2014-10-07 20:11:27.447009 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.0.1 from v0.1
+  - ""
+- - 2014-10-09 20:29:54.351455 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - The first version is implemented. Keep it simple.

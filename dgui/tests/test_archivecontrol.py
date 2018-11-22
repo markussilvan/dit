@@ -18,17 +18,17 @@ import mock
 
 import testlib
 import archivecontrol                           # pylint: disable=F0401
-from ditzcontrol import DitzControl             # pylint: disable=F0401
+from ditcontrol import DitControl             # pylint: disable=F0401
 from config import ConfigControl                # pylint: disable=F0401
 from common.errors import ApplicationError      # pylint: disable=F0401
 from common.utils import fileutils              # pylint: disable=F0401, W0611
-from common.items import DitzIssue              # pylint: disable=F0401, W0611
-from common.items import DitzRelease            # pylint: disable=F0401, W0611
+from common.items import DitIssue              # pylint: disable=F0401, W0611
+from common.items import DitRelease            # pylint: disable=F0401, W0611
 
 
-class DitzSettingsMock(object):
+class DitSettingsMock(object):
     """
-    A mock of settings structure provided by DitzConfigYaml
+    A mock of settings structure provided by DitConfigYaml
     """
     def __init__(self):
         self.issue_dir = "bugs"
@@ -54,25 +54,25 @@ class ArchiveControlTests(unittest.TestCase):
         description = 'foo bar baz bug'
         created = datetime.now()
         identifier = 'asdfasdfasdf123412341234'
-        issue = DitzIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
+        issue = DitIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
                 description, "A tester <mail@address.com>", created, 'v1.0',
                 None, identifier, None)
-        ditz = mock.Mock(spec=DitzControl)
-        ditz.config = mock.Mock(spec=ConfigControl)
-        ditz.config.get_ditz_configs.return_value = DitzSettingsMock()
-        ditz.config.get_project_root.return_value = os.path.abspath('data')
-        ditz.get_issues_by_release.return_value = [issue]
+        dit = mock.Mock(spec=DitControl)
+        dit.config = mock.Mock(spec=ConfigControl)
+        dit.config.get_dit_configs.return_value = DitSettingsMock()
+        dit.config.get_project_root.return_value = os.path.abspath('data')
+        dit.get_issues_by_release.return_value = [issue]
 
         # create archive control
         try:
-            archiver = archivecontrol.ArchiveControl(ditz)
+            archiver = archivecontrol.ArchiveControl(dit)
         except ApplicationError:
-            self.fail("Mocked DitzControl not accepted as real DitzControl")
+            self.fail("Mocked DitControl not accepted as real DitControl")
         return archiver
 
-    def test_create_archivecontrol_invalid_ditz(self):
+    def test_create_archivecontrol_invalid_dit(self):
         """
-        Try to create an ArchiveControl instance with invalid DitzControl specified
+        Try to create an ArchiveControl instance with invalid DitControl specified
         """
         self.assertRaises(ApplicationError, archivecontrol.ArchiveControl, None)
         self.assertRaises(ApplicationError, archivecontrol.ArchiveControl, 123)
@@ -126,28 +126,28 @@ class ArchiveControlDataAccessTests(unittest.TestCase):
         is left intact.
         """
         # mock internal interfaces
-        ditz = mock.Mock(spec=DitzControl)
-        ditz.config = mock.Mock(spec=ConfigControl)
-        ditz.config.get_ditz_configs.return_value = DitzSettingsMock()
-        ditz.config.get_project_root.return_value = os.path.abspath('data')
+        dit = mock.Mock(spec=DitControl)
+        dit.config = mock.Mock(spec=ConfigControl)
+        dit.config.get_dit_configs.return_value = DitSettingsMock()
+        dit.config.get_project_root.return_value = os.path.abspath('data')
 
         if mock_issues is None:
             title = 'just a testing issue'
             description = 'foo bar baz bug foo foo poo poo.'
             created = datetime.now()
             identifier = 'some_issue_id'
-            issue = DitzIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
+            issue = DitIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
                     description, "A tester <mail@address.com>", created, 'v1.0',
                     None, identifier, None)
-            ditz.get_issues_by_release.return_value = [issue]
+            dit.get_issues_by_release.return_value = [issue]
         else:
-            ditz.get_issues_by_release.return_value = mock_issues
+            dit.get_issues_by_release.return_value = mock_issues
 
         # create archive control
         try:
-            archiver = archivecontrol.ArchiveControl(ditz)
+            archiver = archivecontrol.ArchiveControl(dit)
         except ApplicationError:
-            self.fail("Mocked DitzControl not accepted as real DitzControl")
+            self.fail("Mocked DitControl not accepted as real DitControl")
         return archiver
 
     def test_archiving_unexistent_release(self):
@@ -184,7 +184,7 @@ class ArchiveControlDataAccessTests(unittest.TestCase):
                 'Matching an issue to a file is based on its identifier only.'
         created = datetime.now()
         identifier = '1ff0e9be50d779750e3ffe9198b6435d219c6964'
-        issue = DitzIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
+        issue = DitIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
                 description, "A tester <mail@address.com>", created, 'v1.0',
                 None, identifier, None)
         issues = [issue]

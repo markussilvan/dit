@@ -1,0 +1,61 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-10-21 19:58:09.281037 Z
+desc: |-
+  An issue has a numbered list of references.
+  Current issue form uses only one line to input
+  references. Update the form to use some nice
+  widget which supports multiple text items.
+  QListWidget or something simpler?
+  A separate form?
+disposition: fixed
+id: 7e6c229568bbad091f38c434cec6a349b666c94e
+log_events:
+- - 2014-10-21 19:58:09.782497 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-12-13 12:58:44.176803 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    Not so interesting, but this just has to be done sometime.
+    No new functionality needed. Only GUI changes, but may
+    require a alot of those. Should only affect adding and
+    editing issues.
+- - 2014-12-14 07:45:53.854828 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - I'll use this same ticket to test how it works :)
+- - 2014-12-14 07:46:46.726765 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-14 07:55:55.742483 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-14 08:00:13.550592 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-14 09:56:24.769092 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+- - 2014-12-14 09:57:13.557768 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition 1
+  - |-
+    Haven't tested much, but adding, editing and
+    removing multiple references now seems
+    to work.
+references:
+- QListWidget
+- dit-gui
+- ae739705518934d506c56b08cedb6029163c3b0c
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Support adding/editing multiple references
+type: :bugfix

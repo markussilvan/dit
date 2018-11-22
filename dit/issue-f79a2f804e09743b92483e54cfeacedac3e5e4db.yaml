@@ -1,0 +1,57 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-10-07 18:17:53.771544 Z
+desc: |-
+  In a long list of issues, or issues with bad topics, there rises
+  the need to be able to seach the issues based on topic, description or
+  comments. Grep is supported by the command line tool, so this should
+  be implemented in the UI too.
+disposition: ''
+id: f79a2f804e09743b92483e54cfeacedac3e5e4db
+log_events:
+- - 2014-10-07 18:17:54.643045 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-10-10 09:08:18.469572 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    There could be a search box on the tool bar which
+    affects what items are shown on the main list view.
+    This ticket relates to {issue d45f8e8310fc113259a8899d8ba9d033594cb12c}.
+- - 2014-10-10 09:08:50.198333 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - ''
+- - 2014-10-10 09:10:40.538598 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.4 from v0.3
+  - ''
+- - 2014-10-14 09:52:20.447912 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This could be implemented also as a search box on top the list view.
+    Then list view would updated accordingly with help from
+    "dit grep". All functions to DitzControl should still work
+    as they refer to items with names or identifiers, and never
+    use list indices or anything UI specific.
+- - 2014-12-04 13:16:59.021578 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Searches are easier to implement now
+    with ItemCache than with Ditz or .yaml
+    files directly.
+- - 2016-09-14 15:13:28.578044 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Even a simple search to for words from topics would be useful.
+references:
+- dit-gui-34
+release: v0.4
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Searching issues
+type: :task

@@ -1,0 +1,39 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Text alignment in list of Ditz items
+desc: |-
+  The list of Ditz items in listWidgetDitzItems is now fine
+  except for one detail. When the dit_name/dit_id field
+  length changes, the headers of those items are not
+  aligned. This happens if there are multiple components
+  or if more digits are added to dit names.
+  For example "{issue cd68c54f4f3a215ec7eee0828c19d32719a86616}" vs. "{issue cbff37e95538779ff3dc05e883a62e7627a1a121}".
+  
+  If the listWidget doesn't provide a way to align those
+  fields, I could derive my own, set the texts with
+  padding or using tableWidget instead.
+  Changing to tableWidget might be a big hassle, so
+  padding options should be considered first as a
+  quick fix.
+type: :task
+component: dit-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-12 10:36:38.414046 Z
+references: []
+
+id: b0b4dac8ba89a6578b90f5dc6b563d844b0a0a7f
+log_events: 
+- - 2014-10-12 10:36:39.701820 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-15 20:10:39.620306 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    I have aligned the fields using a monospaced font
+    and aligning text that is printed to the list items rows.
+    That is a good enough solution. QTableWidget can be
+    considered is there is proven life with the Ditz project.

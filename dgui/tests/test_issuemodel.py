@@ -13,7 +13,7 @@ import os
 import testlib
 import issuemodel                               # pylint: disable=F0401
 from common.errors import ApplicationError      # pylint: disable=F0401
-from common.items import DitzIssue              # pylint: disable=F0401
+from common.items import DitIssue               # pylint: disable=F0401
 
 
 class IssueYamlObjectTests(unittest.TestCase):
@@ -21,16 +21,16 @@ class IssueYamlObjectTests(unittest.TestCase):
     def setUp(self):
         self.out = testlib.NullWriter()
 
-    def test_converting_from_ditz_issue(self):
-        """Convert IssueYamlObject from an existing DitzIssue object"""
+    def test_converting_from_dit_issue(self):
+        """Convert IssueYamlObject from an existing DitIssue object"""
         title = "A test issue"
-        description = """"This issue is a generated DitzIssue to be converted
-        to a DitzYamlObject. Just a simple testing issue with no other purpose."""
+        description = """"This issue is a generated DitIssue to be converted
+        to a DitYamlObject. Just a simple testing issue with no other purpose."""
         identifier = "abcd1234"
-        issue = issuemodel.DitzIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
+        issue = issuemodel.DitIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
                 description, "A tester <mail@address.com>", datetime.now(), 'v1.0',
                 None, identifier, None)
-        data = issuemodel.IssueYamlObject.from_ditz_issue(issue)
+        data = issuemodel.IssueYamlObject.from_dit_issue(issue)
         self.assertIsInstance(data, issuemodel.IssueYamlObject)
         self.assertEqual(data.title, title)
         self.assertEqual(data.desc, description)
@@ -44,27 +44,35 @@ class IssueYamlObjectTests(unittest.TestCase):
         self.assertEqual(data.id, identifier)
         self.assertIsNone(data.log_events)
 
-    def test_converting_from_invalid_ditz_issue(self):
-        """Try to convert an invalid DitzIssue to IssueYamlObject"""
-        self.assertRaises(AttributeError, issuemodel.IssueYamlObject.from_ditz_issue, None)
+    def test_converting_from_invalid_dit_issue(self):
+        """Try to convert an invalid DitIssue to IssueYamlObject"""
+        self.assertRaises(AttributeError, issuemodel.IssueYamlObject.from_dit_issue, None)
         #TODO: is this a bug? should there be more error handling in issuemodel?
 
-    def test_converting_to_ditz_issue(self):
-        """Convert IssueYamlObject to a new DitzIssue object"""
+    def test_converting_to_dit_issue(self):
+        """Convert IssueYamlObject to a new DitIssue object"""
         title = "A test issue"
-        description = """"This issue is a generated DitzIssue to be converted
-        to a DitzYamlObject. Just a simple testing issue with no other purpose."""
+        description = """"This issue is a generated DitIssue to be converted
+        to a DitYamlObject. Just a simple testing issue with no other purpose."""
         identifier = "97876123512skajdfh2134jh"
-        yaml_issue = issuemodel.IssueYamlObject(title, description,
-                ':feature', 'lolwut', '2',
-                'some@one.com', ':closed', ':fixed',
-                datetime.now(), None, identifier, None)
+        yaml_issue = issuemodel.IssueYamlObject(title,
+                                                description,
+                                                ':feature',
+                                                'lolwut',
+                                                '2',
+                                                'some@one.com',
+                                                ':closed',
+                                                ':fixed',
+                                                datetime.now(),
+                                                None,
+                                                identifier,
+                                                None)
         self.assertIsInstance(yaml_issue, issuemodel.IssueYamlObject)
         try:
-            issue = yaml_issue.to_ditz_issue()
+            issue = yaml_issue.to_dit_issue()
         except Exception:
             self.fail("Unexpected exception")
-        self.assertIsInstance(issue, DitzIssue)
+        self.assertIsInstance(issue, DitIssue)
         self.assertEqual(issue.title, title)
         self.assertEqual(issue.description, description)
         self.assertEqual(issue.issue_type, 'feature')
@@ -77,9 +85,9 @@ class IssueYamlObjectTests(unittest.TestCase):
         self.assertIsInstance(issue.references, list)
         self.assertIsNone(issue.log)
 
-    def test_converting_invalid_yaml_object_to_ditz_issue(self):
-        """Try to convert an invalid IssueYamlObject into a DitzIssue"""
-        self.skipTest("There is no error checking in DitzItem, should there be?")
+    def test_converting_invalid_yaml_object_to_dit_issue(self):
+        """Try to convert an invalid IssueYamlObject into a DitIssue"""
+        self.skipTest("There is no error checking in DitItem, should there be?")
         #title = "An another test issue"
         description = "A broken issue for testing."
         identifier = "97823489asd7f98asdf6asdf987asdf987asd"
@@ -87,16 +95,16 @@ class IssueYamlObjectTests(unittest.TestCase):
                 'INVALID_TYPE', 'lolwut', '2',
                 'some@one.com', ':closed', ':fixed',
                 datetime.now(), None, identifier, None)
-        #TODO: should there be more error checking in DitzItem, so invalid items wont be created?
+        #TODO: should there be more error checking in DitItem, so invalid items wont be created?
         #
         # At the moment this test would pass as is. There is no real verification.
-        # Invalid DitzIssue will be created successfully.
-        self.assertIsInstance(yaml_issue.to_ditz_item(), DitzIssue)
+        # Invalid DitIssue will be created successfully.
+        self.assertIsInstance(yaml_issue.to_dit_item(), DitIssue)
 
         # Instead, this could be verified with either of the following solutions.
-        #self.assertRaises(Exception, yaml_issue.to_ditz_issue())
+        #self.assertRaises(Exception, yaml_issue.to_dit_issue())
         # or
-        #issue = yaml_issue.to_ditz_issue()
+        #issue = yaml_issue.to_dit_issue()
         #self.assertEqual(issue, None)
 
 
@@ -154,10 +162,10 @@ class IssueModelTests(unittest.TestCase):
         description = "This is a boring description of an issue used for testing."
         identifier = "abc123"
         created = datetime.strptime("2015-06-03 16:06:19.950025", "%Y-%m-%d %H:%M:%S.%f")
-        issue = issuemodel.DitzIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
+        issue = issuemodel.DitIssue(title, 'gui-12', 'task', 'unittest', 'unstarted', None,
                 description, "A tester <mail@address.com>", created, 'v1.0',
                 None, identifier, None)
-        data = issuemodel.IssueYamlObject.from_ditz_issue(issue)
+        data = issuemodel.IssueYamlObject.from_dit_issue(issue)
         issue_file_name = '{}/issue-{}.yaml'.format(self.model.issue_dir, issue.identifier)
         self.assertIsInstance(data, issuemodel.IssueYamlObject)
         self.assertFalse(os.path.isfile(issue_file_name))

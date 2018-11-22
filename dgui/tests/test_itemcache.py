@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 
 import testlib
 import itemcache                                    # pylint: disable=F0401
-from common.items import DitzIssue, DitzRelease     # pylint: disable=F0401
+from common.items import DitIssue, DitRelease     # pylint: disable=F0401
 
 class ItemCacheTests(unittest.TestCase):
     """Unit test for ItemCache.
@@ -36,7 +36,7 @@ class ItemCacheTests(unittest.TestCase):
         description = "lorem ipsum dolor sit ameth"
         if release is None:
             release = "v{}.{}".format(random.randint(0, 2), random.randint(0, 12))
-        return DitzIssue(title, name, issue_type, 'unittest', 'unstarted', None,
+        return DitIssue(title, name, issue_type, 'unittest', 'unstarted', None,
                 description, "A tester <mail@address.com>", datetime.now(), release,
                 None, identifier, None)
 
@@ -44,7 +44,7 @@ class ItemCacheTests(unittest.TestCase):
         """Create a valid release to use for testing."""
         name = ''.join([random.choice(string.printable) for _ in xrange(16)])
         status = random.choice(['unreleased', 'released'])
-        return DitzRelease(name, 'Release', status, datetime.now(), None)
+        return DitRelease(name, 'Release', status, datetime.now(), None)
 
     def fill_cache_with_some_data(self, new_issue_count, new_release_count):
         for _ in xrange(new_issue_count):
@@ -63,7 +63,7 @@ class ItemCacheTests(unittest.TestCase):
         self.assertEqual(self.cache.add_issue(123), False)
 
         # adding issues with invalid creation time
-        invalid = DitzIssue('foo title', 'bar name', 'bugfix', 'fail', 'unstarted', None,
+        invalid = DitIssue('foo title', 'bar name', 'bugfix', 'fail', 'unstarted', None,
                 'This issue is invalid. For testing purposes.', 'Teppo the Tester')
         invalid.identifier = "abcd123"
         self.assertEqual(self.cache.add_issue(invalid), False)
@@ -167,7 +167,7 @@ class ItemCacheTests(unittest.TestCase):
         new_count = self.cache.release_count()
         self.assertEqual(new_count, original_count + new_releases_count)
 
-        self.assertTrue(self.cache.add_release(DitzRelease("foo v1.0")))
+        self.assertTrue(self.cache.add_release(DitRelease("foo v1.0")))
         self.assertEqual(self.cache.release_count(), new_count + 1)
 
     def test_adding_invalid_releases(self):
@@ -177,9 +177,9 @@ class ItemCacheTests(unittest.TestCase):
         self.assertFalse(self.cache.add_release(123))
 
         # adding releases with invalid title
-        invalid = DitzRelease('')
+        invalid = DitRelease('')
         self.assertFalse(self.cache.add_release(invalid))
-        invalid = DitzRelease(None)
+        invalid = DitRelease(None)
         self.assertFalse(self.cache.add_release(invalid))
 
         # check that no releases have been added to cache

@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../graphics/ditz_gui_icon.png</normaloff>../graphics/ditz_gui_icon.png</iconset>
+    <normaloff>../graphics/dit_gui_icon.png</normaloff>../graphics/dit_gui_icon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

@@ -1,0 +1,39 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2018-10-22 17:02:52.064107 Z
+desc: |-
+  I don't know any reason why Python 3 could not be used.
+  I assume all required libraries also support Python 3 these days.
+  Port the software to python 3.
+
+  Easier to do it sooner than later.
+disposition: fixed
+id: a227de8fe60c2ae472faa346317bdf73c792908e
+log_events:
+- - 2018-10-22 17:02:52.066509 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2018-10-22 17:04:46.681831 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This task has been started.
+    At least adding tasks and commenting now works.
+    All functionality still needs to be tested (and fixed).
+    Shebangs in the files should be updated.
+
+    Unittest still run on Python 2. If that starts to cause problems,
+    a way to update them to Python 3 needs to be figured out.
+- - 2018-10-23 16:56:24.852843 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Looking at the code, this should be fine.
+    All functionality hasn't been tested, but problems will not be hard to find, if something shows up.
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Port dit-gui to Python 3
+type: :task

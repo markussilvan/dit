@@ -1,0 +1,59 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2015-01-25 08:10:15.165338 Z
+desc: |-
+  If strings contain YAML comment chars,
+  make sure those are protected so the
+  file structure is not broken.
+
+  Test first if this is an issue with
+  the current implementation. PyYaml
+  might be doing something with strings
+  already.
+disposition: won't fix
+id: f3e5eef1e0e07d63a564c01ade6de3c1576e1ad2
+log_events:
+- - 2015-01-25 08:10:21.060849 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2015-02-03 07:59:38.563634 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This is a test comment which contains
+    a comment character. # This sentence was inside a comment.
+    ### If there is no better way to handle these,
+    then # the comment characters within strings
+    should be removed before writing a them.
+    If a file already contains a comment within a string, then
+    it really must be a comment (written by some other application).
+- - 2015-02-03 08:00:07.844832 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - I'll test this now.
+- - 2015-02-03 08:07:25.957112 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    At least dit command line itself seems to escape '#' characters.
+    Maybe this is not a problem and is already handled by libraries?
+    Obviously this is not a problem in one-line quoted strings, but
+    does it cause issues anywhere else?
+- - 2015-02-04 20:44:06.941190 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - 'Oneliner # with comment char'
+- - 2015-02-04 20:45:24.429504 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition won't fix
+  - |-
+    This actually works already.
+    All strings are quoted, so comment characters
+    are not an issue.
+references: []
+release: v0.2.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Handle YAML comment char in strings
+type: :bugfix

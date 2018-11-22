@@ -1,0 +1,34 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Move DitzGUI actions to a dict or a class
+desc: |-
+  DitzGUI class has too many instance variables.
+  Move actions to a dictionary or a separate class.
+  Check is there is some functionality on Qt designed
+  for this.
+type: :bugfix
+component: dit-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2015-01-20 08:40:27.785267 Z
+references: []
+
+id: 437fad35e75bcf97eadd2add7674ac8a3ec7e391
+log_events: 
+- - 2015-01-20 08:40:29.017288 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2015-01-20 09:00:06.948866 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2015-01-20 09:36:33.237642 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    A dictionary created for actions.
+    A simple solution which doesn't require
+    any complication with callbacks between classes
+    or refactoring.

@@ -1,0 +1,83 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-10-20 16:58:22.861737 Z
+desc: |-
+  If dit-gui is started in a directory (tree) which
+  doesn't contain a .dit-config file, ask the user
+  if he wants to initialize a new Ditz repo here.
+disposition: ''
+id: c7c0ee77c6cdc485868884c4a2ea65b3e3487d1d
+log_events:
+- - 2014-10-20 16:58:23.363225 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-10-20 16:58:25.496002 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+- - 2014-10-25 17:40:49.862246 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    It should be also noted, that dit doesn't work,
+    if it's not initialized. Thus the program should
+    check at startup that config file is found.
+    If not, it could show a warning and open settings automatically.
+- - 2014-11-13 15:19:55.036937 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Implement this using custom .ditconfig yaml writer.
+    Create issue directory from python after "initialization".
+    Don't actually rely on "dit init".
+- - 2014-12-12 20:20:24.230632 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    All this requires is ability to write the .ditconfig
+    file, the project.yaml file and the directory for issues.
+- - 2015-01-06 08:37:13.150551 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Software is already capable of writing the .ditconfig
+    file. Now it just needs to know what to do in a situation
+    that the config file is not found.
+- - 2015-01-06 08:38:29.719215 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    ...and the software is already capable of writing the
+    project.xml.
+- - 2015-01-17 11:35:37.206866 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    A simple Yes/No -dialog would suffice for now.
+    "Ditz project not found. Would you like to initialize a new project here?"
+- - 2015-01-17 11:36:49.515108 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.1 from v0.3
+  - This could be useful.
+- - 2018-11-01 19:25:33.346422 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    This is a high priority task for dit-gui.
+    Should be done soon to enable adoption of dit-gui to other projects.
+- - 2018-11-21 20:36:16.411047 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from in progress to paused
+  - |-
+    This is on hold while implementing basic features
+    to the command line client.
+
+    To be continued afterwards, and easier to implement and
+    test using the command line.
+references:
+- dit init command
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :paused
+title: Support "dit init"
+type: :feature

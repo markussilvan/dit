@@ -1,0 +1,27 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Reading default value for "Creator"
+desc: |-
+  ConfigControl should be able to read
+  this and other settings from the config file.
+  Then adding issues needs to use that
+  information as the default value in
+  the creator fields. This is simple.
+type: :task
+component: dit-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :reorg
+creation_time: 2014-10-18 13:32:14.174619 Z
+references: []
+
+id: 785c5d7a2a69ac67033e1cc4525963e39e695f56
+log_events: 
+- - 2014-10-18 13:32:14.676111 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-18 13:34:13.337614 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition reorg
+  - Duplicate.

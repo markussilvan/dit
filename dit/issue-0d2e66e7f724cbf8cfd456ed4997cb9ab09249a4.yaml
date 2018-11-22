@@ -1,0 +1,25 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-10-18 13:29:43.719190 Z
+desc: |-
+  Add settings for using a separate branch
+  for issues (like dit-git). Add functionality to push and pull changes. Add possibility to make that
+  automatic everytime something is
+  changed.
+disposition: ''
+id: 0d2e66e7f724cbf8cfd456ed4997cb9ab09249a4
+log_events:
+- - 2014-10-18 13:29:44.220641 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-12-12 20:18:43.110333 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+references: []
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Pulling and pushing issue to a git branch
+type: :feature

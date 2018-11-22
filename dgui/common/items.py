@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 """
 
 from abc import ABCMeta, abstractmethod
@@ -13,9 +13,9 @@ import datetime
 from common import constants
 import common.utils.time
 
-class DitzItem(object):
+class DitItem(object):
     """
-    A Ditz item abstract baseclass.
+    A Dit item abstract baseclass.
 
     An item can be an issue or an release.
     The object can contain all data of that
@@ -26,7 +26,7 @@ class DitzItem(object):
     @abstractmethod
     def __init__(self, title):
         """
-        Initialize new DitzItem.
+        Initialize new DitItem.
 
         All kinds of items must have a title.
 
@@ -129,15 +129,15 @@ class DitzItem(object):
         return log_html
 
 
-class DitzRelease(DitzItem):
+class DitRelease(DitItem):
     """
-    A Ditz item containing the information of a release.
+    A Dit item containing the information of a release.
     """
     def __init__(self, title, name=None, status=None, release_time=None, log=None):
         """
-        Initialize new DitzRelease.
+        Initialize new DitRelease.
         """
-        super(DitzRelease, self).__init__(title)
+        super(DitRelease, self).__init__(title)
         self.name = name
         self.status = status
         self.log = log
@@ -155,7 +155,7 @@ class DitzRelease(DitzItem):
 
     def __str__(self):
         """
-        Serialize to string. Mimic output of Ditz command line.
+        Serialize to string. Mimic output of Dit command line.
         """
         item_str = "{} {}".format(self.name, self.title)
         return item_str
@@ -218,9 +218,9 @@ class DitzRelease(DitzItem):
         return None
 
 
-class DitzIssue(DitzItem):
+class DitIssue(DitItem):
     """
-    A Ditz item containing information of an issue.
+    A Dit item containing information of an issue.
 
     The item can contain all data of that particular issue or
     just the type and a title.
@@ -230,11 +230,11 @@ class DitzIssue(DitzItem):
             status=None, disposition="", description=None, creator=None, created=None,
             release=None, references=None, identifier=None, log=None):
         """
-        Initialize new DitzItem.
+        Initialize new DitItem.
         At least type and title must be set for releases.
         For issues, also status should be set.
         """
-        super(DitzIssue, self).__init__(title)
+        super(DitIssue, self).__init__(title)
         self.name = name
         self.issue_type = issue_type
         self.component = component
@@ -253,7 +253,7 @@ class DitzIssue(DitzItem):
 
     def __str__(self):
         """
-        Serialize to string. Mimic output of Ditz command line.
+        Serialize to string. Mimic output of Dit command line.
         """
         if self.created:
             created_ago = common.utils.time.human_time_diff(self.created.isoformat(' '))

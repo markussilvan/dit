@@ -1,17 +1,18 @@
-# Ditz-gui
+# Dit
 
-Graphical *ditz* client developed using Python and PyQt. Provides
-fast and easy access to ditz issues without need to hassle with the
-command line tool. Implements all features as the original command
-line ditz.
-
-Ditz is a simple, light-weight distributed issue tracker designed
-to work with distributed version control systems like git, darcs,
-Mercurial, and Bazaar. It can also be used with centralized systems
-like SVN. Ditz maintains an issue database directory on disk, with
+Dit is a simple and light-weight distributed issue tracker designed
+to work with distributed version control systems like git and Mercurial.
+Dit maintains an issue database directory on disk, with
 files written in a line-based and human-editable format. This
 directory can be kept under version control, alongside project code.
 
+Graphical *dit* client is developed using Python and PyQt. Provides
+fast and easy access to dit issues without need to hassle with the
+command line tool. Implements all features of the command line client.
+
+Idea of Dit is based on *Ditz*. Originally Dit was just a GUI front
+for it, but later reimplemented all the same features. Since, Dit
+has become incompatible with the original Ditz implementation.
 
 ## Tools
 
@@ -33,7 +34,6 @@ enough, so that the program itself can be used as the issue tracker.
  - PyLint
  - Jenkins
  - git
- - Ditz 0.5 (not required)
 
 
 ## Enabling Menu Icons On Ubuntu
@@ -45,11 +45,11 @@ To enable, run:
 
 ## Configuration File
 
-Application uses a .ditz-gui-config file as it's configuration file.
-The file should be located at the same path as .ditz-config.
+Application uses a .dit-gui-config file as it's configuration file.
+The file should be located at the same path as .dit-config.
 Here is an example configuration file.
 
-    !ditz.rubyforge.org,2008-03-06/guiconfig
+    !dit.random.org,2008-03-06/guiconfig
     default_issue_type: task
     remember_window_size: false
     window_size:

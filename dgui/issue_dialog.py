@@ -2,63 +2,63 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 
-A dialog for adding and editing Ditz issues
+A dialog for adding and editing Dit issues
 """
 
 from PyQt5 import QtWidgets, uic
 
 from reference_dialog import ReferenceDialog
 from comment_dialog import CommentDialog
-from common.items import DitzIssue
-from common.errors import ApplicationError, DitzError
+from common.items import DitIssue
+from common.errors import ApplicationError, DitError
 from common import constants
 import common.utils.time
-from ditzcontrol import DitzControl
+from ditcontrol import DitControl
 
 class IssueDialog(QtWidgets.QDialog):
     """
     A dialog with form input (separate widget) and Cancel/Ok buttons.
     Same form can be used to add new issues or to edit existing ones.
     """
-    def __init__(self, ditz, ditz_id=None):
+    def __init__(self, dit, dit_id=None):
         """
         Initialize user interface for the dialog
 
         Parameters:
-        - ditz: DitzControl to access data
-        - ditz_id: Ditz item to edit
+        - dit: DitControl to access data
+        - dit_id: Dit item to edit
         """
         super(IssueDialog, self).__init__()
 
         self.issue = None
 
-        if not isinstance(ditz, DitzControl):
-            raise ApplicationError("Construction failed due to invalid ditz (DitzControl) parameter")
+        if not isinstance(dit, DitControl):
+            raise ApplicationError("Construction failed due to invalid dit (DitControl) parameter")
 
-        self.ditz = ditz
-        self.ditz_id = ditz_id
+        self.dit = dit
+        self.dit_id = dit_id
         self._edit_mode = False
 
         uic.loadUi('../ui/issue_dialog.ui', self)
         uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
 
-        settings = self.ditz.config.get_app_configs()
+        settings = self.dit.config.get_app_configs()
 
-        for state in self.ditz.config.get_valid_issue_states():
+        for state in self.dit.config.get_valid_issue_states():
             self.widgetForm.comboBoxStatus.addItem(state)
 
         for issue_type in settings.issue_types:
             self.widgetForm.comboBoxIssueType.addItem(issue_type)
 
         self.widgetForm.comboBoxRelease.addItem(constants.releases.UNASSIGNED)
-        for release in self.ditz.config.get_releases(constants.release_states.UNRELEASED, True):
+        for release in self.dit.config.get_releases(constants.release_states.UNRELEASED, True):
             self.widgetForm.comboBoxRelease.addItem(release)
 
-        default_creator = self.ditz.config.get_default_creator()
+        default_creator = self.dit.config.get_default_creator()
         self.widgetForm.lineEditCreator.setText(default_creator)
 
         self._connect_actions()
@@ -68,7 +68,7 @@ class IssueDialog(QtWidgets.QDialog):
         Ok is pressed on the GUI
 
         Check validity of given data.
-        Add issue to Ditz or update an existing issue
+        Add issue to Dit or update an existing issue
         """
         self.issue.title = str(self.widgetForm.lineEditTitle.text())
         self.issue.description = str(self.widgetForm.plainTextEditDescription.toPlainText())
@@ -87,16 +87,16 @@ class IssueDialog(QtWidgets.QDialog):
 
         # ask for a comment
         try:
-            dialog = CommentDialog(self.ditz, self.issue.identifier, save=False)
+            dialog = CommentDialog(self.dit, self.issue.identifier, save=False)
             comment = dialog.ask_comment()
-        except DitzError as e:
-            QtWidgets.QMessageBox.warning(self, "Ditz error", e.error_message)
+        except DitError as e:
+            QtWidgets.QMessageBox.warning(self, "Dit error", e.error_message)
             comment = ''
 
         if self._edit_mode is True:
-            self.ditz.edit_issue(self.issue, comment)
+            self.dit.edit_issue(self.issue, comment)
         else:
-            self.ditz.add_issue(self.issue, comment)
+            self.dit.add_issue(self.issue, comment)
 
         self.issue = None
         super(IssueDialog, self).accept()
@@ -113,12 +113,12 @@ class IssueDialog(QtWidgets.QDialog):
         Show the dialog and get issue information from user
         """
         try:
-            self.issue = DitzIssue('', None)
+            self.issue = DitIssue('', None)
         except ApplicationError:
-            QtWidgets.QMessageBox.warning(self, "ditz-gui error", "Unable to create issue")
+            QtWidgets.QMessageBox.warning(self, "dit-gui error", "Unable to create issue")
             return
 
-        settings = self.ditz.config.get_app_configs()
+        settings = self.dit.config.get_app_configs()
         default_issue_type = settings.default_issue_type
         index = self.widgetForm.comboBoxIssueType.findText(default_issue_type)
         if index >= 0:
@@ -126,13 +126,13 @@ class IssueDialog(QtWidgets.QDialog):
 
         self.exec_()
 
-    def ask_edit_issue(self, ditz_id):
+    def ask_edit_issue(self, dit_id):
         """
-        Show the dialog filled with data of a given Ditz issue
+        Show the dialog filled with data of a given Dit issue
         """
-        self.issue = self.ditz.get_issue_from_cache(ditz_id)
+        self.issue = self.dit.get_issue_from_cache(dit_id)
         if self.issue is None:
-            QtWidgets.QMessageBox.warning(self, "ditz-gui error", "No issue selected")
+            QtWidgets.QMessageBox.warning(self, "dit-gui error", "No issue selected")
             return
 
         self._edit_mode = True
@@ -194,7 +194,7 @@ class IssueDialog(QtWidgets.QDialog):
         """
         Add a new reference to the issue being added or edited.
         """
-        dialog = ReferenceDialog(self.ditz, save=False)
+        dialog = ReferenceDialog(self.dit, save=False)
         reference = dialog.ask_reference()
 
         if reference not in [None, ""]:
@@ -208,7 +208,7 @@ class IssueDialog(QtWidgets.QDialog):
         if reference is not None:
             for selected in self.widgetForm.listWidgetReferences.selectedItems():
                 old_text = str(selected.text())
-                dialog = ReferenceDialog(self.ditz, save=False, reference_text=old_text)
+                dialog = ReferenceDialog(self.dit, save=False, reference_text=old_text)
                 edited_text = dialog.ask_reference()
                 selected.setText(edited_text)
                 break

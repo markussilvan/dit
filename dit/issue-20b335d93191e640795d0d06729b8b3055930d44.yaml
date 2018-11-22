@@ -1,0 +1,26 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-cli
+creation_time: 2018-11-16 12:05:44.608284 Z
+desc: Component selection should be configurable. Store list of components somewhere,
+  and offer those options when adding or editing issues.
+disposition: reorganized
+id: 20b335d93191e640795d0d06729b8b3055930d44
+log_events:
+- - 2018-11-16 12:05:48.018940 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2018-11-20 19:46:16.862220 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - ''
+- - 2018-11-20 19:49:33.471287 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition reorganized
+  - ''
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Get component names from ditcontrol or ditconfig
+type: :feature

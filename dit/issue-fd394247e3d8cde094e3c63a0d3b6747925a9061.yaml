@@ -1,0 +1,60 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Config window to set .dit-config information
+desc: |-
+  Username issue directory name and some other settings are set
+  in .dit-config file. There needs to be a GUI to set those settings.
+type: :feature
+component: dit-gui
+release: v0.1.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-07 17:37:18.820502 Z
+references: []
+
+id: fd394247e3d8cde094e3c63a0d3b6747925a9061
+log_events: 
+- - 2014-10-07 17:37:22.452192 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-19 19:58:02.041644 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Settings dialog created.
+    No functionality implemented yet.
+- - 2014-10-19 20:22:23.411091 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    ConfigControl needs to implement writing the settings
+    to .ditconfig from a given dictionary.
+    This can be done easily using python-yaml.
+- - 2014-10-20 10:30:05.145194 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    ConfigControl now supports writing .dit-config.
+    Integration to IssueDialog is the only missing part.
+- - 2014-10-20 12:15:29.078293 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    This should be ok now except for settings "settings_changed" flag
+    whenever settings have been modified on the settings dialog.
+    Settings dialog needs an action which does this, and that
+    action needs to be triggered from any input fields "modied" signal
+    (or equivalent).
+- - 2014-10-20 12:16:40.649524 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.1.1 from v0.2
+  - ""
+- - 2014-10-20 16:44:48.107850 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    These settings are there and working.
+    More settings should be added later.
+    At least UI and git should have their own tabs.
+    That is another task. This issue can be considered done.

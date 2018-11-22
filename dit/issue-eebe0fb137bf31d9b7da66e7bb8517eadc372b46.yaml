@@ -1,0 +1,25 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2018-11-01 19:32:46.758739 Z
+desc: |-
+  Currently keyboard shortcuts don't work on Windows.
+  Reason is unknown.
+  Things might have changed with PyQt5 update.
+  It should be tested and fixed if needed.
+disposition: ''
+id: eebe0fb137bf31d9b7da66e7bb8517eadc372b46
+log_events:
+- - 2018-11-01 19:32:46.760775 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2018-11-01 19:33:07.630080 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ''
+references: []
+release: v0.2.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Make keyboard shortcuts work on Windows
+type: :enhancement

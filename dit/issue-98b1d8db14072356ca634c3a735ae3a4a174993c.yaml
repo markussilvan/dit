@@ -1,0 +1,24 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Make disposition values configurable
+desc: |-
+  Add a page in settings where allowed
+  disposition values can be configured.
+  Ditz doesn't seem to care about these.
+  
+  Then these are saved to settings file
+  and read to DitzSettings (or equivalent).
+type: :feature
+component: dit-gui
+release: v0.3
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-12-11 17:54:40.431207 Z
+references: []
+
+id: 98b1d8db14072356ca634c3a735ae3a4a174993c
+log_events: 
+- - 2014-12-11 17:54:40.932655 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

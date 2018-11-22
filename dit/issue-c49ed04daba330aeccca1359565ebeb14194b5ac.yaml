@@ -1,0 +1,23 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2015-02-27 20:21:43.842143 Z
+desc: |-
+  When release is archived it causes a lot of files to
+  move around. Adding these files to git cache requires
+  a manual step of work which could be eliminated.
+
+  If so selected from the settings, changes should be
+  added to git index (and even commited) automatically.
+disposition: ''
+id: c49ed04daba330aeccca1359565ebeb14194b5ac
+log_events:
+- - 2015-02-27 20:21:43.843525 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: v0.4
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: If a release is archived, add changes to git
+type: :task

@@ -1,0 +1,47 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2015-03-03 07:55:27.644535 Z
+desc: |-
+  Issue states could be configurable by project.
+  If non-default states are used, it will break
+  Ditz compatibility. Also note that this should
+  be configurable by project, but there is no
+  project config file except for project.yaml.
+
+  Try if having custom settings in project config
+  will break Ditz compatibility.
+
+  Having this as the only setting in project.yaml
+  also seems weird, if other similar settings
+  are in application config (as they don't break
+  Ditz compatibility).
+disposition: fixed
+id: 5defb643de854650362b86421a7c6a6587d67b6d
+log_events:
+- - 2015-03-03 07:56:25.150931 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    Or maybe the real solution is to break
+    application config into global and
+    local configs and forget about Ditz
+    compatibility. Then implementing
+    custom (but similar) CLI interface.
+- - 2015-03-03 22:34:20.856584 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Issue states and issue dispositions have been added
+    to application config file.
+
+    A separate task exists for the GUI part. This ticket can be closed.
+- - 2015-03-03 22:35:21.397391 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - ''
+references: []
+release: v0.2.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Make issue states configurable
+type: :task

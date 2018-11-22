@@ -1,0 +1,39 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-10-18 15:03:09.621533 Z
+desc: |-
+  Reorganize icons into separate directories or distinct filenames.
+  Add icons for releases and settings menu.
+
+  Also consider adding some other graphics. A small background frame
+  for the issue text box? A twirl in
+  the top corner?
+disposition: ''
+id: 87a22855bca8ef3ae619773eb07f89332fcd2c4b
+log_events:
+- - 2014-10-18 15:03:10.122951 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-12-16 21:04:09.210799 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference
+  - ''
+- - 2015-01-12 16:10:36.040863 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Icons for releases have been added.
+    Some nicer common icons (Settings-icon) and
+    those frames  / twirls could still be added.
+- - 2015-01-13 17:05:50.096088 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.2.2 from v0.2
+  - ''
+references:
+- a4bd75141aa0ea3fef72290a4c8344f9e3fb014f
+release: v0.2.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Add more icons and actions
+type: :task

@@ -1,0 +1,30 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Support for plugins
+desc: |-
+  Some sort of plugin framework is needed
+  for features that are not useful for all users,
+  but may be required to maintain compatibility
+  with PyDitz, Ditz or something else.
+  
+  Support PyDitz plugins?
+  Ditz plugins?
+  Custom plugins?
+type: :feature
+component: dit-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-01-21 07:59:49.069785 Z
+references: []
+
+id: b78904fbecd729fe17c948a343f5655087de1383
+log_events: 
+- - 2015-01-21 07:59:51.869721 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2015-01-21 08:00:27.726841 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited description
+  - ""

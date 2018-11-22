@@ -1,0 +1,20 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2018-11-22 15:03:17.039386 Z
+desc: |-
+  A python project should have a *requirements.txt* file to
+  list project dependencies.
+  Add this file, and try to test that is has been correctly created.
+disposition: ''
+id: 82e0ab9e2094daeeaaa797ca5128365b8ae8ff20
+log_events:
+- - 2018-11-22 15:04:10.905629 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: null
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Add requirements.txt to the project
+type: :task

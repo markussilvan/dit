@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 """
 
-from common.items import DitzIssue, DitzRelease
+from common.items import DitIssue, DitRelease
 
 class ItemCache(object):
     """
@@ -33,7 +33,7 @@ class ItemCache(object):
         - issue: a new issue to add to cache
         """
         # check if given issue contains required information
-        if not isinstance(issue, DitzIssue):
+        if not isinstance(issue, DitIssue):
             return False
         if issue.title in (None, ""):
             return False
@@ -146,7 +146,7 @@ class ItemCache(object):
         Parameters:
         - release: a new release to add to cache
         """
-        if not isinstance(release, DitzRelease):
+        if not isinstance(release, DitRelease):
             return False
         if release.title in (None, ""):
             return False

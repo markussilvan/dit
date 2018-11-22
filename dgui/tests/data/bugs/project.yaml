@@ -1,10 +1,10 @@
-!ditz.rubyforge.org,2008-03-06/project
+!dit.random.org,2008-03-06/project
 components:
-- !ditz.rubyforge.org,2008-03-06/component
+- !dit.random.org,2008-03-06/component
   name: testing_project
 name: testing_project
 releases:
-- !ditz.rubyforge.org,2008-03-06/release
+- !dit.random.org,2008-03-06/release
   log_events:
   - - 2015-06-02 19:18:01.788431 Z
     - Beyonce Bugger <bb@lightningmail.com>
@@ -13,7 +13,7 @@ releases:
   name: week 49
   release_time: null
   status: :unreleased
-- !ditz.rubyforge.org,2008-03-06/release
+- !dit.random.org,2008-03-06/release
   log_events:
   - - 2015-06-02 19:18:27.100392 Z
     - Beyonce Bugger <bb@lightningmail.com>

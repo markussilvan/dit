@@ -1,0 +1,24 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-10-10 09:03:44.987778 Z
+desc: |-
+  Editing the name and/or description of a release.
+  The issues assigned to the release must be still
+  assigned to this release. I think Ditz takes care of that.
+disposition: fixed
+id: 63b44c13ce719df690636da01ee04fb7aa249fc7
+log_events:
+- - 2014-10-10 09:03:47.531245 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2015-01-12 16:09:37.597416 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - This was completed in parallel with adding a release.
+references: []
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Editing a release
+type: :task

@@ -4,7 +4,7 @@ import re
 import readline
 
 class Completer():
-    """Ditz-cli command line parameter completer"""
+    """Dit CLI readline input completer"""
 
     def __init__(self, options):
         """Initialize user input completer"""
@@ -17,15 +17,6 @@ class Completer():
         readline.set_completer_delims(' \t\n;')
         readline.parse_and_bind("tab: complete")
         readline.set_completer(self.complete)
-
-    def complete_remove(self, args):
-        "Completions for the 'remove' command."
-        issue_names = ['ditz-gui-123', 'ditz-gui-234', 'ditz-cli-7']
-
-        if not args:
-            return [c + ' ' for c in issue_names]
-
-        return [c + ' ' for c in issue_names if c.startswith(args[-1])]
 
     def complete(self, _text, state):
         """Generic completion entry point for readline."""
@@ -52,8 +43,3 @@ class Completer():
         results = [c + ' ' for c in self.options if c.startswith(user_input)] + [None]
 
         return results[state]
-
-# test
-#comp = Completer(['add', 'list', 'list-ids', 'show', 'remove'])
-#comp.enable()
-#input('Enter section name: ')

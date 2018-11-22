@@ -1,0 +1,31 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Starting work on an issue
+desc: |-
+  Someone working on an issue is marked in the issue file and
+  it needs to be shown in the UI too.
+  The main view needs to have a way to start working on an issue.
+type: :task
+component: dit-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-07 18:14:18.867672 Z
+references: []
+
+id: 770cea947e1639090bcf77b2480e48202c6d2f8b
+log_events: 
+- - 2014-10-07 18:14:19.955561 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-11 11:01:16.981697 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    This seems easy and similar to other tasks to implement.
+    Also a useful feature. So I'll do it now.
+- - 2014-10-11 11:22:44.031072 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Works from the UI nicely.

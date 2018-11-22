@@ -1,0 +1,42 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2015-01-21 16:40:22.800963 Z
+desc: |-
+  Currently all text is just concatenated.
+  Change it to "change chapter" when an empty line is
+  encountered between text.
+
+  Like this. A new block.
+disposition: fixed
+id: cf1bfd02f76a0278dfb489739329833c83be89ac
+log_events:
+- - 2015-01-21 16:40:22.802419 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - Same applies to releases.
+- - 2015-01-29 11:43:59.454403 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    I'll try how this works out.
+    Also it should be kept in mind that
+    other kind of text formatting might be needed
+    in the future. Adding more of these should be easy.
+- - 2015-01-29 21:00:03.220419 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Ok. Having text split in multiple paragraphs works well now.
+
+    Looks nice. If I come with other text formattings to do, then
+    just add them.
+- - 2015-01-29 21:00:20.166170 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - ''
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Text formatting in issue description and comments
+type: :task

@@ -1,0 +1,58 @@
+--- !dit.random.org,2008-03-06/issue 
+title: DitzItem <-> IssueYamlObject type conversions
+desc: |-
+  Editing issues requires these type conversions
+  for convenience. Reading and writing .yaml files
+  can be then encapsulated more effectively.
+type: :task
+component: dit-gui
+release: v0.1.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-23 07:46:41.782957 Z
+references: []
+
+id: a47d6b8ca3aa4afde031d010e893c18cf60cead9
+log_events: 
+- - 2014-10-23 07:46:42.630799 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-23 14:30:49.658392 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    This is mostly done, but there are some inconsistencies.
+      - Component is missing from DitzItem
+      - Creation_time is missing from DitzItem (uses "ago" string instead)
+      - Order of items is different, but this doesn't matter, at least for now
+      - References should stored as list of strings(?)
+    
+    Could I even go as far as using some sort of derived type of IssueYamlObject?
+    Turning DitzItem into a hierarchy of objects? Releases could have their own
+    ReleaseYamlObject?
+    
+    Think and try different solutions.
+- - 2014-10-23 19:24:44.404477 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Custom implementation for showing textual time
+    differences done. Now use it to show "ago".
+- - 2014-11-27 13:48:01.217358 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - Creation time has been added to DitzItem.
+- - 2014-11-27 14:06:51.930326 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Also component has been added to DitzItem. It's only printed to output
+    if it has been set.
+- - 2014-11-27 14:18:23.571878 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Think this can be closed.
+    The issue with multiple references is handled in a separate ticket.

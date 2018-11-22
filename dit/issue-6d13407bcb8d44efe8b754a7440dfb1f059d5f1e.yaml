@@ -1,0 +1,76 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Stopping work on an issue
+desc: |-
+  Just like starting work on an issue, there needs to be a way
+  to stop working. The main view with the list of issue is the right
+  place to do this.
+  
+  1. Select issue from a list
+  2. Select Stop working from the context-menu, pull-down menu
+     or a button
+  3. Dialog to verify? I don't think it's needed or should
+     be configurable.
+type: :task
+component: dit-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-07 18:15:16.306920 Z
+references: []
+
+id: 6d13407bcb8d44efe8b754a7440dfb1f059d5f1e
+log_events: 
+- - 2014-10-07 18:15:17.019094 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-08 13:30:59.416296 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited title, description
+  - ""
+- - 2014-10-11 11:20:32.877787 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - If starting work on an issue now works from the UI, then next thing to implement is stopping working.
+- - 2014-10-11 11:31:31.450122 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from in_progress to paused
+  - Testing if stopping work -feature works from dit-gui.
+- - 2014-10-11 11:32:10.018328 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from paused to in_progress
+  - ""
+- - 2014-10-11 11:32:24.828481 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from in_progress to paused
+  - ""
+- - 2014-10-11 11:38:05.013992 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from paused to in_progress
+  - |-
+    Ok. Starting works. And canceling works.
+    Stopping works. And cancelling (in the dialog view) works.
+- - 2014-10-11 12:08:47.229312 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from in_progress to paused
+  - |-
+    Stopping work again. As it's probably completed :)
+    Starting/stopping should be working smoothly now.
+    Even when canceling or changing selections or anything.
+- - 2014-10-11 12:09:41.923048 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from paused to in_progress
+  - Requires a comment.
+- - 2014-10-11 12:14:27.730215 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from in_progress to paused
+  - ""
+- - 2014-10-11 12:15:00.814402 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from paused to in_progress
+  - Doesn't require a comment anymore.
+- - 2014-10-11 12:15:50.168115 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - All combinations have been tested to work.

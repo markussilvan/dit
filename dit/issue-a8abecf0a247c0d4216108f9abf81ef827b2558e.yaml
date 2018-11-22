@@ -1,0 +1,30 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Support bucket tickets
+desc: |-
+  Tickets should be able to contain other tickets.
+  By that I mean tasks containing subtasks.
+  
+  Simplest solution is to add a parent field in each
+  ticket containing a hash of the parent ticket.
+  However, that is not very efficient solution.
+  Sorting tickets to directories would be better.
+  
+  Think about pros and cons of different solutions.
+  Implement something to get this, as it is a very
+  useful feature. Currently only releases can be
+  used for this.
+type: :feature
+component: dit-gui
+release: 
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2015-10-22 15:05:16.473579 Z
+references: []
+
+id: a8abecf0a247c0d4216108f9abf81ef827b2558e
+log_events: 
+- - 2015-10-22 15:05:19.577112 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""

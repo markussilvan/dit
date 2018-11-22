@@ -39,7 +39,7 @@ def find_file_along_path(filename, path="."):
         parent = os.path.dirname(path)
         ps = os.stat(parent)[stat.ST_DEV]
 
-        # check if this directory contains ditz config
+        # check if this directory contains dit config
         if os.path.isfile("{}/{}".format(path, filename)):
             return str(path)
 

@@ -1,0 +1,37 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Parsing issues should be able to parse component information
+desc: |-
+  If components are used in the project, adding and reading
+  issues should be able to act accordingly.
+  This requires additional steps to both processes.
+  How to get information if project is using components?
+  Can you use some "dit components" output for that or
+  does it require reading the project.yaml file?
+type: :task
+component: dit-gui
+release: v0.4
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-15 06:41:57.663315 Z
+references: []
+
+id: b0b2e245d48e6dd29cd1aead17980e3970b155e1
+log_events: 
+- - 2014-10-15 06:42:03.103146 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-15 12:19:00.185567 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.4 from unassigned
+  - ""
+- - 2014-12-08 21:45:14.593463 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    How does using multiple components affect the numbering scheme
+    used in Ditz (and ItemCache)? I suspect there is just
+    a running index for each component based on
+    creation timestamp.
+    This needs to be addressed in ItemCache.

@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 # A dirty unit test for config.py which contains
-# classes to access ditz and ditz-gui settings
+# classes to access dit and dit-gui settings
 #
 # Uses all classes in config.py without mocking each class
 # out of the equation individually.
@@ -14,13 +14,13 @@ from datetime import datetime
 import testlib
 import config                                   # pylint: disable=F0401
 from common.errors import ApplicationError      # pylint: disable=F0401
-from common.items import DitzRelease            # pylint: disable=F0401
+from common.items import DitRelease            # pylint: disable=F0401
 
 class ConfigRealTests(unittest.TestCase):
     """
     Unit test for config.
 
-    These tests access real data in ditz-gui repository
+    These tests access real data in dit-gui repository
     (as the project root is found automatically by the code).
     No data should be modified by these tests.
     """
@@ -32,8 +32,8 @@ class ConfigRealTests(unittest.TestCase):
 
     def test_verify_loading_configs(self):
         """Verify loading config files"""
-        ditzconfig = self.config.get_ditz_configs()
-        self.assertTrue(isinstance(ditzconfig, config.DitzConfigYaml))
+        ditconfig = self.config.get_dit_configs()
+        self.assertTrue(isinstance(ditconfig, config.DitConfigYaml))
 
         appconfig = self.config.get_app_configs()
         self.assertTrue(isinstance(appconfig, config.AppConfigYaml))
@@ -49,7 +49,7 @@ class ConfigRealTests(unittest.TestCase):
     def test_project_name(self):
         """Verify project name"""
         name = self.config.get_project_name()
-        self.assertEqual(name, "ditz-gui")
+        self.assertEqual(name, "dit-gui")
 
     def test_listing_releases(self):
         """Check list of releases"""
@@ -99,8 +99,8 @@ class ConfigMockDataTests(unittest.TestCase):
 
     def test_verify_loading_configs(self):
         """Verify loading config files"""
-        ditzconfig = self.config.get_ditz_configs()
-        self.assertTrue(isinstance(ditzconfig, config.DitzConfigYaml))
+        ditconfig = self.config.get_dit_configs()
+        self.assertTrue(isinstance(ditconfig, config.DitConfigYaml))
 
         appconfig = self.config.get_app_configs()
         self.assertTrue(isinstance(appconfig, config.AppConfigYaml))
@@ -140,33 +140,33 @@ class ConfigMockDataTests(unittest.TestCase):
                 'Beyonce Bugger <bb@lightningmail.com>')
         self.assertEquals(releases[1].log[0][2], 'created')
 
-    def test_writing_ditz_config(self):
+    def test_writing_dit_config(self):
         """
-        Write .ditz-config file
+        Write .dit-config file
 
         Original data is read already. Change some data,
         read new data to verify, then change it back and
         read it to verify original data has been written back.
         """
         # save original state
-        ditzconfig = self.config.ditzconfig
-        self.assertIsInstance(ditzconfig, config.DitzConfigModel)
-        original_name = ditzconfig.settings.name
+        ditconfig = self.config.ditconfig
+        self.assertIsInstance(ditconfig, config.DitConfigModel)
+        original_name = ditconfig.settings.name
         self.assertNotEqual(original_name, 'Boyle Bugger')
 
-        # change creator in ditz configuration
-        ditzconfig.settings.name = 'Boyle Bugger'
-        self.assertTrue(ditzconfig.write_config_file())
-        self.assertTrue(ditzconfig.read_config_file())
+        # change creator in dit configuration
+        ditconfig.settings.name = 'Boyle Bugger'
+        self.assertTrue(ditconfig.write_config_file())
+        self.assertTrue(ditconfig.read_config_file())
 
         # verify changed creator
         creator = self.config.get_default_creator()
         self.assertEquals(creator, 'Boyle Bugger <bb@lightningmail.com>')
 
         # change back original values
-        ditzconfig.settings.name = original_name
-        self.assertTrue(ditzconfig.write_config_file())
-        self.assertTrue(ditzconfig.read_config_file())
+        ditconfig.settings.name = original_name
+        self.assertTrue(ditconfig.write_config_file())
+        self.assertTrue(ditconfig.read_config_file())
 
         # verify original creator
         creator = self.config.get_default_creator()
@@ -217,7 +217,7 @@ class MockProjectConfigTests(unittest.TestCase):
     def setUp(self):
         self.out = testlib.NullWriter()
         known_root = os.path.abspath('data/bugs/project.yaml')
-        self.pconfig = config.DitzProjectModel(known_root)
+        self.pconfig = config.DitProjectModel(known_root)
 
     def testReadingProjectFile(self):
         """Read known project file"""
@@ -324,7 +324,7 @@ class MockProjectConfigTests(unittest.TestCase):
 
         # add release and save config
         title = 'TestApp v0.1-beta_prerel'
-        release = DitzRelease(title, 'LOL', 'released', datetime.now(), None)
+        release = DitRelease(title, 'LOL', 'released', datetime.now(), None)
         self.pconfig.set_release(release)
         self.assertTrue(self.pconfig.write_config_file())
 

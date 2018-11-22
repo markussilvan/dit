@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 
 A common comment dialog box
 """
@@ -15,20 +15,20 @@ class CommentDialog(QtWidgets.QDialog):
     """
     A comment dialog with text input and Cancel/Ok buttons.
     """
-    def __init__(self, ditz, ditz_id, save=False, title='Comment'):
+    def __init__(self, dit, dit_id, save=False, title='Comment'):
         """
         Initialize user interface for the dialog
 
         Parameters:
-        - ditz: DitzControl to access data
-        - ditz_id: Ditz item to comment
-        - save: Save the comment to Ditz
+        - dit: DitControl to access data
+        - dit_id: Dit item to comment
+        - save: Save the comment to Dit
         - title: Dialog window title to show, defaults to "Comment"
         """
         super(CommentDialog, self).__init__()
 
-        self.ditz = ditz
-        self.ditz_id = ditz_id
+        self.dit = dit
+        self.dit_id = dit_id
         self.save = save
         self.comment = None
 
@@ -42,7 +42,7 @@ class CommentDialog(QtWidgets.QDialog):
         """
         self.comment = str(self.plainTextEdit.toPlainText())
         if self.save and self.comment != "":
-            self.ditz.add_comment(self.ditz_id, self.comment)
+            self.dit.add_comment(self.dit_id, self.comment)
         super(CommentDialog, self).accept()
 
     def reject(self):
@@ -54,7 +54,7 @@ class CommentDialog(QtWidgets.QDialog):
     def ask_comment(self):
         """
         Show the dialog and get a comment from the user
-        If Ditz id and comment are given, save the comment to Ditz
+        If Dit id and comment are given, save the comment to Dit
 
         Returns:
         - Comment written by the user

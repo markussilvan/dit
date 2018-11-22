@@ -1,0 +1,29 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Pre-select currently assigned release on AssignDialog
+desc: |-
+  The current release the issue is assigned to should be
+  pre-selected on the AssignDialog.
+  Currently "Unassigned" is always selected by default.
+type: :task
+component: dit-gui
+release: v0.1.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-12-08 21:50:29.137163 Z
+references: []
+
+id: 9cbdd6d4a2058da9b0d5a6d65d59c1a6d8c0eef0
+log_events: 
+- - 2014-12-08 21:50:30.585295 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-12-08 22:06:15.711203 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2014-12-09 13:17:02.009776 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - ""

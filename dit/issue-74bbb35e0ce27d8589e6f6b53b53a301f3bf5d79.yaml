@@ -1,0 +1,35 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Writing project.yaml file
+desc: |-
+  Currently project.xml file is written incorrectly.
+  File looks completely different from what is was originally.
+  All dit "datatypes" are missing and everything is written
+  as common datatypes (lists, dicts, strings).
+  This has to be fixed soon.
+type: :bugfix
+component: dit-gui
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2015-01-12 20:32:34.462904 Z
+references: []
+
+id: 74bbb35e0ce27d8589e6f6b53b53a301f3bf5d79
+log_events: 
+- - 2015-01-12 20:32:34.464267 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    Creating releases is first feature to write the project.yaml file.
+    It brought out this issue.
+- - 2015-01-12 20:32:50.102912 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - edited
+  - ""
+- - 2015-01-13 13:15:18.321122 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    This was fairly easy to do the same way as other
+    yaml reads and writes.

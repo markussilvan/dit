@@ -1,0 +1,35 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Removing issues
+desc: |-
+  Selecting an issue from the list on the main window and clicking delete
+  from a button / context menu / pull down menu should be enough.
+  This should be a simple feature to implement.
+type: :task
+component: dit-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-07 17:46:30.203865 Z
+references: []
+
+id: e0b13c8f383e7be18852dadd45ace9ce0085c429
+log_events: 
+- - 2014-10-07 17:47:04.604882 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-10 08:55:02.455643 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - In dit language this is known as "dropping" an issue.
+- - 2014-10-12 13:07:26.795621 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - |-
+    Lets implement some new functionality for a change.
+    This should be easy.
+- - 2014-10-12 14:32:48.497210 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - Ok. Dropping issues works now.

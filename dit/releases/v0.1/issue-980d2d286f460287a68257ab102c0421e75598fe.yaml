@@ -1,0 +1,34 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Test if new issues go to right releases
+desc: Two different methods are used to "get releases". See if the indices always match. Add a new bugfix release 0.1.1 and assign some issues to all releases and see what happens.
+type: :bugfix
+component: dit-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-18 13:25:19.060591 Z
+references: []
+
+id: 980d2d286f460287a68257ab102c0421e75598fe
+log_events: 
+- - 2014-10-18 13:25:19.562118 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-18 13:26:00.209865 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - Try also adding issue directly to 'in progress'.
+- - 2014-10-18 18:24:54.277435 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Now they do, but the interesting part is adding a new version
+    "in between" an seeing what happens then.
+    Also adding a release with completely different kind of name
+    would set off any sorting related bugs.
+- - 2014-10-18 21:39:58.499962 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - This works just fine.

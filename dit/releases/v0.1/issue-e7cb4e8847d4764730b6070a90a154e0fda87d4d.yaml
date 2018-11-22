@@ -1,0 +1,40 @@
+--- !dit.random.org,2008-03-06/issue 
+title: A generic error dialog
+desc: |-
+  Use a standard dialog or create a custom error dialog, which
+  is shown when commandline Ditz returns an error.
+  The dialog should print the output from Ditz.
+  It should have an "Ok" button.
+type: :task
+component: dit-gui
+release: v0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :wontfix
+creation_time: 2014-10-08 13:32:48.988666 Z
+references: []
+
+id: e7cb4e8847d4764730b6070a90a154e0fda87d4d
+log_events: 
+- - 2014-10-08 13:32:50.140693 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-12 14:46:57.008477 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Not sure if this is needed. Standard QMessageBox might
+    be enough.
+- - 2014-10-16 16:08:12.142185 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Standard warning box added in couple of places.
+    Lets see how that works out.
+- - 2014-10-16 17:25:51.595277 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition wontfix
+  - |-
+    The standard QMessageBox seems to do everything
+    that is needed. This issue can be consided closed.

@@ -2,16 +2,16 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 
 A dialog for assigning an issue to a release
 """
 
 from PyQt5 import QtWidgets, uic
 
-from ditzcontrol import DitzControl
+from ditcontrol import DitControl
 from common.errors import ApplicationError
 from common import constants
 
@@ -19,26 +19,26 @@ class AssignDialog(QtWidgets.QDialog):
     """
     A dialog with couple of inputs and Cancel/Ok buttons.
     """
-    def __init__(self, ditz, ditz_id=None):
+    def __init__(self, dit, dit_id=None):
         """
         Initialize user interface for the dialog
 
         Parameters:
-        - ditz: DitzControl to access data
-        - ditz_id: Ditz item to assign
+        - dit: DitControl to access data
+        - dit_id: Dit item to assign
         """
         super(AssignDialog, self).__init__()
 
-        if not isinstance(ditz, DitzControl):
-            raise ApplicationError("Construction failed due to invalid ditz (DitzControl) parameter")
+        if not isinstance(dit, DitControl):
+            raise ApplicationError("Construction failed due to invalid dit (DitControl) parameter")
 
-        self.ditz = ditz
-        self.ditz_id = ditz_id
+        self.dit = dit
+        self.dit_id = dit_id
 
         uic.loadUi('../ui/assign_dialog.ui', self)
 
         self.comboBoxRelease.addItem(constants.releases.UNASSIGNED)
-        for release in self.ditz.config.get_releases(constants.release_states.UNRELEASED, True):
+        for release in self.dit.config.get_releases(constants.release_states.UNRELEASED, True):
             self.comboBoxRelease.addItem(release)
 
     def accept(self):
@@ -51,7 +51,7 @@ class AssignDialog(QtWidgets.QDialog):
         if release == constants.releases.UNASSIGNED:
             release = None
         comment = str(self.plainTextEdit.toPlainText())
-        self.ditz.assign_issue(self.ditz_id, release, comment)
+        self.dit.assign_issue(self.dit_id, release, comment)
         super(AssignDialog, self).accept()
 
     def reject(self):
@@ -60,17 +60,17 @@ class AssignDialog(QtWidgets.QDialog):
         """
         super(AssignDialog, self).reject()
 
-    def ask_assign_issue(self, ditz_id=None):
+    def ask_assign_issue(self, dit_id=None):
         """
         Show the dialog (modal)
         to get release name from the user
 
         Parameters:
-        - ditz_id: Ditz item to assign
+        - dit_id: Dit item to assign
         """
-        if ditz_id is not None:
-            self.ditz_id = ditz_id
-        issue = self.ditz.get_issue_from_cache(ditz_id)
+        if dit_id is not None:
+            self.dit_id = dit_id
+        issue = self.dit.get_issue_from_cache(dit_id)
         if not issue:
             raise ApplicationError('Issue not found from cache')
         current_release = issue.release

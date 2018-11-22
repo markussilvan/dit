@@ -1,5 +1,5 @@
 #! /bin/sh
-# Run pylint for all python code in ditz-gui
+# Run pylint for all python code in dit-gui
 #
 
 # find source dir
@@ -13,7 +13,7 @@ elif [ "`basename $PWD`" = "dgui" ]; then
     # ok, already there
     :
 else
-    # assume "ditz-gui"
+    # assume "dit-gui"
     cd dgui
     if [ $? -ne 0 ]; then
         echo "Can't find source directory"

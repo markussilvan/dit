@@ -1,0 +1,53 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2014-12-21 08:01:22.770829 Z
+desc: |-
+  When a release is selected from the main QListWidget,
+  then release information could be shown in the main
+  QTextEdit. Just like issues.
+  This could be implemented in the same way using the
+  toHtml() of DitzRelease and a HTML template file.
+disposition: fixed
+id: 462bf295bb3bbde7f4887298c692a2aa84065c7c
+log_events:
+- - 2014-12-21 08:01:22.796858 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2014-12-21 08:04:19.139200 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Maybe this can be nicely implemented with the help of the DitzIssues' toHtml()
+    and html template files.
+- - 2014-12-23 21:05:14.802022 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    This could be the first task to verify that reading of
+    release information works.
+- - 2015-01-05 14:10:18.119260 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Reading of all information in project.yaml is
+    now implemented. Next this information needs to
+    be made available for the application.
+    When releases are read, all information about
+    them could be added to those DitzRelease objects
+    in the ItemCache. After that then only thing
+    left is to modify the toHtml() function and the
+    HTML template.
+- - 2015-01-06 20:30:23.232679 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    First version of this completed.
+    If the graphical outlook needs changes,
+    those can be done later in a separate task.
+references: []
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Show release information in the main window
+type: :feature

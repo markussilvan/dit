@@ -8,7 +8,7 @@ import hashlib
 import random
 import yaml
 
-from common.items import DitzIssue              # pylint: disable=F0401
+from common.items import DitIssue              # pylint: disable=F0401
 from common.errors import ApplicationError      # pylint: disable=F0401
 
 
@@ -20,7 +20,7 @@ class IssueModel(object):
         """
         Initialize new IssueModel
         """
-        self.issue_dir = "../ditz"          #TODO: hardcoded paths and names (do like ConfigControl does)
+        self.issue_dir = "../dit"          #TODO: hardcoded paths and names (do like ConfigControl does)
         self.issue_prefix = "issue-"        # check where else these are hardcoded and fix with a common solution
 
     def read_issue_yaml(self, identifier):
@@ -114,7 +114,7 @@ class IssueYamlObject(yaml.YAMLObject):
     Issue to and from YAML conversion (meta)class
     """
 
-    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/issue'
+    yaml_tag = u'!dit.random.org,2008-03-06/issue'
 
     def __init__(self, title, desc, issue_type, component, release, reporter, status, disposition,
             creation_time, references, identifier, log_events):
@@ -150,12 +150,12 @@ class IssueYamlObject(yaml.YAMLObject):
         super(IssueYamlObject, self).__init__()
 
     @classmethod
-    def from_ditz_issue(cls, issue):
+    def from_dit_issue(cls, issue):
         """
-        Initialize a new IssueYamlObject from an existing DitzIssue object
+        Initialize a new IssueYamlObject from an existing DitIssue object
 
         Parameters:
-        - issue: a DitzItem issue
+        - issue: a DitItem issue
         """
         issue_type = issue.issue_type
         if issue_type and issue_type[0] != ":":
@@ -175,12 +175,12 @@ class IssueYamlObject(yaml.YAMLObject):
                 issue.creator, status, disposition, issue.created, issue.references,
                 issue.identifier, issue.log)
 
-    def to_ditz_issue(self):
+    def to_dit_issue(self):
         """
-        Create a new DitzIssue containing the information in this class
+        Create a new DitIssue containing the information in this class
 
         Returns:
-        - new DitzIssue
+        - new DitIssue
         """
         issue_type = self.type
         if issue_type and issue_type[0] == ':':
@@ -200,7 +200,7 @@ class IssueYamlObject(yaml.YAMLObject):
             release = None
 
         # identifier used also as name (name is generated and can't be known yet)
-        return DitzIssue(self.title, self.id, issue_type, self.component, status, disposition,
+        return DitIssue(self.title, self.id, issue_type, self.component, status, disposition,
                 self.desc, self.reporter, self.creation_time, release,
                 self.references, self.id, self.log_events)
 

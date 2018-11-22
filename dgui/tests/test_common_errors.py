@@ -8,7 +8,7 @@
 import unittest
 
 import testlib
-from common.errors import ApplicationError, DitzError      # pylint: disable=F0401
+from common.errors import ApplicationError, DitError      # pylint: disable=F0401
 
 
 class CommonErrorsTests(unittest.TestCase):
@@ -17,7 +17,7 @@ class CommonErrorsTests(unittest.TestCase):
     """
     def setUp(self):
         self.out = testlib.NullWriter()
-        self.ditz_error_test_message = "foo bar baz !!! 00+++"
+        self.dit_error_test_message = "foo bar baz !!! 00+++"
         self.application_error_test_message = "this is an error message"
 
     def lol_func(self, lol):
@@ -25,7 +25,7 @@ class CommonErrorsTests(unittest.TestCase):
         if lol == 1:
             raise ApplicationError(self.application_error_test_message)
         elif lol == 2:
-            raise DitzError(self.ditz_error_test_message)
+            raise DitError(self.dit_error_test_message)
 
     def test_01_raising_application_error(self):
         """
@@ -33,11 +33,11 @@ class CommonErrorsTests(unittest.TestCase):
         """
         self.assertRaises(ApplicationError, self.lol_func, 1)
 
-    def test_02_raising_ditz_error(self):
+    def test_02_raising_dit_error(self):
         """
-        Raise an DitzError intentionally
+        Raise an DitError intentionally
         """
-        self.assertRaises(DitzError, self.lol_func, 2)
+        self.assertRaises(DitError, self.lol_func, 2)
 
     def test_03_raise_application_error_and_check(self):
         """
@@ -52,14 +52,14 @@ class CommonErrorsTests(unittest.TestCase):
         else:
             self.fail("No exception raised")
 
-    def test_04_raise_ditz_error_and_check(self):
+    def test_04_raise_dit_error_and_check(self):
         """
-        Raise an ditz error and check its content
+        Raise an dit error and check its content
         """
         try:
             self.lol_func(2)
-        except DitzError as e:
-            self.assertEquals(e.error_message, self.ditz_error_test_message)
+        except DitError as e:
+            self.assertEquals(e.error_message, self.dit_error_test_message)
         except Exception:
             self.fail("Unknown exception raised")
         else:

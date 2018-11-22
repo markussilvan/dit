@@ -1,0 +1,43 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Filters for the main window
+desc: |-
+  Selecting type of issues to show.
+  Showing only closed issues or showing only issues for the next
+  release.
+  Showing only issues assigned to me.
+  It should be possible to select this kind of filters from a toolbar
+  or a menu.
+type: :task
+component: dit-gui
+release: v0.5
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+disposition: 
+creation_time: 2014-10-10 09:06:46.722070 Z
+references: 
+- cc2d95f666c32108ba36d4dd939da2308fe5113e
+id: d45f8e8310fc113259a8899d8ba9d033594cb12c
+log_events: 
+- - 2014-10-10 09:06:47.745836 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-10 09:10:29.113884 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.4 from v0.3
+  - ""
+- - 2014-10-15 12:19:23.802273 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - assigned to release v0.5 from v0.4
+  - ""
+- - 2014-12-07 17:24:13.065283 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - added reference 1
+  - ""
+- - 2014-12-07 17:25:26.628882 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    First "filter" to add is showing closed issues on/off.
+    Functionality to support this is already implemented in
+    IssueCache.

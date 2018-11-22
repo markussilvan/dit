@@ -1,0 +1,45 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2015-01-13 12:23:51.982909 Z
+desc: |-
+  This setting is already read and written to settings file.
+  It should be also used on the settings dialog.
+  At least IssueDialog is not showing the configured value
+  by default when adding a new issue, so something is still
+  missing.
+disposition: fixed
+id: 27133c568a8eabee743d805d6b33265aef297161
+log_events:
+- - 2015-01-13 12:24:27.311935 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - |-
+    This should be quick and easy, so there is no reason
+    not to do this out of the way.
+- - 2015-01-13 13:36:47.841148 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - changed status from unstarted to in_progress
+  - ''
+- - 2015-01-13 14:08:38.071849 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Superficially it looks like everything is ok
+    and the settings is used. Maybe the code
+    loading it to the form is doing something
+    wrong.
+    Anyway this must be checked with access to the UI
+    and not over the terminal :)
+- - 2015-01-13 18:08:06.032164 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Ok, done. The setting was used everywhere on
+    SettingsDialog, but it wasn't used in IssueDialog.
+    Now it is.
+references: []
+release: v0.2
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+title: Use of default issue type setting
+type: :bugfix

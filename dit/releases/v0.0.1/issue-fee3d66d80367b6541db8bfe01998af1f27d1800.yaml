@@ -1,0 +1,25 @@
+--- !dit.random.org,2008-03-06/issue 
+title: Remove default data values from the Qt Creator windows
+desc: |-
+  The default data makes designing forms look better, but it
+  makes the generated files look bad.
+  Remove the hardcoded data.
+type: :task
+component: dit-gui
+release: v0.0.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :closed
+disposition: :fixed
+creation_time: 2014-10-09 19:08:49.351376 Z
+references: []
+
+id: fee3d66d80367b6541db8bfe01998af1f27d1800
+log_events: 
+- - 2014-10-09 19:08:50.343162 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ""
+- - 2014-10-09 19:54:53.808755 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - ""

@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Ditz-gui
+Dit GUI
 
-A GUI frontend for Ditz issue tracker
+A GUI frontend for Dit issue tracker
 """
 
 import datetime
@@ -12,7 +12,7 @@ import datetime
 import yaml
 
 from yamlconfig import YamlConfig
-from common.items import DitzRelease
+from common.items import DitRelease
 from common.errors import ApplicationError
 from common.utils import fileutils
 from common import constants
@@ -22,15 +22,15 @@ MOVE_DOWN = 1
 
 class ConfigControl(object):
     """
-    Ditz and ditz-gui configuration settings provider
+    Dit and dit-gui configuration settings provider
     """
     def __init__(self):
         """
         Initialize.
         """
-        self.ditzconfig = DitzConfigModel()
+        self.ditconfig = DitConfigModel()
         self.appconfig = AppConfigModel()
-        self.projectconfig = DitzProjectModel()
+        self.projectconfig = DitProjectModel()
 
         YamlConfig.add_representers()
 
@@ -40,30 +40,30 @@ class ConfigControl(object):
 
         Raises ApplicationError on failure.
         """
-        if self.ditzconfig.read_config_file() is False:
-            raise ApplicationError("Reading ditz configuration file failed")
-        self.appconfig.project_root = self.ditzconfig.project_root
+        if self.ditconfig.read_config_file() is False:
+            raise ApplicationError("Reading dit configuration file failed")
+        self.appconfig.project_root = self.ditconfig.project_root
         if self.appconfig.read_config_file() is False:
             # using default settings
             pass
-        project_file = '{}/{}/{}'.format(self.ditzconfig.project_root,
-                self.ditzconfig.settings.issue_dir, 'project.yaml')
+        project_file = '{}/{}/{}'.format(self.ditconfig.project_root,
+                self.ditconfig.settings.issue_dir, 'project.yaml')
         self.projectconfig.project_file = project_file
         if self.projectconfig.read_config_file() is False:
             raise ApplicationError("Reading project configuration file failed")
 
-    def get_ditz_configs(self):
+    def get_dit_configs(self):
         """
-        Return a list of all .ditz-config settings.
+        Return a list of all .dit-config settings.
 
         Returns:
-        - DitzConfigYaml object containing all settings
+        - DitConfigYaml object containing all settings
         """
-        return self.ditzconfig.settings
+        return self.ditconfig.settings
 
     def get_app_configs(self):
         """
-        Return a list of all .ditz-gui-config settings.
+        Return a list of all .dit-gui-config settings.
 
         Returns:
         - AppConfigYaml object containing all settings
@@ -77,7 +77,7 @@ class ConfigControl(object):
         Returns:
         - absolute path to project files
         """
-        return self.ditzconfig.project_root
+        return self.ditconfig.project_root
 
     def get_project_name(self):
         """
@@ -94,7 +94,7 @@ class ConfigControl(object):
 
         Parameters:
         - status: (optional) release status of releases to list, by default all releases are listed
-        - names_only: (optional) list DitzReleases or just release names
+        - names_only: (optional) list DitReleases or just release names
 
         Returns:
         - list of unreleased releases
@@ -126,7 +126,7 @@ class ConfigControl(object):
         Return:
         - list of component names
         """
-        return ['ditz-gui', 'ditz-cli']
+        return ['dit-gui', 'dit-cli']
 
     def get_valid_release_states(self):
         """
@@ -145,7 +145,7 @@ class ConfigControl(object):
         - default creator
         """
         try:
-            settings = self.get_ditz_configs()
+            settings = self.get_dit_configs()
             creator = '{} <{}>'.format(settings.name, settings.email)
         except KeyError:
             return ''
@@ -158,25 +158,25 @@ class ConfigControl(object):
         Parameters:
         - absolute path to project files
         """
-        self.ditzconfig.project_root = project_root
+        self.ditconfig.project_root = project_root
 
 
-class DitzConfigModel:
+class DitConfigModel:
     """
-    Ditz configuration file settings provider.
+    Dit configuration file settings provider.
     """
     def __init__(self):
-        self.ditz_config_file = ".ditz-config"
+        self.dit_config_file = ".dit-config"
         self.project_root = None
 
-        # Ditz settings from config file
+        # Dit settings from config file
         self.settings = None
 
-        self.find_ditz_config()
+        self.find_dit_config()
 
-    def find_ditz_config(self, path="."):
+    def find_dit_config(self, path="."):
         """
-        Find ditz configuration file from path toward the root.
+        Find dit configuration file from path toward the root.
 
         This path is also the project root directory.
 
@@ -184,39 +184,39 @@ class DitzConfigModel:
         - ApplicationError
         """
         try:
-            path = fileutils.find_file_along_path(self.ditz_config_file, path)
+            path = fileutils.find_file_along_path(self.dit_config_file, path)
         except Exception:
-            raise ApplicationError("Can't find ditz root directory")
+            raise ApplicationError("Can't find dit root directory")
         self.project_root = path
         return path
 
     def read_config_file(self):
         """
-        Read settings from ditz config file.
-        Cache the settings in self.settings (a DitzConfigYaml object).
+        Read settings from dit config file.
+        Cache the settings in self.settings (a DitConfigYaml object).
 
         Returns:
         - True if config file was read successfully
         - False on error, default values set for settings
         """
-        config_file = "{}/{}".format(self.project_root, self.ditz_config_file)
+        config_file = "{}/{}".format(self.project_root, self.dit_config_file)
         try:
             with open(config_file, 'r') as stream:
                 self.settings = yaml.load(stream)
         except Exception:
-            self.settings = DitzConfigYaml("", "", "")
+            self.settings = DitConfigYaml("", "", "")
             return False
         return True
 
     def write_config_file(self):
         """
-        Write settings from memory to ditz config file.
+        Write settings from memory to dit config file.
 
         Returns:
         - True on success
         - False on any failure
         """
-        config_file = "{}/{}".format(self.project_root, self.ditz_config_file)
+        config_file = "{}/{}".format(self.project_root, self.dit_config_file)
         try:
             with open(config_file, 'w') as stream:
                 yaml_data = yaml.dump(self.settings, default_flow_style=False)
@@ -226,15 +226,15 @@ class DitzConfigModel:
         return True
 
 
-class DitzConfigYaml(yaml.YAMLObject):
+class DitConfigYaml(yaml.YAMLObject):
 
-    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/config'
+    yaml_tag = u'!dit.random.org,2008-03-06/config'
 
     def __init__(self, name, email, issue_dir):
         self.name = name
         self.email = email
         self.issue_dir = issue_dir
-        super(DitzConfigYaml, self).__init__()
+        super(DitConfigYaml, self).__init__()
 
     def __repr__(self):
         return "%s (name=%r, email=%r, issue_dir=%r)" % (self.__class__.__name__,
@@ -251,7 +251,7 @@ class AppConfigModel:
         """
         self.settings = None
         self.project_root = None
-        self.app_config_file = '.ditz-gui-config'
+        self.app_config_file = '.dit-gui-config'
 
     def read_config_file(self):
         """
@@ -276,7 +276,7 @@ class AppConfigModel:
 
     def write_config_file(self):
         """
-        Write settings from memory to ditz config file.
+        Write settings from memory to dit config file.
 
         Returns:
         - True on success
@@ -326,7 +326,7 @@ class AppConfigModel:
 
 class AppConfigYaml(yaml.YAMLObject):
 
-    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/guiconfig'
+    yaml_tag = u'!dit.random.org,2008-03-06/guiconfig'
 
     def __init__(self, window_size, remember_window_size, default_issue_type,
             issue_types, issue_dispositions):
@@ -344,13 +344,13 @@ class AppConfigYaml(yaml.YAMLObject):
                 self.default_issue_type, self.issue_types, self.issue_dispositions)
 
 
-class DitzProjectModel:
+class DitProjectModel:
     """
-    Ditz project file content provider.
+    Dit project file content provider.
     """
     def __init__(self, project_file=None):
         """
-        Initialize DitzProjectModel.
+        Initialize DitProjectModel.
         """
         self.project_file = project_file
         self.project_data = None
@@ -405,17 +405,17 @@ class DitzProjectModel:
 
     def get_releases(self, status=None, names_only=False):
         """
-        Read releases from Ditz project.yaml file.
+        Read releases from Dit project.yaml file.
         Config file must be read first, or the settings set by other means,
         so we can know where the file can be found. If project file is not
         read, then it is read first, if the path to the project root is known.
 
         Parameters:
         - status: (optional) release status of releases to list, by default all releases are listed
-        - names_only: (optional) list DitzReleases or just release names
+        - names_only: (optional) list DitReleases or just release names
 
         Returns:
-        - list of DitzRelease objects or release names
+        - list of DitRelease objects or release names
         """
         if self.project_file is None:
             return None
@@ -437,7 +437,7 @@ class DitzProjectModel:
             releases = []
             for rel in releases_data:
                 status = self._release_status_to_string(rel['status'])
-                release = DitzRelease(rel['name'], 'Release', status,
+                release = DitRelease(rel['name'], 'Release', status,
                     rel['release_time'], rel['log_events'])
                 releases.append(release)
 
@@ -448,10 +448,10 @@ class DitzProjectModel:
         Add or update information of a release to project.
 
         Parameters:
-        - release: a DitzRelease to update
+        - release: a DitRelease to update
         - old_name: (optional) old name of the release being updated
         """
-        if not isinstance(release, DitzRelease):
+        if not isinstance(release, DitRelease):
             return False
         if not isinstance(release.title, str):
             return False
@@ -480,7 +480,7 @@ class DitzProjectModel:
             release_data['log_events'] = release.log
         else:
             status = self._string_to_release_status(release.status)
-            release_yaml = DitzReleaseYaml(release.title, status,
+            release_yaml = DitReleaseYaml(release.title, status,
                     release.release_time_as_string(), release.log)
             self.project_data.releases.append(release_yaml)
         return True
@@ -490,7 +490,7 @@ class DitzProjectModel:
         Release a release.
 
         Parameters:
-        - release: release (a DitzRelease) to release
+        - release: release (a DitRelease) to release
         """
         if release is None:
             return False
@@ -598,16 +598,16 @@ class DitzProjectModel:
         return None
 
 
-class DitzProjectYaml(yaml.YAMLObject):
+class DitProjectYaml(yaml.YAMLObject):
 
-    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/project'
+    yaml_tag = u'!dit.random.org,2008-03-06/project'
 
     def __init__(self, name, releases, components, version):
         self.name = name
         self.releases = releases
         self.components = components
         self.version = version
-        super(DitzProjectYaml, self).__init__()
+        super(DitProjectYaml, self).__init__()
 
     def __repr__(self):
         return "%s (name=%r, releases=%r, components=%r, version=%r)" % (
@@ -620,29 +620,29 @@ class DitzProjectYaml(yaml.YAMLObject):
     #def __setitem__(self, key, item):
     #    eval("self.{} = item".format(key))
 
-class DitzComponentYaml(yaml.YAMLObject):
+class DitComponentYaml(yaml.YAMLObject):
 
-    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/component'
+    yaml_tag = u'!dit.random.org,2008-03-06/component'
 
     def __init__(self, name):
         self.name = name
-        super(DitzComponentYaml, self).__init__()
+        super(DitComponentYaml, self).__init__()
 
     def __repr__(self):
         return "%s (name=%r)" % (
                 self.__class__.__name__, self.name)
 
 
-class DitzReleaseYaml(yaml.YAMLObject):
+class DitReleaseYaml(yaml.YAMLObject):
 
-    yaml_tag = u'!ditz.rubyforge.org,2008-03-06/release'
+    yaml_tag = u'!dit.random.org,2008-03-06/release'
 
     def __init__(self, name, status, release_time, log):
         self.name = name
         self.status = status
         self.release_time = release_time
         self.log_events = log
-        super(DitzReleaseYaml, self).__init__()
+        super(DitReleaseYaml, self).__init__()
 
     def __repr__(self):
         return "%s (name=%r, status=%r, release_time=%r)" % (

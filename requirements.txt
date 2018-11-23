@@ -1,0 +1,13 @@
+# Requirements for Dit
+
+# Common requirements
+python-dateutil >= 2.6
+PyYAML >= 3.12
+pick >= 0.6.4
+
+# Requirements for Dit GUI
+pyqt5 >= 5
+
+# Requirements for unit tests
+unittest2 >= 1.1
+python-mock >= 2

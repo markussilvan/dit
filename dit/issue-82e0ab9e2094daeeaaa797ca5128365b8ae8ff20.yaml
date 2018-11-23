@@ -12,9 +12,20 @@ log_events:
   - Markus Silvan <markus.silvan@iki.fi>
   - created
   - ''
+- - 2018-11-23 14:39:45.605287 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - commented
+  - |-
+    Initial requirements.txt file has been added.
+    No idea if it really works or not.
+    Find a way to test it.
+- - 2018-11-23 14:40:16.709296 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - ''
 references: []
 release: null
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :unstarted
+status: :in_progress
 title: Add requirements.txt to the project
 type: :task

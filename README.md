@@ -26,7 +26,7 @@ enough, so that the program itself can be used as the issue tracker.
 ### List of Tools
 
  - Python 3.3
- - PyQt 4.7
+ - PyQt 5.x
  - python-unittest (aka PyUnit)
  - python-yaml
  - python-dateutil
@@ -59,8 +59,8 @@ Here is an example configuration file.
 
 ## Installation on Windows
 
-  - Install python 2.7 (preferably 32-bit)
-  - Install PyQt 4.7 (preferably 32-bit)
+  - Install python 3.3 (preferably 32-bit)
+  - Install PyQt 5.x (preferably 32-bit)
   - Run `pip install python-dateutil`
   - Run `pip install pyyaml`
   - Run `pip install mock`

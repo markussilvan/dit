@@ -1,0 +1,20 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-gui
+creation_time: 2018-11-22 19:50:20.097055 Z
+desc: |-
+  Current YAML tags have the old date from ditz tags.
+  Change the dates in code, configuration files and on all tickets
+  to 22.11.2018.
+disposition: ''
+id: cff89718e4a78945b0431179987da98e85224471
+log_events:
+- - 2018-11-22 19:50:25.907957 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :unstarted
+title: Update YAML tags
+type: :task

@@ -25,7 +25,7 @@ enough, so that the program itself can be used as the issue tracker.
 
 ### List of Tools
 
- - Python 3.3
+ - Python 3.4
  - PyQt 5.x
  - python-unittest (aka PyUnit)
  - python-yaml
@@ -59,7 +59,7 @@ Here is an example configuration file.
 
 ## Installation on Windows
 
-  - Install python 3.3 (preferably 32-bit)
+  - Install python 3.4 (preferably 32-bit)
   - Install PyQt 5.x (preferably 32-bit)
   - Run `pip install python-dateutil`
   - Run `pip install pyyaml`
@@ -68,7 +68,7 @@ Here is an example configuration file.
 
 ## Unit Tests
 
-Test code is located in `dgui/tests/`. Each test set can be run
+Test code is located in `dit/tests/`. Each test set can be run
 separately or one script can be used to run all tests. This
 script can be found in `scripts/` directory.
 

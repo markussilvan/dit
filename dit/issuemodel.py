@@ -20,8 +20,8 @@ class IssueModel(object):
         """
         Initialize new IssueModel
         """
-        self.issue_dir = "../dit"          #TODO: hardcoded paths and names (do like ConfigControl does)
-        self.issue_prefix = "issue-"        # check where else these are hardcoded and fix with a common solution
+        self.issue_dir = "../issues"        #TODO: get issue directory from config
+        self.issue_prefix = "issue-"        # ALSO CHECK OTHER PLACES FOR HARDCODED STRINGS!
 
     def read_issue_yaml(self, identifier):
         """

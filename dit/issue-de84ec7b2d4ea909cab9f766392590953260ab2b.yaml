@@ -8,7 +8,7 @@ desc: |-
   Implementation should be fairly easy, and
   stuff from playground can be used to get
   started.
-disposition: ''
+disposition: fixed
 id: de84ec7b2d4ea909cab9f766392590953260ab2b
 log_events:
 - - 2015-10-22 15:09:12.337717 Z
@@ -51,9 +51,15 @@ log_events:
     Currently the plan is not to add some release handling related functionality
     to the CLI at all. And first just finish and even polish all issue related
     features.
+- - 2018-11-29 13:49:38.130715 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - closed with disposition fixed
+  - |-
+    Basic functionality of dit-cli has been implemented.
+    Further development can be handled in separate tickets.
 references: []
 release: v0.2.1
 reporter: Markus Silvan <markus.silvan@iki.fi>
-status: :in_progress
+status: :closed
 title: Implement CLI interface
 type: :feature

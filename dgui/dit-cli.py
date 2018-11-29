@@ -11,6 +11,7 @@ import sys
 import getopt
 import textwrap
 import datetime
+from enum import Enum
 
 from pick import pick
 
@@ -21,12 +22,40 @@ from ditcontrol import DitControl
 from config import ConfigControl
 from cli.completer import Completer
 
+class DitCommands:
+    """A helper class for parsing command line commands and their parameters"""
+    class CommandEnum(Enum):
+        ADD = 'add'
+        ASSIGN = 'assign'
+        CLOSE = 'close'
+        COMMENT = 'comment'
+        LIST = 'list'
+        LIST_IDS = 'list_ids'
+        REMOVE = 'remove'
+        SHOW = 'show'
+        START = 'start'
+        STOP = 'stop'
+
+    def __init__(self):
+        self.commands_with_issue_param = [self.CommandEnum.ASSIGN.value,
+                                          self.CommandEnum.CLOSE.value,
+                                          self.CommandEnum.COMMENT.value,
+                                          self.CommandEnum.REMOVE.value,
+                                          self.CommandEnum.SHOW.value,
+                                          self.CommandEnum.START.value,
+                                          self.CommandEnum.STOP.value]
+        self.commands_with_no_params = [self.CommandEnum.ADD.value,
+                                        self.CommandEnum.LIST.value,
+                                        self.CommandEnum.LIST_IDS.value]
+        self.commands_all = self.commands_with_issue_param + self.commands_with_no_params
+
 class Status:
     """A simple class to encapsulate error codes."""
     OK, \
     GETOPT_ERROR, \
     DB_ERROR, \
-    INVALID_ARGUMENTS = range(4)
+    INTERNAL_ERROR, \
+    INVALID_ARGUMENTS = range(5)
     def __init__(self):
         pass
 
@@ -346,6 +375,7 @@ class DitCli:
         """Print help for accepted command line arguments."""
         print("Commands:")
         print(" add       : add new issue")
+        print(" assign    : assign issue to a release")
         print(" close     : close an issue")
         print(" comment   : add a comment to an issue")
         print(" list      : list state and titles of all issues in database")
@@ -376,13 +406,14 @@ class DitCli:
         # process command line arguments here
         if not args:
             print("No command issued.")
+            self.usage()
             return Status.INVALID_ARGUMENTS
 
         # validate command
-        if args[0] in ['add', 'assign', 'close', 'comment', 'list', 'list_ids',
-                       'remove', 'show', 'start', 'stop']:
+        commands = DitCommands()
+        if args[0] in commands.commands_all:
             self.command = args[0]
-            if self.command in ['assign', 'close', 'comment', 'remove', 'show', 'start', 'stop']:
+            if self.command in commands.commands_with_issue_param:
                 if len(args) == 1:
                     issue_names = []
                     for item in self.dit.get_items():
@@ -394,13 +425,40 @@ class DitCli:
                 elif len(args) > 2:
                     print("Too many arguments given.")
                     return Status.INVALID_ARGUMENTS
-            else:
+            elif self.command in commands.commands_with_no_params:
                 self.issue_name = None
+            else:
+                return Status.INTERNAL_ERROR
         else:
             print("Invalid command issued.")
             return Status.INVALID_ARGUMENTS
 
         # parsing options and arguments succeeded
+        return Status.OK
+
+    def run(self):
+        """Run Dit"""
+        if self.command == 'add':
+            self.add_issue()
+        if self.command == 'assign':
+            self.assign_issue(self.issue_name)
+        elif self.command == 'close':
+            self.close_issue(self.issue_name)
+        elif self.command == 'comment':
+            self.comment_issue(self.issue_name)
+        elif self.command == 'list':
+            self.list_items()
+        elif self.command == 'list_ids':
+            self.list_issue_ids()
+        elif self.command == 'remove':
+            self.remove_issue(self.issue_name)
+        elif self.command == 'show':
+            self.show_issue(self.issue_name)
+        elif self.command == 'start':
+            self.start_work(self.issue_name)
+        elif self.command == 'stop':
+            self.stop_work(self.issue_name)
+
         return Status.OK
 
 
@@ -410,27 +468,8 @@ def main(argv):
     err = dit_cli.parse_options(argv)
     if err:
         return err
-    if dit_cli.command == 'add':
-        dit_cli.add_issue()
-    if dit_cli.command == 'assign':
-        dit_cli.assign_issue(dit_cli.issue_name)
-    elif dit_cli.command == 'close':
-        dit_cli.close_issue(dit_cli.issue_name)
-    elif dit_cli.command == 'comment':
-        dit_cli.comment_issue(dit_cli.issue_name)
-    elif dit_cli.command == 'list':
-        dit_cli.list_items()
-    elif dit_cli.command == 'list_ids':
-        dit_cli.list_issue_ids()
-    elif dit_cli.command == 'remove':
-        dit_cli.remove_issue(dit_cli.issue_name)
-    elif dit_cli.command == 'show':
-        dit_cli.show_issue(dit_cli.issue_name)
-    elif dit_cli.command == 'start':
-        dit_cli.start_work(dit_cli.issue_name)
-    elif dit_cli.command == 'stop':
-        dit_cli.stop_work(dit_cli.issue_name)
-    return Status.OK
+    return dit_cli.run()
+
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))

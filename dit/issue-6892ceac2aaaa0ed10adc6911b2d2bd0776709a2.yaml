@@ -1,0 +1,30 @@
+--- !dit.random.org,2008-03-06/issue
+component: dit-cli
+creation_time: 2018-11-29 13:47:57.475240 Z
+desc: |-
+  Dit should be able to find the project root from any of it's subdirectories.
+  Currently, for some reason, it doesn't work from the project root, or
+  any deeper level subdirectories, except `dgui` subdirectory.
+  In other directories it just prints a list of releases, but can't read any issues.
+  Why is that?
+disposition: ''
+id: 6892ceac2aaaa0ed10adc6911b2d2bd0776709a2
+log_events:
+- - 2018-11-29 13:48:03.821402 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - created
+  - ''
+- - 2018-11-29 13:52:03.810426 Z
+  - Markus Silvan <markus.silvan@iki.fi>
+  - status changed from unstarted to in progress
+  - |-
+    This is important as dit-cli might not work at all
+    for other projects than Dit itself with this issue.
+
+    This might be regression or only related to dit-cli.
+references: []
+release: v0.2.1
+reporter: Markus Silvan <markus.silvan@iki.fi>
+status: :in_progress
+title: Why dit only works from `<project_root>/dit/` directory?
+type: :bugfix

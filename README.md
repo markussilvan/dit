@@ -80,3 +80,11 @@ A known, constant set of files is used to provide data to the
 components being tested. Verifying known data values is then
 hardcoded in the testing scripts.
 
+## Docker image
+
+  1. Docker image can be built from the _Dockerfile_ with simply
+     `docker build -t "dit:dockerfile" .`
+  2. List all Docker containers with `docker ps --all`.
+  3. List all Docker images with `docker images`.
+  4. Create container from the docker image with
+     `docker create -it dit:dockerfile`.

@@ -10,4 +10,4 @@ pyqt5 >= 5
 
 # Requirements for unit tests
 unittest2 >= 1.1
-python-mock >= 2
+mock >= 2.0.0

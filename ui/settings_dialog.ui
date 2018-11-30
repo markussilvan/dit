@@ -23,9 +23,9 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tabDitz">
+     <widget class="QWidget" name="tabDit">
       <attribute name="title">
-       <string>Ditz</string>
+       <string>Dit</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">

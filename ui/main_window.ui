@@ -17,12 +17,12 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Ditz GUI</string>
+   <string>Dit GUI</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QListWidget" name="listWidgetDitzItems">
+     <widget class="QListWidget" name="listWidgetDitItems">
       <property name="font">
        <font>
         <family>Monospace</family>
@@ -41,7 +41,7 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QTextEdit" name="textEditDitzItem">
+     <widget class="QTextEdit" name="textEditDitItem">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -74,9 +74,9 @@ p, li { white-space: pre-wrap; }
      <height>29</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuDitz">
+   <widget class="QMenu" name="menuDit">
     <property name="title">
-     <string>Ditz</string>
+     <string>Dit</string>
     </property>
     <addaction name="actionReload"/>
     <addaction name="actionSettings"/>
@@ -87,7 +87,7 @@ p, li { white-space: pre-wrap; }
      <string>About</string>
     </property>
    </widget>
-   <addaction name="menuDitz"/>
+   <addaction name="menuDit"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -143,8 +143,8 @@ p, li { white-space: pre-wrap; }
   </action>
  </widget>
  <tabstops>
-  <tabstop>listWidgetDitzItems</tabstop>
-  <tabstop>textEditDitzItem</tabstop>
+  <tabstop>listWidgetDitItems</tabstop>
+  <tabstop>textEditDitItem</tabstop>
  </tabstops>
  <resources/>
  <connections/>

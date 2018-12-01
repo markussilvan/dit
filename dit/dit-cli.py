@@ -93,7 +93,6 @@ class DitCli:
                 sys.exit(1)
 
         self.dit = DitControl(self.config)
-        self.dit.reload_cache() #TODO: needed?
 
     def get_user_input(self, prompt):
         value = input(prompt)

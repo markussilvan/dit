@@ -16,12 +16,12 @@ class IssueModel(object):
     """
     Class to read and write issue YAML files
     """
-    def __init__(self):
+    def __init__(self, issue_dir):
         """
         Initialize new IssueModel
         """
-        self.issue_dir = "../issues"        #TODO: get issue directory from config
-        self.issue_prefix = "issue-"        # ALSO CHECK OTHER PLACES FOR HARDCODED STRINGS!
+        self.issue_dir = issue_dir
+        self.issue_prefix = "issue-"
 
     def read_issue_yaml(self, identifier):
         """

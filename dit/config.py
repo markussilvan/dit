@@ -101,6 +101,12 @@ class ConfigControl(object):
         """
         return self.projectconfig.get_releases(status, names_only)
 
+    def get_issue_directory(self):
+        """
+        Get absolute path to issues.
+        """
+        return "{}/{}".format(self.appconfig.project_root, self.ditconfig.settings.issue_dir)
+
     def get_valid_issue_types(self):
         """
         Get a list of valid types of issues.

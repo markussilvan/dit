@@ -30,12 +30,11 @@ class DitControl(object):
         Parameters:
         - config: ConfigControl object containing valid configuration values
         """
-        self.dit_cmd = "dit"
-        self.issuemodel = IssueModel()
-        self.item_cache = ItemCache()
         if not isinstance(config, ConfigControl):
             raise ApplicationError('Construction failed due to invalid config parameter')
         self.config = config
+        self.issuemodel = IssueModel(self.config.get_issue_directory())
+        self.item_cache = ItemCache()
         self.reload_cache()
 
     def reload_cache(self):

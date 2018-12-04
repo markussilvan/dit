@@ -29,6 +29,7 @@ class DitCommands:
         ASSIGN = 'assign'
         CLOSE = 'close'
         COMMENT = 'comment'
+        INIT = 'init'
         LIST = 'list'
         LIST_IDS = 'list_ids'
         REMOVE = 'remove'
@@ -45,6 +46,7 @@ class DitCommands:
                                           self.CommandEnum.START.value,
                                           self.CommandEnum.STOP.value]
         self.commands_with_no_params = [self.CommandEnum.ADD.value,
+                                        self.CommandEnum.INIT.value,
                                         self.CommandEnum.LIST.value,
                                         self.CommandEnum.LIST_IDS.value]
         self.commands_all = self.commands_with_issue_param + self.commands_with_no_params
@@ -63,6 +65,7 @@ class DitCli:
     """Simple Dit command line client"""
 
     def __init__(self):
+        self.commands = DitCommands()
         self.command = None
         self.issue_name = None
 
@@ -370,6 +373,11 @@ class DitCli:
         except (DitError, ApplicationError) as e:
             print("Error removing issue: {}".format(e.error_message))
 
+    def init_dit(self):
+        """Initialize new Dit project in the current directory"""
+        print("NOT IMPLEMENTED")
+        sys.exit(1)
+
     def usage(self):
         """Print help for accepted command line arguments."""
         print("Commands:")
@@ -409,10 +417,9 @@ class DitCli:
             return Status.INVALID_ARGUMENTS
 
         # validate command
-        commands = DitCommands()
-        if args[0] in commands.commands_all:
+        if args[0] in self.commands.commands_all:
             self.command = args[0]
-            if self.command in commands.commands_with_issue_param:
+            if self.command in self.commands.commands_with_issue_param:
                 if len(args) == 1:
                     issue_names = []
                     for item in self.dit.get_items():
@@ -424,7 +431,7 @@ class DitCli:
                 elif len(args) > 2:
                     print("Too many arguments given.")
                     return Status.INVALID_ARGUMENTS
-            elif self.command in commands.commands_with_no_params:
+            elif self.command in self.commands.commands_with_no_params:
                 self.issue_name = None
             else:
                 return Status.INTERNAL_ERROR
@@ -437,25 +444,27 @@ class DitCli:
 
     def run(self):
         """Run Dit"""
-        if self.command == 'add':
+        if self.command == self.commands.CommandEnum.ADD.value:
             self.add_issue()
-        if self.command == 'assign':
+        elif self.command == self.commands.CommandEnum.ASSIGN.value:
             self.assign_issue(self.issue_name)
-        elif self.command == 'close':
+        elif self.command == self.commands.CommandEnum.CLOSE.value:
             self.close_issue(self.issue_name)
-        elif self.command == 'comment':
+        elif self.command == self.commands.CommandEnum.COMMENT.value:
             self.comment_issue(self.issue_name)
-        elif self.command == 'list':
+        elif self.command == self.commands.CommandEnum.INIT.value:
+            self.init_dit()
+        elif self.command == self.commands.CommandEnum.LIST.value:
             self.list_items()
-        elif self.command == 'list_ids':
+        elif self.command == self.commands.CommandEnum.LIST_IDS.value:
             self.list_issue_ids()
-        elif self.command == 'remove':
+        elif self.command == self.commands.CommandEnum.REMOVE.value:
             self.remove_issue(self.issue_name)
-        elif self.command == 'show':
+        elif self.command == self.commands.CommandEnum.SHOW.value:
             self.show_issue(self.issue_name)
-        elif self.command == 'start':
+        elif self.command == self.commands.CommandEnum.START.value:
             self.start_work(self.issue_name)
-        elif self.command == 'stop':
+        elif self.command == self.commands.CommandEnum.STOP.value:
             self.stop_work(self.issue_name)
 
         return Status.OK

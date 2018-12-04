@@ -27,3 +27,5 @@ COPY issues /home/app/issues
 COPY virtual/update_source_from_external.sh /home/app
 
 WORKDIR /home/app/
+
+RUN ln -s /home/app/dit/dit-cli.py /bin/dit

@@ -7,6 +7,8 @@ Dit GUI
 A GUI frontend for Dit issue tracker
 """
 
+import os
+import errno
 import datetime
 
 import yaml
@@ -40,12 +42,16 @@ class ConfigControl(object):
 
         Raises ApplicationError on failure.
         """
+        self.ditconfig.find_config_file()
+
         if self.ditconfig.read_config_file() is False:
             raise ApplicationError("Reading dit configuration file failed")
         self.appconfig.project_root = self.ditconfig.project_root
+
         if self.appconfig.read_config_file() is False:
             # using default settings
             pass
+
         project_file = '{}/{}/{}'.format(self.ditconfig.project_root,
                 self.ditconfig.settings.issue_dir, 'project.yaml')
         self.projectconfig.project_file = project_file
@@ -173,14 +179,12 @@ class DitConfigModel:
     """
     def __init__(self):
         self.dit_config_file = ".dit-config"
-        self.project_root = None
+        self.project_root = "."
 
         # Dit settings from config file
-        self.settings = None
+        self.settings = DitConfigYaml("", "", "")
 
-        self.find_dit_config()
-
-    def find_dit_config(self, path="."):
+    def find_config_file(self, path="."):
         """
         Find dit configuration file from path toward the root.
 
@@ -359,7 +363,7 @@ class DitProjectModel:
         Initialize DitProjectModel.
         """
         self.project_file = project_file
-        self.project_data = None
+        self.project_data = DitProjectYaml("", [], [], "0.5")
 
     def read_config_file(self):
         """
@@ -388,6 +392,14 @@ class DitProjectModel:
         """
         if self.project_file is None or self.project_data is None:
             return False
+
+        try:
+            project_dir = os.path.dirname(self.project_file)
+            os.makedirs(project_dir)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                #raise ApplicationError("Creating issue directory failed")
+                return False
         try:
             with open(self.project_file, 'w') as stream:
                 yaml_data = yaml.dump(self.project_data, default_flow_style=False)

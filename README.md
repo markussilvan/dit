@@ -61,10 +61,7 @@ Here is an example configuration file.
 
   - Install python 3.4 (preferably 32-bit)
   - Install PyQt 5.x (preferably 32-bit)
-  - Run `pip install python-dateutil`
-  - Run `pip install pyyaml`
-  - Run `pip install mock`
-
+  - Install library dependencies `pip3 install -r requirements.txt`
 
 ## Unit Tests
 
@@ -80,15 +77,20 @@ A known, constant set of files is used to provide data to the
 components being tested. Verifying known data values is then
 hardcoded in the testing scripts.
 
-## Docker image
+## Integration tests
+
+Integration test run some simple tests using the Dit CLI interface.
+These tests should be run inside the Docker image with known set
+of test data.
+
+Run integration tests with `run_tests.sh`.
+
+## Docker testing image
 
   1. Docker image can be built from the _Dockerfile_ with simply
      `docker build --network host -t "dit:latest" .`
   2. List all Docker containers with `docker ps --all`.
   3. List all Docker images with `docker images`.
-  4. Create container from the docker image with
-     `docker create -it dit:latest`.
-  5. Start created container with `docker start -i <hash>`
-  6. Or create and start the container with one command.
+  4. Create and start the container with one command
      `docker run -ti -v /home/mape/workarea/dit/dit/:/home/external/dit/ dit:latest`
-  7. Or use `./scripts/run_docker.sh` to start the container.
+     or use `./scripts/run_docker.sh` to do the same.

@@ -58,8 +58,10 @@ class Status:
     DB_ERROR, \
     INTERNAL_ERROR, \
     INVALID_ARGUMENTS = range(5)
+
     def __init__(self):
         pass
+
 
 class DitCli:
     """Simple Dit command line client"""
@@ -68,32 +70,32 @@ class DitCli:
         self.commands = DitCommands()
         self.command = None
         self.issue_name = None
+        self.config = ConfigControl()
 
-        try:
-            self.config = ConfigControl()
-        except ApplicationError as e:
-            message = "{}.\n{}\n{}".format(e.error_message,
-                    "Run 'dit init' first to initialize or",
-                    "start Dit GUI in any subdirectory of\nan initialized Dit project.")
-            print("Dit not initialized")
-            print(message)
-            sys.exit(1)
+    def load_configs(self):
+        #try:
+        #    self.config.load_configs()
+        #except ApplicationError as e:
+        #    message = "{}.\n{}\n{}".format(e.error_message,
+        #            "Run 'dit init' first to initialize or",
+        #            "start Dit GUI in any subdirectory of\nan initialized Dit project.")
+        #    print("Dit not initialized")
+        #    print(message)
+        #    sys.exit(1)
 
         try:
             self.config.load_configs()
         except ApplicationError as e:
             if e.error_message == "Dit config not found":
                 message = "{}\n{}".format(e.error_message,
-                        "Go to settings to configure before using")
-                print("Configuration error")
+                        "Use 'dit init' to initialize.")
                 print(e.error_message)
             elif e.error_message == "Project file not found":
                 print("Fatal configuration error")
                 print(e.error_message)
-                sys.exit(1)
             else:
                 print(e.error_message)
-                sys.exit(1)
+            sys.exit(1)
 
         self.dit = DitControl(self.config)
 
@@ -138,6 +140,41 @@ class DitCli:
         option, index = pick(options, prompt)
         print(prompt + option)
         return index
+
+    def init_dit(self):
+        """Initialize new Dit project in the current directory"""
+        print("OH, THE HORRORS")
+
+        #TODO: move this function to ConfigControl?
+        #TODO: improve error handling
+        #TODO: check that GUI still works (it may need some changes I have forgotten already)
+
+        default_issue_dir = 'issues'
+        name = self.get_user_input("Name: ")
+        email = self.get_user_input("Email: ")
+        issue_dir = self.get_user_input("Issue directory ({}): ".format(default_issue_dir))
+        if not issue_dir:
+            issue_dir = "issues"
+
+        # create dit config file (overwrites, but file shouldn't be there)
+        dit_yaml = self.config.get_dit_configs()
+        dit_yaml.name = name
+        dit_yaml.email = email
+        dit_yaml.issue_dir = issue_dir
+        self.config.ditconfig.write_config_file()
+        if ret is False:
+            print("Writing Dit config file failed")
+            sys.exit(1)
+
+        # create a project file (overwrites existing file, if any)
+        project_file = '{}/{}/{}'.format(self.config.ditconfig.project_root,
+                                         dit_yaml.issue_dir,
+                                         'project.yaml')
+        self.config.projectconfig.project_file = project_file
+        ret = self.config.projectconfig.write_config_file()
+        if ret is False:
+            print("Writing project file failed")
+            sys.exit(1)
 
     def add_issue(self):
         """Add new issue to database.
@@ -373,11 +410,6 @@ class DitCli:
         except (DitError, ApplicationError) as e:
             print("Error removing issue: {}".format(e.error_message))
 
-    def init_dit(self):
-        """Initialize new Dit project in the current directory"""
-        print("NOT IMPLEMENTED")
-        sys.exit(1)
-
     def usage(self):
         """Print help for accepted command line arguments."""
         print("Commands:")
@@ -442,8 +474,8 @@ class DitCli:
         # parsing options and arguments succeeded
         return Status.OK
 
-    def run(self):
-        """Run Dit"""
+    def run_command(self):
+        """Execute a dit command"""
         if self.command == self.commands.CommandEnum.ADD.value:
             self.add_issue()
         elif self.command == self.commands.CommandEnum.ASSIGN.value:
@@ -452,8 +484,7 @@ class DitCli:
             self.close_issue(self.issue_name)
         elif self.command == self.commands.CommandEnum.COMMENT.value:
             self.comment_issue(self.issue_name)
-        elif self.command == self.commands.CommandEnum.INIT.value:
-            self.init_dit()
+        # INIT command is not executed from here
         elif self.command == self.commands.CommandEnum.LIST.value:
             self.list_items()
         elif self.command == self.commands.CommandEnum.LIST_IDS.value:
@@ -476,7 +507,12 @@ def main(argv):
     err = dit_cli.parse_options(argv)
     if err:
         return err
-    return dit_cli.run()
+
+    if dit_cli.command == dit_cli.commands.CommandEnum.INIT.value:
+        return dit_cli.init_dit()
+
+    dit_cli.load_configs()
+    return dit_cli.run_command()
 
 
 if __name__ == '__main__':

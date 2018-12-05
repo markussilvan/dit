@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -112,8 +112,7 @@ class IssueModelTests(unittest.TestCase):
     """Unit tests for IssueModel."""
     def setUp(self):
         self.out = testlib.NullWriter()
-        self.model = issuemodel.IssueModel()
-        self.model.issue_dir = "data/bugs"
+        self.model = issuemodel.IssueModel("data/bugs/")
 
     def test_listening_issue_identifiers(self):
         """List identifiers of issues found"""
@@ -129,7 +128,7 @@ class IssueModelTests(unittest.TestCase):
     def test_generating_identifiers(self):
         """Generate issue identifiers"""
         identifiers = []
-        for _ in xrange(10):
+        for _ in range(10):
             try:
                 identifier = self.model.generate_new_identifier()
             except ApplicationError:

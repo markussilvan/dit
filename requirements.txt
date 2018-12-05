@@ -11,3 +11,4 @@ pyqt5 >= 5
 # Requirements for unit tests
 unittest2 >= 1.1
 mock >= 2.0.0
+xmlrunner >= 1.7

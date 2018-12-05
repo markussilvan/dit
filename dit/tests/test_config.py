@@ -1,4 +1,5 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
+#
 # A dirty unit test for config.py which contains
 # classes to access dit and dit-gui settings
 #
@@ -14,7 +15,7 @@ from datetime import datetime
 import testlib
 import config                                   # pylint: disable=F0401
 from common.errors import ApplicationError      # pylint: disable=F0401
-from common.items import DitRelease            # pylint: disable=F0401
+from common.items import DitRelease             # pylint: disable=F0401
 
 class ConfigRealTests(unittest.TestCase):
     """
@@ -43,13 +44,13 @@ class ConfigRealTests(unittest.TestCase):
         root = self.config.get_project_root()
         self.assertIsNotNone(root)
         self.assertTrue(isinstance(root, str))
-        known_root = os.path.abspath('..')
+        known_root = os.path.abspath('data/bugs')
         self.assertTrue(root, known_root)
 
     def test_project_name(self):
         """Verify project name"""
         name = self.config.get_project_name()
-        self.assertEqual(name, "dit-gui")
+        self.assertEqual(name, "testing_project")
 
     def test_listing_releases(self):
         """Check list of releases"""
@@ -85,7 +86,7 @@ class ConfigMockDataTests(unittest.TestCase):
     def setUp(self):
         self.out = testlib.NullWriter()
         self.config = config.ConfigControl()
-        mock_project_root = os.path.abspath('data/')
+        mock_project_root = os.path.abspath('data/bugs')
         self.config.set_project_root(mock_project_root)
         self.config.load_configs()
 
@@ -94,7 +95,7 @@ class ConfigMockDataTests(unittest.TestCase):
         root = self.config.get_project_root()
         self.assertIsNotNone(root)
         self.assertTrue(isinstance(root, str))
-        mock_project_root = os.path.abspath('data/')
+        mock_project_root = os.path.abspath('data/bugs')
         self.assertTrue(root, mock_project_root)
 
     def test_verify_loading_configs(self):
@@ -193,13 +194,6 @@ class ConfigMockDataTests(unittest.TestCase):
         self.assertIsInstance(appconfig, config.AppConfigModel)
         self.assertTrue(appconfig.write_config_file())
 
-    def test_reading_nonexistent_configs(self):
-        """Set project root to invalid location and try to read config files"""
-        fake_project_root = os.path.abspath(
-                'this/is_not/the_folder/you_are/looking_for')
-        self.config.set_project_root(fake_project_root)
-        self.assertRaises(ApplicationError, self.config.load_configs)
-
     def test_get_valid_issue_states(self):
         """Get valid issue states from AppConfigModel"""
         states = self.config.appconfig.get_valid_issue_states()
@@ -274,7 +268,7 @@ class MockProjectConfigTests(unittest.TestCase):
         self.assertEquals(releases[1].log[0][2], 'created')
 
     def test_get_releases_names_only(self):
-        """Get release names from project file"""
+        """Get release names only from the project file"""
         self.assertTrue(self.pconfig.read_config_file())
         releases = self.pconfig.get_releases(names_only=True)
         self.assertIsInstance(releases, list)
@@ -282,7 +276,7 @@ class MockProjectConfigTests(unittest.TestCase):
         self.assertEquals(releases[1], "lolwut")
 
     def test_get_releases_by_state(self):
-        """Get release names from project file"""
+        """Get releases by state from the project file"""
         self.assertTrue(self.pconfig.read_config_file())
         releases = self.pconfig.get_releases(status='unreleased', names_only=True)
         self.assertIsInstance(releases, list)
@@ -290,7 +284,7 @@ class MockProjectConfigTests(unittest.TestCase):
         self.assertEquals(releases[1], "lolwut")
 
     def test_get_releases_by_unknown_state(self):
-        """Get release names from project file"""
+        """Get releases by unknown state from the project file"""
         self.assertTrue(self.pconfig.read_config_file())
         releases = self.pconfig.get_releases(status='foobar', names_only=True)
         self.assertIsInstance(releases, list)
@@ -302,16 +296,6 @@ class MockProjectConfigTests(unittest.TestCase):
         invalid state parameter"""
         self.assertTrue(self.pconfig.read_config_file())
         self.assertRaises(Exception, self.pconfig.get_releases, 123, True)
-
-    def test_get_releases_if_no_data(self):
-        """
-        Try getting release names if no data has been loaded yet
-
-        Asking releases with cause project file to be read.
-        """
-        releases = self.pconfig.get_releases(names_only=True)
-        self.assertIsInstance(releases, list)
-        self.assertEqual(len(releases), 2)
 
     def testAddRemoveReleases(self):
         """

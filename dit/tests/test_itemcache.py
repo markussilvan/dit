@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -29,8 +29,8 @@ class ItemCacheTests(unittest.TestCase):
 
     def create_random_issue(self, release=None):
         """Create a valid issue to use for testing."""
-        title = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(16)])
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(40)])
+        title = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(16)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(40)])
         name = identifier
         issue_type = random.choice(['bugfix', 'feature', 'task'])
         description = "lorem ipsum dolor sit ameth"
@@ -42,16 +42,16 @@ class ItemCacheTests(unittest.TestCase):
 
     def create_random_release(self):
         """Create a valid release to use for testing."""
-        name = ''.join([random.choice(string.printable) for _ in xrange(16)])
+        name = ''.join([random.choice(string.printable) for _ in range(16)])
         status = random.choice(['unreleased', 'released'])
         return DitRelease(name, 'Release', status, datetime.now(), None)
 
     def fill_cache_with_some_data(self, new_issue_count, new_release_count):
-        for _ in xrange(new_issue_count):
+        for _ in range(new_issue_count):
             issue = self.create_random_issue()
             self.assertTrue(self.cache.add_issue(issue))
             self.assertIsNotNone(self.cache.get_issue(issue.identifier))
-        for _ in xrange(new_release_count):
+        for _ in range(new_release_count):
             release = self.create_random_release()
             self.assertTrue(self.cache.add_release(release))
             self.assertIsNotNone(self.cache.get_release(release.title))
@@ -94,7 +94,7 @@ class ItemCacheTests(unittest.TestCase):
         """Adding issues and access them successfully"""
         new_issue_count = 20
         original_count = self.cache.issue_count()
-        for _ in xrange(new_issue_count):
+        for _ in range(new_issue_count):
             issue = self.create_random_issue()
             self.assertTrue(self.cache.add_issue(issue))
             self.assertIsNotNone(self.cache.get_issue(issue.identifier))
@@ -119,7 +119,7 @@ class ItemCacheTests(unittest.TestCase):
     def test_removing_invalid_issue(self):
         """Removing an issue that doesn't exist"""
         original_count = self.cache.issue_count()
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(20)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(20)])
         self.assertIsNone(self.cache.get_issue(identifier))
         self.assertFalse(self.cache.remove_issue(identifier))
         self.assertEquals(self.cache.issue_count(), original_count)
@@ -152,7 +152,7 @@ class ItemCacheTests(unittest.TestCase):
         """Try to remove nonexisting issue from an empty cache"""
         self.cache.clear()
         self.assertEquals(self.cache.issue_count(), 0)
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(35)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(35)])
         self.assertFalse(self.cache.remove_issue(identifier))
         self.assertEquals(self.cache.issue_count(), 0)
 
@@ -160,7 +160,7 @@ class ItemCacheTests(unittest.TestCase):
         """Add releases and access them successfully"""
         new_releases_count = 10
         original_count = self.cache.release_count()
-        for _ in xrange(new_releases_count):
+        for _ in range(new_releases_count):
             release = self.create_random_release()
             self.assertTrue(self.cache.add_release(release))
             self.assertIsNotNone(self.cache.get_release(release.title))
@@ -207,7 +207,7 @@ class ItemCacheTests(unittest.TestCase):
         """Trying to remove a release that doesn't exist"""
         original_issue_count = self.cache.issue_count()
         original_release_count = self.cache.release_count()
-        random_title = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(12)])
+        random_title = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(12)])
         self.assertIsNone(self.cache.get_release(random_title))
         self.assertFalse(self.cache.remove_release(random_title))
         self.assertEqual(self.cache.issue_count(), original_issue_count)
@@ -221,7 +221,7 @@ class ItemCacheTests(unittest.TestCase):
 
         # add issue with longest name
         issue = self.create_random_issue()
-        issue.name = "thelongestnamethisissuehas".join([random.choice(string.printable) for _ in xrange(100)])
+        issue.name = "thelongestnamethisissuehas".join([random.choice(string.printable) for _ in range(100)])
         self.assertTrue(self.cache.add_issue(issue))
 
         # verify it as the longest name
@@ -248,7 +248,7 @@ class ItemCacheTests(unittest.TestCase):
         self.assertEqual('foobar-1', self.cache.issues[0].name)
         self.assertIsNotNone(re.match(r'^(unittest-\d+)$', self.cache.issues[1].name))
 
-        for i in xrange(10):
+        for i in range(10):
             index = random.randint(1, new_issue_count)
             self.assertIsNotNone(re.match(r'^(unittest-\d+)$', self.cache.issues[index].name))
 
@@ -258,7 +258,7 @@ class ItemCacheTests(unittest.TestCase):
         self.cache.rename_issues()
 
         self.assertEqual('foobar-1', self.cache.issues[0].name)
-        for i in xrange(1, 21):
+        for i in range(1, 21):
             self.assertIsNotNone(re.match(r'^(unittest-\d+)$', self.cache.issues[i].name))
         self.assertEqual('issue-22', self.cache.issues[21].name)   #TODO: is this a bug? should it be "issue-1" instead?
 
@@ -280,14 +280,14 @@ class ItemCacheTests(unittest.TestCase):
         new_issue_count = 10
         new_release_count = 2
         self.fill_cache_with_some_data(new_issue_count, new_release_count)
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(8)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(8)])
         self.assertFalse(self.cache.get_issue(identifier))
         self.assertIsNone(self.cache.get_issue_status_by_id(identifier))
 
     def test_getting_issue_status_with_invalid_id_from_empty_cache(self):
         """Try to get issue status with invalid id from empty cache of issues and releases"""
         self.cache.clear()
-        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(8)])
+        identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(8)])
         self.assertIsNone(self.cache.get_issue_status_by_id(identifier))
 
     def test_get_issues_by_release(self):
@@ -304,7 +304,7 @@ class ItemCacheTests(unittest.TestCase):
 
         # add issues that belong to that release
         issues_in_release_count = 10
-        for _ in xrange(issues_in_release_count):
+        for _ in range(issues_in_release_count):
             self.cache.add_issue(self.create_random_issue(release=rel_title))
 
         # get issues in the release

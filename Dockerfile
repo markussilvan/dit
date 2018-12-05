@@ -16,15 +16,14 @@ COPY requirements.txt /home/app
 # install Dit requirements
 RUN pip3 install -r requirements.txt
 
-#TODO: this is temporary while dit init doesn't work
-COPY .dit-config /home/app
-#TODO: copy test data from unit test instead of real issues?
-#      or make a script to genereate the test data
-COPY issues /home/app/issues
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y expect
 
-# copy script to update /home/app/dit from external source tree
-# the software itself should be mapped to a read-only volume at /home/external/dit/
-COPY virtual/update_source_from_external.sh /home/app
+# copy a script to update external volume mappings to a local copy
+#
+# in addition two volume mappings are needed
+#   - source tree should be mapped to /home/external/dit/
+#   - testenv directory should be mapped to /home/external/testenv/
+COPY testenv/update_externals.sh /home/app
 
 WORKDIR /home/app/
 

@@ -88,9 +88,9 @@ Run integration tests with `run_tests.sh`.
 ## Docker testing image
 
   1. Docker image can be built from the _Dockerfile_ with simply
-     `docker build --network host -t "dit:latest" .`
+     `docker build --network host -t "dit:latest" .` or
+     use a script to do the same `./scripts/docker_build.sh`.
   2. List all Docker containers with `docker ps --all`.
   3. List all Docker images with `docker images`.
-  4. Create and start the container with one command
-     `docker run -ti -v /home/mape/workarea/dit/dit/:/home/external/dit/ dit:latest`
-     or use `./scripts/run_docker.sh` to do the same.
+  4. Create and start the container with the script
+     `./scripts/docker_run.sh` to use the run command with correct parameters.

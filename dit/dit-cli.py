@@ -143,8 +143,6 @@ class DitCli:
 
     def init_dit(self):
         """Initialize new Dit project in the current directory"""
-        print("OH, THE HORRORS")
-
         #TODO: move this function to ConfigControl?
         #TODO: improve error handling
         #TODO: check that GUI still works (it may need some changes I have forgotten already)
@@ -154,14 +152,14 @@ class DitCli:
         email = self.get_user_input("Email: ")
         issue_dir = self.get_user_input("Issue directory ({}): ".format(default_issue_dir))
         if not issue_dir:
-            issue_dir = "issues"
+            issue_dir = default_issue_dir
 
         # create dit config file (overwrites, but file shouldn't be there)
         dit_yaml = self.config.get_dit_configs()
         dit_yaml.name = name
         dit_yaml.email = email
         dit_yaml.issue_dir = issue_dir
-        self.config.ditconfig.write_config_file()
+        ret = self.config.ditconfig.write_config_file()
         if ret is False:
             print("Writing Dit config file failed")
             sys.exit(1)
@@ -251,6 +249,7 @@ class DitCli:
             if isinstance(item, DitRelease):
                 # add one empty line as a spacer before releases
                 print("")
+                icon = ''
             # set icon to the added item
             if isinstance(item, DitIssue):
                 if item.status == 'unstarted':

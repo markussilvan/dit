@@ -6,4 +6,4 @@ if [ ! -d ".git" ]; then
 	exit 1
 fi
 
-docker run -it -v $(pwd)/dit/:/home/external/dit/ dit:latest
+docker run -it -v $(pwd)/dit/:/home/external/dit/ -v $(pwd)/testenv/:/home/external/testenv/ dit:latest

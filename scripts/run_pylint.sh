@@ -4,17 +4,17 @@
 
 # find source dir
 if [ "`basename $PWD`" = "scripts" ]; then
-    cd ../dgui
+    cd ../dit
     if [ $? -ne 0 ]; then
         echo "Can't find source directory"
         exit 1
     fi
-elif [ "`basename $PWD`" = "dgui" ]; then
+elif [ "`basename $PWD`" = "dit" ]; then
     # ok, already there
     :
 else
     # assume "dit-gui"
-    cd dgui
+    cd dit
     if [ $? -ne 0 ]; then
         echo "Can't find source directory"
         exit 1

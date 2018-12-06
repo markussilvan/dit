@@ -315,7 +315,12 @@ class DitCli:
                                        subsequent_indent=fmt.format("", ""),
                                        width=70)
         print(fmt.format("References:", references))
-        #TODO: print log in some format
+
+        for entry in issue.log:
+            print("-----")
+            print("{} {}\n{}".format(entry[0], entry[1], entry[2]))
+            print("--")
+            print("{}".format(entry[3]))
         #TODO: add support for --no-log or --short to print issue info without log
 
     def start_work(self, issue_name):
@@ -453,7 +458,7 @@ class DitCli:
             if self.command in self.commands.commands_with_issue_param:
                 if len(args) == 1:
                     issue_names = []
-                    for item in self.dit.get_items():
+                    for item in self.dit.get_items(): #TODO: DitControl is only created after reading configs
                         if isinstance(item, DitIssue):
                             issue_names.append(item.name)
                     self.issue_name = self.get_user_input_complete("Issue name: ", issue_names);

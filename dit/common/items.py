@@ -255,6 +255,11 @@ class DitIssue(DitItem):
         """
         Serialize to string. Mimic output of Dit command line.
         """
+        if self.name is not None:
+            name = self.name
+        else:
+            name = ""
+
         if self.created:
             created_ago = common.utils.time.human_time_diff(self.created.isoformat(' '))
         else:
@@ -265,7 +270,7 @@ class DitIssue(DitItem):
         else:
             release = constants.releases.UNASSIGNED
 
-        item_str = "Issue {}\n{}\n".format(self.name, len(self.name) * '-') + \
+        item_str = "Issue {}\n{}\n".format(name, len(name) * '-') + \
             "Title: {}\n".format(self.title) + \
             "Description:\n{}\n".format(self.description) + \
             "Type: {}\n".format(self.issue_type) + \

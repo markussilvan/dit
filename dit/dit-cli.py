@@ -317,10 +317,17 @@ class DitCli:
         print(fmt.format("References:", references))
 
         for entry in issue.log:
-            print("-----")
-            print("{} {}\n{}".format(entry[0], entry[1], entry[2]))
-            print("--")
-            print("{}".format(entry[3]))
+            print("------------------------------------------")
+            print("{}     {}\n{}".format(entry[0].strftime("%Y-%m-%d %H:%M"), entry[1], entry[2]))
+            print("----------")
+            if len(entry) == 4 and entry[3] != "":
+                dedented_log_message = textwrap.dedent(entry[3]).strip()
+                filled_log_message = textwrap.fill(dedented_log_message,
+                                                   initial_indent='   ',
+                                                   subsequent_indent='   ',
+                                                   width=70)
+                print("{}".format(filled_log_message))
+            print("")
         #TODO: add support for --no-log or --short to print issue info without log
 
     def start_work(self, issue_name):

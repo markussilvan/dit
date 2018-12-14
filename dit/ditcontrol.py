@@ -299,7 +299,10 @@ class DitControl(object):
         issue = self._get_issue_by_id(dit_id)
         if issue:
             issue.status = 'closed'
-            issue.disposition = self._disposition_to_str(disposition)
+            if isinstance(disposition, int):
+                issue.disposition = self._disposition_to_str(disposition)
+            else:
+                issue.disposition = disposition
             action = "closed with disposition {}".format(issue.disposition)
             self._add_issue_log_entry(issue, action, comment)
 

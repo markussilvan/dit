@@ -73,16 +73,6 @@ class DitCli:
         self.config = ConfigControl()
 
     def load_configs(self):
-        #try:
-        #    self.config.load_configs()
-        #except ApplicationError as e:
-        #    message = "{}.\n{}\n{}".format(e.error_message,
-        #            "Run 'dit init' first to initialize or",
-        #            "start Dit GUI in any subdirectory of\nan initialized Dit project.")
-        #    print("Dit not initialized")
-        #    print(message)
-        #    sys.exit(1)
-
         try:
             self.config.load_configs()
         except ApplicationError as e:
@@ -463,9 +453,10 @@ class DitCli:
         if args[0] in self.commands.commands_all:
             self.command = args[0]
             if self.command in self.commands.commands_with_issue_param:
+                self.load_configs()
                 if len(args) == 1:
                     issue_names = []
-                    for item in self.dit.get_items(): #TODO: DitControl is only created after reading configs
+                    for item in self.dit.get_items():
                         if isinstance(item, DitIssue):
                             issue_names.append(item.name)
                     self.issue_name = self.get_user_input_complete("Issue name: ", issue_names);
@@ -512,8 +503,8 @@ class DitCli:
         return Status.OK
 
 
-# main function
 def main(argv):
+    """Main function for Dit CLI"""
     dit_cli = DitCli()
     err = dit_cli.parse_options(argv)
     if err:

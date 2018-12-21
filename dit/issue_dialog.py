@@ -9,6 +9,8 @@ A GUI frontend for Dit issue tracker
 A dialog for adding and editing Dit issues
 """
 
+import os
+
 from PyQt5 import QtWidgets, uic
 
 from reference_dialog import ReferenceDialog
@@ -37,14 +39,15 @@ class IssueDialog(QtWidgets.QDialog):
         self.issue = None
 
         if not isinstance(dit, DitControl):
-            raise ApplicationError("Construction failed due to invalid dit (DitControl) parameter")
+            raise ApplicationError("Construction failed due to invalid dit parameter")
 
         self.dit = dit
         self.dit_id = dit_id
         self._edit_mode = False
 
-        uic.loadUi('../ui/issue_dialog.ui', self)
-        uic.loadUi('../ui/issue_form_widget.ui', self.widgetForm)
+        my_path = os.path.dirname(os.path.realpath(__file__))
+        uic.loadUi(my_path + '/../ui/issue_dialog.ui', self)
+        uic.loadUi(my_path + '/../ui/issue_form_widget.ui', self.widgetForm)
 
         settings = self.dit.config.get_app_configs()
 

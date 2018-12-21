@@ -9,6 +9,8 @@ A GUI frontend for Dit issue tracker
 A common issue reference dialog box
 """
 
+import os
+
 from PyQt5 import QtWidgets, uic
 
 from comment_dialog import CommentDialog
@@ -32,14 +34,15 @@ class ReferenceDialog(QtWidgets.QDialog):
         super(ReferenceDialog, self).__init__()
 
         if not isinstance(dit, DitControl):
-            raise ApplicationError("Construction failed due to invalid dit (DitControl) parameter")
+            raise ApplicationError("Construction failed due to invalid dit parameter")
 
         self.dit = dit
         self.dit_id = dit_id
         self.save = save
         self.reference = reference_text
 
-        uic.loadUi('../ui/reference_dialog.ui', self)
+        my_path = os.path.dirname(os.path.realpath(__file__))
+        uic.loadUi(my_path + '/../ui/reference_dialog.ui', self)
 
     def accept(self):
         """

@@ -15,6 +15,7 @@ directory can be kept under version control, alongside project code.
 """
 
 import sys
+import os
 from PyQt5 import QtWidgets, QtGui, uic
 from PyQt5.QtCore import QModelIndex
 
@@ -69,7 +70,8 @@ class DitGui(QtWidgets.QMainWindow):
 
         self.dit = DitControl(self.config)
 
-        uic.loadUi('../ui/main_window.ui', self)
+        self.my_path = os.path.dirname(os.path.realpath(__file__))
+        uic.loadUi(self.my_path + '/../ui/main_window.ui', self)
 
         self.reload_data()
 
@@ -91,51 +93,87 @@ class DitGui(QtWidgets.QMainWindow):
         self.resize(window_size[0], window_size[1])
         self.center()
         self.setWindowTitle('Dit GUI')
-        self.setWindowIcon(QtGui.QIcon('../graphics/dit_gui_icon.png'))
+        self.setWindowIcon(QtGui.QIcon(self.my_path + '/../graphics/dit_gui_icon.png'))
         self.show()
 
     def create_actions(self):
         """
         Create action objects
         """
-        self.actions['new_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/new.png'),
-                'New Issue', self)
-        self.actions['edit_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/edit.png'),
-                'Edit Issue', self)
-        self.actions['comment_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/comment.png'),
-                'Comment Issue', self)
-        self.actions['start_work'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/start.png'),
-                'Start working', self)
-        self.actions['stop_work'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/stop.png'),
-                'Stop working', self)
-        self.actions['close_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/close.png'),
-                'Close issue', self)
-        self.actions['drop_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/drop.png'),
-                'Drop issue', self)
-        self.actions['assign_issue'] = QtWidgets.QAction(QtGui.QIcon('../graphics/issue/assign.png'),
-                'Assign Issue to a release', self)
+        self.actions['new_issue'] = QtWidgets.QAction(
+                QtGui.QIcon(self.my_path + '/../graphics/issue/new.png'),
+                'New Issue',
+                self)
+        self.actions['edit_issue'] = QtWidgets.QAction(
+                QtGui.QIcon(self.my_path + '/../graphics/issue/edit.png'),
+                'Edit Issue',
+                self)
+        self.actions['comment_issue'] = QtWidgets.QAction(
+                QtGui.QIcon(self.my_path + '/../graphics/issue/comment.png'),
+                'Comment Issue',
+                self)
+        self.actions['start_work'] = QtWidgets.QAction(
+                QtGui.QIcon(self.my_path + '/../graphics/issue/start.png'),
+                'Start working',
+                self)
+        self.actions['stop_work'] = QtWidgets.QAction(
+                QtGui.QIcon(self.my_path + '/../graphics/issue/stop.png'),
+                'Stop working',
+                self)
+        self.actions['close_issue'] = QtWidgets.QAction(
+                QtGui.QIcon(self.my_path + '/../graphics/issue/close.png'),
+                'Close issue',
+                self)
+        self.actions['drop_issue'] = QtWidgets.QAction(
+                QtGui.QIcon(self.my_path + '/../graphics/issue/drop.png'),
+                'Drop issue',
+                self)
+        self.actions['assign_issue'] = QtWidgets.QAction(
+                QtGui.QIcon(self.my_path + '/../graphics/issue/assign.png'),
+                'Assign Issue to a release',
+                self)
         self.actions['add_reference'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/issue/add_reference.png'), 'Add reference', self)
+                QtGui.QIcon(self.my_path + '/../graphics/issue/add_reference.png'),
+                'Add reference',
+                self)
 
         self.actions['new_release'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/release/new_release.png'), 'Add release', self)
+                QtGui.QIcon(self.my_path + '/../graphics/release/new_release.png'),
+                'Add release',
+                self)
         self.actions['edit_release'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/release/edit_release.png'), 'Edit release', self)
+                QtGui.QIcon(self.my_path + '/../graphics/release/edit_release.png'),
+                'Edit release',
+                self)
         self.actions['comment_release'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/release/comment_release.png'), 'Comment release', self)
+                QtGui.QIcon(self.my_path + '/../graphics/release/comment_release.png'),
+                'Comment release',
+                self)
         self.actions['make_release'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/release/make_release.png'), 'Make release', self)
+                QtGui.QIcon(self.my_path + '/../graphics/release/make_release.png'),
+                'Make release',
+                self)
         self.actions['remove_release'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/release/remove_release.png'), 'Remove release', self)
+                QtGui.QIcon(self.my_path + '/../graphics/release/remove_release.png'),
+                'Remove release',
+                self)
         self.actions['move_up_release'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/release/move_up_release.png'), 'Move release up', self)
+                QtGui.QIcon(self.my_path + '/../graphics/release/move_up_release.png'),
+                'Move release up',
+                self)
         self.actions['move_down_release'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/release/move_down_release.png'), 'Move release down', self)
+                QtGui.QIcon(self.my_path + '/../graphics/release/move_down_release.png'),
+                'Move release down',
+                self)
         self.actions['archive_release'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/release/archive_release.png'), 'Archive release', self)
+                QtGui.QIcon(self.my_path + '/../graphics/release/archive_release.png'),
+                'Archive release',
+                self)
 
         self.actions['open_settings'] = QtWidgets.QAction(
-                QtGui.QIcon('../graphics/misc/settings.png'), 'Settings', self)
+                QtGui.QIcon(self.my_path + '/../graphics/misc/settings.png'),
+                'Settings',
+                self)
 
         # icons visible in custom context menu of items list view
         self.actions['new_issue'].iconVisibleInMenu = True
@@ -403,11 +441,11 @@ class DitGui(QtWidgets.QMainWindow):
             list_item = self.listWidgetDitItems.item(self.listWidgetDitItems.count() - 1)
             if isinstance(item, DitIssue):
                 if item.status == 'unstarted':
-                    list_item.setIcon(QtGui.QIcon('../graphics/list/balls/new.png'))
+                    list_item.setIcon(QtGui.QIcon(self.my_path + '/../graphics/list/balls/new.png'))
                 elif item.status == 'in progress':
-                    list_item.setIcon(QtGui.QIcon('../graphics/list/balls/started.png'))
+                    list_item.setIcon(QtGui.QIcon(self.my_path + '/../graphics/list/balls/started.png'))
                 elif item.status == 'paused':
-                    list_item.setIcon(QtGui.QIcon('../graphics/list/balls/paused.png'))
+                    list_item.setIcon(QtGui.QIcon(self.my_path + '/../graphics/list/balls/paused.png'))
                 else:
                     print("Unrecognized issue status ({})".format(item.status))
 

@@ -9,6 +9,7 @@ A GUI frontend for Dit issue tracker
 A common comment dialog box
 """
 
+import os
 from PyQt5 import QtWidgets, uic
 
 class CommentDialog(QtWidgets.QDialog):
@@ -32,7 +33,8 @@ class CommentDialog(QtWidgets.QDialog):
         self.save = save
         self.comment = None
 
-        uic.loadUi('../ui/comment_dialog.ui', self)
+        my_path = os.path.dirname(os.path.realpath(__file__))
+        uic.loadUi(my_path + '/../ui/comment_dialog.ui', self)
 
         self.setWindowTitle(title)
 

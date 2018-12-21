@@ -9,6 +9,8 @@ A GUI frontend for Dit issue tracker
 A dialog for close resolution and comment for closing a Dit issue
 """
 
+import os
+
 from PyQt5 import QtWidgets, uic
 
 class CloseDialog(QtWidgets.QDialog):
@@ -28,7 +30,8 @@ class CloseDialog(QtWidgets.QDialog):
         self.dit = dit
         self.dit_id = dit_id
 
-        uic.loadUi('../ui/close_dialog.ui', self)
+        my_path = os.path.dirname(os.path.realpath(__file__))
+        uic.loadUi(my_path + '/../ui/close_dialog.ui', self)
 
         settings = self.dit.config.get_app_configs()
         for disposition in settings.issue_dispositions:

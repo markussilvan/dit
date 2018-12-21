@@ -9,6 +9,8 @@ A GUI frontend for Dit issue tracker
 A settings dialog box
 """
 
+import os
+
 from PyQt5 import QtWidgets, uic
 
 from config import ConfigControl
@@ -39,7 +41,8 @@ class SettingsDialog(QtWidgets.QDialog):
         self.dit_settings_changed = False
         self.app_settings_changed = False
 
-        uic.loadUi('../ui/settings_dialog.ui', self)
+        my_path = os.path.dirname(os.path.realpath(__file__))
+        uic.loadUi(my_path + '/../ui/settings_dialog.ui', self)
 
         self._init_dit_settings_tab()
         self._init_ui_settings_tab()

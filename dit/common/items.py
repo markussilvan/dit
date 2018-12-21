@@ -7,8 +7,9 @@ Dit GUI
 A GUI frontend for Dit issue tracker
 """
 
-from abc import ABCMeta, abstractmethod
+import os
 import datetime
+from abc import ABCMeta, abstractmethod
 
 from common import constants
 import common.utils.time
@@ -164,8 +165,9 @@ class DitRelease(DitItem):
         """
         Representation of the release content as HTML.
         """
-        release_template_file = '../ui/templates/release_template.html'
-        release_log_template_file = '../ui/templates/release_log_template.html'
+        my_path = os.path.dirname(os.path.realpath(__file__))
+        release_template_file = my_path + '/../../ui/templates/release_template.html'
+        release_log_template_file = my_path + '/../../ui/templates/release_log_template.html'
 
         with open(release_template_file, 'r') as stream:
             template_html = stream.readlines()
@@ -327,8 +329,9 @@ class DitIssue(DitItem):
         """
         Representation of the issue content as HTML.
         """
-        issue_template_file = '../ui/templates/issue_template.html'
-        issue_log_template_file = '../ui/templates/issue_log_entry_template.html'
+        my_path = os.path.dirname(os.path.realpath(__file__))
+        issue_template_file = my_path + '/../../ui/templates/issue_template.html'
+        issue_log_template_file = my_path + '/../../ui/templates/issue_log_entry_template.html'
 
         with open(issue_template_file, 'r') as stream:
             template_html = stream.readlines()

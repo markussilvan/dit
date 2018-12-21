@@ -9,6 +9,8 @@ A GUI frontend for Dit issue tracker
 A dialog for adding and editing a release
 """
 
+import os
+
 from PyQt5 import QtWidgets, uic
 
 from ditcontrol import DitControl
@@ -33,12 +35,13 @@ class ReleaseDialog(QtWidgets.QDialog):
         super(ReleaseDialog, self).__init__()
 
         if not isinstance(dit, DitControl):
-            raise ApplicationError("Construction failed due to invalid dit (DitControl) parameter")
+            raise ApplicationError("Construction failed due to invalid dit parameter")
 
         self.dit = dit
         self.release = None
 
-        uic.loadUi('../ui/release_dialog.ui', self)
+        my_path = os.path.dirname(os.path.realpath(__file__))
+        uic.loadUi(my_path + '/../ui/release_dialog.ui', self)
 
         self.setWindowTitle(title)
 

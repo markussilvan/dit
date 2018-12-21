@@ -9,6 +9,8 @@ A GUI frontend for Dit issue tracker
 A dialog for assigning an issue to a release
 """
 
+import os
+
 from PyQt5 import QtWidgets, uic
 
 from ditcontrol import DitControl
@@ -35,7 +37,8 @@ class AssignDialog(QtWidgets.QDialog):
         self.dit = dit
         self.dit_id = dit_id
 
-        uic.loadUi('../ui/assign_dialog.ui', self)
+        my_path = os.path.dirname(os.path.realpath(__file__))
+        uic.loadUi(my_path + '/../ui/assign_dialog.ui', self)
 
         self.comboBoxRelease.addItem(constants.releases.UNASSIGNED)
         for release in self.dit.config.get_releases(constants.release_states.UNRELEASED, True):

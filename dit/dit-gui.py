@@ -705,7 +705,7 @@ class DitGui(QtWidgets.QMainWindow):
 
     def quit_application(self):
         self._save_window_size()
-        QtGui.qApp.quit()
+        QtWidgets.qApp.quit()
 
     def _get_selected_issue_name(self):
         issue = self._get_selected_issue()

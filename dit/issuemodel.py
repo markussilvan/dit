@@ -36,7 +36,7 @@ class IssueModel(object):
         issue_file = "{}/{}{}.yaml".format(self.issue_dir, self.issue_prefix, identifier)
         try:
             with open(issue_file, 'r') as stream:
-                issue_data = yaml.load(stream)
+                issue_data = yaml.load(stream, Loader=yaml.Loader)
                 return issue_data
         except Exception:
             raise ApplicationError("Error reading issue yaml file")

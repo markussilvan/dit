@@ -212,7 +212,7 @@ class DitConfigModel:
         config_file = "{}/{}".format(self.project_root, self.dit_config_file)
         try:
             with open(config_file, 'r') as stream:
-                self.settings = yaml.load(stream)
+                self.settings = yaml.load(stream, Loader=yaml.Loader)
         except Exception:
             self.settings = DitConfigYaml("", "", "")
             return False
@@ -275,7 +275,7 @@ class AppConfigModel:
         config_file = "{}/{}".format(self.project_root, self.app_config_file)
         try:
             with open(config_file, 'r') as stream:
-                self.settings = yaml.load(stream)
+                self.settings = yaml.load(stream, Loader=yaml.Loader)
         except Exception:
             issue_types = ['bugfix', 'feature', 'task', 'enhancement']
             issue_dispositions = ['fixed', "won't fix", 'reorganized', 'invalid']
@@ -377,7 +377,7 @@ class DitProjectModel:
             return False
         try:
             with open(self.project_file, 'r') as stream:
-                self.project_data = yaml.load(stream)
+                self.project_data = yaml.load(stream, Loader=yaml.Loader)
         except Exception:
             return False
         return True

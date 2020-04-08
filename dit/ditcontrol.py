@@ -213,8 +213,7 @@ class DitControl(object):
     def edit_issue(self, issue, comment=''):
         """
         Modify an existing Dit issue.
-        Dit also asks for a comment when an issue is edited,
-        but saving a comment is not supported.
+        Dit also asks for a comment when an issue is edited.
 
         Parameters:
         - issue: a DitIssue filled with data to save

@@ -137,7 +137,7 @@ class IssueYamlObject(yaml.YAMLObject):
         """
         self.title = title
         self.desc = desc
-        self.type = issue_type                  #TODO: different variable name possible?
+        self.type = issue_type
         self.component = component
         self.release = release
         self.reporter = reporter
@@ -145,7 +145,7 @@ class IssueYamlObject(yaml.YAMLObject):
         self.disposition = disposition
         self.creation_time = creation_time
         self.references = references
-        self.id = identifier                    #TODO: different variable name possible?
+        self.id = identifier
         self.log_events = log_events
         super(IssueYamlObject, self).__init__()
 

@@ -27,6 +27,12 @@ output[8]="Created:.*"
 output[9]="Release:[ ]*None"
 output[10]="Identifier:[ ]*[a-z0-9]{40}"
 output[11]="References:.*"
+output[12]="------------------------------------------\n"
+output[13]="2020-04-08 06:05     Terry Tester <terry@testcorp.com>\n"
+output[14]="created\n"
+output[15]="----------\n"
+output[16]="   No comment.\n"
+
 i=0
 
 while read line

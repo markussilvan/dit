@@ -46,7 +46,7 @@ class CommonErrorsTests(unittest.TestCase):
         try:
             self.lol_func(1)
         except ApplicationError as e:
-            self.assertEquals(e.error_message, self.application_error_test_message)
+            self.assertEqual(e.error_message, self.application_error_test_message)
         except Exception:
             self.fail("Unknown exception raised")
         else:
@@ -59,7 +59,7 @@ class CommonErrorsTests(unittest.TestCase):
         try:
             self.lol_func(2)
         except DitError as e:
-            self.assertEquals(e.error_message, self.dit_error_test_message)
+            self.assertEqual(e.error_message, self.dit_error_test_message)
         except Exception:
             self.fail("Unknown exception raised")
         else:

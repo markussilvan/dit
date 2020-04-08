@@ -213,7 +213,7 @@ class ArchiveControlDataAccessTests(unittest.TestCase):
         # verify that archive files were created
         self.assertTrue(os.path.isdir(self.archive_dir))
         self.assertTrue(os.path.isfile(self.archive_project_file))
-        self.assertEquals(len(os.listdir(self.archive_dir)), 2)
+        self.assertEqual(len(os.listdir(self.archive_dir)), 2)
 
     # try archiving an unresolved release. or should that be allowed?
     # try archiving a release containing only closed issues (should be allowed)

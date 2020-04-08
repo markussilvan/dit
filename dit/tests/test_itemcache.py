@@ -122,39 +122,39 @@ class ItemCacheTests(unittest.TestCase):
         identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(20)])
         self.assertIsNone(self.cache.get_issue(identifier))
         self.assertFalse(self.cache.remove_issue(identifier))
-        self.assertEquals(self.cache.issue_count(), original_count)
+        self.assertEqual(self.cache.issue_count(), original_count)
 
     def test_clearing_cache(self):
         """Clearing the cache with and without existing items)"""
         # test with one issue
         self.cache.clear()
-        self.assertEquals(self.cache.issue_count(), 0)
-        self.assertEquals(self.cache.release_count(), 0)
+        self.assertEqual(self.cache.issue_count(), 0)
+        self.assertEqual(self.cache.release_count(), 0)
         self.assertTrue(self.cache.add_issue(self.create_random_issue()))
-        self.assertEquals(self.cache.issue_count(), 1)
-        self.assertEquals(self.cache.release_count(), 0)
+        self.assertEqual(self.cache.issue_count(), 1)
+        self.assertEqual(self.cache.release_count(), 0)
 
         # test with one release
         self.cache.clear()
-        self.assertEquals(self.cache.issue_count(), 0)
-        self.assertEquals(self.cache.release_count(), 0)
+        self.assertEqual(self.cache.issue_count(), 0)
+        self.assertEqual(self.cache.release_count(), 0)
         self.assertTrue(self.cache.add_release(self.create_random_release()))
-        self.assertEquals(self.cache.issue_count(), 0)
-        self.assertEquals(self.cache.release_count(), 1)
+        self.assertEqual(self.cache.issue_count(), 0)
+        self.assertEqual(self.cache.release_count(), 1)
 
         # clearing twice
         self.cache.clear()
         self.cache.clear()
-        self.assertEquals(self.cache.issue_count(), 0)
-        self.assertEquals(self.cache.release_count(), 0)
+        self.assertEqual(self.cache.issue_count(), 0)
+        self.assertEqual(self.cache.release_count(), 0)
 
     def test_removing_from_empty_cache(self):
         """Try to remove nonexisting issue from an empty cache"""
         self.cache.clear()
-        self.assertEquals(self.cache.issue_count(), 0)
+        self.assertEqual(self.cache.issue_count(), 0)
         identifier = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(35)])
         self.assertFalse(self.cache.remove_issue(identifier))
-        self.assertEquals(self.cache.issue_count(), 0)
+        self.assertEqual(self.cache.issue_count(), 0)
 
     def test_adding_and_getting_releases(self):
         """Add releases and access them successfully"""

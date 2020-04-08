@@ -73,7 +73,7 @@ class ConfigRealTests(unittest.TestCase):
         self.assertIsInstance(creator, str)
         self.assertTrue(len(creator) > 5)
         match = re.search(r'(.+\ <.+>)', creator).groups(0)[0]
-        self.assertEquals(match, creator)
+        self.assertEqual(match, creator)
 
 
 class ConfigMockDataTests(unittest.TestCase):
@@ -114,32 +114,32 @@ class ConfigMockDataTests(unittest.TestCase):
     def test_default_creator(self):
         """Check default creator"""
         creator = self.config.get_default_creator()
-        self.assertEquals(creator, 'Beyonce Bugger <bb@lightningmail.com>')
+        self.assertEqual(creator, 'Beyonce Bugger <bb@lightningmail.com>')
 
     def test_valid_issue_states(self):
         """List valid issue states"""
         states = self.config.get_valid_issue_states()
-        self.assertEquals(states, ["unstarted", "in progress", "paused"])
+        self.assertEqual(states, ["unstarted", "in progress", "paused"])
 
     def test_valid_release_states(self):
         """List valid release states"""
         states = self.config.get_valid_release_states()
-        self.assertEquals(states, ["unreleased", "released"])
+        self.assertEqual(states, ["unreleased", "released"])
 
     def test_get_releases(self):
         """Get release information"""
         releases = self.config.get_releases()
-        self.assertEquals(releases[0].name, "Release")
-        self.assertEquals(releases[0].title, "week 49")
-        self.assertEquals(releases[0].status, "unreleased")
-        self.assertEquals(releases[0].release_time, None)
-        self.assertEquals(releases[1].name, "Release")
-        self.assertEquals(releases[1].title, "lolwut")
-        self.assertEquals(releases[1].status, "unreleased")
-        self.assertEquals(releases[1].release_time, None)
-        self.assertEquals(releases[1].log[0][1],
+        self.assertEqual(releases[0].name, "Release")
+        self.assertEqual(releases[0].title, "week 49")
+        self.assertEqual(releases[0].status, "unreleased")
+        self.assertEqual(releases[0].release_time, None)
+        self.assertEqual(releases[1].name, "Release")
+        self.assertEqual(releases[1].title, "lolwut")
+        self.assertEqual(releases[1].status, "unreleased")
+        self.assertEqual(releases[1].release_time, None)
+        self.assertEqual(releases[1].log[0][1],
                 'Beyonce Bugger <bb@lightningmail.com>')
-        self.assertEquals(releases[1].log[0][2], 'created')
+        self.assertEqual(releases[1].log[0][2], 'created')
 
     def test_writing_dit_config(self):
         """
@@ -162,7 +162,7 @@ class ConfigMockDataTests(unittest.TestCase):
 
         # verify changed creator
         creator = self.config.get_default_creator()
-        self.assertEquals(creator, 'Boyle Bugger <bb@lightningmail.com>')
+        self.assertEqual(creator, 'Boyle Bugger <bb@lightningmail.com>')
 
         # change back original values
         ditconfig.settings.name = original_name
@@ -171,7 +171,7 @@ class ConfigMockDataTests(unittest.TestCase):
 
         # verify original creator
         creator = self.config.get_default_creator()
-        self.assertEquals(creator, original_name + ' <bb@lightningmail.com>')
+        self.assertEqual(creator, original_name + ' <bb@lightningmail.com>')
 
     def test_reading_nonexistent_appconfig(self):
         """
@@ -255,33 +255,33 @@ class MockProjectConfigTests(unittest.TestCase):
         """Get release information from project file"""
         self.assertTrue(self.pconfig.read_config_file())
         releases = self.pconfig.get_releases()
-        self.assertEquals(releases[0].name, "Release")
-        self.assertEquals(releases[0].title, "week 49")
-        self.assertEquals(releases[0].status, "unreleased")
-        self.assertEquals(releases[0].release_time, None)
-        self.assertEquals(releases[1].name, "Release")
-        self.assertEquals(releases[1].title, "lolwut")
-        self.assertEquals(releases[1].status, "unreleased")
-        self.assertEquals(releases[1].release_time, None)
-        self.assertEquals(releases[1].log[0][1],
+        self.assertEqual(releases[0].name, "Release")
+        self.assertEqual(releases[0].title, "week 49")
+        self.assertEqual(releases[0].status, "unreleased")
+        self.assertEqual(releases[0].release_time, None)
+        self.assertEqual(releases[1].name, "Release")
+        self.assertEqual(releases[1].title, "lolwut")
+        self.assertEqual(releases[1].status, "unreleased")
+        self.assertEqual(releases[1].release_time, None)
+        self.assertEqual(releases[1].log[0][1],
                 'Beyonce Bugger <bb@lightningmail.com>')
-        self.assertEquals(releases[1].log[0][2], 'created')
+        self.assertEqual(releases[1].log[0][2], 'created')
 
     def test_get_releases_names_only(self):
         """Get release names only from the project file"""
         self.assertTrue(self.pconfig.read_config_file())
         releases = self.pconfig.get_releases(names_only=True)
         self.assertIsInstance(releases, list)
-        self.assertEquals(releases[0], "week 49")
-        self.assertEquals(releases[1], "lolwut")
+        self.assertEqual(releases[0], "week 49")
+        self.assertEqual(releases[1], "lolwut")
 
     def test_get_releases_by_state(self):
         """Get releases by state from the project file"""
         self.assertTrue(self.pconfig.read_config_file())
         releases = self.pconfig.get_releases(status='unreleased', names_only=True)
         self.assertIsInstance(releases, list)
-        self.assertEquals(releases[0], "week 49")
-        self.assertEquals(releases[1], "lolwut")
+        self.assertEqual(releases[0], "week 49")
+        self.assertEqual(releases[1], "lolwut")
 
     def test_get_releases_by_unknown_state(self):
         """Get releases by unknown state from the project file"""
@@ -316,8 +316,8 @@ class MockProjectConfigTests(unittest.TestCase):
         self.assertTrue(self.pconfig.read_config_file())
         releases = self.pconfig.get_releases(status='released', names_only=True)
         self.assertIsInstance(releases, list)
-        self.assertEquals(len(releases), 1)
-        self.assertEquals(releases[0], title)
+        self.assertEqual(len(releases), 1)
+        self.assertEqual(releases[0], title)
 
         # remove release
         self.assertTrue(self.pconfig.remove_release(title))
@@ -327,13 +327,13 @@ class MockProjectConfigTests(unittest.TestCase):
         self.assertTrue(self.pconfig.read_config_file())
         releases = self.pconfig.get_releases(status='released', names_only=True)
         self.assertIsInstance(releases, list)
-        self.assertEquals(len(releases), 0)
+        self.assertEqual(len(releases), 0)
 
         releases = self.pconfig.get_releases(names_only=True)
         self.assertIsInstance(releases, list)
-        self.assertEquals(len(releases), 2)
-        self.assertEquals(releases[0], "week 49")
-        self.assertEquals(releases[1], "lolwut")
+        self.assertEqual(len(releases), 2)
+        self.assertEqual(releases[0], "week 49")
+        self.assertEqual(releases[1], "lolwut")
 
     def testRemovingUnexistentOrInvalidRelease(self):
         """Try to remove a release which doesn't exist or use invalid parameters"""
@@ -349,9 +349,9 @@ class MockProjectConfigTests(unittest.TestCase):
         # check every remains normal
         releases = self.pconfig.get_releases(names_only=True)
         self.assertIsInstance(releases, list)
-        self.assertEquals(len(releases), 2)
-        self.assertEquals(releases[0], "week 49")
-        self.assertEquals(releases[1], "lolwut")
+        self.assertEqual(len(releases), 2)
+        self.assertEqual(releases[0], "week 49")
+        self.assertEqual(releases[1], "lolwut")
 
     def testRenameRelease(self):
         """
@@ -383,9 +383,9 @@ class MockProjectConfigTests(unittest.TestCase):
         # check every remains normal
         releases = self.pconfig.get_releases(names_only=True)
         self.assertIsInstance(releases, list)
-        self.assertEquals(len(releases), 2)
-        self.assertEquals(releases[0], "week 49")
-        self.assertEquals(releases[1], "lolwut")
+        self.assertEqual(len(releases), 2)
+        self.assertEqual(releases[0], "week 49")
+        self.assertEqual(releases[1], "lolwut")
 
     def testSetReleaseWithInvalidParameters(self):
         """
@@ -406,9 +406,9 @@ class MockProjectConfigTests(unittest.TestCase):
         self.assertFalse(self.pconfig.set_release(release, old_name=release))
         self.assertFalse(self.pconfig.set_release(release, old_name='h000t'))
         releases = self.pconfig.get_releases()
-        self.assertEquals(len(releases), 2)
-        self.assertEquals(releases[0].title, "week 49")
-        self.assertEquals(releases[1].title, "lolwut")
+        self.assertEqual(len(releases), 2)
+        self.assertEqual(releases[0].title, "week 49")
+        self.assertEqual(releases[1].title, "lolwut")
 
     def testMoveRelease(self):
         """Move a release (up in priority)"""
@@ -422,9 +422,9 @@ class MockProjectConfigTests(unittest.TestCase):
         # move it back and verify
         self.assertTrue(self.pconfig.move_release(release_name, config.MOVE_UP))
         releases = self.pconfig.get_releases()
-        self.assertEquals(len(releases), 2)
-        self.assertEquals(releases[0].title, "week 49")
-        self.assertEquals(releases[1].title, "lolwut")
+        self.assertEqual(len(releases), 2)
+        self.assertEqual(releases[0].title, "week 49")
+        self.assertEqual(releases[1].title, "lolwut")
 
     def testMoveNonexistentOrInvalidRelease(self):
         """Try to move a release which doesn't exist"""

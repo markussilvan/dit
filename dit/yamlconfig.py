@@ -22,7 +22,10 @@ class YamlConfig(object):
         Add new representers for PyYaml library
         """
         yaml.add_representer(str, YamlConfig.represent_str)
-        yaml.add_representer(datetime.datetime, YamlConfig.represent_datetime)
+
+        # Custom DateTimee representer has been disabled
+        # and proper DateTime format will be used from now on
+        #yaml.add_representer(datetime.datetime, YamlConfig.represent_datetime)
 
     @staticmethod
     def represent_str(dumper, data):

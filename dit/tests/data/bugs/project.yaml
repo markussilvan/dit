@@ -6,7 +6,7 @@ name: testing_project
 releases:
 - !dit.random.org,2008-03-06/release
   log_events:
-  - - 2015-06-02 19:18:01.788431 Z
+  - - 2015-06-02 19:18:01.788431+00:00
     - Beyonce Bugger <bb@lightningmail.com>
     - created
     - A sprint release on week 49.
@@ -15,7 +15,7 @@ releases:
   status: :unreleased
 - !dit.random.org,2008-03-06/release
   log_events:
-  - - 2015-06-02 19:18:27.100392 Z
+  - - 2015-06-02 19:18:27.100392+00:00
     - Beyonce Bugger <bb@lightningmail.com>
     - created
     - Just some release for testing.

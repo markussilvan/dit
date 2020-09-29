@@ -8,6 +8,7 @@ A GUI frontend for Dit issue tracker
 """
 
 from common.items import DitIssue, DitRelease
+from datetime import timezone
 
 class ItemCache(object):
     """
@@ -98,7 +99,7 @@ class ItemCache(object):
         Parameters:
         - rename: rename issues according to new sorted order
         """
-        self.issues.sort(key=lambda issue: issue.created)
+        self.issues.sort(key=lambda issue: issue.created.replace(tzinfo=timezone.utc))
         if rename:
             self.rename_issues()
 

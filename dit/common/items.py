@@ -25,7 +25,7 @@ class DitItem(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self, title):
+    def __init__(self, title: str):
         """
         Initialize new DitItem.
 
@@ -228,7 +228,7 @@ class DitIssue(DitItem):
     just the type and a title.
     A status is also commonly set for issues.
     """
-    def __init__(self, title, name=None, issue_type=None, component=None,
+    def __init__(self, title: str, name=None, issue_type=None, component=None,
             status=None, disposition="", description=None, creator=None, created=None,
             release=None, references=None, identifier=None, log=None):
         """

@@ -523,7 +523,7 @@ class DitProjectModel:
 
         if release_data:
             release_data['status'] = self._string_to_release_status(constants.release_states.RELEASED)
-            release.release_time = datetime.datetime.utcnow()
+            release.release_time = datetime.datetime.now(datetime.timezone.utc)
             release_data['release_time'] = release.release_time_as_string()
             release_data['log_events'] = release.log
             return True

@@ -63,7 +63,7 @@ class DitItem(object):
         """
         log_entry = [] # format: [ timestamp, creator, action, comment ]
         if timestamp is None:
-            timestamp = datetime.datetime.utcnow()
+            timestamp = datetime.datetime.now(datetime.timezone.utc)
         if comment is None:
             comment = ''
         log_entry.append(timestamp)

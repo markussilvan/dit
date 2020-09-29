@@ -186,7 +186,7 @@ class DitCli:
         issue.status = self.get_user_list_input("Status: ", issue_states)
         issue.disposition = ""
         issue.creator = self.get_user_input("Creator ({}): ".format(default_creator))
-        issue.created = datetime.datetime.utcnow()
+        issue.created = datetime.datetime.now(datetime.timezone.utc)
         issue.release = self.get_user_list_input("Release: ", release_names)
         issue.identifier = None
         issue.references = []

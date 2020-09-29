@@ -200,7 +200,7 @@ class DitControl(object):
             raise DitError("Issue has an identifier, not a new issue?")
 
         if issue.created is None:
-            issue.created = datetime.datetime.utcnow()
+            issue.created = datetime.datetime.now(datetime.timezone.utc)
         if issue.component is None:
             issue.component = self.config.get_project_name()
 

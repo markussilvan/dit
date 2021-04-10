@@ -2,3 +2,10 @@
 .dit-gui-config
 *.pyc
 reports
+
+dit/build/
+dit/dist/
+dit/dit-cli.spec
+dit/dit-gui-py.spec
+dit/dit-gui.spec
+

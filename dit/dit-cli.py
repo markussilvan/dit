@@ -1,8 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# TODO: consider moving dit plumbing to a library which can be used from cli and gui?
-
 """
 Dit commandline client
 """

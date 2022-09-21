@@ -21,8 +21,8 @@ def human_time_diff(date_string, max_elements=2):
     Returns:
     - string explaining the difference, not exact
     """
-    yourdate = dateutil.parser.parse(date_string)
-    now = datetime.datetime.utcnow()
+    yourdate = dateutil.parser.parse(date_string).replace(tzinfo=datetime.timezone.utc)
+    now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
     timediff = dateutil.relativedelta.relativedelta(now, yourdate) # pylint: disable=W0612
     elements = 0
     explanation = ""

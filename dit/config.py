@@ -503,7 +503,7 @@ class DitProjectModel:
             self.project_data.releases.append(release_yaml)
         return True
 
-    def make_release(self, release):
+    def make_release(self, release: DitRelease):
         """
         Release a release.
 

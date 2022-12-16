@@ -215,8 +215,7 @@ class DitRelease(DitItem):
         - None if release time is not set
         """
         if self.release_time:
-            return self.release_time.isoformat(' ') + ' Z'
-            #return datetime.strftime(self.release_time, '%y-%m-%d %H:%M:%S.%f Z')
+            return datetime.datetime.strftime(self.release_time, '%Y-%m-%d %H:%M:%S.%f Z')
         return None
 
 

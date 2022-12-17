@@ -2,16 +2,17 @@
 
 Dit is a simple and light-weight distributed issue tracker designed
 to work with distributed version control systems like git and Mercurial.
-Dit maintains an issue database directory on disk, with
-files written in a line-based and human-editable format. This
-directory can be kept under version control, alongside project code.
+Dit maintains an issue database directory on disk, next to your other
+project files, in YAML format. This directory can be kept under version
+control, alongside project code.
 
-Graphical *dit* client is developed using Python and PyQt. Provides
-fast and easy access to dit issues without need to hassle with the
-command line tool. Implements all features of the command line client.
+Console based *dit-cli* and graphical *dit-gui* clients are developed using
+Python and PyQt. The GUI provides fast and easy access to dit issues without need
+to hassle with the command line tool. It has all the same features of the command
+line client.
 
-Idea of Dit is based on *Ditz*. Originally Dit was just a GUI front
-for it, but later reimplemented all the same features. Since, Dit
+Idea of Dit is based on *Ditz*. Originally Dit was just a GUI front end
+for it, but later reimplemented all the functionality. Since, Dit
 has become incompatible with the original Ditz implementation.
 
 ## Tools
@@ -19,11 +20,11 @@ has become incompatible with the original Ditz implementation.
 Jenkins is used as a continuous integration platform to build
 release packages, run PyUnit unit tests and Pylint static code analysis.
 And of course, git is used as version control system and tickets, bugs
-and new features are tracked using Ditz. Now the development has progressed
+and new features are tracked using Dit. Now the development has progressed
 enough, so that the program itself can be used as the issue tracker.
 
 
-### List of Tools
+### List of Used Tools
 
  - Python 3.4
  - PyQt 5.x
@@ -60,7 +61,7 @@ Here is an example configuration file.
 ## Installation on Windows
 
   - Install python 3.4 (preferably 32-bit)
-  - Install PyQt 5.x (preferably 32-bit)
+  - Install PyQt 5.x (preferably 32-bit) (required for dit-gui only)
   - Install library dependencies `pip3 install -r requirements.txt`
 
 ## Unit Tests
@@ -79,7 +80,7 @@ hardcoded in the testing scripts.
 
 ## Integration tests
 
-Integration test run some simple tests using the Dit CLI interface.
+Integration tests run some simple tests using the Dit CLI interface.
 These tests should be run inside the Docker image with known set
 of test data.
 

@@ -29,11 +29,14 @@ class DitCommands:
         COMMENT = 'comment'
         INIT = 'init'
         LIST = 'list'
-        LIST_IDS = 'list_ids'
+        LIST_IDS = 'list-ids'
         REMOVE = 'remove'
         SHOW = 'show'
         START = 'start'
         STOP = 'stop'
+        ADD_COMPONENT = 'add-component'
+        LIST_COMPONENTS = 'list-components'
+        REMOVE_COMPONENT = 'remove-component'
 
     def __init__(self):
         self.commands_with_issue_param = [self.CommandEnum.ASSIGN.value,
@@ -46,7 +49,10 @@ class DitCommands:
         self.commands_with_no_params = [self.CommandEnum.ADD.value,
                                         self.CommandEnum.INIT.value,
                                         self.CommandEnum.LIST.value,
-                                        self.CommandEnum.LIST_IDS.value]
+                                        self.CommandEnum.LIST_IDS.value,
+                                        self.CommandEnum.ADD_COMPONENT.value,
+                                        self.CommandEnum.LIST_COMPONENTS.value,
+                                        self.CommandEnum.REMOVE_COMPONENT.value]
         self.commands_all = self.commands_with_issue_param + self.commands_with_no_params
 
 class Status:
@@ -409,19 +415,44 @@ class DitCli:
         except (DitError, ApplicationError) as e:
             print("Error removing issue: {}".format(e.error_message))
 
+    def list_components(self):
+        """List components in the project configuration"""
+        components = self.config.get_valid_components()
+        for c in components:
+            print(c)
+
+    def add_component(self):
+        """Add a new component to the project configuration"""
+        name = self.get_user_input("Component name: ")
+        self.config.projectconfig.add_component(name)
+        self.config.projectconfig.write_config_file()
+
+    def remove_component(self):
+        """Remove a component from the project configuration"""
+        self.list_components()
+        name = self.get_user_input("Component to remove:")
+        if not name in self.config.get_valid_components():
+            print("Invalid component name")
+            return
+        self.config.projectconfig.remove_component(name)
+        self.config.projectconfig.write_config_file()
+
     def usage(self):
         """Print help for accepted command line arguments."""
         print("Commands:")
-        print(" add       : add new issue")
-        print(" assign    : assign issue to a release")
-        print(" close     : close an issue")
-        print(" comment   : add a comment to an issue")
-        print(" list      : list state and titles of all issues in database")
-        print(" list_ids  : list identifiers of all issues in database")
-        print(" remove    : remove an issue from database")
-        print(" show      : show content of one issue")
-        print(" start     : start work on an issue")
-        print(" stop      : stop work on an issue")
+        print(" add                 : add new issue")
+        print(" assign              : assign issue to a release")
+        print(" close               : close an issue")
+        print(" comment             : add a comment to an issue")
+        print(" list                : list state and titles of all issues in database")
+        print(" list_ids            : list identifiers of all issues in database")
+        print(" remove              : remove an issue from database")
+        print(" show                : show content of one issue")
+        print(" start               : start work on an issue")
+        print(" stop                : stop work on an issue")
+        print(" add-component       : add a new component to the project")
+        print(" list-components     : list components in the project")
+        print(" remove-component    : remove a component from the project")
 
     def parse_options(self, argv):
         """Parse command line options."""
@@ -497,6 +528,12 @@ class DitCli:
             self.start_work(self.issue_name)
         elif self.command == self.commands.CommandEnum.STOP.value:
             self.stop_work(self.issue_name)
+        elif self.command == self.commands.CommandEnum.ADD_COMPONENT.value:
+            self.add_component()
+        elif self.command == self.commands.CommandEnum.LIST_COMPONENTS.value:
+            self.list_components()
+        elif self.command == self.commands.CommandEnum.REMOVE_COMPONENT.value:
+            self.remove_component()
 
         return Status.OK
 

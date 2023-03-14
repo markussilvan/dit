@@ -138,7 +138,7 @@ class ConfigControl(object):
         Return:
         - list of component names
         """
-        return ['dit-gui', 'dit-cli']
+        return self.projectconfig.get_components()
 
     def get_valid_release_states(self):
         """
@@ -171,7 +171,6 @@ class ConfigControl(object):
         - absolute path to project files
         """
         self.ditconfig.project_root = project_root
-
 
 class DitConfigModel:
     """
@@ -363,7 +362,7 @@ class DitProjectModel:
         Initialize DitProjectModel.
         """
         self.project_file = project_file
-        self.project_data = DitProjectYaml("", [], [], "0.5")
+        self.project_data = DitProjectYaml("", [], ["ui","core", "tests"], "0.5")
 
     def read_config_file(self):
         """
@@ -420,6 +419,48 @@ class DitProjectModel:
         if self.project_data is None:
             self.read_config_file()
         return self.project_data.name
+
+    def get_components(self):
+        """
+        Read project component configuration from config file.
+        Returns:
+        - list of components
+        """
+        if self.project_file is None:
+            return None
+        if self.project_data is None:
+            self.read_config_file()
+        return self.project_data.components
+
+    def add_component(self, component_name):
+        """
+        Add a new component to the project configuration.
+
+        Parameters:
+        - name of the component to add
+        """
+        if self.project_file is None:
+            return None
+        if self.project_data is None:
+            self.read_config_file()
+        if self.project_data.components is None:
+            self.project_data.components = []
+        self.project_data.components.append(component_name)
+
+    def remove_component(self, component_name):
+        """
+        Remove a component from the project configuration.
+
+        Parameters:
+        - name of the component to remove
+        """
+        if self.project_file is None:
+            return None
+        if self.project_data is None:
+            self.read_config_file()
+        if self.project_data.components is None:
+            self.project_data.components = []
+        self.project_data.components.remove(component_name)
 
     def get_releases(self, status=None, names_only=False):
         """

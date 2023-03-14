@@ -1,10 +1,11 @@
 # Dit
 
 Dit is a simple and light-weight distributed issue tracker designed
-to work with distributed version control systems like git and Mercurial.
-Dit maintains an issue database directory on disk, next to your other
-project files, in YAML format. This directory can be kept under version
-control, alongside project code.
+to work with distributed version control systems like Git.
+Dit maintains an issue database directory on disk, with
+files written in a line-based and human-editable format. This
+directory can be kept under version control, alongside project code,
+or in a separate (sub)repository.
 
 Console based *dit-cli* and graphical *dit-gui* clients are developed using
 Python and PyQt. The GUI provides fast and easy access to dit issues without need
@@ -41,7 +42,7 @@ enough, so that the program itself can be used as the issue tracker.
 
 By default menu icons are disabled on Ubuntu.
 To enable, run:
-    gconftool-2 --type Boolean --set /desktop/gnome/interface/menus_have_icons True
+    `gconftool-2 --type Boolean --set /desktop/gnome/interface/menus_have_icons True`
 
 
 ## Configuration File
@@ -50,12 +51,14 @@ Application uses a .dit-gui-config file as it's configuration file.
 The file should be located at the same path as .dit-config.
 Here is an example configuration file.
 
+```
     !dit.random.org,2008-03-06/guiconfig
     default_issue_type: task
     remember_window_size: false
     window_size:
     - 1222
     - 841
+```
 
 
 ## Installation on Windows

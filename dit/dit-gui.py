@@ -629,7 +629,7 @@ class DitGui(QtWidgets.QMainWindow):
         if release_name is None:
             return
         issues = self.dit.get_issues_by_release(release_name)
-        if not issues.empty():
+        if not issues:
             error = "Release '{}' can't be released.\nRelease has open tasks.".format(release_name)
             QtGui.QMessageBox.warning(self, "Dit error", error)
             return

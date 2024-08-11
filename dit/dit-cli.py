@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /home/mape/workarea/projects/dit/dit-venv/bin/python
 # -*- coding: utf-8 -*-
 
 """

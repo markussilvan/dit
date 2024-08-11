@@ -9,3 +9,4 @@ dit/dit-cli.spec
 dit/dit-gui-py.spec
 dit/dit-gui.spec
 
+dit-venv/

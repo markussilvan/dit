@@ -18,12 +18,28 @@ has become incompatible with the original Ditz implementation.
 
 ## Tools
 
-Jenkins is used as a continuous integration platform to build
+*Jenkins* is used as a continuous integration platform to build
 release packages, run PyUnit unit tests and Pylint static code analysis.
 And of course, git is used as version control system and tickets, bugs
 and new features are tracked using Dit. Now the development has progressed
 enough, so that the program itself can be used as the issue tracker.
 
+### Python Virtual Environment
+
+First, create the virtual environment. It can be done by running
+`python3 -m venv dit-venv` in the project directory.
+
+Then, enable the environment using `source dit-venv/bin/activate`.
+
+Install the dependencies in the virtual environment using
+`pip install -r requirements.txt`.
+
+Now it should be possible to start the applications.
+
+Exit the virtual environment using `deactivate`.
+
+**NOTE: The path to the virtual environment is hardcoded in
+the applications shebang. Change it locally if needed.**
 
 ### List of Used Tools
 
@@ -36,7 +52,6 @@ enough, so that the program itself can be used as the issue tracker.
  - PyLint
  - Jenkins
  - git
-
 
 ## Enabling Menu Icons On Ubuntu
 

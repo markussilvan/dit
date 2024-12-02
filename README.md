@@ -12,15 +12,16 @@ Python and PyQt. The GUI provides fast and easy access to dit issues without nee
 to hassle with the command line tool. It has all the same features of the command
 line client.
 
+![dit-gui screenshot](dit-gui-screenshot.jpg)
+
 Idea of Dit is based on *Ditz*. Originally Dit was just a GUI front end
 for it, but later reimplemented all the functionality. Since, Dit
 has become incompatible with the original Ditz implementation.
 
+
 ## Tools
 
-*Jenkins* is used as a continuous integration platform to build
-release packages, run PyUnit unit tests and Pylint static code analysis.
-And of course, git is used as version control system and tickets, bugs
+Of course, git is used as version control system and tickets, bugs
 and new features are tracked using Dit. Now the development has progressed
 enough, so that the program itself can be used as the issue tracker.
 
@@ -50,7 +51,6 @@ the applications shebang. Change it locally if needed.**
  - python-dateutil
  - python-mock
  - PyLint
- - Jenkins
  - git
 
 ## Enabling Menu Icons On Ubuntu
@@ -62,9 +62,20 @@ To enable, run:
 
 ## Configuration File
 
-Application uses a .dit-gui-config file as it's configuration file.
-The file should be located at the same path as .dit-config.
-Here is an example configuration file.
+The GUI application uses a `.dit-gui-config` file as it's configuration file.
+The file should be located at the same path as `.dit-config`, which is created
+by `dit init`.
+
+An example `.dit-config` configuration file.
+
+```
+    !dit.random.org,2008-03-06/config
+    email: john.doe@gmail.com
+    issue_dir: issues
+    name: "John Doe"
+```
+
+Here is an example `.dit-gui-config` configuration file.
 
 ```
     !dit.random.org,2008-03-06/guiconfig
@@ -76,9 +87,9 @@ Here is an example configuration file.
 ```
 
 
-## Installation on Windows
+## Installation
 
-  - Install python 3.4 (preferably 32-bit)
+  - Install python 3.x (preferably 32-bit)
   - Install PyQt 5.x (preferably 32-bit) (required for dit-gui only)
   - Install library dependencies `pip3 install -r requirements.txt`
 
